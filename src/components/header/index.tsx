@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import Image from "next/image";
 import { motion } from "framer-motion";
@@ -10,6 +10,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { useState } from "react";
+import Link from "next/link";
 
 const navItems = [
   "All Products",
@@ -20,17 +21,6 @@ const navItems = [
 ];
 
 export default function Header() {
-  const [underlineWidth, setUnderlineWidth] = useState<number>(0);
-  const [underlineLeft, setUnderlineLeft] = useState<number>(0);
-
-  const handleMouseEnter = (index: number, element: HTMLLIElement) => {
-    if (element) {
-      const { offsetWidth, offsetLeft } = element;
-      setUnderlineWidth(offsetWidth);
-      setUnderlineLeft(offsetLeft);
-    }
-  };
-
   return (
     <header className="px-[50px] mx-auto">
       <div className="py-4 flex items-center justify-between gap-x-16">
@@ -49,7 +39,10 @@ export default function Header() {
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger>
-                  <div className="flex items-center justify-center gap-x-1 p-2 hover:bg-[#ccc] cursor-pointer rounded-[24px] h-12 px-3">
+                  <Link
+                    href="/login"
+                    className="flex items-center justify-center gap-x-1 p-2 hover:bg-[#ccc] cursor-pointer rounded-[24px] h-12 px-3"
+                  >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 24 24"
@@ -66,7 +59,7 @@ export default function Header() {
                     <span className="whitespace-nowrap font-montserrat text-[#00000] font-semibold">
                       Hello! Log in or sign up
                     </span>
-                  </div>
+                  </Link>
                 </TooltipTrigger>
                 <TooltipContent className="bg-gray-50 shadow-tooltip px-2 py-3 select-none">
                   <span className="text-[#00000d] text-xs font-montserrat font-normal">
@@ -98,25 +91,13 @@ export default function Header() {
         <nav>
           <ul className="flex items-center justify-start gap-x-[60px] relative">
             {navItems.map((item, index) => (
-              <li
-                key={index}
-                className="cursor-pointer relative"
-                onMouseEnter={(e) => handleMouseEnter(index, e.currentTarget)}
-              >
+              <li key={index} className="cursor-pointer relative group">
                 <span className="text-xs text-black font-semibold font-montserrat">
                   {item}
                 </span>
+                <motion.div className="absolute bottom-[-4px] left-0 w-0 h-[2px] bg-[#00939F] rounded-lg group-hover:w-full transition-all duration-300" />
               </li>
             ))}
-            <motion.span
-              className="absolute transition-all duration-300 rounded-lg border border-[#00939F]"
-              style={{
-                width: underlineWidth,
-                left: underlineLeft,
-                bottom: "-4px",
-              }}
-              layout
-            />
           </ul>
         </nav>
       </div>
