@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import Search from "@/components/search";
 import {
   Tooltip,
@@ -9,17 +9,47 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { useState } from "react";
 import Link from "next/link";
 
 const navItems = [
-  "All Products",
-  "Furniture",
-  "Transportation",
-  "E-Neighbor for LESSOR",
-  "Contact Us",
+  { label: "All Products", subItems: ["Beds & mattresses", "Textiles", "Furniture"], image: "/images/banner1.png" },
+  { label: "Furnitures", subItems: ["Sofas", "Tables", "Chairs"], image: "/images/banner2.png" },
+  { label: "Vehicles", subItems: ["Cars", "Bikes", "Public Transport"], image: "/images/car1.png" },
+  { label: "E-Neighbor for LESSOR", subItems: ["Sign up", "Learn More"], image: "/images/auth03.jpg" },
+  { label: "Contact Us", subItems: ["Email", "Phone", "Chat Support"], image: "/images/mordern-sopha.jpg" },
 ];
 
 export default function Header() {
+  const [underlineWidth, setUnderlineWidth] = useState<number>(0);
+  const [underlineLeft, setUnderlineLeft] = useState<number>(0);
+  const [dropdownIndex, setDropdownIndex] = useState<number | null>(null);
+  const [isDropdownHovered, setIsDropdownHovered] = useState<boolean>(false);
+
+  const handleMouseEnter = (index: number, element: HTMLLIElement) => {
+    if (element) {
+      const { offsetWidth, offsetLeft } = element;
+      setUnderlineWidth(offsetWidth);
+      setUnderlineLeft(offsetLeft);
+      setDropdownIndex(index); 
+    }
+  };
+
+  const handleMouseLeave = () => {
+    if (!isDropdownHovered) {
+      setDropdownIndex(null);
+    }
+  };
+
+  const handleDropdownMouseEnter = () => {
+    setIsDropdownHovered(true);
+  };
+
+  const handleDropdownMouseLeave = () => {
+    setIsDropdownHovered(false);
+    setDropdownIndex(null);
+  };
+  
   return (
     <header className="px-[50px] mx-auto">
       <div className="py-4 flex items-center justify-between gap-x-16">
@@ -90,13 +120,50 @@ export default function Header() {
         <nav>
           <ul className="flex items-center justify-start gap-x-[60px] relative">
             {navItems.map((item, index) => (
-              <li key={index} className="cursor-pointer relative group">
+              <li
+                key={index}
+                className="cursor-pointer relative"
+                onMouseEnter={(e) => handleMouseEnter(index, e.currentTarget)}
+                onMouseLeave={handleMouseLeave}
+              >
                 <span className="text-xs text-black font-semibold font-montserrat">
-                  {item}
+                  {item.label}
                 </span>
-                <motion.div className="absolute bottom-[-4px] left-0 w-0 h-[2px] bg-[#00939F] rounded-lg group-hover:w-full transition-all duration-300" />
+                <AnimatePresence>
+                  {dropdownIndex === index && (
+                    <motion.div
+                      className="absolute left-0 top-full mt-2 bg-white shadow-lg w-[800px] h-[400px] z-50 flex"
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      transition={{ duration: 0.3 }}
+                      onMouseEnter={handleDropdownMouseEnter}
+                      onMouseLeave={handleDropdownMouseLeave}
+                    >
+                      <div className="w-1/2 p-4">
+                        {item.subItems.map((subItem, subIndex) => (
+                          <a key={subIndex} href="#" className="block px-2 py-1 text-sm text-black hover:bg-gray-200">
+                            {subItem}
+                          </a>
+                        ))}
+                      </div>
+                      <div className="w-1/2 relative">
+                        <Image src={item.image} alt={item.label} layout="fill" objectFit="cover" />
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </li>
             ))}
+            <motion.span
+              className="absolute transition-all duration-300 rounded-lg border border-[#00939F]"
+              style={{
+                width: underlineWidth,
+                left: underlineLeft,
+                bottom: "-4px",
+              }}
+              layout
+            />
           </ul>
         </nav>
       </div>
