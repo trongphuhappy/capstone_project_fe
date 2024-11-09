@@ -1,6 +1,6 @@
-'use client'
+"use client";
 
-import FurnitureItem from "@/components/furniture-item";
+import CartProductItem from "@/components/cart-product-item";
 import HomeBanner from "@/components/home-banner";
 import { ChevronRight } from "lucide-react";
 import dynamic from "next/dynamic";
@@ -57,7 +57,7 @@ export default function HomeComponent() {
             </h2>
             <div className="mt-5">
               <div className="flex">
-                <FurnitureItem />
+                <CartProductItem />
               </div>
             </div>
           </div>
@@ -90,11 +90,6 @@ export default function HomeComponent() {
           </div>
         </section>
       </main>
-      {/* <footer className=" bg-[#f5f5f5]">
-        <div className="bg-[#286E6C] pl-[100px] pr-[83px] pt-[70px] pb-[23px]">
-          <Footer />
-        </div>
-      </footer> */}
     </div>
   );
 }

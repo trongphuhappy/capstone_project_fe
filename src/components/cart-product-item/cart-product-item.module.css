@@ -1,0 +1,15 @@
+.iconCart {
+  color: #000000;
+}
+
+.hoverIconCart {
+  background-color: #ffffff;
+}
+
+.hoverIconCart:hover {
+  background-color: #000000;
+}
+
+.hoverIconCart:hover .iconCart {
+  color: #ffffff;
+}
