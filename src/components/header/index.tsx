@@ -13,11 +13,31 @@ import { useState } from "react";
 import Link from "next/link";
 
 const navItems = [
-  { label: "All Products", subItems: ["Beds & mattresses", "Textiles", "Furniture"], image: "/images/banner1.png" },
-  { label: "Furnitures", subItems: ["Sofas", "Tables", "Chairs"], image: "/images/banner2.png" },
-  { label: "Vehicles", subItems: ["Cars", "Bikes", "Public Transport"], image: "/images/car1.png" },
-  { label: "E-Neighbor for LESSOR", subItems: ["Sign up", "Learn More"], image: "/images/auth03.jpg" },
-  { label: "Contact Us", subItems: ["Email", "Phone", "Chat Support"], image: "/images/mordern-sopha.jpg" },
+  {
+    label: "All Products",
+    subItems: ["Beds & mattresses", "Textiles", "Furniture"],
+    image: "/images/banner1.png",
+  },
+  {
+    label: "Furnitures",
+    subItems: ["Sofas", "Tables", "Chairs"],
+    image: "/images/banner2.png",
+  },
+  {
+    label: "Vehicles",
+    subItems: ["Cars", "Bikes", "Public Transport"],
+    image: "/images/car1.png",
+  },
+  {
+    label: "E-Neighbor for LESSOR",
+    subItems: ["Sign up", "Learn More"],
+    image: "/images/auth03.jpg",
+  },
+  {
+    label: "Contact Us",
+    subItems: ["Email", "Phone", "Chat Support"],
+    image: "/images/mordern-sopha.jpg",
+  },
 ];
 
 export default function Header() {
@@ -31,7 +51,7 @@ export default function Header() {
       const { offsetWidth, offsetLeft } = element;
       setUnderlineWidth(offsetWidth);
       setUnderlineLeft(offsetLeft);
-      setDropdownIndex(index); 
+      setDropdownIndex(index);
     }
   };
 
@@ -49,7 +69,7 @@ export default function Header() {
     setIsDropdownHovered(false);
     setDropdownIndex(null);
   };
-  
+
   return (
     <header className="px-[50px] mx-auto">
       <div className="py-4 flex items-center justify-between gap-x-16">
@@ -66,7 +86,7 @@ export default function Header() {
         <ul className="flex items-center gap-x-3">
           <li>
             <TooltipProvider>
-              <Tooltip>
+              <Tooltip delayDuration={100}>
                 <TooltipTrigger>
                   <Link
                     href="/login"
@@ -100,7 +120,7 @@ export default function Header() {
           </li>
           <li>
             <TooltipProvider>
-              <Tooltip>
+              <Tooltip delayDuration={100}>
                 <TooltipTrigger>
                   <div className="min-w-12 flex items-center justify-center gap-x-1 hover:bg-[#ccc] cursor-pointer rounded-[24px] h-12">
                     <img src="/images/bag.svg" alt="bag" />
@@ -132,7 +152,7 @@ export default function Header() {
                 <AnimatePresence>
                   {dropdownIndex === index && (
                     <motion.div
-                      className="absolute left-0 top-[calc(100%+10px)] bg-black shadow-lg w-[800px] h-[400px] z-50 flex"
+                      className="absolute left-0 top-[calc(100%+10px)] bg-white shadow-lg w-[800px] h-[400px] z-50 flex"
                       initial={{ opacity: 0, y: -10 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -10 }}
@@ -142,13 +162,22 @@ export default function Header() {
                     >
                       <div className="w-1/2 p-4">
                         {item.subItems.map((subItem, subIndex) => (
-                          <a key={subIndex} href="#" className="block px-2 py-1 text-sm text-black hover:bg-gray-200">
+                          <a
+                            key={subIndex}
+                            href="#"
+                            className="block px-2 py-1 text-sm text-black hover:bg-gray-200"
+                          >
                             {subItem}
                           </a>
                         ))}
                       </div>
                       <div className="w-1/2 relative">
-                        <Image src={item.image} alt={item.label} layout="fill" objectFit="cover" />
+                        <Image
+                          src={item.image}
+                          alt={item.label}
+                          layout="fill"
+                          objectFit="cover"
+                        />
                       </div>
                     </motion.div>
                   )}
