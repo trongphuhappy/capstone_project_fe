@@ -19,7 +19,7 @@ export default function HomeComponent() {
       <main className="px-[50px] mx-auto mt-10 py-8 flex flex-col gap-y-14">
         <section>
           <h2 className="text-[28px] font-bold font-montserrat mb-[5px]">
-            Discorver
+            Discover
           </h2>
           <div className="py-[20px]">
             <CarouselDiscoverHome />

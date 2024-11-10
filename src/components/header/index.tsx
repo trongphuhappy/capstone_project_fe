@@ -152,7 +152,7 @@ export default function Header() {
                 <AnimatePresence>
                   {dropdownIndex === index && (
                     <motion.div
-                      className="absolute left-0 top-[calc(100%+10px)] bg-black shadow-lg w-[800px] h-[400px] z-50 flex"
+                      className="absolute left-0 top-[calc(100%+10px)] bg-white shadow-lg w-[800px] h-[400px] z-50 flex"
                       initial={{ opacity: 0, y: -10 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -10 }}
