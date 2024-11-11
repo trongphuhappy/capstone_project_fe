@@ -54,8 +54,6 @@ export default function CarouselDiscoverHome() {
     }
   }, []);
 
-  console.log(isNextDisabled, isPrevDisabled);
-
   const renderCarousel = (list: Slide[]) => {
     return list.map((item, index) => (
       <SwiperSlide key={index}>

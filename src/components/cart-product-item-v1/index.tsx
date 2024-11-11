@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { formatCurrencyVND } from "@/utils/format-currency";
 import { HiEye, HiShoppingCart } from "react-icons/hi";
 import {
@@ -9,19 +8,19 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import styles from "@/components/cart-product-item/cart-product-item.module.css";
-import QuickViewCart from "@/components/quick-view-cart";
+import styles from "@/components/cart-product-item-v1/cart-product-item.module.css";
+import useQuickViewProduct from "@/hooks/useQuickViewProduct";
 
 export default function CartProductItem() {
-  const [quickView, setQuickView] = useState<boolean>(false);
-
-  const handleOpenQuickView = () => setQuickView(true);
-
-  const handleCloseQuickView = () => setQuickView(false);
+  const { onOpenQuickViewProductDialog } = useQuickViewProduct();
+  
+  const handleOpenQuickView = () => {
+    onOpenQuickViewProductDialog();
+  };
 
   return (
     <div className="max-w-[280px] min-h-[350px] relative">
-      <div className="w-full h-[280px] bg-[#fbfbfb] hover:shadow-product-item overflow-hidden relative group cursor-pointer">
+      <div className="w-full h80px] bg-[#fbfbfb] hover:shadow-product-item overflow-hidden relative group cursor-pointer">
         <div className="absolute w-full z-20 bottom-0 opacity-0 group-hover:opacity-100 group-hover:-translate-y-3 transition-all">
           <div className="flex items-center justify-center gap-x-1">
             <div className="rounded-sm w-[100px] h-[40px] flex items-center">
@@ -80,12 +79,12 @@ export default function CartProductItem() {
             Seoul dining chair
           </h1>
         </div>
-        <div>
+        <div className="flex gap-x-2">
           <p className="text-[16px] font-semibold">
             {formatCurrencyVND(10000)}
           </p>
           <div className="flex items-center gap-x-2">
-            <p className="text-[13px] font-semibold">
+            <p className="text-decoration: line-through text-[#a5a5a5] text-[13px] font-semibold">
               {formatCurrencyVND(1000000)}
             </p>
             <div className="rounded-xl px-3 bg-red-600">
@@ -94,7 +93,6 @@ export default function CartProductItem() {
           </div>
         </div>
       </div>
-      <QuickViewCart open={quickView} onClose={handleCloseQuickView} />
     </div>
   );
 }

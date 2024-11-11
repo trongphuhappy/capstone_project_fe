@@ -1,4 +1,5 @@
 import { Dialog, DialogContent } from "@/components/ui/dialog";
+import useAddedCartDialog from "@/hooks/useAddedCartDialog";
 import { formatCurrencyVND } from "@/utils/format-currency";
 import { DialogTitle } from "@radix-ui/react-dialog";
 import { X } from "lucide-react";
@@ -9,6 +10,13 @@ interface QuickViewCartProps {
 }
 
 export default function QuickViewCart({ open, onClose }: QuickViewCartProps) {
+  const { onOpenAddedCartDialog } = useAddedCartDialog();
+
+  const handleAddToCart = () => {
+    onClose();
+    onOpenAddedCartDialog();
+  };
+
   return (
     <Dialog open={open} onOpenChange={onClose}>
       <DialogTitle></DialogTitle>
@@ -24,7 +32,7 @@ export default function QuickViewCart({ open, onClose }: QuickViewCartProps) {
         </div>
         <div className="mt-4 w-[950px] grid grid-cols-[50%_50%] gap-x-5">
           <div className="h-[440px] bg-[#e6e6e6] group-hover:scale-95 transition-all">
-            <div className="w-full mx-auto flex items-center justify-center bg-transparent">
+            <div className="w-full mx-auto flex items-center justify-center bg-transparent border">
               <img
                 // src={images[0]}
                 src="/images/car1.png"
@@ -41,11 +49,32 @@ export default function QuickViewCart({ open, onClose }: QuickViewCartProps) {
             <p className="text-base font-montserrat mt-1">
               Thương hiệu: <span className="text-blue-500">Judar</span>
             </p>
-            <div className="flex items-baseline font-montserrat">
+            <div className="flex items-baseline gap-x-3">
               <p className="text-2xl text-[#ef1104] font-semibold">
                 {formatCurrencyVND(575213213)}
               </p>
-              <p className="text-[#a5a5a5]">27.844.830₫</p>
+              <p className="text-[#a5a5a5] text-decoration: line-through">
+                {formatCurrencyVND(2730000)}
+              </p>
+            </div>
+            <div className="flex items-start gap-x-3">
+              <button
+                type="button"
+                className="h-11 border-2 border-black rounded-lg w-full hover:bg-black group"
+              >
+                <span className="font-montserrat font-semibold text-base group-hover:text-white">
+                  View detail
+                </span>
+              </button>
+              <button
+                type="button"
+                onClick={handleAddToCart}
+                className="h-11 border-2 border-black rounded-lg w-full hover:bg-black group"
+              >
+                <span className="font-montserrat font-semibold text-base group-hover:text-white">
+                  Add cart
+                </span>
+              </button>
             </div>
           </div>
         </div>

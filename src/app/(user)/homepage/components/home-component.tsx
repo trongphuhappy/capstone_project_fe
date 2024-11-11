@@ -1,6 +1,6 @@
 "use client";
 
-import CartProductItem from "@/components/cart-product-item";
+import CartProductItem from "@/components/cart-product-item-v1";
 import HomeBanner from "@/components/home-banner";
 import { ChevronRight } from "lucide-react";
 import dynamic from "next/dynamic";
