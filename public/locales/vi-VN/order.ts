@@ -1,0 +1,120 @@
+export default {
+  // Management Table
+  'order.management.table.col.createdAt': 'Tạo lúc',
+  'order.management.table.col.productName': 'Tên sản phẩm',
+  'order.management.table.col.userName': 'Tên người dùng',
+  'order.management.table.col.orderValue': 'Giá trị đơn hàng',
+  'order.management.table.col.deliveryAddress': 'Địa chỉ giao hàng',
+  'order.management.table.col.rentalPeriod': 'Thời gian thuê',
+  'order.management.table.col.status': 'Tình trạng',
+  'order.management.table.col.status.filter.field.PENDING': 'CHỜ XÁC NHẬN',
+  'order.management.table.col.status.filter.field.APPROVED': 'CHẤP NHẬN',
+  'order.management.table.col.status.filter.field.IN PROGRESS': 'ĐANG THUÊ',
+  'order.management.table.col.status.filter.field.COMPLETED': 'HOÀN TẤT',
+  'order.management.table.col.status.filter.field.CANCELED': 'BỊ HỦY',
+  'order.management.table.col.status.filter.field.REJECTED': 'BỊ TỪ CHỐI',
+  'order.management.table.col.rentalPeriod.from-to': '{rentTime} đến {returnTime}',
+  'order.status.PENDING': 'CHỜ XÁC NHẬN',
+  'order.status.APPROVED': 'CHẤP NHẬN',
+  'order.status.IN PROGRESS': 'ĐANG THUÊ',
+  'order.status.COMPLETED': 'HOÀN TẤT',
+  'order.status.CANCELED': 'BỊ HỦY',
+  'order.status.REJECTED': 'BỊ TỪ CHỐI',
+  'order.management.table.col.shopName': 'Tên cửa hàng',
+  'order.management.table.col.actions': 'Tùy chọn',
+
+  // Order
+  'order.detail.modal.header': 'Chi tiết đơn hàng #{orderId}',
+  'lessor.order.detail.modal.navigate.approve': 'Nhập đơn thuê',
+  'lessor.order.detail.modal.navigate.return': 'Thêm Ảnh trả hàng cho thuê',
+  'lessor.order.detail.modal.navigate.reject': 'Từ chối đơn thuê',
+  'order.details.step.payment': 'Đặt thuê và Thanh toán',
+  'order.details.step.lessorAccept': 'Chờ nhận đơn',
+  'order.details.step.delivery': 'Giao hàng cho thuê',
+  'order.details.step.complete': 'Hoàn tất quá trình cho thuê',
+  'lessor.order.detail.viewProduct': 'Xem sản phẩm',
+  'lessor.order.detail.chatAction': 'Nhắn với {userName}',
+  'order.detail.deliveryInfo.header': 'Thông tin giao hàng',
+  'order.detail.image.upon.deliveryAndReturn': 'Ảnh đồng kiểm',
+  'order.detail.image.upon.deliveryAndReturn.button': 'Xem Ảnh kiểm hàng và trả hàng sau thuê',
+  'order.detail.pricingInfo.header': 'Thông tin Thanh toán',
+  'order.detail.pricingInfo.period': 'Thời gian thuê',
+  'order.detail.pricingInfo.period.value': 'Từ {rentTime} đến {returnTime}',
+  'order.detail.pricingInfo.numOfPaidDay': 'Số ngày Thanh toán',
+  'order.detail.pricingInfo.numOfPaidDay.value': '{numberOfPaidDay} ngày',
+  'order.detail.pricingInfo.rentalPrice': 'Giá cho thuê',
+  'order.detail.pricingInfo.total': 'Tổng thanh toán',
+  'order.detail.pricingInfo.paymentStatus': 'Trạng thái',
+  'order.detail.pricingInfo.paymentStatus.COMPLETE': 'ĐÃ THANH TOÁN',
+  'order.detail.pricingInfo.online': '(Qua Cổng Thanh toán Điện tử)',
+
+  // User Order Details
+  'order.management.table.col.action.view-detail': 'Chi tiết Đơn hàng',
+  'order.management.table.col.action.feedback': 'Đánh giá',
+  'order.management.table.col.action.canceling': 'Hủy đơn!',
+  'order.detail.modal.navigate.feedback': 'Đánh giá Dịch vụ',
+  'order.detail.modal.navigate.receipt': 'Gửi ảnh Nhận hàng',
+  'order.detail.modal.navigate.cancel': 'Hủy đơn thuê!',
+  'order.detail.viewProduct': 'Xem sản phẩm',
+  'order.detail.lessorPage': 'Xem thêm Shop {shopName}', // Assuming this refers to a specific page for the lessor
+  'order.detail.chatAction': 'Nhắn tin với {shopName}',
+
+  // Approve Modal
+  'lessor.orders.approve.header': 'Nhận đơn thuê #{orderId}',
+  'lessor.orders.approve.check.question': 'Xác nhận việc cho thuê đơn hàng này?',
+  'lessor.order.detail.modal.button.approve': 'Xác nhận Cho thuê',
+  'lessor.orders.approve.submit.success': 'Nhận đơn thuê #{orderId} thành công!',
+  'lessor.order.detail.modal.info.approved':
+    'Đơn hàng này đã được CHẤP NHẬN bởi bạn! Vui lòng nhờ người thuê chụp minh chứng và tải lên sau khi bạn đã giao hàng để tiếp tục',
+
+  // Receipt
+  'user.orders.receipt.fields.conditionUponReceipt.null':
+    'Hãy nhập tình trạng sản phẩm khi được giao',
+  'user.orders.receipt.fields.imagesUponReceipt.null': 'Chọn một tấm ảnh',
+  'user.orders.receipt.fields.isDeliveredOnTime.true': 'Đúng giờ',
+  'user.orders.receipt.fields.isDeliveredOnTime.false': 'Trễ',
+  'user.orders.receipt.header': 'Thêm minh chứng nhận hàng cho đơn hàng #{orderId}',
+  'user.order.receipt.check.question': 'Thêm minh chứng cho việc sản phẩm được giao, không hư hại',
+  'user.orders.receipt.fields.isDeliveredOnTime.label': 'Giao hàng',
+  'user.orders.receipt.fields.conditionUponReceipt.label': 'Tình trạng',
+  'user.orders.receipt.fields.imagesUponReceipt.label': 'Minh chứng',
+  'user.order.receipt.button.submit': 'Gửi Minh chứng!',
+  'user.orders.receipt.submit.success': 'Thêm Minh chứng cho Đơn hàng #{orderId} thành công!',
+
+  // Return Modal
+  'lessor.orders.return.fields.conditionUponReturn.null':
+    'Vui lòng nhập Tình trạng Sản phẩm sau thuê',
+  'lessor.orders.receipt.fields.imagesUponReturn.null': 'Chọn một bức ảnh',
+  'lessor.orders.return.header': 'Hoàn tất đơn hàng #{orderId}',
+  'lessor.order.return.check.question': 'Cho chúng tôi biết tình trạng sản phẩm sau khi thuê',
+  'lessor.orders.return.fields.isReturnedOnTime.label': 'Trả hàng',
+  'lessor.orders.return.fields.conditionUponReturn.label': 'Tình trạng',
+  'lessor.orders.return.fields.imagesUponReturn.label': 'Minh chứng',
+  'lessor.order.return.button.submit': 'Nộp minh chứng và Hoàn tất đơn hàng',
+  'user.orders.return.submit.success': 'Hoàn thành Đơn hàng #{orderId} thành công!',
+
+  // Feedback Modal
+  'user.orders.feedback.fields.content.null': 'Hãy Mô tả đôi lời về Trải nghiệm lần này',
+  'user.orders.feedback.fields.star.null': 'Hãy Đưa ra một Mức Đánh giá',
+  'user.orders.feedback.header': 'Đánh giá Đơn hàng #{orderId}',
+  'user.order.feedback.check.question': 'Đánh giá để nhiều người hiểu về sản phẩm này hơn!',
+  'user.orders.feedback.fields.star.label': 'Mức Đánh giá',
+  'user.orders.feedback.fields.content.label': 'Bình luận',
+  'user.orders.feedback.fields.image.label': 'Ảnh chụp',
+  'user.order.feedback.button.submit': 'Thêm Đánh giá!',
+  'user.orders.feedback.submit.success': 'Đánh giá Đơn hàng #{orderId} thành công!',
+
+  // Reject Modal
+  'lessor.orders.reject.fields.rejectReason.null': 'Vui lòng nhập lý do từ chối',
+  'lessor.orders.reject.header': 'Từ chối đơn hàng #{orderId}',
+  'lessor.orders.reject.check.question': 'Xác nhận từ chối đơn hàng',
+  'lessor.orders.reject.fields.rejectReason.label': 'Lý do',
+  'lessor.order.reject.button.submit': 'Xác nhận Từ chối đơn hàng',
+  'lessor.orders.reject.submit.success': 'Từ chối Đơn hàng #{orderId} thành công!',
+
+  // Cancel Modal
+  'user.orders.cancel.header': 'Hủy Đơn hàng #{orderId}',
+  'user.orders.cancel.check.question': 'Bạn có xác nhận Hủy Đơn hàng này không?',
+  'user.order.cancel.button.submit': 'Xác nhận Hủy đơn!',
+  'user.orders.cancel.submit.success': 'Hủy Đơn hàng #{orderId} thành công!',
+};

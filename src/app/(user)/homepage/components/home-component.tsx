@@ -1,9 +1,11 @@
 "use client";
 
-import CartProductItem from "@/components/cart-product-item";
 import HomeBanner from "@/components/home-banner";
 import { ChevronRight } from "lucide-react";
 import dynamic from "next/dynamic";
+import ListCartItem from "./list-cart-item";
+import { useEffect } from "react";
+import useProductView from "../hooks/useProductView";
 
 const CarouselDiscoverHome = dynamic(
   () => import("@/app/(user)/homepage/components/carousel-discover-home"),
@@ -13,6 +15,14 @@ const CarouselDiscoverHome = dynamic(
 );
 
 export default function HomeComponent() {
+  const furnitures = useProductView();
+  const cars = useProductView();
+
+  useEffect(() => {
+    furnitures?.handleProductView(false);
+    cars?.handleProductView(true);
+  }, []);
+
   return (
     <div>
       <HomeBanner />
@@ -52,12 +62,23 @@ export default function HomeComponent() {
             </div>
           </div>
           <div className="mt-3 py-5">
-            <h2 className="text-[28px] font-bold font-montserrat mb-[5px]">
-              Furniture
-            </h2>
+            <div className="flex items-center justify-between">
+              <h2 className="text-[25px] font-bold font-montserrat mb-[5px]">
+                Furniture
+              </h2>
+              {furnitures.product?.length > 0 && (
+                <button className="h-11 px-2 bg-teal-600 rounded-xl hover:bg-teal-700">
+                  <span className="text-white font-montserrat">View more</span>
+                </button>
+              )}
+            </div>
             <div className="mt-5">
-              <div className="flex">
-                <CartProductItem />
+              <div>
+                {furnitures.product?.length > 0 ? (
+                  <ListCartItem products={furnitures.product} />
+                ) : (
+                  <h2>No furniture</h2>
+                )}
               </div>
             </div>
           </div>
@@ -85,6 +106,27 @@ export default function HomeComponent() {
                     </div>
                   </button>
                 </div>
+              </div>
+            </div>
+          </div>
+          <div className="mt-3 py-5">
+            <div className="flex items-center justify-between">
+              <h2 className="text-[25px] font-bold font-montserrat mb-[5px]">
+                Vehicle
+              </h2>
+              {cars.product?.length > 0 && (
+                <button className="h-11 px-2 bg-teal-600 rounded-xl hover:bg-teal-700">
+                  <span className="text-white font-montserrat">View more</span>
+                </button>
+              )}
+            </div>
+            <div className="mt-5">
+              <div>
+                {cars.product?.length > 0 ? (
+                  <ListCartItem products={cars.product} />
+                ) : (
+                  <h2>No vehicle</h2>
+                )}
               </div>
             </div>
           </div>

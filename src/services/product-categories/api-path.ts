@@ -1,0 +1,6 @@
+const CATEGORIES = "v1/categories";
+
+export const PRODUCT_CATEGORIES = CATEGORIES
+export const PRODUCT_CATEGORIES_DETAILS = `${CATEGORIES}/:categoryId`;
+
+export default { PRODUCT_CATEGORIES, PRODUCT_CATEGORIES_DETAILS };
