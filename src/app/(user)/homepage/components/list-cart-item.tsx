@@ -50,13 +50,6 @@ export default function ListCartItem({ products }: ListCartItemProps) {
   }, []);
 
   const renderCarousel = (list: API.IProductCard[]) => {
-    // if (list?.length < 6) {
-    //   return (
-    //     <SwiperSlide>
-    //       <CartProductItem key={0} product={list[0]} />;
-    //     </SwiperSlide>
-    //   );
-    // }
     return list?.map((item, index) => (
       <SwiperSlide key={index}>
         <CartProductItem product={item} />
@@ -90,7 +83,12 @@ export default function ListCartItem({ products }: ListCartItemProps) {
         </button>
       </div>
 
-      <Swiper slidesPerView={2} spaceBetween={0} loop={false} ref={swiperRef}>
+      <Swiper
+        slidesPerView={products?.length < 6 ? products?.length : 6}
+        spaceBetween={products?.length < 6 ? 10 : 20}
+        loop={false}
+        ref={swiperRef}
+      >
         {renderCarousel(products)}
       </Swiper>
     </div>

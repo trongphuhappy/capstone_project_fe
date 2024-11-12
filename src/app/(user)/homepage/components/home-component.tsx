@@ -6,6 +6,7 @@ import dynamic from "next/dynamic";
 import ListCartItem from "./list-cart-item";
 import { useEffect } from "react";
 import useProductView from "../hooks/useProductView";
+import { useRouter } from "next/navigation";
 
 const CarouselDiscoverHome = dynamic(
   () => import("@/app/(user)/homepage/components/carousel-discover-home"),
@@ -18,10 +19,20 @@ export default function HomeComponent() {
   const furnitures = useProductView();
   const cars = useProductView();
 
+  const router = useRouter();
+
   useEffect(() => {
     furnitures?.handleProductView(false);
     cars?.handleProductView(true);
   }, []);
+
+  const handleCarViewmore = () => {
+    router.push("/products?category=vehicles");
+  };
+
+  const handleFurnitureViewmore = () => {
+    router.push("/products?category=furnitures");
+  };
 
   return (
     <div>
@@ -67,7 +78,11 @@ export default function HomeComponent() {
                 Furniture
               </h2>
               {furnitures.product?.length > 0 && (
-                <button className="h-11 px-2 bg-teal-600 rounded-xl hover:bg-teal-700">
+                <button
+                  type="button"
+                  className="h-11 px-2 bg-teal-600 rounded-xl hover:bg-teal-700"
+                  onClick={handleFurnitureViewmore}
+                >
                   <span className="text-white font-montserrat">View more</span>
                 </button>
               )}
@@ -115,7 +130,11 @@ export default function HomeComponent() {
                 Vehicle
               </h2>
               {cars.product?.length > 0 && (
-                <button className="h-11 px-2 bg-teal-600 rounded-xl hover:bg-teal-700">
+                <button
+                  type="button"
+                  className="h-11 px-2 bg-teal-600 rounded-xl hover:bg-teal-700"
+                  onClick={handleCarViewmore}
+                >
                   <span className="text-white font-montserrat">View more</span>
                 </button>
               )}

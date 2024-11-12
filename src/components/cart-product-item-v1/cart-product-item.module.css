@@ -13,3 +13,7 @@
 .hoverIconCart:hover .iconCart {
   color: #ffffff;
 }
+
+.cart:hover .title {
+  text-decoration: underline;
+}

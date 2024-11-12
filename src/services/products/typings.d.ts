@@ -71,14 +71,14 @@ declare namespace API {
     isRejected?: boolean;
     name?: string;
     categoryId?: number;
-    isVehicle?: boolean;
+    isVehicle?: boolean | "";
     lessorId?: number;
     status?: string;
     offset?: number;
     rating?: number;
     minPrice?: number;
     maxPrice?: number;
-    location?: string[];
+    location?: string;
   }
 
   interface ICategory {

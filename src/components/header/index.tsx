@@ -110,7 +110,7 @@ export default function Header() {
     <header className="px-[50px] mx-auto">
       <div className="py-4 flex items-center justify-between gap-x-16">
         <figure className="flex items-center gap-x-2">
-          <Image src={"/images/logo.svg"} alt="logo" width={90} height={90} />
+          <Image src={"/images/logo.svg"} alt="logo" width={50} height={50} />
           <span className="text-[#00939F]">-</span>
           <h1 className="text-black text-2xl font-semibold font-montserrat">
             Neighbor
@@ -200,7 +200,7 @@ export default function Header() {
           </li>
         </ul>
       </div>
-      <div className="h-[60px] flex items-center">
+      <div className="h-[40px] flex items-center">
         <nav>
           <ul className="flex items-center justify-start gap-x-[60px] relative">
             {navItems?.map((item, index) => (

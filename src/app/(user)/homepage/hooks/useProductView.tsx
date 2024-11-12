@@ -13,7 +13,7 @@ export default function useProductView() {
       take: 12,
       isConfirmedByAdmin: true,
     });
-    if (res) setProduct(res);
+    if (res) setProduct(res.data);
   };
 
   return { handleProductView, product };

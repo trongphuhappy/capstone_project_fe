@@ -1,13 +1,15 @@
 import { getProducts } from "@/services/products/api-services";
+import { IPaginationResponse } from "@/typings";
 
 export const useServiceProductPage = async (
   pagination: API.IProductPaginationParams
 ) => {
   try {
     const response = await getProducts(pagination);
-    return response.result.data;
+    const data =
+      response.result as unknown as IPaginationResponse<API.IProductCard>;
+    return data;
   } catch (err) {
-    console.log(err);
     return null;
   }
 };
