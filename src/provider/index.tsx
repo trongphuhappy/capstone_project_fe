@@ -10,6 +10,12 @@ const StoreProvider = dynamic(
   }
 );
 
+const ReactQueryProvider = dynamic(
+  () => import("@/provider/query-provider").then((mod) => mod.default),
+  { ssr: false }
+);
+
+
 export default function Provider({
   children,
 }: Readonly<{
@@ -17,7 +23,9 @@ export default function Provider({
 }>) {
   return (
     <StoreProvider>
-      <GlobalContent>{children}</GlobalContent>
+      <ReactQueryProvider>
+        <GlobalContent>{children}</GlobalContent>
+      </ReactQueryProvider>
     </StoreProvider>
   );
 }

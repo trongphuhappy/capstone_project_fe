@@ -1,7 +1,5 @@
-declare namespace REQUEST {}
-
 declare namespace API {
-  type TProductLessor = {
+  interface IProductLessor {
     id: number;
     avatar: string;
     firstName: string;
@@ -9,14 +7,13 @@ declare namespace API {
     lastResponse: string;
     acceptRate: string;
     rating: string;
-  };
+  }
 
-  type TProductCharacteristic = {
+  interface IProductCharacteristic {
     localeId: string;
     description: string | number;
-  };
-  
-  type TProductDetails = {
+  }
+  interface IProductDetails {
     id: number | string;
     createdAt: string;
     updatedAt: string;
@@ -29,7 +26,7 @@ declare namespace API {
     value: number;
     policies: string[];
     images: string[];
-    characteristics: TProductCharacteristic[];
+    characteristics: IProductCharacteristic[];
     price: number;
     requiredDocuments: string;
     location: string;
@@ -54,18 +51,18 @@ declare namespace API {
     numberOfCompletedOrders?: number;
     lessor: IProductLessor; // Lessor type can be further defined if known
     insurance: object; // Insurance type can be further defined if known
-  };
+  }
 
-  type TProductCategory = {
+  interface IProductCategory {
     id: number | string;
     createdAt: string;
     updatedAt: string;
     name: string;
     isVehicle: boolean;
     characteristics: string[];
-  };
+  }
 
-  type TProductPaginationParams = {
+  interface IProductPaginationParams {
     sortField?: string;
     order?: string;
     page?: number;
@@ -82,15 +79,14 @@ declare namespace API {
     minPrice?: number;
     maxPrice?: number;
     location?: string[];
-  };
+  }
 
-  type TCategory = {
+  interface ICategory {
     id: number;
     name: string;
     isVehicle: boolean;
-  };
-
-  type TProductCard = {
+  }
+  interface IProductCard {
     id: number | string;
     name: string;
     price: number;
@@ -106,5 +102,5 @@ declare namespace API {
     lessorId: number;
     lessorImage: string;
     image: string;
-  };
+  }
 }

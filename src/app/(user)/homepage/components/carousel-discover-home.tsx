@@ -63,9 +63,12 @@ export default function CarouselDiscoverHome() {
               src={item.image}
               alt={item.title}
               loading="lazy"
-              className="block object-cover w-full h-[500px]"
+              className="block object-cover w-full h-[480px]"
             />
-            <div className="bg-[#44aa64] p-[30px] flex flex-col justify-between flex-1">
+            <div
+              className="h-[300px] p-[30px] flex flex-col justify-between flex-1"
+              style={{ background: item.backgroundContent }}
+            >
               <div className="mb-16 flex flex-col gap-y-5">
                 <h3 className="text-xl font-montserrat font-bold text-white">
                   {item.title}

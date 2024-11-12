@@ -13,17 +13,23 @@ import {
 import storage from "redux-persist/lib/storage";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 
-import stateSlice from '@/stores/stateSlice';
+import stateSlice from "@/stores/stateSlice";
+import userSlice from "@/stores/userSlice";
+import categorySlice from "@/stores/categorySlice";
+import homeSlice from "@/stores/homeSlice";
 
 const persistConfig = {
   key: "root",
   version: 1,
   storage,
-  blacklist: ["authSlice", "accountSlice"],
+  blacklist: ["stateSlice"],
 };
 
 const rootReducer = combineReducers({
-  stateSlice: stateSlice
+  stateSlice: stateSlice,
+  userSlice: userSlice,
+  categorySlice: categorySlice,
+  homeSlice: homeSlice,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

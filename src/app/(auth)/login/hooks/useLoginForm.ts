@@ -7,6 +7,7 @@ import {
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useServiceLogin } from "@/services/auth/services";
 
 export function useLoginForm() {
   const [typePassword, setTypePassword] = useState<boolean>(false);
@@ -19,14 +20,15 @@ export function useLoginForm() {
   } = useForm<LoginBodyType>({
     resolver: zodResolver(LoginBody),
     defaultValues: {
-      email: "",
+      userName: "",
       password: "",
     },
   });
 
+  const { mutate, isPending } = useServiceLogin();
   const onSubmit = async (request: LoginBodyType) => {
     try {
-      console.log(request);
+      mutate(request);
     } catch (err) {
       console.log("err: ", err);
     }
@@ -46,5 +48,6 @@ export function useLoginForm() {
     valuePassword,
     typePassword,
     handleToggleTypePassword,
+    isPending,
   };
 }
