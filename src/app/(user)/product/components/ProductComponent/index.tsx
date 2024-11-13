@@ -4,6 +4,10 @@ import BreadcrumbComponent from "@/components/breadcrumb";
 import { TBreadcrumb } from "@/typings";
 import ImageGallery from "@/app/(user)/product/components/ImageGallery";
 
+interface ProductComponentProps {
+  productId: string;
+}
+
 const breadcrumbs: TBreadcrumb[] = [
   {
     link: "/",
@@ -35,7 +39,7 @@ const images = [
   { src: "/images/auth03.jpg", caption: "Ảnh 3" },
 ];
 
-export default function ProductComponent() {
+export default function ProductComponent({ productId }: ProductComponentProps) {
   return (
     <div className="mt-2 py-3 px-[50px]">
       <div className="pb-2 border-b-2">

@@ -109,13 +109,15 @@ export default function Header() {
   return (
     <header className="px-[50px] mx-auto">
       <div className="py-4 flex items-center justify-between gap-x-16">
-        <figure className="flex items-center gap-x-2">
-          <Image src={"/images/logo.svg"} alt="logo" width={50} height={50} />
-          <span className="text-[#00939F]">-</span>
-          <h1 className="text-black text-2xl font-semibold font-montserrat">
-            Neighbor
-          </h1>
-        </figure>
+        <Link href="/">
+          <figure className="flex items-center gap-x-2">
+            <Image src={"/images/logo.svg"} alt="logo" width={50} height={50} />
+            <span className="text-[#00939F]">-</span>
+            <h1 className="text-black text-2xl font-semibold font-montserrat">
+              Neighbor
+            </h1>
+          </figure>
+        </Link>
         <section className="w-full h-10 flex-1">
           <Search />
         </section>

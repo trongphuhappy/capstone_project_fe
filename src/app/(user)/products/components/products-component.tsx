@@ -10,7 +10,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { filters } from "@/const/products";
-import useGetProductsFilter from "@/app/(user)/products/hooks/useGetProductsFilter";
+import useGetProductsFilter from "@/hooks/useGetProductsFilter";
 import { useEffect, useState } from "react";
 import PaginatedComponent from "@/components/paginated";
 import { useSearchParams, useRouter } from "next/navigation";
@@ -19,7 +19,9 @@ export default function ProductsComponent() {
   const searchParams = useSearchParams();
   const router = useRouter();
 
-  const isVehical = searchParams.get("isVehicle");
+  const [searchName, setSearchName] = useState<string | null>(
+    searchParams.get("searchName")
+  );
 
   const [category, setCategory] = useState<string | null>(
     searchParams.get("category")
@@ -55,6 +57,7 @@ export default function ProductsComponent() {
         sortField !== "others"
           ? (sortField as "createdAt" | "price" | "accessCount")
           : undefined,
+      name: searchName != null ? searchName : "",
       order: order !== "others" ? (order as "ASC" | "DESC") : undefined,
       page: pageIndex,
       take: 12,
@@ -67,16 +70,19 @@ export default function ProductsComponent() {
       location,
       sortField,
       order,
+      searchName,
       page: currentPage.toString(),
     };
 
     const cleanQueryParams: Record<string, string> = Object.fromEntries(
       Object.entries(queryParams)
-        .filter(([key, value]) => value !== null) 
-        .map(([key, value]) => [key, value as string]) 
+        .filter(([key, value]) => value !== null)
+        .map(([key, value]) => [key, value as string])
     );
 
-    router.push(`/products?${new URLSearchParams(cleanQueryParams).toString()}`);
+    router.push(
+      `/products?${new URLSearchParams(cleanQueryParams).toString()}`
+    );
   };
 
   useEffect(() => {
@@ -90,13 +96,15 @@ export default function ProductsComponent() {
 
   useEffect(() => {
     updateQueryParams(); // Update URL on initial load or when state changes
-  }, [category, location, sortField, order, currentPage]);
+  }, [category, location, sortField, order, currentPage, searchName]);
 
   return (
     <div className="my-3 py-5 px-[50px] font-montserrat">
       <div>
         <div className="flex items-baseline gap-x-5">
-          <h3 className="font-semibold text-3xl">123</h3>
+          {searchName !== null && searchName !== "" && (
+            <h3 className="font-semibold text-3xl">{searchName}</h3>
+          )}
           <span className="font-normal text-base">
             {products?.meta?.itemCount} product
           </span>

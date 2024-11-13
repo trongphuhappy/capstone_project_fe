@@ -7,11 +7,15 @@ export interface InitialState {
   addedCartDialog: {
     open: false | true;
   };
+  searchDialog: {
+    open: false | true;
+  };
 }
 
 const initialState: InitialState = {
   addedCartDialog: { open: false },
   quickViewProduct: { open: false },
+  searchDialog: { open: false },
 };
 
 const stateSlice = createSlice({
@@ -30,6 +34,12 @@ const stateSlice = createSlice({
     closeQuickProductViewDialog: (state) => {
       state.quickViewProduct.open = false;
     },
+    openSearchDialog: (state) => {
+      state.searchDialog.open = true;
+    },
+    closeSearchDialog: (state) => {
+      state.searchDialog.open = false;
+    },
   },
 });
 
@@ -38,6 +48,8 @@ export const {
   closeAddedCartDialog,
   openQuickViewProductDialog,
   closeQuickProductViewDialog,
+  openSearchDialog,
+  closeSearchDialog,
 } = stateSlice.actions;
 
 export default stateSlice.reducer;

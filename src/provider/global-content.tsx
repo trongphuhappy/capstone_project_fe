@@ -5,6 +5,8 @@ import AddedCartDialog from "@/components/addded-cart-dialog";
 import useAddedCartDialog from "@/hooks/useAddedCartDialog";
 import QuickViewCart from "@/components/quick-view-cart";
 import useQuickViewProduct from "@/hooks/useQuickViewProduct";
+import SearchComponent from "@/components/seach-component";
+import useSearchDialog from "@/hooks/useSearchDialog";
 
 export default function GlobalContent({
   children,
@@ -17,6 +19,8 @@ export default function GlobalContent({
   const { open: isQuickviewProduct, onCloseQuickViewProductDialog } =
     useQuickViewProduct();
 
+  const { open: isSearchDialogOpen, onCloseSearchDialog } = useSearchDialog();
+
   return (
     <Fragment>
       <AddedCartDialog
@@ -26,6 +30,10 @@ export default function GlobalContent({
       <QuickViewCart
         open={isQuickviewProduct}
         onClose={onCloseQuickViewProductDialog}
+      />
+      <SearchComponent
+        open={isSearchDialogOpen}
+        onClose={onCloseSearchDialog}
       />
       <main>{children}</main>
     </Fragment>

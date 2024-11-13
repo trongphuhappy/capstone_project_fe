@@ -12,6 +12,7 @@ import styles from "@/components/cart-product-item-v1/cart-product-item.module.c
 import useQuickViewProduct from "@/hooks/useQuickViewProduct";
 
 import { productCategories } from "@/utils/locales/en-US/product";
+import Link from "next/link";
 
 interface CartProductItemProps {
   product: API.IProductCard;
@@ -42,9 +43,11 @@ export default function CartProductItem({ product }: CartProductItemProps) {
                     </div>
                   </TooltipTrigger>
                   <TooltipContent className="bg-black shadow-tooltip px-2 py-3 select-none">
-                    <span className="text-[#ffffff] text-xs font-montserrat font-normal">
-                      View details
-                    </span>
+                    <Link href={`/product/${product.id}`}>
+                      <span className="text-[#ffffff] text-xs font-montserrat font-normal">
+                        View details
+                      </span>
+                    </Link>
                   </TooltipContent>
                 </Tooltip>
               </TooltipProvider>

@@ -1,9 +1,9 @@
 import ProductComponent from "@/app/(user)/product/components/ProductComponent";
 
-export default function ProductPage() {
+export default function ProductPage({ params }: any) {
   return (
     <div>
-      <ProductComponent />
+      <ProductComponent productId={params?.productId} />
     </div>
   );
 }

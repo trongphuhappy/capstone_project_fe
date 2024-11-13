@@ -15,6 +15,7 @@ export default function useGetProductsFilter() {
       page: filter.page,
       take: filter.take,
       isConfirmedByAdmin: true,
+      name: filter.name,
     });
     if (res) setProducts(res);
   };
