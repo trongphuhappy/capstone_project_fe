@@ -97,3 +97,33 @@ export const useServiceProductDetails = async (productId?: number | string) => {
 //     },
 //   );
 // };
+
+export function convertToProductCard(
+  productDetails: API.IProductDetails
+): API.IProductCard {
+  return {
+    id: productDetails.id,
+    name: productDetails.name,
+    price: productDetails.price,
+    timeUnit: productDetails.timeUnit,
+    value: productDetails.value,
+    accessCount: productDetails.productSurcharges.length,
+    rating: productDetails.averageStar,
+    completedOrder: productDetails.numberOfCompletedOrders ?? 0,
+    status: productDetails.status,
+    turnOver: productDetails.productSurcharges.reduce(
+      (total: number, surcharge) => total + surcharge.price,
+      0
+    ),
+    category: {
+      ...productDetails.category,
+      id:
+        typeof productDetails.category.id === "string"
+          ? Number(productDetails.category.id)
+          : productDetails.category.id,
+    },
+    lessorId: productDetails.lessor.id,
+    lessorImage: productDetails?.lessor?.avatar || "",
+    image: productDetails.images[0] || "",
+  };
+}

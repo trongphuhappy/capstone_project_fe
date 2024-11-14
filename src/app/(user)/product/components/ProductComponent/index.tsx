@@ -15,6 +15,8 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { convertToProductCard } from "@/services/products/services";
+import useAddedCartDialog from "@/hooks/useAddedCartDialog";
 
 interface ProductComponentProps {
   productId: string;
@@ -54,8 +56,18 @@ const images = [
 export default function ProductComponent({ productId }: ProductComponentProps) {
   const { product, handleGetProduct } = useGetProductDetail();
 
+  const { onOpenAddedCartDialog } = useAddedCartDialog();
+
   const handleFetchData = async () => {
     await handleGetProduct(productId);
+  };
+
+  const handleAddToCart = () => {
+    if (product) {
+      const productCart = convertToProductCard(product);
+      onOpenAddedCartDialog(productCart);
+    } else {
+    }
   };
 
   useEffect(() => {
@@ -106,6 +118,7 @@ export default function ProductComponent({ productId }: ProductComponentProps) {
               <button
                 type="button"
                 className="w-full h-[56px] px-[12px] border border-[#0056a3] rounded-3xl hover:bg-[#0056a3] group"
+                onClick={handleAddToCart}
               >
                 <span className="font-semibold text-[#0056a3] group-hover:text-white">
                   Add to Bag
@@ -124,7 +137,7 @@ export default function ProductComponent({ productId }: ProductComponentProps) {
       <div className="mt-3">
         <h2 className="text-2xl font-semibold mb-7">Detail</h2>
         <div className="my-2">
-          <Accordion type="multiple">
+          <Accordion type="single">
             <AccordionItem value="item-1" className="py-4 border-t">
               <AccordionTrigger>
                 <h3 className="text-[18px] font-semibold">Description</h3>
@@ -134,7 +147,7 @@ export default function ProductComponent({ productId }: ProductComponentProps) {
               </AccordionContent>
             </AccordionItem>
           </Accordion>
-          <Accordion type="multiple">
+          <Accordion type="single">
             <AccordionItem value="item-2" className="py-4">
               <AccordionTrigger>
                 <h3 className="text-[18px] font-semibold">Policy</h3>

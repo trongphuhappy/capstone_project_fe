@@ -2,11 +2,13 @@ import ImageGallery from "@/app/(user)/product/components/ImageGallery";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import useAddedCartDialog from "@/hooks/useAddedCartDialog";
 import { formatCurrencyVND } from "@/utils/format-currency";
-import { productCategories, productLocale } from "@/utils/locales/en-US/product";
+import {
+  productCategories,
+  productLocale,
+} from "@/utils/locales/en-US/product";
 import { DialogTitle } from "@radix-ui/react-dialog";
 import { X } from "lucide-react";
-import { Ratings } from "../ui/rating";
-import Link from "next/link";
+import { Ratings } from "@/components/ui/rating";
 import { useRouter } from "next/navigation";
 
 interface QuickViewCartProps {
@@ -44,7 +46,7 @@ export default function QuickViewCart({
 
   const handleAddToCart = () => {
     onClose();
-    onOpenAddedCartDialog();
+    if (product) onOpenAddedCartDialog(product);
   };
 
   const nextViewDetail = () => {

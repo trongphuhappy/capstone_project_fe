@@ -1,7 +1,7 @@
 import useDebounce from "@/hooks/use-debounce";
 import useGetProductsFilter from "@/hooks/useGetProductsFilter";
 import { formatCurrencyVND } from "@/utils/format-currency";
-import { productCategories } from "@/utils/locales/en-US/product";
+import { productCategories, productLocale } from "@/utils/locales/en-US/product";
 import { ArrowRight, X } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -48,7 +48,7 @@ export default function SearchComponent({
   const renderProducts = () => {
     return products?.data?.map((product: API.IProductCard, index: number) => {
       return (
-        <Link key={index} href={`/product/${product.id}`}>
+        <Link key={index} href={`/product/${product.id}`} onClick={onClose}>
           <div className="py-2 px-2 flex items-start gap-x-4 hover:bg-slate-100 cursor-pointer">
             <img
               src={product.image}
@@ -60,9 +60,13 @@ export default function SearchComponent({
               <p className="font-montserrat text-[15px]">
                 Type: {productCategories[product?.category?.name]}
               </p>
-              <p className="text-base">
-                Price: {formatCurrencyVND(product.price)}
-              </p>
+              <div className="flex items-baseline gap-x-3">
+                <span className="text-base font-montserrat">Price:</span>
+                <p className="text-2xl text-black font-semibold">
+                  {product && formatCurrencyVND(product?.price)}
+                  {product && productLocale[product?.timeUnit]}
+                </p>
+              </div>
             </div>
           </div>
         </Link>

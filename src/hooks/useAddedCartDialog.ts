@@ -1,3 +1,8 @@
+import {
+  addCartProduct,
+  clearCartProduct,
+  removeCartProduct,
+} from "@/stores/cartSlice";
 import { closeAddedCartDialog, openAddedCartDialog } from "@/stores/stateSlice";
 import { useAppDispatch, useAppSelector } from "@/stores/store";
 
@@ -8,7 +13,10 @@ export default function useAddedCartDialog() {
     (state) => state.stateSlice.addedCartDialog
   );
 
-  const onOpenAddedCartDialog = () => {
+  const cartState = useAppSelector((state) => state.cartSlice);
+
+  const onOpenAddedCartDialog = (product: API.IProductCard) => {
+    dispatch(addCartProduct(product));
     dispatch(openAddedCartDialog());
   };
 
@@ -16,9 +24,20 @@ export default function useAddedCartDialog() {
     dispatch(closeAddedCartDialog());
   };
 
+  const onRemoveProductCart = (index: number) => {
+    dispatch(removeCartProduct(index));
+  };
+
+  const onClearProductCart = () => {
+    dispatch(clearCartProduct());
+  };
+
   return {
     open: addedCartDialogState.open,
+    products: cartState.products,
     onOpenAddedCartDialog,
     onCloseAddedCartDialog,
+    onRemoveProductCart,
+    onClearProductCart,
   };
 }

@@ -1,6 +1,5 @@
 import aboutUs from './en-US/aboutUs';
 import { adminLocales } from './en-US/admin';
-import common from './en-US/common';
 import { feedbackLocales } from './en-US/feedbacks';
 import { landing } from './en-US/landing';
 import lessor from './en-US/lessor';
@@ -28,7 +27,6 @@ export default {
   ...store,
   ...lessor,
   ...landing,
-  ...common,
   ...thankYou,
   ...order,
   ...user,

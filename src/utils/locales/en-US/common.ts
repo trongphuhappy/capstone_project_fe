@@ -34,4 +34,4 @@ export const translationKeys = {
 
 type LocalizationKeys = keyof typeof translationKeys;
 
-const translations: Record<LocalizationKeys, string> = translationKeys;
+export const translations: Record<LocalizationKeys, string> = translationKeys;

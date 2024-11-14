@@ -189,12 +189,14 @@ export default function Header() {
               <Tooltip delayDuration={100}>
                 <TooltipTrigger>
                   <div className="min-w-12 flex items-center justify-center gap-x-1 hover:bg-[#ccc] cursor-pointer rounded-[24px] h-12">
-                    <img src="/images/bag.svg" alt="bag" />
+                    <Link href="/cart">
+                      <img src="/images/bag.svg" alt="bag" />
+                    </Link>
                   </div>
                 </TooltipTrigger>
                 <TooltipContent className="bg-gray-50 shadow-tooltip px-2 py-3 select-none">
                   <span className="text-[#00000d] text-xs font-montserrat font-normal">
-                    Shopping bag
+                    Cart
                   </span>
                 </TooltipContent>
               </Tooltip>
