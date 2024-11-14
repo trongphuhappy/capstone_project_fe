@@ -121,7 +121,7 @@ export default function ProductComponent({ productId }: ProductComponentProps) {
                 onClick={handleAddToCart}
               >
                 <span className="font-semibold text-[#0056a3] group-hover:text-white">
-                  Add to Bag
+                  Add to cart
                 </span>
               </button>
               <button
@@ -137,7 +137,7 @@ export default function ProductComponent({ productId }: ProductComponentProps) {
       <div className="mt-3">
         <h2 className="text-2xl font-semibold mb-7">Detail</h2>
         <div className="my-2">
-          <Accordion type="single">
+          <Accordion type="multiple">
             <AccordionItem value="item-1" className="py-4 border-t">
               <AccordionTrigger>
                 <h3 className="text-[18px] font-semibold">Description</h3>
@@ -147,7 +147,7 @@ export default function ProductComponent({ productId }: ProductComponentProps) {
               </AccordionContent>
             </AccordionItem>
           </Accordion>
-          <Accordion type="single">
+          <Accordion type="multiple">
             <AccordionItem value="item-2" className="py-4">
               <AccordionTrigger>
                 <h3 className="text-[18px] font-semibold">Policy</h3>
