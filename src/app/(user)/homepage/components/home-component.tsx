@@ -6,6 +6,7 @@ import dynamic from "next/dynamic";
 import ListCartItem from "./list-cart-item";
 import { useEffect } from "react";
 import useProductView from "../hooks/useProductView";
+import { useRouter } from "next/navigation";
 
 const CarouselDiscoverHome = dynamic(
   () => import("@/app/(user)/homepage/components/carousel-discover-home"),
@@ -18,10 +19,20 @@ export default function HomeComponent() {
   const furnitures = useProductView();
   const cars = useProductView();
 
+  const router = useRouter();
+
   useEffect(() => {
     furnitures?.handleProductView(false);
     cars?.handleProductView(true);
   }, []);
+
+  const handleCarViewmore = () => {
+    location.href = "/products?category=vehicles&page=1";
+  };
+
+  const handleFurnitureViewmore = () => {
+    location.href = "/products?category=furnitures&page=1";
+  };
 
   return (
     <div>
@@ -49,7 +60,11 @@ export default function HomeComponent() {
                     style changes, and optimization of living and working
                     spaces.
                   </p>
-                  <button className="inline-flex w-max items-center justify-center gap-x-2 bg-gray-50 h-10 px-5 rounded-md hover:bg-gray-200">
+                  <button
+                    type="button"
+                    className="inline-flex w-max items-center justify-center gap-x-2 bg-gray-50 h-10 px-5 rounded-md hover:bg-gray-200"
+                    onClick={handleFurnitureViewmore}
+                  >
                     <span className="text-[15px] font-montserrat text-black font-normal">
                       Explore
                     </span>
@@ -67,7 +82,11 @@ export default function HomeComponent() {
                 Furniture
               </h2>
               {furnitures.product?.length > 0 && (
-                <button className="h-11 px-2 bg-teal-600 rounded-xl hover:bg-teal-700">
+                <button
+                  type="button"
+                  className="h-11 px-2 bg-teal-600 rounded-xl hover:bg-teal-700"
+                  onClick={handleFurnitureViewmore}
+                >
                   <span className="text-white font-montserrat">View more</span>
                 </button>
               )}
@@ -97,7 +116,11 @@ export default function HomeComponent() {
                     loved ones, discovering new places and creating lasting
                     memories together.
                   </p>
-                  <button className="inline-flex w-max items-center justify-center gap-x-2 bg-gray-50 h-10 px-5 rounded-md hover:bg-gray-200">
+                  <button
+                    type="button"
+                    className="inline-flex w-max items-center justify-center gap-x-2 bg-gray-50 h-10 px-5 rounded-md hover:bg-gray-200"
+                    onClick={handleCarViewmore}
+                  >
                     <span className="text-[15px] font-montserrat text-black font-normal">
                       Explore
                     </span>
@@ -115,7 +138,11 @@ export default function HomeComponent() {
                 Vehicle
               </h2>
               {cars.product?.length > 0 && (
-                <button className="h-11 px-2 bg-teal-600 rounded-xl hover:bg-teal-700">
+                <button
+                  type="button"
+                  className="h-11 px-2 bg-teal-600 rounded-xl hover:bg-teal-700"
+                  onClick={handleCarViewmore}
+                >
                   <span className="text-white font-montserrat">View more</span>
                 </button>
               )}

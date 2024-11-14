@@ -15,11 +15,11 @@ import { useAppSelector } from "@/stores/store";
 import AvatarMenu from "../avatar-menu";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { useServiceProductCategories } from "@/services/product-categories/services";
-import { ICategoryDescriptions } from "@/stores/categorySlice";
+import { productCategories } from "@/utils/locales/en-US/product";
 
 interface INavItem {
   label: string;
-  subItems: ICategoryDescriptions[] | undefined;
+  subItems: API.ICategoryDescriptions[] | undefined;
   image: string;
 }
 
@@ -109,13 +109,15 @@ export default function Header() {
   return (
     <header className="px-[50px] mx-auto">
       <div className="py-4 flex items-center justify-between gap-x-16">
-        <figure className="flex items-center gap-x-2">
-          <Image src={"/images/logo.svg"} alt="logo" width={90} height={90} />
-          <span className="text-[#00939F]">-</span>
-          <h1 className="text-black text-2xl font-semibold font-montserrat">
-            Neighbor
-          </h1>
-        </figure>
+        <Link href="/">
+          <figure className="flex items-center gap-x-2">
+            <Image src={"/images/logo.svg"} alt="logo" width={50} height={50} />
+            <span className="text-[#00939F]">-</span>
+            <h1 className="text-black text-2xl font-semibold font-montserrat">
+              Neighbor
+            </h1>
+          </figure>
+        </Link>
         <section className="w-full h-10 flex-1">
           <Search />
         </section>
@@ -187,12 +189,14 @@ export default function Header() {
               <Tooltip delayDuration={100}>
                 <TooltipTrigger>
                   <div className="min-w-12 flex items-center justify-center gap-x-1 hover:bg-[#ccc] cursor-pointer rounded-[24px] h-12">
-                    <img src="/images/bag.svg" alt="bag" />
+                    <Link href="/cart">
+                      <img src="/images/bag.svg" alt="bag" />
+                    </Link>
                   </div>
                 </TooltipTrigger>
                 <TooltipContent className="bg-gray-50 shadow-tooltip px-2 py-3 select-none">
                   <span className="text-[#00000d] text-xs font-montserrat font-normal">
-                    Shopping bag
+                    Cart
                   </span>
                 </TooltipContent>
               </Tooltip>
@@ -200,7 +204,7 @@ export default function Header() {
           </li>
         </ul>
       </div>
-      <div className="h-[60px] flex items-center">
+      <div className="h-[40px] flex items-center">
         <nav>
           <ul className="flex items-center justify-start gap-x-[60px] relative">
             {navItems?.map((item, index) => (
@@ -231,7 +235,7 @@ export default function Header() {
                             href="#"
                             className="block px-2 py-1 text-sm text-black hover:bg-gray-200"
                           >
-                            {subItem.value}
+                            {productCategories[subItem.name]}
                           </a>
                         ))}
                       </div>

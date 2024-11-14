@@ -17,12 +17,14 @@ import stateSlice from "@/stores/stateSlice";
 import userSlice from "@/stores/userSlice";
 import categorySlice from "@/stores/categorySlice";
 import homeSlice from "@/stores/homeSlice";
+import cartSlice from "@/stores/cartSlice";
 
 const persistConfig = {
   key: "root",
   version: 1,
   storage,
   blacklist: ["stateSlice"],
+  whitelist: ["userSlice", "categorySlice", "homeSlice", "cartSlice"],
 };
 
 const rootReducer = combineReducers({
@@ -30,6 +32,7 @@ const rootReducer = combineReducers({
   userSlice: userSlice,
   categorySlice: categorySlice,
   homeSlice: homeSlice,
+  cartSlice: cartSlice,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

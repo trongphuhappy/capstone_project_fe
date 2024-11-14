@@ -1,7 +1,7 @@
-export const productLocale = {
-  "product.price.time.unit.day": "₫ / day",
-  "product.price.time.unit.week": "₫ / week",
-  "product.price.time.unit.month": "₫ / month",
+export const productLocale: { [key: string]: string } = {
+  "product.price.time.unit.day": " / day",
+  "product.price.time.unit.week": " / week",
+  "product.price.time.unit.month": " / month",
 };
 
 export const productCategories: { [key: string]: string } = {

@@ -52,7 +52,7 @@ const Gallery: React.FC<GalleryProps> = ({ images }) => {
   const swiperRef = useRef<any>(null);
   const thumbnailsRef = useRef<HTMLDivElement>(null); // Reference for thumbnail gallery
 
-  const slides = images.map((image) => ({
+  const slides = images?.map((image) => ({
     src: image.src,
     caption: image.caption,
   }));
@@ -87,14 +87,14 @@ const Gallery: React.FC<GalleryProps> = ({ images }) => {
   const handleNext = () => {
     swiperRef.current?.swiper?.slideNext();
     setCurrentIndex(
-      swiperRef.current?.swiper?.activeIndex || images.length - 1
+      swiperRef.current?.swiper?.activeIndex || images?.length - 1
     );
   };
 
   const handlePrev = () => {
     swiperRef.current?.swiper?.slidePrev();
     setCurrentIndex(
-      swiperRef.current?.swiper?.activeIndex || images.length - 1
+      swiperRef.current?.swiper?.activeIndex || images?.length - 1
     );
   };
 
@@ -132,13 +132,13 @@ const Gallery: React.FC<GalleryProps> = ({ images }) => {
           loop={true}
           ref={swiperRef}
         >
-          {images.map((image, index) => (
+          {images?.map((image, index) => (
             <SwiperSlide key={index}>
               <img
-                src={image.src}
+                src={image?.src}
                 alt={`Image ${index + 1}`}
                 className="cursor-pointer w-full h-auto object-contain"
-                style={{ maxHeight: "517px", maxWidth: "100%" }}
+                style={{ maxHeight: "400px", maxWidth: "100%" }}
                 onClick={() => {
                   setIsOpen(true);
                   setCurrentIndex(index);
@@ -153,11 +153,11 @@ const Gallery: React.FC<GalleryProps> = ({ images }) => {
         ref={thumbnailsRef}
         className={`w-full pb-2 flex gap-x-2 overflow-x-auto ${styles.imageGallery}`}
       >
-        {images.map((image, index) => (
+        {images?.map((image, index) => (
           <figure
             key={index}
             className={`border flex-shrink-0 select-none hover:bg-slate-100 ${
-              currentIndex === index ? "bg-orange-500" : ""
+              currentIndex === index ? "bg-slate-200" : ""
             }`}
           >
             <img

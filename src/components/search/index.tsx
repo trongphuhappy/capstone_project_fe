@@ -1,5 +1,6 @@
 "use client";
 
+import useSearchDialog from "@/hooks/useSearchDialog";
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 
@@ -7,6 +8,8 @@ const ArraySearchValue = ["Furniture rental", "Car rental"];
 
 export default function Search() {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
+
+  const { onOpenSearchDialog } = useSearchDialog();
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -16,7 +19,7 @@ export default function Search() {
   }, []);
 
   return (
-    <div className="w-full h-full">
+    <div className="w-full h-full" onClick={onOpenSearchDialog}>
       <div className="w-full h-full relative z-30 overflow-hidden">
         <div className="absolute w-full h-full z-30 opacity-1 cursor-pointer"></div>
         <input

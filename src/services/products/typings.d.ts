@@ -7,6 +7,7 @@ declare namespace API {
     lastResponse: string;
     acceptRate: string;
     rating: string;
+    shopName: string;
   }
 
   interface IProductCharacteristic {
@@ -71,14 +72,14 @@ declare namespace API {
     isRejected?: boolean;
     name?: string;
     categoryId?: number;
-    isVehicle?: boolean;
+    isVehicle?: boolean | "";
     lessorId?: number;
     status?: string;
     offset?: number;
     rating?: number;
     minPrice?: number;
     maxPrice?: number;
-    location?: string[];
+    location?: string;
   }
 
   interface ICategory {

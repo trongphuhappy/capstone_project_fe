@@ -1,19 +1,31 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface InitialState {
-  product: null;
+  products: API.IProductCard[];
 }
 
 const initialState: InitialState = {
-  product: null,
+  products: [],
 };
 
 const cartSlice = createSlice({
   name: "cartSlice",
   initialState: initialState,
-  reducers: {},
+  reducers: {
+    addCartProduct: (state, action: PayloadAction<API.IProductCard>) => {
+      state.products?.unshift(action.payload);
+    },
+    removeCartProduct: (state, action: PayloadAction<number>) => {
+      const index = action.payload;
+      state.products.splice(index, 1);
+    },
+    clearCartProduct: (state) => {
+      state.products = [];
+    },
+  },
 });
 
-export const {} = cartSlice.actions;
+export const { addCartProduct, removeCartProduct, clearCartProduct } =
+  cartSlice.actions;
 
 export default cartSlice.reducer;

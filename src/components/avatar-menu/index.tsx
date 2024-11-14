@@ -18,7 +18,7 @@ export default function AvatarMenu({ onCloseTooltip }: AvatarMenuProps) {
   const handleNavigate = (index: number) => {
     switch (index) {
       case 1: {
-        router.push("/profile/information");
+        router.push("/profile");
         onCloseTooltip();
         break;
       }
@@ -45,7 +45,7 @@ export default function AvatarMenu({ onCloseTooltip }: AvatarMenuProps) {
     <div className="z-10 bg-white right-0 rounded-lg shadow-box w-64 overflow-hidden">
       <div
         className="px-4 py-3 text-lg text-gray-900 hover:bg-gray-200 select-none cursor-pointer border-b-2"
-        onClick={() => {}}
+        onClick={() => handleNavigate(1)}
       >
         <div className="font-bold">Hello</div>
         <div className="text-xs text-gray-500 truncate">
