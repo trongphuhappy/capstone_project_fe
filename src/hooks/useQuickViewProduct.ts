@@ -11,8 +11,8 @@ export default function useQuickViewProduct() {
     (state) => state.stateSlice.quickViewProduct
   );
 
-  const onOpenQuickViewProductDialog = () => {
-    dispatch(openQuickViewProductDialog());
+  const onOpenQuickViewProductDialog = (product: API.IProductCard) => {
+    dispatch(openQuickViewProductDialog(product));
   };
 
   const onCloseQuickViewProductDialog = () => {
@@ -21,6 +21,7 @@ export default function useQuickViewProduct() {
 
   return {
     open: quickViewProductDialogState.open,
+    product: quickViewProductDialogState.product,
     onOpenQuickViewProductDialog,
     onCloseQuickViewProductDialog,
   };

@@ -11,7 +11,7 @@ import {
 import styles from "@/components/cart-product-item-v1/cart-product-item.module.css";
 import useQuickViewProduct from "@/hooks/useQuickViewProduct";
 
-import { productCategories } from "@/utils/locales/en-US/product";
+import { productCategories, productLocale } from "@/utils/locales/en-US/product";
 import Link from "next/link";
 
 interface CartProductItemProps {
@@ -22,7 +22,7 @@ export default function CartProductItem({ product }: CartProductItemProps) {
   const { onOpenQuickViewProductDialog } = useQuickViewProduct();
 
   const handleOpenQuickView = () => {
-    onOpenQuickViewProductDialog();
+    onOpenQuickViewProductDialog(product);
   };
 
   return (
@@ -94,9 +94,11 @@ export default function CartProductItem({ product }: CartProductItemProps) {
         <p className="font-montserrat text-[12px]">
           {productCategories[product?.category?.name]}
         </p>
-        <div className="flex gap-x-2">
-          <p className="text-[22px] font-semibold">
-            {formatCurrencyVND(product?.price)}
+        <div className="mt-4 flex items-baseline gap-x-3">
+          <span className="text-base font-montserrat">Price:</span>
+          <p className="text-2xl text-black font-semibold">
+            {product && formatCurrencyVND(product?.price)}
+            {product && productLocale[product?.timeUnit]}
           </p>
         </div>
       </div>

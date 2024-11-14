@@ -1,8 +1,9 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface InitialState {
   quickViewProduct: {
     open: false | true;
+    product: API.IProductCard | null;
   };
   addedCartDialog: {
     open: false | true;
@@ -14,7 +15,7 @@ export interface InitialState {
 
 const initialState: InitialState = {
   addedCartDialog: { open: false },
-  quickViewProduct: { open: false },
+  quickViewProduct: { open: false, product: null },
   searchDialog: { open: false },
 };
 
@@ -28,11 +29,16 @@ const stateSlice = createSlice({
     closeAddedCartDialog: (state) => {
       state.addedCartDialog.open = false;
     },
-    openQuickViewProductDialog: (state) => {
+    openQuickViewProductDialog: (
+      state,
+      action: PayloadAction<API.IProductCard>
+    ) => {
       state.quickViewProduct.open = true;
+      state.quickViewProduct.product = action.payload;
     },
     closeQuickProductViewDialog: (state) => {
       state.quickViewProduct.open = false;
+      state.quickViewProduct.product = null;
     },
     openSearchDialog: (state) => {
       state.searchDialog.open = true;

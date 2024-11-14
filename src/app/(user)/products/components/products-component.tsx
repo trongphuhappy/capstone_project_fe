@@ -137,7 +137,7 @@ export default function ProductsComponent() {
                     {filter.sub?.map((item, index) => (
                       <SelectItem
                         key={index}
-                        value={item.id} // Using `id` here for state consistency
+                        value={item.id}
                         className="font-montserrat py-2 select-none"
                       >
                         {item.title}
@@ -156,13 +156,18 @@ export default function ProductsComponent() {
                 }
               )}
             </div>
-            <div className="mt-5">
-              <PaginatedComponent
-                totalPages={products?.meta?.pageCount || 1}
-                currentPage={currentPage}
-                onPageChange={handlePageChange}
-              />
-            </div>
+            {products?.data && products?.data?.length > 0 && (
+              <div className="mt-5">
+                <PaginatedComponent
+                  totalPages={products?.meta?.pageCount || 1}
+                  currentPage={currentPage}
+                  onPageChange={handlePageChange}
+                />
+              </div>
+            )}
+            {products?.data && products?.data?.length === 0 && (
+              <h3 className="text-xl">No result</h3>
+            )}
           </div>
         </div>
       </div>

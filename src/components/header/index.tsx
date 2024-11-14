@@ -15,11 +15,11 @@ import { useAppSelector } from "@/stores/store";
 import AvatarMenu from "../avatar-menu";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { useServiceProductCategories } from "@/services/product-categories/services";
-import { ICategoryDescriptions } from "@/stores/categorySlice";
+import { productCategories } from "@/utils/locales/en-US/product";
 
 interface INavItem {
   label: string;
-  subItems: ICategoryDescriptions[] | undefined;
+  subItems: API.ICategoryDescriptions[] | undefined;
   image: string;
 }
 
@@ -233,7 +233,7 @@ export default function Header() {
                             href="#"
                             className="block px-2 py-1 text-sm text-black hover:bg-gray-200"
                           >
-                            {subItem.value}
+                            {productCategories[subItem.name]}
                           </a>
                         ))}
                       </div>

@@ -1,16 +1,10 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-export interface ICategoryDescriptions {
-  id: number;
-  name: string;
-  value?: string;
-}
-
 export interface InitialState {
   status: "idle" | "loading" | "succeeded" | "failed";
-  categories: ICategoryDescriptions[];
-  furniture?: ICategoryDescriptions[];
-  vehicles?: ICategoryDescriptions[];
+  categories: API.ICategoryDescriptions[];
+  furniture?: API.ICategoryDescriptions[];
+  vehicles?: API.ICategoryDescriptions[];
 }
 
 const initialState: InitialState = {
@@ -35,13 +29,10 @@ const categorySlice = createSlice({
     },
     getCategoriesSuccess: (
       state,
-      action: PayloadAction<ICategoryDescriptions[]>
+      action: PayloadAction<API.ICategoryDescriptions[]>
     ) => {
       state.status = "succeeded";
-      state.categories = action.payload.map((category) => ({
-        ...category,
-        value: formatCategoryName(category.name),
-      }));
+      state.categories = action.payload;
       state.furniture = state.categories.filter((category) =>
         category.name.includes("furniture")
       );
@@ -66,10 +57,3 @@ export const {
 } = categorySlice.actions;
 
 export default categorySlice.reducer;
-
-const formatCategoryName = (name: string): string => {
-  const category = name.split(".").pop();
-  return category
-    ? category.charAt(0).toUpperCase() + category.slice(1).replace(/-/g, " ")
-    : name;
-};

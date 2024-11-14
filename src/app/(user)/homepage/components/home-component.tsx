@@ -27,11 +27,11 @@ export default function HomeComponent() {
   }, []);
 
   const handleCarViewmore = () => {
-    router.push("/products?category=vehicles");
+    location.href = "/products?category=vehicles&page=1";
   };
 
   const handleFurnitureViewmore = () => {
-    router.push("/products?category=furnitures");
+    location.href = "/products?category=furnitures&page=1";
   };
 
   return (
@@ -60,7 +60,11 @@ export default function HomeComponent() {
                     style changes, and optimization of living and working
                     spaces.
                   </p>
-                  <button className="inline-flex w-max items-center justify-center gap-x-2 bg-gray-50 h-10 px-5 rounded-md hover:bg-gray-200">
+                  <button
+                    type="button"
+                    className="inline-flex w-max items-center justify-center gap-x-2 bg-gray-50 h-10 px-5 rounded-md hover:bg-gray-200"
+                    onClick={handleFurnitureViewmore}
+                  >
                     <span className="text-[15px] font-montserrat text-black font-normal">
                       Explore
                     </span>
@@ -112,7 +116,11 @@ export default function HomeComponent() {
                     loved ones, discovering new places and creating lasting
                     memories together.
                   </p>
-                  <button className="inline-flex w-max items-center justify-center gap-x-2 bg-gray-50 h-10 px-5 rounded-md hover:bg-gray-200">
+                  <button
+                    type="button"
+                    className="inline-flex w-max items-center justify-center gap-x-2 bg-gray-50 h-10 px-5 rounded-md hover:bg-gray-200"
+                    onClick={handleCarViewmore}
+                  >
                     <span className="text-[15px] font-montserrat text-black font-normal">
                       Explore
                     </span>

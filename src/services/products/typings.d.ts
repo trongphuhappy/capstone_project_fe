@@ -7,6 +7,7 @@ declare namespace API {
     lastResponse: string;
     acceptRate: string;
     rating: string;
+    shopName: string;
   }
 
   interface IProductCharacteristic {

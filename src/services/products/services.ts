@@ -1,5 +1,9 @@
-import { getProducts } from "@/services/products/api-services";
+import {
+  getProductDetails,
+  getProducts,
+} from "@/services/products/api-services";
 import { IPaginationResponse } from "@/typings";
+import { product } from "@/utils/locales/en-US/product";
 
 export const useServiceProductPage = async (
   pagination: API.IProductPaginationParams
@@ -14,16 +18,15 @@ export const useServiceProductPage = async (
   }
 };
 
-// export const useProductDetails = (productId?: number | string) =>
-//   useQuery<API.IProductDetails>(
-//     [API_ENDPOINTS.PRODUCT_DETAILS, productId],
-//     () => getProductDetails(productId),
-//     {
-//       enabled: !!productId,
-//       retry: 1,
-//       refetchOnWindowFocus: false,
-//     },
-//   );
+export const useServiceProductDetails = async (productId?: number | string) => {
+  try {
+    const response = await getProductDetails(productId);
+    const data = response.result.data as unknown as API.IProductDetails;
+    return data;
+  } catch (err) {
+    return null;
+  }
+};
 
 // export const useMostViewedProducts = (pagination: IProductsPagination) => {
 //   return useInfiniteQuery({
