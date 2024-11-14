@@ -1,9 +1,12 @@
-'use client'
+"use client";
 
-import FurnitureItem from "@/components/furniture-item";
 import HomeBanner from "@/components/home-banner";
 import { ChevronRight } from "lucide-react";
 import dynamic from "next/dynamic";
+import ListCartItem from "./list-cart-item";
+import { useEffect } from "react";
+import useProductView from "../hooks/useProductView";
+import { useRouter } from "next/navigation";
 
 const CarouselDiscoverHome = dynamic(
   () => import("@/app/(user)/homepage/components/carousel-discover-home"),
@@ -13,13 +16,31 @@ const CarouselDiscoverHome = dynamic(
 );
 
 export default function HomeComponent() {
+  const furnitures = useProductView();
+  const cars = useProductView();
+
+  const router = useRouter();
+
+  useEffect(() => {
+    furnitures?.handleProductView(false);
+    cars?.handleProductView(true);
+  }, []);
+
+  const handleCarViewmore = () => {
+    location.href = "/products?category=vehicles&page=1";
+  };
+
+  const handleFurnitureViewmore = () => {
+    location.href = "/products?category=furnitures&page=1";
+  };
+
   return (
     <div>
       <HomeBanner />
       <main className="px-[50px] mx-auto mt-10 py-8 flex flex-col gap-y-14">
         <section>
           <h2 className="text-[28px] font-bold font-montserrat mb-[5px]">
-            Discorver
+            Discover
           </h2>
           <div className="py-[20px]">
             <CarouselDiscoverHome />
@@ -39,7 +60,11 @@ export default function HomeComponent() {
                     style changes, and optimization of living and working
                     spaces.
                   </p>
-                  <button className="inline-flex w-max items-center justify-center gap-x-2 bg-gray-50 h-10 px-5 rounded-md hover:bg-gray-200">
+                  <button
+                    type="button"
+                    className="inline-flex w-max items-center justify-center gap-x-2 bg-gray-50 h-10 px-5 rounded-md hover:bg-gray-200"
+                    onClick={handleFurnitureViewmore}
+                  >
                     <span className="text-[15px] font-montserrat text-black font-normal">
                       Explore
                     </span>
@@ -52,12 +77,27 @@ export default function HomeComponent() {
             </div>
           </div>
           <div className="mt-3 py-5">
-            <h2 className="text-[28px] font-bold font-montserrat mb-[5px]">
-              Furniture
-            </h2>
+            <div className="flex items-center justify-between">
+              <h2 className="text-[25px] font-bold font-montserrat mb-[5px]">
+                Furniture
+              </h2>
+              {furnitures.product?.length > 0 && (
+                <button
+                  type="button"
+                  className="h-11 px-2 bg-teal-600 rounded-xl hover:bg-teal-700"
+                  onClick={handleFurnitureViewmore}
+                >
+                  <span className="text-white font-montserrat">View more</span>
+                </button>
+              )}
+            </div>
             <div className="mt-5">
-              <div className="flex">
-                <FurnitureItem />
+              <div>
+                {furnitures.product?.length > 0 ? (
+                  <ListCartItem products={furnitures.product} />
+                ) : (
+                  <h2>No furniture</h2>
+                )}
               </div>
             </div>
           </div>
@@ -76,7 +116,11 @@ export default function HomeComponent() {
                     loved ones, discovering new places and creating lasting
                     memories together.
                   </p>
-                  <button className="inline-flex w-max items-center justify-center gap-x-2 bg-gray-50 h-10 px-5 rounded-md hover:bg-gray-200">
+                  <button
+                    type="button"
+                    className="inline-flex w-max items-center justify-center gap-x-2 bg-gray-50 h-10 px-5 rounded-md hover:bg-gray-200"
+                    onClick={handleCarViewmore}
+                  >
                     <span className="text-[15px] font-montserrat text-black font-normal">
                       Explore
                     </span>
@@ -88,13 +132,33 @@ export default function HomeComponent() {
               </div>
             </div>
           </div>
+          <div className="mt-3 py-5">
+            <div className="flex items-center justify-between">
+              <h2 className="text-[25px] font-bold font-montserrat mb-[5px]">
+                Vehicle
+              </h2>
+              {cars.product?.length > 0 && (
+                <button
+                  type="button"
+                  className="h-11 px-2 bg-teal-600 rounded-xl hover:bg-teal-700"
+                  onClick={handleCarViewmore}
+                >
+                  <span className="text-white font-montserrat">View more</span>
+                </button>
+              )}
+            </div>
+            <div className="mt-5">
+              <div>
+                {cars.product?.length > 0 ? (
+                  <ListCartItem products={cars.product} />
+                ) : (
+                  <h2>No vehicle</h2>
+                )}
+              </div>
+            </div>
+          </div>
         </section>
       </main>
-      {/* <footer className=" bg-[#f5f5f5]">
-        <div className="bg-[#286E6C] pl-[100px] pr-[83px] pt-[70px] pb-[23px]">
-          <Footer />
-        </div>
-      </footer> */}
     </div>
   );
 }

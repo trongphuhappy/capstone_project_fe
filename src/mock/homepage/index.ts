@@ -10,20 +10,20 @@ export interface Slide {
 
 export const SlideWorks: Slide[] = [
   {
-    image: "/images/carosel-home.png",
-    title: "Stylish Furniture Rentals",
+    image: "/images/discorver1.png",
+    title: "Explore House & Car Rentals",
     description:
-      "Transform your space with our stylish furniture rental options, ideal for any occasion.",
-    backgroundContent: "#f4ce7c",
+      "Explore a variety of house and car rental options for your travel needs. Find the perfect home and vehicle with flexible, hassle-free solutions.",
+    backgroundContent: "#075da7",
     colorTitle: "#000000",
     colorDescription: "#000000",
     backgroundButton: "#000000",
   },
   {
     image: "/images/carosel-home1.jpg",
-    title: "Event Furniture Rentals",
+    title: "Top Rated, Trusted by All",
     description:
-      "Rent stylish, budget-friendly furniture for your event. Chairs, tables, and more!",
+      "Experience the Best with Top Ratings, Trusted by Thousands for Unmatched Quality and Service.",
     backgroundContent: "#44aa64",
     colorTitle: "#ffffff",
     colorDescription: "#ffffff",
@@ -31,10 +31,10 @@ export const SlideWorks: Slide[] = [
   },
   {
     image: "/images/carosel-home.png",
-    title: "Stylish Furniture Rentals",
+    title: "Low Prices, High Value",
     description:
-      "Transform your space with our stylish furniture rental options, ideal for any occasion.",
-    backgroundContent: "#f4ce7c",
+      "Enjoy high-quality products at prices that offer unbeatable value. Get the best performance without compromising your budget",
+    backgroundContent: "#cc0008",
     colorTitle: "#000000",
     colorDescription: "#000000",
     backgroundButton: "#000000",
