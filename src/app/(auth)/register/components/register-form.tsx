@@ -4,6 +4,18 @@ import { Backdrop } from "@/components/backdrop";
 import InputAuth from "@/components/input-auth";
 import Link from "next/link";
 import { useRegisterForm } from "@/app/(auth)/register/hooks/useRegisterForm";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Genders } from "@/const/authentication";
+import { useState } from "react";
+import { Controller } from "react-hook-form";
 
 export default function RegisterForm() {
   const {
@@ -11,6 +23,7 @@ export default function RegisterForm() {
     errors,
     handleSubmit,
     onSubmit,
+    control,
     valuePassword,
     valueConfirmPassword,
     typePassword,
@@ -20,9 +33,11 @@ export default function RegisterForm() {
     handleToggleConfirmPassword,
   } = useRegisterForm();
 
+  const [selectedGender, setSelectedGender] = useState(Genders[0].id);
+
   return (
     <div>
-      <div className="w-[70%] px-5 py-4 m-auto">
+      <div className="w-[70%] px-5 py-5 m-auto font-montserrat">
         <h2 className="text-[1.5rem] leading-8 font-medium font-montserrat">
           Sign up
         </h2>
@@ -31,12 +46,73 @@ export default function RegisterForm() {
           dream furniture today!
         </span>
         <form
-          className="pt-5 flex flex-col gap-y-4"
+          className="pt-2 flex flex-col gap-y-2"
           onSubmit={handleSubmit(onSubmit)}
         >
+          <div className="flex items-center gap-x-2">
+            <div className="w-1/2 flex flex-col gap-y-2">
+              <InputAuth
+                id="firstname"
+                label="First Name"
+                type="text"
+                autoComplete="off"
+                register={register("firstName")}
+                error={errors?.firstName?.message}
+              />
+            </div>
+            <div className="w-1/2 flex flex-col gap-y-2">
+              <InputAuth
+                id="lastname"
+                label="Last Name"
+                type="text"
+                autoComplete="off"
+                register={register("lastName")}
+                error={errors?.lastName?.message}
+              />
+            </div>
+          </div>
+          <div className="flex flex-col gap-y-2">
+            <div className="flex justify-between">
+              <label
+                htmlFor={"gender"}
+                className="text-gray-600 mt-2 font-montserrat"
+              >
+                Gender
+              </label>
+            </div>
+            <div>
+              <Controller
+                name="gender"
+                control={control}
+                render={({ field }) => (
+                  <Select {...field}>
+                    <SelectTrigger className="font-montserrat relative flex p-2 border-2 border-gray-300 rounded-md py-5">
+                      <SelectValue placeholder="Gender" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {Genders.map((item) => (
+                        <SelectItem
+                          key={item.id}
+                          value={item.id.toString()}
+                          className="font-montserrat"
+                        >
+                          {item.value}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                )}
+              />
+              {errors?.gender?.message && (
+                <p className="text-base text-red-400 font-montserrat">
+                  {errors?.gender?.message}
+                </p>
+              )}
+            </div>
+          </div>
           <div className="flex flex-col gap-y-2">
             <InputAuth
-              id="email"
+              id="Gender"
               label="Email"
               type="text"
               autoComplete="off"
@@ -45,24 +121,37 @@ export default function RegisterForm() {
             />
           </div>
           <div className="flex flex-col gap-y-2">
-            <InputAuth
-              id="text"
-              label="Full name"
-              type="text"
-              autoComplete="off"
-              register={register("fullName")}
-              error={errors?.fullName?.message}
-            />
-          </div>
-          <div className="flex flex-col gap-y-2">
-            <InputAuth
-              id="username"
-              label="User name"
-              type="text"
-              autoComplete="off"
-              register={register("userName")}
-              error={errors?.userName?.message}
-            />
+            <div className="flex gap-x-4 items-end">
+              <div className="flex flex-col gap-y-2">
+                <div className="flex justify-between">
+                  <label htmlFor="Code" className="text-gray-600 mt-2">
+                    Code
+                  </label>
+                </div>
+                <div
+                  className={`block p-2 border-2 border-gray-300 rounded-md text-center ${
+                    errors?.phoneNumber?.message && "border-red-500"
+                  }`}
+                >
+                  +84
+                </div>
+              </div>
+              <div className="flex-1 flex flex-col gap-y-2">
+                <InputAuth
+                  id="phonenumber"
+                  label="Phone Number"
+                  type="number"
+                  autoComplete="off"
+                  register={register("phoneNumber")}
+                  error={errors?.phoneNumber?.message}
+                />
+              </div>
+            </div>
+            {errors?.phoneNumber?.message && (
+              <p className="text-base text-red-400">
+                {errors?.phoneNumber?.message}
+              </p>
+            )}
           </div>
           <div className="flex flex-col gap-y-2">
             <InputAuth
@@ -79,11 +168,11 @@ export default function RegisterForm() {
           <div className="flex flex-col gap-y-2">
             <InputAuth
               id="confirmpassword"
-              label="Confirm password"
+              label="Confirm Password"
               type={typeConfirmPassword === false ? "password" : "text"}
               autoComplete="off"
-              register={register("passwordConfirm")}
-              error={errors?.passwordConfirm?.message}
+              register={register("confirmPassword")}
+              error={errors?.confirmPassword?.message}
               value={valueConfirmPassword}
               onClickEyePassword={handleToggleConfirmPassword}
             />
@@ -96,9 +185,7 @@ export default function RegisterForm() {
                   : "bg-[#C3B1E1]"
               }`}
             >
-              <span className="text-base text-gray-200 font-montserrat">
-                Sign Up
-              </span>
+              <span className="text-base text-gray-200">Sign Up</span>
             </button>
             <div className="flex items-center justify-between gap-3">
               <div
@@ -135,7 +222,7 @@ export default function RegisterForm() {
                 <span className="text-base text-gray-700">Google</span>
               </div>
             </button>
-            <div className="flex justify-between font-montserrat">
+            <div className="flex justify-between">
               <p className="text-[1rem]">
                 Have an account Neighbor?{" "}
                 <Link href="/login">

@@ -9,13 +9,15 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import Link from "next/link";
 import { useAppSelector } from "@/stores/store";
-import AvatarMenu from "../avatar-menu";
+import AvatarMenu from "@/components/avatar-menu";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { useServiceProductCategories } from "@/services/product-categories/services";
 import { productCategories } from "@/utils/locales/en-US/product";
+import { Bell } from "lucide-react";
+import { Backdrop } from "@/components/backdrop";
 
 interface INavItem {
   label: string;
@@ -60,6 +62,7 @@ export default function Header() {
   const [underlineLeft, setUnderlineLeft] = useState<number>(0);
   const [dropdownIndex, setDropdownIndex] = useState<number | null>(null);
   const [isDropdownHovered, setIsDropdownHovered] = useState<boolean>(false);
+  const [avatarMenuTooltip, setAvatarMenuTooltip] = useState<boolean>(false);
 
   const handleCategories = async () => {
     await useServiceProductCategories();
@@ -106,6 +109,14 @@ export default function Header() {
     handleCategories();
   }, []);
 
+  const handleToggleAvatarMenuTooltip = () => {
+    setAvatarMenuTooltip((prev) => !prev);
+  };
+
+  const handleCloseAvatarMenuTooltip = () => {
+    setAvatarMenuTooltip(false);
+  };
+
   return (
     <header className="px-[50px] mx-auto">
       <div className="py-4 flex items-center justify-between gap-x-16">
@@ -121,35 +132,9 @@ export default function Header() {
         <section className="w-full h-10 flex-1">
           <Search />
         </section>
-        <ul className="flex items-center gap-x-3">
-          <li>
-            {userState.profile != null ? (
-              <div>
-                <Popover>
-                  <PopoverTrigger asChild>
-                    <figure className="rounded-full border border-zinc-300 overflow-hidden w-12 h-12 flex items-center justify-center hover:bg-teal-400">
-                      <img
-                        id="avatarButton"
-                        className="w-10 h-10 rounded-full cursor-pointer"
-                        src={
-                          userState?.profile?.avatar !== ""
-                            ? userState?.profile?.avatar
-                            : "/images/unknown.webp"
-                        }
-                        alt="Avatar"
-                      />
-                    </figure>
-                  </PopoverTrigger>
-                  <PopoverContent
-                    side="bottom"
-                    align="center"
-                    className="w-auto h-auto text-white rounded-md p-0 overflow-hidden"
-                  >
-                    <AvatarMenu onCloseTooltip={() => {}} />
-                  </PopoverContent>
-                </Popover>
-              </div>
-            ) : (
+        <ul className="flex items-center gap-x-7">
+          {userState.profile === null && (
+            <li>
               <TooltipProvider>
                 <Tooltip delayDuration={100}>
                   <TooltipTrigger>
@@ -182,13 +167,13 @@ export default function Header() {
                   </TooltipContent>
                 </Tooltip>
               </TooltipProvider>
-            )}
-          </li>
+            </li>
+          )}
           <li>
             <TooltipProvider>
               <Tooltip delayDuration={100}>
                 <TooltipTrigger>
-                  <div className="min-w-12 flex items-center justify-center gap-x-1 hover:bg-[#ccc] cursor-pointer rounded-[24px] h-12">
+                  <div className="flex items-center justify-center gap-x-1 cursor-pointer rounded-[24px] h-12 group">
                     <Link href="/cart">
                       <img src="/images/bag.svg" alt="bag" />
                     </Link>
@@ -202,6 +187,44 @@ export default function Header() {
               </Tooltip>
             </TooltipProvider>
           </li>
+          {userState.profile !== null && (
+            <Fragment>
+              <li>
+                <div className="flex items-center justify-center gap-x-1 cursor-pointer rounded-[24px] h-12 group">
+                  <Bell className="group-hover:text-purple-400" />
+                </div>
+              </li>
+              <li>
+                <Popover
+                  open={avatarMenuTooltip}
+                >
+                  <PopoverTrigger asChild>
+                    <div onClick={handleToggleAvatarMenuTooltip}>
+                      <figure className="rounded-full border border-zinc-300 overflow-hidden w-10 h-10 flex items-center justify-center hover:bg-gray-200">
+                        <img
+                          id="avatarButton"
+                          className="w-9 h-9 rounded-full cursor-pointer"
+                          src={
+                            userState?.profile?.cropAvatarLink !== ""
+                              ? userState?.profile?.cropAvatarLink
+                              : "/images/unknown.webp"
+                          }
+                          alt="Avatar"
+                        />
+                      </figure>
+                    </div>
+                  </PopoverTrigger>
+                  <PopoverContent
+                    side="bottom"
+                    align="center"
+                    className="w-auto h-auto text-white rounded-md p-0"
+                  >
+                    <AvatarMenu onCloseTooltip={handleCloseAvatarMenuTooltip} />
+                  </PopoverContent>
+                </Popover>
+              </li>
+            </Fragment>
+          )}
         </ul>
       </div>
       <div className="h-[40px] flex items-center">
