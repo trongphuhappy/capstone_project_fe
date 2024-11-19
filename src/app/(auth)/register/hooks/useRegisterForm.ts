@@ -36,11 +36,10 @@ export function useRegisterForm() {
       password: "",
       confirmPassword: "",
       phoneNumber: "",
-      gender: "1",
     },
   });
 
-  const onSubmit = async (data: RegisterBodyType) => {
+  const onSubmit = async (data: REQUEST.TRegister) => {
     try {
       mutate(data, {
         onSuccess: async (data) => {

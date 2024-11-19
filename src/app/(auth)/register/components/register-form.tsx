@@ -16,14 +16,16 @@ import {
 import { Genders } from "@/const/authentication";
 import { useState } from "react";
 import { Controller } from "react-hook-form";
+import { RegisterBodyType } from "@/utils/schema-validations/auth.schema";
 
 export default function RegisterForm() {
+  const [gender, setGender] = useState<string>(Genders[0].value);
+
   const {
     register,
     errors,
     handleSubmit,
     onSubmit,
-    control,
     valuePassword,
     valueConfirmPassword,
     typePassword,
@@ -33,7 +35,13 @@ export default function RegisterForm() {
     handleToggleConfirmPassword,
   } = useRegisterForm();
 
-  const [selectedGender, setSelectedGender] = useState(Genders[0].id);
+  const handleSubmitForm = (data: RegisterBodyType) => {
+    const request: REQUEST.TRegister = {
+      ...data,
+      gender: Genders[0].value === gender ? Genders[0].id : Genders[1].id,
+    };
+    onSubmit(request);
+  };
 
   return (
     <div>
@@ -47,7 +55,7 @@ export default function RegisterForm() {
         </span>
         <form
           className="pt-2 flex flex-col gap-y-2"
-          onSubmit={handleSubmit(onSubmit)}
+          onSubmit={handleSubmit(handleSubmitForm)}
         >
           <div className="flex items-center gap-x-2">
             <div className="w-1/2 flex flex-col gap-y-2">
@@ -81,33 +89,22 @@ export default function RegisterForm() {
               </label>
             </div>
             <div>
-              <Controller
-                name="gender"
-                control={control}
-                render={({ field }) => (
-                  <Select {...field}>
-                    <SelectTrigger className="font-montserrat relative flex p-2 border-2 border-gray-300 rounded-md py-5">
-                      <SelectValue placeholder="Gender" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {Genders.map((item) => (
-                        <SelectItem
-                          key={item.id}
-                          value={item.id.toString()}
-                          className="font-montserrat"
-                        >
-                          {item.value}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                )}
-              />
-              {errors?.gender?.message && (
-                <p className="text-base text-red-400 font-montserrat">
-                  {errors?.gender?.message}
-                </p>
-              )}
+              <Select value={gender} onValueChange={setGender}>
+                <SelectTrigger className="font-montserrat relative flex p-2 border-2 border-gray-300 rounded-md py-5">
+                  <SelectValue placeholder="Gender" />
+                </SelectTrigger>
+                <SelectContent>
+                  {Genders.map((item, index) => (
+                    <SelectItem
+                      key={index}
+                      value={item.value}
+                      className="font-montserrat"
+                    >
+                      {item.value}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
           </div>
           <div className="flex flex-col gap-y-2">

@@ -37,7 +37,6 @@ export const RegisterBody = z
         message: "Invalid phone number",
       }
     ),
-    gender: z.string().min(1, { message: "Gender is required" }),
   })
   .strict()
   .superRefine(({ confirmPassword, password }, ctx) => {

@@ -13,7 +13,7 @@ export const login = async (body: LoginBodyType) => {
   return response.data;
 };
 
-export const register = async (body: RegisterBodyType) => {
+export const register = async (body: REQUEST.TRegister) => {
   const response = await request<TResponse>(API_ENDPOINTS.REGISTER, {
     method: "POST",
     data: body,

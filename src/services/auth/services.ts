@@ -31,7 +31,7 @@ export const useServiceLogin = () => {
 };
 
 export const useServiceRegister = () => {
-  return useMutation<TResponse, TMeta, RegisterBodyType>({
+  return useMutation<TResponse, TMeta, REQUEST.TRegister>({
     mutationFn: register,
   });
 };
