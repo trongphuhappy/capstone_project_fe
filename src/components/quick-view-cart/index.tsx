@@ -1,6 +1,6 @@
 import ImageGallery from "@/app/(user)/product/components/ImageGallery";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
-import useAddedCartDialog from "@/hooks/useAddedCartDialog";
+import useAddedCartDialog from "@/hooks/use-added-cart-dialog";
 import { formatCurrencyVND } from "@/utils/format-currency";
 import {
   productCategories,

@@ -11,7 +11,7 @@ export interface InitialState {
   searchDialog: {
     open: false | true;
   };
-  updateProfileDialog: {
+  updateAvatarProfileDialog: {
     open: false | true;
   };
 }
@@ -20,7 +20,7 @@ const initialState: InitialState = {
   addedCartDialog: { open: false },
   quickViewProduct: { open: false, product: null },
   searchDialog: { open: false },
-  updateProfileDialog: { open: false },
+  updateAvatarProfileDialog: { open: false },
 };
 
 const stateSlice = createSlice({
@@ -50,11 +50,11 @@ const stateSlice = createSlice({
     closeSearchDialog: (state) => {
       state.searchDialog.open = false;
     },
-    openUpdateProfileDialog: (state) => {
-      state.updateProfileDialog.open = true;
+    openUpdateAvatarProfileDialog: (state) => {
+      state.updateAvatarProfileDialog.open = true;
     },
-    closeUpdateProfileDialog: (state) => {
-      state.updateProfileDialog.open = false;
+    closeUpdateAvatarProfileDialog: (state) => {
+      state.updateAvatarProfileDialog.open = false;
     },
   },
 });
@@ -66,8 +66,8 @@ export const {
   closeQuickProductViewDialog,
   openSearchDialog,
   closeSearchDialog,
-  openUpdateProfileDialog,
-  closeUpdateProfileDialog,
+  openUpdateAvatarProfileDialog,
+  closeUpdateAvatarProfileDialog,
 } = stateSlice.actions;
 
 export default stateSlice.reducer;

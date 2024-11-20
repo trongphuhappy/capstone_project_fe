@@ -1,6 +1,6 @@
 "use client";
 
-import useSearchDialog from "@/hooks/useSearchDialog";
+import useSearchDialog from "@/hooks/use-search-dialog";
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 
