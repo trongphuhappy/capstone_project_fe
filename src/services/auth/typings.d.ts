@@ -1,31 +1,58 @@
-declare namespace API {
-  enum AuthRole {
-    USER = "user",
-    ADMIN = "admin",
-    LESSOR = "lessor",
-  }
+declare namespace REQUEST {
+  type TRegister = {
+    firstName: string;
+    lastName: string;
+    email: string;
+    phoneNumber: string;
+    password: string;
+    gender: number;
+  };
+  type TAuthVerifyEmail = {
+    email: string;
+  };
+}
 
+declare namespace API {
   type TAuthResponse = {
+    token: TAuthToken;
+    authProfile: TAuthProfile;
+  };
+
+  type TAuthForgotPasswordEmail = {
+    email: string;
+  };
+
+  type TAuthForgotPasswordOtp = {
+    email: string;
+    otp: string;
+  };
+
+  type TAuthForgotPasswordChange = {
+    email: string;
+    otp: string;
+    password: string;
+  };
+
+  type TAuthToken = {
     accessToken: string;
+    tokenType: string;
+  };
+
+  type TAuthLoginGoogle = {
+    accessTokenGoogle: string;
   };
 
   type TAuthProfile = {
-    id: number;
-    createdAt: string;
-    updatedAt: string;
-    userName: string;
-    image?: string;
+    userId: string;
+    firstName: string;
+    lastName: string;
+    cropAvatarLink: string;
+    fullAvatarLink: string;
+    roleId: AuthRole;
+  };
+
+  type TAuthForgotPassword = {
     email: string;
-    avatar?: string;
-    address?: string;
-    detailedAddress?: string;
-    dob?: string;
-    phoneNumber?: string;
-    fullName: string;
-    role: AuthRole;
-    citizenId?: string;
-    citizenCardFront?: string;
-    citizenCardBack?: string;
-    lessorId?: number;
+    otp: string;
   };
 }

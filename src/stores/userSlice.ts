@@ -10,15 +10,14 @@ const userSlice = createSlice({
   name: "userSlice",
   initialState: initialState,
   reducers: {
-    addProfile: (state, action: PayloadAction<API.TAuthProfile>) => {
+    loginUser: (state, action: PayloadAction<API.TAuthProfile>) => {
       state.profile = action.payload;
     },
-    removeProfile: (state) => {
+    removeInfoLogin: (state) => {
       state.profile = null;
     },
   },
 });
 
-export const { addProfile, removeProfile } = userSlice.actions;
-
+export const { loginUser, removeInfoLogin } = userSlice.actions;
 export default userSlice.reducer;

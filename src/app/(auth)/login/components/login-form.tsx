@@ -33,12 +33,12 @@ export default function LoginForm() {
         >
           <div className="flex flex-col gap-y-2">
             <InputAuth
-              id="username"
-              label="Username"
+              id="Email"
+              label="Email"
               type="text"
               autoComplete="off"
-              register={register("userName")}
-              error={errors?.userName?.message}
+              register={register("email")}
+              error={errors?.email?.message}
             />
           </div>
           <div className="flex flex-col gap-y-2">
@@ -55,6 +55,7 @@ export default function LoginForm() {
           </div>
           <div className="flex flex-col gap-y-5">
             <button
+              type="submit"
               className={`mt-2 block w-[100%] rounded-md py-2 ${
                 Object.keys(errors).length === 0
                   ? "bg-[#7a3cdd]"
