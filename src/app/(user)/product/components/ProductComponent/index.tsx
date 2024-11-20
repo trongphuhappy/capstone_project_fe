@@ -15,15 +15,19 @@ import {
 import { convertToProductCard } from "@/services/products/services";
 import useAddedCartDialog from "@/hooks/useAddedCartDialog";
 import CustomerReviews from "@/components/customer-reviews";
+import { PiListHeart } from "react-icons/pi";
 import { useState } from "react";
 
+interface ProductComponentProps {
+  productId: string;
+}
 interface Lessor {
   shopName: string;
   description: string;
 }
 
 interface ProductDetails {
-  id: string;
+  productId: string;
   name: string;
   description: string;
   images: string[];
@@ -48,7 +52,7 @@ const breadcrumbs: TBreadcrumb[] = [
 ];
 
 const productDetails: ProductDetails = {
-  id: "1",
+  productId: "1",
   name: "Hemnes",
   description: "Bed frame, white stain/Luröy, 150x200 cm",
   images: [
@@ -70,7 +74,7 @@ const productDetails: ProductDetails = {
   policies: ["Policy 1: Return within 30 days", "Policy 2: Warranty included"],
 };
 
-export default function ProductComponent() {
+export default function ProductComponent({ productId }: ProductComponentProps) {
 
   const [cart, setCart] = useState<ProductDetails[]>([]);
 
@@ -117,18 +121,21 @@ export default function ProductComponent() {
               </p>
             </div>
           </div>
-          <hr className="mb-4"/>
+          <hr className="mb-4" />
           <div className="my-2">
             <div className="flex items-center gap-x-3">
               <button
                 type="button"
                 className="w-full h-[56px] px-[12px] border border-[#0056a3] rounded-3xl group"
-              onClick={handleAddToCart}
+                onClick={handleAddToCart}
               >
-                <span className="font-semibold text-[#0056a3] group-hover:text-opacity-50">
-                  Add to cart
+                <span className="flex items-center justify-center font-semibold text-[#0056a3] group-hover:text-opacity-50">
+                  <PiListHeart className="mr-2 text-lg" /> 
+                  Add To Wishlist
                 </span>
               </button>
+
+
               <button
                 type="button"
                 className="w-full h-[56px] px-[12px] border border-[#0056a3] bg-[#0056a3] rounded-3xl hover:opacity-90"

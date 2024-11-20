@@ -179,13 +179,13 @@ export default function Header() {
                 <TooltipTrigger>
                   <div className="flex items-center justify-center gap-x-1 cursor-pointer rounded-[24px] h-12 group">
                     <Link href="/cart">
-                      <img src="/images/bag.svg" alt="bag" />
+                      <img src="/images/heart-svgrepo-com.svg" alt="heart-svgrepo-com" />
                     </Link>
                   </div>
                 </TooltipTrigger>
                 <TooltipContent className="bg-gray-50 shadow-tooltip px-2 py-3 select-none">
                   <span className="text-[#00000d] text-xs font-montserrat font-normal">
-                    Cart
+                    Wish list
                   </span>
                 </TooltipContent>
               </Tooltip>
