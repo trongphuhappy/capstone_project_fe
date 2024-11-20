@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/accordion";
 import { convertToProductCard } from "@/services/products/services";
 import useAddedCartDialog from "@/hooks/useAddedCartDialog";
+import CustomerReviews from "@/components/customer-reviews";
 
 interface ProductComponentProps {
   productId: string;
@@ -79,7 +80,8 @@ export default function ProductComponent({ productId }: ProductComponentProps) {
       <div className="pb-2 border-b-2">
         <BreadcrumbComponent breadcrumbs={breadcrumbs} />
       </div>
-      <div className="py-3 flex items-start gap-x-3 border-b-2">
+      <div className="py-3 flex items-start gap-x-3">
+        {/* <div>Helllo</div> */}
         <div className="w-[55%]">
           <ImageGallery
             images={product ? product?.images?.map((src) => ({ src })) : []}
@@ -108,7 +110,7 @@ export default function ProductComponent({ productId }: ProductComponentProps) {
               <p>
                 {product &&
                   translationKeys[
-                    product?.location as keyof typeof translationKeys
+                  product?.location as keyof typeof translationKeys
                   ]}
               </p>
             </div>
@@ -134,7 +136,8 @@ export default function ProductComponent({ productId }: ProductComponentProps) {
           </div>
         </div>
       </div>
-      <div className="mt-3">
+
+      <div className="mt-6 flex-6 w-6/12">
         <h2 className="text-2xl font-semibold mb-7">Detail</h2>
         <div className="my-2">
           <Accordion type="multiple">
@@ -165,6 +168,7 @@ export default function ProductComponent({ productId }: ProductComponentProps) {
           </Accordion>
         </div>
       </div>
+      <div className="border rounded-md p-8 mt-8"><CustomerReviews /></div>
     </div>
   );
 }

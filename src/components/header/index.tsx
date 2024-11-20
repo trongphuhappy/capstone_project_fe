@@ -26,7 +26,11 @@ interface INavItem {
 const InitialNavItems: INavItem[] = [
   {
     label: "All Products",
-    subItems: [],
+    subItems: [
+      { id: 1, name: "Electronics" },
+      { id: 2, name: "Clothing" },
+      { id: 3, name: "Home Appliances" },
+    ],
     image: "/images/banner1.png",
   },
   {
@@ -145,7 +149,7 @@ export default function Header() {
                     align="center"
                     className="w-auto h-auto text-white rounded-md p-0 overflow-hidden"
                   >
-                    <AvatarMenu onCloseTooltip={() => {}} />
+                    <AvatarMenu onCloseTooltip={() => { }} />
                   </PopoverContent>
                 </Popover>
               </div>
@@ -204,6 +208,7 @@ export default function Header() {
           </li>
         </ul>
       </div>
+
       <div className="h-[40px] flex items-center">
         <nav>
           <ul className="flex items-center justify-start gap-x-[60px] relative">
@@ -214,9 +219,12 @@ export default function Header() {
                 onMouseEnter={(e) => handleMouseEnter(index, e.currentTarget)}
                 onMouseLeave={handleMouseLeave}
               >
+                
                 <span className="text-xs text-black font-semibold font-montserrat">
                   {item.label}
                 </span>
+
+                
                 <AnimatePresence>
                   {dropdownIndex === index && (
                     <motion.div
@@ -228,17 +236,21 @@ export default function Header() {
                       onMouseEnter={handleDropdownMouseEnter}
                       onMouseLeave={handleDropdownMouseLeave}
                     >
+                     
                       <div className="w-1/2 p-4">
-                        {item?.subItems?.map((subItem, subIndex) => (
-                          <a
-                            key={subIndex}
-                            href="#"
-                            className="block px-2 py-1 text-sm text-black hover:bg-gray-200"
-                          >
-                            {productCategories[subItem.name]}
-                          </a>
-                        ))}
+                        {item?.subItems && item.subItems.length > 0 ? (
+                          item.subItems.map((subItem, idx) => (
+                            <div key={idx} className="mb-2">
+                              {subItem.name}
+                            </div>
+                          ))
+                        ) : (
+                          <span className="text-sm text-gray-500">
+                            No subcategories available
+                          </span>
+                        )}
                       </div>
+
                       <div className="w-1/2 relative">
                         <Image
                           src={item?.image}
@@ -252,6 +264,8 @@ export default function Header() {
                 </AnimatePresence>
               </li>
             ))}
+
+            
             <motion.span
               className="absolute transition-all duration-300 rounded-lg border border-[#00939F]"
               style={{
