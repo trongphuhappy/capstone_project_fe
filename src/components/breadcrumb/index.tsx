@@ -8,7 +8,6 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import { TBreadcrumb } from "@/typings";
 import { Fragment } from "react";
 
 interface BreadcrumbProps {

@@ -1,10 +1,7 @@
 "use client";
 
 import BreadcrumbComponent from "@/components/breadcrumb";
-import { TBreadcrumb } from "@/typings";
 import ImageGallery from "@/app/(user)/product/components/ImageGallery";
-import useGetProductDetail from "@/app/(user)/product/hooks/useGetProduct";
-import { useEffect } from "react";
 import { Ratings } from "@/components/ui/rating";
 import { formatCurrencyVND } from "@/utils/format-currency";
 import { productLocale } from "@/utils/locales/en-US/product";
@@ -18,9 +15,23 @@ import {
 import { convertToProductCard } from "@/services/products/services";
 import useAddedCartDialog from "@/hooks/useAddedCartDialog";
 import CustomerReviews from "@/components/customer-reviews";
+import { useState } from "react";
 
-interface ProductComponentProps {
-  productId: string;
+interface Lessor {
+  shopName: string;
+  description: string;
+}
+
+interface ProductDetails {
+  id: string;
+  name: string;
+  description: string;
+  images: string[];
+  lessor: Lessor;
+  price: number;
+  timeUnit: string;
+  location: string;
+  policies: string[];
 }
 
 const breadcrumbs: TBreadcrumb[] = [
@@ -36,93 +47,85 @@ const breadcrumbs: TBreadcrumb[] = [
   },
 ];
 
-const images = [
-  { src: "/images/home-bg1.jpg", caption: "Ảnh 1" },
-  { src: "/images/auth02.jpg", caption: "Ảnh 2" },
-  { src: "/images/auth03.jpg", caption: "Ảnh 3" },
-  { src: "/images/home-bg1.jpg", caption: "Ảnh 1" },
-  { src: "/images/auth02.jpg", caption: "Ảnh 2" },
-  { src: "/images/auth03.jpg", caption: "Ảnh 3" },
-  { src: "/images/home-bg1.jpg", caption: "Ảnh 1" },
-  { src: "/images/auth02.jpg", caption: "Ảnh 2" },
-  { src: "/images/auth03.jpg", caption: "Ảnh 3" },
-  { src: "/images/home-bg1.jpg", caption: "Ảnh 1" },
-  { src: "/images/auth02.jpg", caption: "Ảnh 2" },
-  { src: "/images/auth03.jpg", caption: "Ảnh 3" },
-  { src: "/images/home-bg1.jpg", caption: "Ảnh 1" },
-  { src: "/images/auth02.jpg", caption: "Ảnh 2" },
-  { src: "/images/auth03.jpg", caption: "Ảnh 3" },
-];
+const productDetails: ProductDetails = {
+  id: "1",
+  name: "Hemnes",
+  description: "Bed frame, white stain/Luröy, 150x200 cm",
+  images: [
+    "/images/banner1.png",
+    "/images/banner2.png",
+    "/images/banner3.png",
+    "/images/banner3.png",
+    "/images/banner3.png",
+    "/images/banner3.png",
+    "/images/banner3.png",
+  ],
+  lessor: {
+    shopName: "GearPro Rentals",
+    description: "bed frame, white stain/Luröy, 150x200 cm",
+  },
+  price: 1200000,
+  timeUnit: "month",
+  location: "Ho Chi Minh City",
+  policies: ["Policy 1: Return within 30 days", "Policy 2: Warranty included"],
+};
 
-export default function ProductComponent({ productId }: ProductComponentProps) {
-  const { product, handleGetProduct } = useGetProductDetail();
+export default function ProductComponent() {
 
-  const { onOpenAddedCartDialog } = useAddedCartDialog();
-
-  const handleFetchData = async () => {
-    await handleGetProduct(productId);
-  };
+  const [cart, setCart] = useState<ProductDetails[]>([]);
 
   const handleAddToCart = () => {
-    if (product) {
-      const productCart = convertToProductCard(product);
-      onOpenAddedCartDialog(productCart);
-    } else {
-    }
+    setCart((prevCart) => [...prevCart, productDetails]);
   };
-
-  useEffect(() => {
-    handleFetchData();
-  }, []);
 
   return (
     <div className="mt-2 py-3 px-[50px] font-montserrat">
       <div className="pb-2 border-b-2">
         <BreadcrumbComponent breadcrumbs={breadcrumbs} />
       </div>
-      <div className="py-3 flex items-start gap-x-3">
-        {/* <div>Helllo</div> */}
-        <div className="w-[55%]">
+      <div className="py-3 flex items-start gap-10">
+        <div className="w-[50%]">
           <ImageGallery
-            images={product ? product?.images?.map((src) => ({ src })) : []}
+            images={productDetails.images.map((src) => ({ src }))}
           />
         </div>
-        <div className="w-[45%]">
-          <div className="pb-4 border-b">
-            <h1 className="font-semibold text-[#111111]">{product?.name}</h1>
-            <div className="flex items-center gap-x-3 mt-4">
-              <p className="text-base font-montserrat">Rating: </p>
-              <Ratings variant="yellow" rating={product?.averageStar || 0} />
-            </div>
-            <div className="mt-4 flex items-baseline gap-x-3">
-              <span className="text-base font-montserrat">Price:</span>
-              <p className="text-2xl text-black font-semibold">
-                {product && formatCurrencyVND(product?.price)}
-                {product && productLocale[product?.timeUnit]}
+
+        {/* Detail product */}
+        <div className="w-[50%]">
+          <div className="pb-4">
+            <h1 className="font-semibold text-[#111111] text-2xl uppercase">
+              {productDetails.name}
+            </h1>
+            <span className="text-gray-500">
+              {productDetails.description}
+            </span>
+            <div className="mt-4 flex items-baseline">
+              <p className="text-4xl text-black font-semibold">
+                {formatCurrencyVND(productDetails.price)}
+                {productLocale[productDetails.timeUnit]}
               </p>
             </div>
+            <hr className="mt-4" />
             <div className="flex items-center gap-x-3 mt-4">
               <p className="text-base font-montserrat">Lessor: </p>
-              <p>{product?.lessor?.shopName}</p>
+              <p className="text-gray-500">{productDetails.lessor.shopName}</p>
             </div>
             <div className="flex items-center gap-x-3 mt-4">
               <p className="text-base font-montserrat">Location: </p>
-              <p>
-                {product &&
-                  translationKeys[
-                  product?.location as keyof typeof translationKeys
-                  ]}
+              <p className="text-gray-500">
+                {productDetails.location}
               </p>
             </div>
           </div>
+          <hr className="mb-4"/>
           <div className="my-2">
             <div className="flex items-center gap-x-3">
               <button
                 type="button"
-                className="w-full h-[56px] px-[12px] border border-[#0056a3] rounded-3xl hover:bg-[#0056a3] group"
-                onClick={handleAddToCart}
+                className="w-full h-[56px] px-[12px] border border-[#0056a3] rounded-3xl group"
+              onClick={handleAddToCart}
               >
-                <span className="font-semibold text-[#0056a3] group-hover:text-white">
+                <span className="font-semibold text-[#0056a3] group-hover:text-opacity-50">
                   Add to cart
                 </span>
               </button>
@@ -146,7 +149,7 @@ export default function ProductComponent({ productId }: ProductComponentProps) {
                 <h3 className="text-[18px] font-semibold">Description</h3>
               </AccordionTrigger>
               <AccordionContent>
-                <p className="text-[16px]">{product?.description}</p>
+                <p className="text-[16px]">{productDetails.description}</p>
               </AccordionContent>
             </AccordionItem>
           </Accordion>
@@ -157,7 +160,7 @@ export default function ProductComponent({ productId }: ProductComponentProps) {
               </AccordionTrigger>
               <AccordionContent>
                 <ul className="flex flex-col gap-y-2">
-                  {product?.policies?.map((policy, index) => (
+                  {productDetails.policies.map((policy, index) => (
                     <li key={index} className="text-[16px]">
                       {policy}
                     </li>
@@ -168,7 +171,10 @@ export default function ProductComponent({ productId }: ProductComponentProps) {
           </Accordion>
         </div>
       </div>
-      <div className="border rounded-md p-8 mt-8"><CustomerReviews /></div>
+
+      <div className="border rounded-md p-8 mt-8">
+        <CustomerReviews />
+      </div>
     </div>
   );
 }

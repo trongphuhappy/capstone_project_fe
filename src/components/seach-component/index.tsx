@@ -1,5 +1,5 @@
 import useDebounce from "@/hooks/use-debounce";
-import useGetProductsFilter from "@/hooks/useGetProductsFilter";
+// import useGetProductsFilter from "@/hooks/useGetProductsFilter";
 import { formatCurrencyVND } from "@/utils/format-currency";
 import { productCategories, productLocale } from "@/utils/locales/en-US/product";
 import { ArrowRight, X } from "lucide-react";
@@ -18,7 +18,7 @@ export default function SearchComponent({
   const [searchName, setSearchName] = useState("");
   const debouncedSearchTerm = useDebounce(searchName, 600);
 
-  const { products, handleGetProductsFilter } = useGetProductsFilter();
+  // const { products, handleGetProductsFilter } = useGetProductsFilter();
 
   const handleCloseSearch = () => {
     onClose();
@@ -29,11 +29,11 @@ export default function SearchComponent({
   };
 
   const handleFetchDataSearch = async () => {
-    await handleGetProductsFilter({
-      page: 1,
-      take: 3,
-      name: debouncedSearchTerm,
-    });
+    // await handleGetProductsFilter({
+    //   page: 1,
+    //   take: 3,
+    //   name: debouncedSearchTerm,
+    // });
   };
 
   const nextPageProducts = () => {
@@ -45,34 +45,34 @@ export default function SearchComponent({
     handleFetchDataSearch();
   }, [debouncedSearchTerm]);
 
-  const renderProducts = () => {
-    return products?.data?.map((product: API.IProductCard, index: number) => {
-      return (
-        <Link key={index} href={`/product/${product.id}`} onClick={onClose}>
-          <div className="py-2 px-2 flex items-start gap-x-4 hover:bg-slate-100 cursor-pointer">
-            <img
-              src={product.image}
-              alt={product.name}
-              className="w-[100px] h-[100px] border"
-            />
-            <div className="flex flex-col gap-y-2">
-              <h3 className="text-base">Name: {product.name}</h3>
-              <p className="font-montserrat text-[15px]">
-                Type: {productCategories[product?.category?.name]}
-              </p>
-              <div className="flex items-baseline gap-x-3">
-                <span className="text-base font-montserrat">Price:</span>
-                <p className="text-2xl text-black font-semibold">
-                  {product && formatCurrencyVND(product?.price)}
-                  {product && productLocale[product?.timeUnit]}
-                </p>
-              </div>
-            </div>
-          </div>
-        </Link>
-      );
-    });
-  };
+  // const renderProducts = () => {
+  //   return products?.data?.map((product: API.IProductCard, index: number) => {
+  //     return (
+  //       <Link key={index} href={`/product/${product.id}`} onClick={onClose}>
+  //         <div className="py-2 px-2 flex items-start gap-x-4 hover:bg-slate-100 cursor-pointer">
+  //           <img
+  //             src={product.image}
+  //             alt={product.name}
+  //             className="w-[100px] h-[100px] border"
+  //           />
+  //           <div className="flex flex-col gap-y-2">
+  //             <h3 className="text-base">Name: {product.name}</h3>
+  //             <p className="font-montserrat text-[15px]">
+  //               Type: {productCategories[product?.category?.name]}
+  //             </p>
+  //             <div className="flex items-baseline gap-x-3">
+  //               <span className="text-base font-montserrat">Price:</span>
+  //               <p className="text-2xl text-black font-semibold">
+  //                 {product && formatCurrencyVND(product?.price)}
+  //                 {product && productLocale[product?.timeUnit]}
+  //               </p>
+  //             </div>
+  //           </div>
+  //         </div>
+  //       </Link>
+  //     );
+  //   });
+  // };
 
   return (
     <div
@@ -124,7 +124,7 @@ export default function SearchComponent({
                   </div>
                 </div>
               </div>
-              <div className="mt-3">
+              {/* <div className="mt-3">
                 {products?.data && products?.data?.length > 0 ? (
                   debouncedSearchTerm !== "" ? (
                     <h3 className="text-base font-light">
@@ -137,7 +137,7 @@ export default function SearchComponent({
                   <h3 className="text-base font-light">No results</h3>
                 )}
                 <div className="py-3">{renderProducts()}</div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

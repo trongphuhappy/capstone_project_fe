@@ -1,13 +1,14 @@
-const AUTH = 'v1/auth';
-const LOGIN = AUTH + '/login';
-const PROFILE = AUTH + '/profile';
-const REGISTER = AUTH + '/register';
-
-const ADMIN_LOGIN = AUTH + '/admin-login';
+const AUTH = "v2/Authentication";
+const LOGIN = AUTH + "/login";
+const REGISTER = AUTH + "/register";
+const LOGOUT = AUTH + "/logout";
+const REFRESH_TOKEN = AUTH + "/refresh-token";
+const VERIFY_EMAIL = AUTH + "/verify-email";
 
 export default {
   LOGIN,
-  PROFILE,
   REGISTER,
-  ADMIN_LOGIN,
+  LOGOUT,
+  REFRESH_TOKEN,
+  VERIFY_EMAIL
 };

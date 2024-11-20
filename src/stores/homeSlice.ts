@@ -1,10 +1,10 @@
-import { IPaginationResponse } from "@/typings";
+// import { IPaginationResponse } from "@/typings";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface InitialState {
   furniture: {
     status: "idle" | "loading" | "succeeded" | "failed";
-    products: IPaginationResponse<API.IProductCard> | null;
+    products: null;
   };
 }
 
@@ -24,14 +24,14 @@ const homeSlice = createSlice({
     },
     getProductFurnitureSuccess: (
       state,
-      action: PayloadAction<IPaginationResponse<API.IProductCard>>
+      // action: PayloadAction<IPaginationResponse<API.IProductCard>>
     ) => {
       state.furniture.status = "succeeded";
-      state.furniture.products = action.payload;
+      // state.furniture.products = action.payload;
     },
     getProductFurnitureFailed: (state) => {
       state.furniture.status = "failed";
-      state.furniture.products = null
+      state.furniture.products = null;
     },
   },
 });

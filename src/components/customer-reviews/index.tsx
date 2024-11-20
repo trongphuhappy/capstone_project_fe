@@ -209,20 +209,9 @@ export default function CustomerReviews() {
                                             <span><BiLike /></span>
                                             <p>Useful</p>
                                         </button>
-                                        <button className="flex items-center gap-1">
-                                            <span><FaRegComment />
-                                            </span>
-                                            <p>1</p>
-                                        </button>
-                                    </div>
-                                    <div>
-                                        <button className="flex items-center gap-1">
-                                            <span><GoShareAndroid /></span>
-                                            <p>Share</p>
-                                        </button>
                                     </div>
                                 </div>
-
+                                
                                 {/* Phản hồi từ admin */}
                                 {review.response && (
                                     <div className="mt-4 bg-gray-100 p-3 rounded flex gap-4">
