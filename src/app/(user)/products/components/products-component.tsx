@@ -10,7 +10,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { filters } from "@/const/products";
-import useGetProductsFilter from "@/hooks/useGetProductsFilter";
+// import useGetProductsFilter from "@/hooks/useGetProductsFilter";
 import { useEffect, useState } from "react";
 import PaginatedComponent from "@/components/paginated";
 import { useSearchParams, useRouter } from "next/navigation";
@@ -36,33 +36,34 @@ export default function ProductsComponent() {
 
   const [currentPage, setCurrentPage] = useState<number>(1);
 
-  const { products, handleGetProductsFilter } = useGetProductsFilter();
+  // const { products, handleGetProductsFilter } = useGetProductsFilter();
+  const products = null;
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
-    handleGetData(page);
+    // handleGetData(page);
   };
 
-  const handleGetData = async (pageIndex: number) => {
-    await handleGetProductsFilter({
-      isVehicle:
-        category !== null && category !== "others"
-          ? category === "vehicles"
-          : undefined,
-      location:
-        location !== "others"
-          ? (location as "common.location.HCM" | "common.location.HN")
-          : undefined,
-      sortField:
-        sortField !== "others"
-          ? (sortField as "createdAt" | "price" | "accessCount")
-          : undefined,
-      name: searchName != null ? searchName : "",
-      order: order !== "others" ? (order as "ASC" | "DESC") : undefined,
-      page: pageIndex,
-      take: 12,
-    });
-  };
+  // const handleGetData = async (pageIndex: number) => {
+  //   await handleGetProductsFilter({
+  //     isVehicle:
+  //       category !== null && category !== "others"
+  //         ? category === "vehicles"
+  //         : undefined,
+  //     location:
+  //       location !== "others"
+  //         ? (location as "common.location.HCM" | "common.location.HN")
+  //         : undefined,
+  //     sortField:
+  //       sortField !== "others"
+  //         ? (sortField as "createdAt" | "price" | "accessCount")
+  //         : undefined,
+  //     name: searchName != null ? searchName : "",
+  //     order: order !== "others" ? (order as "ASC" | "DESC") : undefined,
+  //     page: pageIndex,
+  //     take: 12,
+  //   });
+  // };
 
   const updateQueryParams = () => {
     const queryParams: Record<string, string | null> = {
@@ -87,10 +88,10 @@ export default function ProductsComponent() {
 
   useEffect(() => {
     if (currentPage !== 1) {
-      handleGetData(1);
+      // handleGetData(1);
       setCurrentPage(1);
     } else {
-      handleGetData(currentPage);
+      // handleGetData(currentPage);
     }
   }, [category, location, sortField, order]);
 
@@ -100,7 +101,7 @@ export default function ProductsComponent() {
 
   return (
     <div className="my-3 py-5 px-[50px] font-montserrat">
-      <div>
+      {/* <div>
         <div className="flex items-baseline gap-x-5">
           {searchName !== null && searchName !== "" && (
             <h3 className="font-semibold text-3xl">{searchName}</h3>
@@ -170,7 +171,7 @@ export default function ProductsComponent() {
             )}
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }

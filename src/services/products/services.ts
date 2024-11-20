@@ -1,28 +1,28 @@
-import {
-  getProductDetails,
-  getProducts,
-} from "@/services/products/api-services";
-import { IPaginationResponse } from "@/typings";
+// import {
+//   getProductDetails,
+//   getProducts,
+// } from "@/services/products/api-services";
+// import { IPaginationResponse } from "@/typings";
 import { product } from "@/utils/locales/en-US/product";
 
-export const useServiceProductPage = async (
-  pagination: API.IProductPaginationParams
-) => {
-  try {
-    const response = await getProducts(pagination);
-    const data =
-      response.result as unknown as IPaginationResponse<API.IProductCard>;
-    return data;
-  } catch (err) {
-    return null;
-  }
-};
+// export const useServiceProductPage = async (
+//   pagination: API.IProductPaginationParams
+// ) => {
+//   try {
+//     const response = await getProducts(pagination);
+//     const data =
+//       response.result as unknown as IPaginationResponse<API.IProductCard>;
+//     return data;
+//   } catch (err) {
+//     return null;
+//   }
+// };
 
 export const useServiceProductDetails = async (productId?: number | string) => {
   try {
-    const response = await getProductDetails(productId);
-    const data = response.result.data as unknown as API.IProductDetails;
-    return data;
+    // const response = await getProductDetails(productId);
+    // const data = response.result.data as unknown as API.IProductDetails;
+    // return data;
   } catch (err) {
     return null;
   }

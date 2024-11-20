@@ -1,3 +1,9 @@
+declare type TBreadcrumb = {
+  link: string;
+  title: string;
+  isActive: boolean;
+};
+
 declare type TMeta = {
   detail: string;
   errorCode: string;

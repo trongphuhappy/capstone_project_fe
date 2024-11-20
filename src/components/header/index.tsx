@@ -14,7 +14,7 @@ import Link from "next/link";
 import { useAppSelector } from "@/stores/store";
 import AvatarMenu from "@/components/avatar-menu";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
-import { useServiceProductCategories } from "@/services/product-categories/services";
+// import { useServiceProductCategories } from "@/services/product-categories/services";
 import { productCategories } from "@/utils/locales/en-US/product";
 import { Bell } from "lucide-react";
 import { Backdrop } from "@/components/backdrop";
@@ -65,7 +65,7 @@ export default function Header() {
   const [avatarMenuTooltip, setAvatarMenuTooltip] = useState<boolean>(false);
 
   const handleCategories = async () => {
-    await useServiceProductCategories();
+    // await useServiceProductCategories();
   };
 
   const handleMouseEnter = (index: number, element: HTMLLIElement) => {

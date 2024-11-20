@@ -1,7 +1,6 @@
 "use client";
 
 import BreadcrumbComponent from "@/components/breadcrumb";
-import { TBreadcrumb } from "@/typings";
 import ImageGallery from "@/app/(user)/product/components/ImageGallery";
 import useGetProductDetail from "@/app/(user)/product/hooks/useGetProduct";
 import { useEffect } from "react";
