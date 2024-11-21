@@ -9,6 +9,7 @@ import styled from "styled-components";
 import Link from "next/link";
 import { Slide, SlideWorks } from "@/mock/homepage";
 
+
 const CarouselContainer = styled.div`
   &:hover h3 {
     text-decoration: underline;

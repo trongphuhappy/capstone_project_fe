@@ -140,7 +140,7 @@ export default function ProductComponent({ productId }: ProductComponentProps) {
                 type="button"
                 className="w-full h-[56px] px-[12px] border border-[#0056a3] bg-[#0056a3] rounded-3xl hover:opacity-90"
               >
-                <span className="font-semibold text-white">Check out</span>
+                <span className="font-semibold text-white">Rent Now</span>
               </button>
             </div>
           </div>

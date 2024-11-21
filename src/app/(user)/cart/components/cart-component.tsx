@@ -131,7 +131,7 @@ const CartComponent = () => {
               onClick={() => router.push("/checkout")}
               className="bg-[#0056a3] text-white py-2 px-6 rounded-full hover:opacity-90"
             >
-              Checkout
+              Rent Now
             </button>
           </div>
         </div>
