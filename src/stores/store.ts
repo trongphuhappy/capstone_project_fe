@@ -15,7 +15,6 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 
 import stateSlice from "@/stores/stateSlice";
 import userSlice from "@/stores/userSlice";
-import categorySlice from "@/stores/categorySlice";
 import homeSlice from "@/stores/homeSlice";
 import cartSlice from "@/stores/cartSlice";
 
@@ -30,7 +29,6 @@ const persistConfig = {
 const rootReducer = combineReducers({
   stateSlice: stateSlice,
   userSlice: userSlice,
-  categorySlice: categorySlice,
   homeSlice: homeSlice,
   cartSlice: cartSlice,
 });

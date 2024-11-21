@@ -19,44 +19,43 @@ import { productCategories } from "@/utils/locales/en-US/product";
 import { Bell, SquarePen } from "lucide-react";
 import { Backdrop } from "@/components/backdrop";
 
-interface INavItem {
-  label: string;
-  subItems: API.ICategoryDescriptions[] | undefined;
-  image: string;
-}
+// interface INavItem {
+//   label: string;
+//   // subItems: API.ICategoryDescriptions[] | undefined;
+//   image: string;
+// }
 
-const InitialNavItems: INavItem[] = [
-  {
-    label: "All Products",
-    subItems: [],
-    image: "/images/banner1.png",
-  },
-  {
-    label: "Furnitures",
-    subItems: [],
-    image: "/images/banner2.png",
-  },
-  {
-    label: "Vehicles",
-    subItems: [],
-    image: "/images/car1.png",
-  },
-  {
-    label: "E-Neighbor for LESSOR",
-    subItems: [],
-    image: "/images/auth03.jpg",
-  },
-  {
-    label: "Contact Us",
-    subItems: [],
-    image: "/images/mordern-sopha.jpg",
-  },
-];
+// const InitialNavItems: INavItem[] = [
+//   {
+//     label: "All Products",
+//     subItems: [],
+//     image: "/images/banner1.png",
+//   },
+//   {
+//     label: "Furnitures",
+//     subItems: [],
+//     image: "/images/banner2.png",
+//   },
+//   {
+//     label: "Vehicles",
+//     subItems: [],
+//     image: "/images/car1.png",
+//   },
+//   {
+//     label: "E-Neighbor for LESSOR",
+//     subItems: [],
+//     image: "/images/auth03.jpg",
+//   },
+//   {
+//     label: "Contact Us",
+//     subItems: [],
+//     image: "/images/mordern-sopha.jpg",
+//   },
+// ];
 
 export default function Header() {
   const userState = useAppSelector((state) => state.userSlice);
-  const categorySlice = useAppSelector((state) => state.categorySlice);
-  const [navItems, setNavItems] = useState<INavItem[]>(InitialNavItems);
+  // const [navItems, setNavItems] = useState<INavItem[]>(InitialNavItems);
 
   const [underlineWidth, setUnderlineWidth] = useState<number>(0);
   const [underlineLeft, setUnderlineLeft] = useState<number>(0);
@@ -74,19 +73,19 @@ export default function Header() {
       setUnderlineWidth(offsetWidth);
       setUnderlineLeft(offsetLeft);
       setDropdownIndex(index);
-      if (index === 1) {
-        setNavItems((prevNavItems) =>
-          prevNavItems.map((item, i) =>
-            i === 1 ? { ...item, subItems: categorySlice.furniture } : item
-          )
-        );
-      } else if (index === 2) {
-        setNavItems((prevNavItems) =>
-          prevNavItems.map((item, i) =>
-            i === 2 ? { ...item, subItems: categorySlice.vehicles } : item
-          )
-        );
-      }
+      // if (index === 1) {
+      //   setNavItems((prevNavItems) =>
+      //     prevNavItems.map((item, i) =>
+      //       i === 1 ? { ...item, subItems: categorySlice.furniture } : item
+      //     )
+      //   );
+      // } else if (index === 2) {
+      //   setNavItems((prevNavItems) =>
+      //     prevNavItems.map((item, i) =>
+      //       i === 2 ? { ...item, subItems: categorySlice.vehicles } : item
+      //     )
+      //   );
+      // }
     }
   };
 
@@ -195,7 +194,10 @@ export default function Header() {
                 </div>
               </li>
               <li>
-                <Popover open={avatarMenuTooltip} onOpenChange={setAvatarMenuTooltip}>
+                <Popover
+                  open={avatarMenuTooltip}
+                  onOpenChange={setAvatarMenuTooltip}
+                >
                   <PopoverTrigger asChild>
                     <div onClick={handleToggleAvatarMenuTooltip}>
                       <figure className="rounded-full border border-zinc-300 overflow-hidden w-10 h-10 flex items-center justify-center hover:bg-gray-200">
@@ -238,60 +240,7 @@ export default function Header() {
       <div className="h-[40px] flex items-center">
         <nav>
           <ul className="flex items-center justify-start gap-x-[60px] relative">
-            {navItems?.map((item, index) => (
-              <li
-                key={index}
-                className="cursor-pointer relative"
-                onMouseEnter={(e) => handleMouseEnter(index, e.currentTarget)}
-                onMouseLeave={handleMouseLeave}
-              >
-                <span className="text-xs text-black font-semibold font-montserrat">
-                  {item.label}
-                </span>
-                <AnimatePresence>
-                  {dropdownIndex === index && (
-                    <motion.div
-                      className="absolute left-0 top-[calc(100%+10px)] bg-white shadow-lg w-[800px] h-[400px] z-50 flex"
-                      initial={{ opacity: 0, y: -10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -10 }}
-                      transition={{ duration: 0.3 }}
-                      onMouseEnter={handleDropdownMouseEnter}
-                      onMouseLeave={handleDropdownMouseLeave}
-                    >
-                      <div className="w-1/2 p-4">
-                        {item?.subItems?.map((subItem, subIndex) => (
-                          <a
-                            key={subIndex}
-                            href="#"
-                            className="block px-2 py-1 text-sm text-black hover:bg-gray-200"
-                          >
-                            {productCategories[subItem.name]}
-                          </a>
-                        ))}
-                      </div>
-                      <div className="w-1/2 relative">
-                        <Image
-                          src={item?.image}
-                          alt={item?.label}
-                          layout="fill"
-                          objectFit="cover"
-                        />
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </li>
-            ))}
-            <motion.span
-              className="absolute transition-all duration-300 rounded-lg border border-[#00939F]"
-              style={{
-                width: underlineWidth,
-                left: underlineLeft,
-                bottom: "-4px",
-              }}
-              layout
-            />
+            Nav
           </ul>
         </nav>
       </div>

@@ -1,10 +1,4 @@
 // import { getCategories } from "@/services/product-categories/api-services";
-import {
-  getCategoriesFailed,
-  getCategoriesPending,
-  getCategoriesSuccess,
-} from "@/stores/categorySlice";
-import { store } from "@/stores/store";
 
 // export const useServiceProductCategories = async (isVehicle?: boolean) => {
 //   store.dispatch(getCategoriesPending());
