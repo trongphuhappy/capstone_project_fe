@@ -1,6 +1,6 @@
 "use client";
 
-import useAddedCartDialog from "@/hooks/useAddedCartDialog";
+import useAddedCartDialog from "@/hooks/use-added-cart-dialog";
 import { useAppSelector } from "@/stores/store";
 import { formatCurrencyVND } from "@/utils/format-currency";
 import {

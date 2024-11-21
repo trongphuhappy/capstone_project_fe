@@ -9,7 +9,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import styles from "@/components/cart-product-item-v1/cart-product-item.module.css";
-import useQuickViewProduct from "@/hooks/useQuickViewProduct";
+import useQuickViewProduct from "@/hooks/use-quick-view-product";
 
 import { productCategories, productLocale } from "@/utils/locales/en-US/product";
 import Link from "next/link";
