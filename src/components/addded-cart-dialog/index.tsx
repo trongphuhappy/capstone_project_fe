@@ -6,7 +6,7 @@ import { formatCurrencyVND } from "@/utils/format-currency";
 import { BsCheckCircleFill } from "react-icons/bs";
 import { useAppSelector } from "@/stores/store";
 import { productCategories } from "@/utils/locales/en-US/product";
-import useAddedCartDialog from "@/hooks/useAddedCartDialog";
+import useAddedCartDialog from "@/hooks/use-added-cart-dialog";
 import Link from "next/link";
 
 interface AddedCartDialogProps {

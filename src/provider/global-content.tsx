@@ -2,11 +2,13 @@
 
 import { Fragment } from "react";
 import AddedCartDialog from "@/components/addded-cart-dialog";
-import useAddedCartDialog from "@/hooks/useAddedCartDialog";
+import useAddedCartDialog from "@/hooks/use-added-cart-dialog";
 import QuickViewCart from "@/components/quick-view-cart";
-import useQuickViewProduct from "@/hooks/useQuickViewProduct";
+import useQuickViewProduct from "@/hooks/use-quick-view-product";
 import SearchComponent from "@/components/seach-component";
-import useSearchDialog from "@/hooks/useSearchDialog";
+import useSearchDialog from "@/hooks/use-search-dialog";
+import UpdateAvatarProfile from "@/components/update-avatar-profile";
+import useUpdateProfileDialog from "@/hooks/use-update-profile-dialog";
 
 export default function GlobalContent({
   children,
@@ -24,6 +26,8 @@ export default function GlobalContent({
 
   const { open: isSearchDialogOpen, onCloseSearchDialog } = useSearchDialog();
 
+  const { avatarOpen, onCloseUpdateAvatarProfile } = useUpdateProfileDialog();
+
   return (
     <Fragment>
       <AddedCartDialog
@@ -38,6 +42,10 @@ export default function GlobalContent({
       <SearchComponent
         open={isSearchDialogOpen}
         onClose={onCloseSearchDialog}
+      />
+      <UpdateAvatarProfile
+        open={avatarOpen}
+        onClose={onCloseUpdateAvatarProfile}
       />
       <main>{children}</main>
     </Fragment>

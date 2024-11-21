@@ -16,7 +16,7 @@ import AvatarMenu from "@/components/avatar-menu";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 // import { useServiceProductCategories } from "@/services/product-categories/services";
 import { productCategories } from "@/utils/locales/en-US/product";
-import { Bell } from "lucide-react";
+import { Bell, SquarePen } from "lucide-react";
 import { Backdrop } from "@/components/backdrop";
 
 interface INavItem {
@@ -122,7 +122,7 @@ export default function Header() {
   };
 
   return (
-    <header className="px-[50px] mx-auto">
+    <header className="px-[50px] mx-auto font-montserrat">
       <div className="py-4 flex items-center justify-between gap-x-16">
         <Link href="/">
           <figure className="flex items-center gap-x-2">
@@ -199,9 +199,7 @@ export default function Header() {
                 </div>
               </li>
               <li>
-                <Popover
-                  open={avatarMenuTooltip}
-                >
+                <Popover open={avatarMenuTooltip} onOpenChange={setAvatarMenuTooltip}>
                   <PopoverTrigger asChild>
                     <div onClick={handleToggleAvatarMenuTooltip}>
                       <figure className="rounded-full border border-zinc-300 overflow-hidden w-10 h-10 flex items-center justify-center hover:bg-gray-200">
@@ -226,6 +224,16 @@ export default function Header() {
                     <AvatarMenu onCloseTooltip={handleCloseAvatarMenuTooltip} />
                   </PopoverContent>
                 </Popover>
+              </li>
+              <li>
+                <button>
+                  <div className="flex items-center gap-x-2 px-5 py-2 rounded-md bg-[#00939f] hover:bg-[#15757e]">
+                    <SquarePen className="w-5 h-5 text-white" />
+                    <span className="text-[14px] font-semibold text-white">
+                      POST
+                    </span>
+                  </div>
+                </button>
               </li>
             </Fragment>
           )}

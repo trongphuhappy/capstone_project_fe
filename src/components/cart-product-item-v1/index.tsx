@@ -17,6 +17,10 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
+import styles from "@/components/cart-product-item-v1/cart-product-item.module.css";
+import useQuickViewProduct from "@/hooks/use-quick-view-product";
+
+import { productCategories, productLocale } from "@/utils/locales/en-US/product";
 import Link from "next/link";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";

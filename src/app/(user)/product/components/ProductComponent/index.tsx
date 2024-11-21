@@ -13,10 +13,10 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { convertToProductCard } from "@/services/products/services";
-import useAddedCartDialog from "@/hooks/useAddedCartDialog";
 import CustomerReviews from "@/components/customer-reviews";
 import { PiListHeart } from "react-icons/pi";
 import { useState } from "react";
+import useAddedCartDialog from "@/hooks/use-added-cart-dialog";
 
 interface ProductComponentProps {
   productId: string;
