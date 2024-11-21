@@ -1,31 +1,19 @@
 import request from "@/services/interceptor";
-import {
-  PRODUCT_CATEGORIES,
-  PRODUCT_CATEGORIES_DETAILS,
-} from "@/services/product-categories/api-path";
+import { GET_CATEGORIES } from "@/services/product-categories/api-path";
 
-// export const getCategories = async (
-//   categoryOptions?: API.ICategoriesParams
-// ) => {
-//   const res = await request<TMeta<API.ICategoryDescriptions[]>>(
-//     PRODUCT_CATEGORIES,
-//     {
-//       method: "GET",
-//       params: categoryOptions,
-//     }
-//   );
-//   return res.data;
-// };
-
-// export const getCategoriesDetails = async (categoryId?: number | string) => {
-//   const response = await request<TMetaWrapper<API.ICategoryDetails>>(
-//     PRODUCT_CATEGORIES_DETAILS,
-//     {
-//       method: "GET",
-//       params: {
-//         categoryId: categoryId,
-//       },
-//     }
-//   );
-//   return response.data;
-// };
+export const getCategories = async (categoryOptions?: REQUEST.ICategories) => {
+  const params: Record<string, any> = {};
+  if (categoryOptions?.id) params.id = categoryOptions.id;
+  if (categoryOptions?.name) params.name = categoryOptions.name;
+  if (categoryOptions?.isVehical) params.isVehical = categoryOptions.isVehical;
+  if (categoryOptions?.pageIndex) params.pageIndex = categoryOptions.pageIndex;
+  if (categoryOptions?.pageSize) params.pageSize = categoryOptions.pageSize;
+  const response = await request<TResponseData<API.TGetCategories>>(
+    GET_CATEGORIES,
+    {
+      method: "GET",
+      params: Object.keys(params).length > 0 ? params : undefined,
+    }
+  );
+  return response.data;
+};
