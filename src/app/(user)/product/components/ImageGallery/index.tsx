@@ -49,6 +49,10 @@ const Gallery: React.FC<GalleryProps> = ({ images }) => {
   const [isNextDisabled, setIsNextDisabled] = useState<boolean>(false);
   const [isPrevDisabled, setIsPrevDisabled] = useState<boolean>(false);
 
+  const [showMore, setShowMore] = useState(false);
+  const maxInitialThumbnails = 3;
+  const thumbnailsToShow = showMore ? images : images.slice(0, maxInitialThumbnails);
+
   const swiperRef = useRef<any>(null);
   const thumbnailsRef = useRef<HTMLDivElement>(null); // Reference for thumbnail gallery
 
@@ -105,9 +109,8 @@ const Gallery: React.FC<GalleryProps> = ({ images }) => {
           <button
             onClick={handleNext}
             disabled={isNextDisabled}
-            className={`custom-next-button absolute top-1/2 right-0 translate-x-1/2 -translate-y-1/2 z-[20] ${
-              isNextDisabled === true && "opacity-0"
-            }`}
+            className={`custom-next-button absolute top-1/2 right-0 translate-x-1/2 -translate-y-1/2 z-[20] ${isNextDisabled === true && "opacity-0"
+              }`}
           >
             <ButtonCarousel>
               <ChevronRight className="text-white w-5 h-5" strokeWidth={2.5} />
@@ -116,9 +119,8 @@ const Gallery: React.FC<GalleryProps> = ({ images }) => {
           <button
             onClick={handlePrev}
             disabled={isPrevDisabled}
-            className={`custom-prev-button absolute top-1/2 left-0 -translate-x-1/2 -translate-y-1/2 z-[20] ${
-              isPrevDisabled === true && "opacity-0"
-            }`}
+            className={`custom-prev-button absolute top-1/2 left-0 -translate-x-1/2 -translate-y-1/2 z-[20] ${isPrevDisabled === true && "opacity-0"
+              }`}
           >
             <ButtonCarousel>
               <ChevronLeft className="text-white w-5 h-5" strokeWidth={2.5} />
@@ -149,31 +151,56 @@ const Gallery: React.FC<GalleryProps> = ({ images }) => {
         </Swiper>
       </div>
 
-      <div
-        ref={thumbnailsRef}
-        className={`w-full pb-2 flex gap-x-2 overflow-x-auto ${styles.imageGallery}`}
-      >
-        {images?.map((image, index) => (
-          <figure
-            key={index}
-            className={`border flex-shrink-0 select-none hover:bg-slate-100 ${
-              currentIndex === index ? "bg-slate-200" : ""
-            }`}
-          >
-            <img
-              src={image.src}
-              alt={`Thumbnail ${index + 1}`}
-              className="w-24 h-24 object-cover cursor-pointer p-1"
-              onClick={() => {
+      <div className="w-full pb-2">
+        <div className={`flex gap-x-2 overflow-x-auto flex-nowrap ${styles.imageGallery}`}>
+          {thumbnailsToShow.map((image, index) => (
+            <figure
+              key={index}
+              className={`border flex-shrink-0 select-none hover:bg-slate-100 hover:border-black ${currentIndex === index ? "bg-slate-200" : ""
+                }`}
+              style={{
+                flexBasis: "calc(100% / 4)",
+              }}
+              onMouseEnter={() => {
+                setCurrentIndex(index);
                 if (swiperRef.current) {
                   swiperRef.current.swiper.slideTo(index);
-                  setCurrentIndex(index);
                 }
               }}
-            />
-          </figure>
-        ))}
+            >
+              <img
+                src={image.src}
+                alt={`Thumbnail ${index + 1}`}
+                className="w-full h-auto object-cover cursor-pointer p-1"
+                onClick={() => {
+                  if (swiperRef.current) {
+                    swiperRef.current.swiper.slideTo(index);
+                    setCurrentIndex(index);
+                  }
+                }}
+              />
+            </figure>
+          ))}
+
+          {/* button more */}
+          {!showMore && images.length > maxInitialThumbnails && (
+            <figure
+              className="border flex-shrink-0 select-none hover:bg-slate-100"
+              style={{
+                flexBasis: "calc(100% / 4)",
+              }}
+            >
+              <button
+                onClick={() => setShowMore(true)}
+                className="w-full h-full flex justify-center items-center border cursor-pointer"
+              >
+                +{images.length - maxInitialThumbnails} more
+              </button>
+            </figure>
+          )}
+        </div>
       </div>
+
 
       {isOpen && (
         <Lightbox

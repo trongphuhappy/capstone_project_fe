@@ -28,7 +28,11 @@ interface INavItem {
 const InitialNavItems: INavItem[] = [
   {
     label: "All Products",
-    subItems: [],
+    subItems: [
+      { id: 1, name: "Electronics" },
+      { id: 2, name: "Clothing" },
+      { id: 3, name: "Home Appliances" },
+    ],
     image: "/images/banner1.png",
   },
   {
@@ -175,13 +179,13 @@ export default function Header() {
                 <TooltipTrigger>
                   <div className="flex items-center justify-center gap-x-1 cursor-pointer rounded-[24px] h-12 group">
                     <Link href="/cart">
-                      <img src="/images/bag.svg" alt="bag" />
+                      <img src="/images/heart-svgrepo-com.svg" alt="heart-svgrepo-com" />
                     </Link>
                   </div>
                 </TooltipTrigger>
                 <TooltipContent className="bg-gray-50 shadow-tooltip px-2 py-3 select-none">
                   <span className="text-[#00000d] text-xs font-montserrat font-normal">
-                    Cart
+                    Wish list
                   </span>
                 </TooltipContent>
               </Tooltip>
@@ -235,6 +239,7 @@ export default function Header() {
           )}
         </ul>
       </div>
+
       <div className="h-[40px] flex items-center">
         <nav>
           <ul className="flex items-center justify-start gap-x-[60px] relative">
@@ -245,9 +250,12 @@ export default function Header() {
                 onMouseEnter={(e) => handleMouseEnter(index, e.currentTarget)}
                 onMouseLeave={handleMouseLeave}
               >
+                
                 <span className="text-xs text-black font-semibold font-montserrat">
                   {item.label}
                 </span>
+
+                
                 <AnimatePresence>
                   {dropdownIndex === index && (
                     <motion.div
@@ -259,17 +267,21 @@ export default function Header() {
                       onMouseEnter={handleDropdownMouseEnter}
                       onMouseLeave={handleDropdownMouseLeave}
                     >
+                     
                       <div className="w-1/2 p-4">
-                        {item?.subItems?.map((subItem, subIndex) => (
-                          <a
-                            key={subIndex}
-                            href="#"
-                            className="block px-2 py-1 text-sm text-black hover:bg-gray-200"
-                          >
-                            {productCategories[subItem.name]}
-                          </a>
-                        ))}
+                        {item?.subItems && item.subItems.length > 0 ? (
+                          item.subItems.map((subItem, idx) => (
+                            <div key={idx} className="mb-2">
+                              {subItem.name}
+                            </div>
+                          ))
+                        ) : (
+                          <span className="text-sm text-gray-500">
+                            No subcategories available
+                          </span>
+                        )}
                       </div>
+
                       <div className="w-1/2 relative">
                         <Image
                           src={item?.image}
@@ -283,6 +295,8 @@ export default function Header() {
                 </AnimatePresence>
               </li>
             ))}
+
+            
             <motion.span
               className="absolute transition-all duration-300 rounded-lg border border-[#00939F]"
               style={{

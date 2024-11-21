@@ -9,6 +9,8 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import "swiper/css/effect-fade";
+import { motion } from "framer-motion";
+import { useInView } from "react-intersection-observer";
 
 const BannerImages = [
   {
@@ -55,11 +57,21 @@ export default function HomeBanner() {
       </div>
       <div className="absolute left-[100px] top-1/3 z-[20]">
         <div className="w-[812px] flex flex-col gap-y-[17px]">
-          <h2 className="font-montserrat text-[40px] text-white font-bold">
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+            className="font-montserrat text-[40px] text-white font-bold"
+          >
             Borrow Joy, Be Neighborly <br /> Instant Rentals, Seamless
             Connections
-          </h2>
-          <div className="flex items-center">
+          </motion.h2>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: "easeOut", delay: 0.7 }}
+            className="flex items-center"
+          >
             <div className="flex flex-col">
               <span className="font-poppins text-[32px] text-white font-medium">
                 50+
@@ -77,8 +89,14 @@ export default function HomeBanner() {
                 Users
               </span>
             </div>
-          </div>
-          <div className="flex items-stretch">
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: "easeOut", delay: 1.4 }}
+            className="flex items-stretch"
+          >
+
             <div className="bg-white rounded-l-sm py-4 pl-7 w-[50%] flex h-full">
               <input
                 type="text"
@@ -91,7 +109,8 @@ export default function HomeBanner() {
                 <img src="/images/search.svg" alt="search" />
               </span>
             </div>
-          </div>
+
+          </motion.div>
         </div>
       </div>
     </div>

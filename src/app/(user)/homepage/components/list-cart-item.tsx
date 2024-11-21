@@ -6,8 +6,25 @@ import { Swiper, SwiperSlide } from "swiper/react";
 
 import "swiper/swiper-bundle.css";
 
+interface Lessor {
+  shopName: string;
+  description: string;
+}
+
+interface IProductCard {
+  productId: string;
+  name: string;
+  description: string;
+  images: string[];
+  lessor: Lessor;
+  price: number;
+  timeUnit: string;
+  location: string;
+  policies: string[];
+}
+
 interface ListCartItemProps {
-  products: API.IProductCard[];
+  products: IProductCard[];
 }
 
 const ButtonCarousel = styled.div`
@@ -49,22 +66,27 @@ export default function ListCartItem({ products }: ListCartItemProps) {
     }
   }, []);
 
-  const renderCarousel = (list: API.IProductCard[]) => {
+  const renderCarousel = (list: IProductCard[]) => {
     return list?.map((item, index) => (
-      <SwiperSlide key={index}>
+      <SwiperSlide
+        key={index}
+        style={{
+          marginRight: index === list.length - 1 ? '0' : '25px', 
+        }}
+      >
         <CartProductItem product={item} />
       </SwiperSlide>
     ));
   };
+
   return (
     <div className="relative">
       <div className="opacity-0 group-hover:opacity-100">
         <button
           onClick={() => swiperRef.current?.swiper?.slideNext()}
           disabled={isNextDisabled}
-          className={`custom-next-button absolute top-1/2 right-0 translate-x-1/2 -translate-y-1/2 z-[20] ${
-            isNextDisabled === true && "opacity-0"
-          }`}
+          className={`custom-next-button absolute top-1/2 right-0 translate-x-1/2 -translate-y-1/2 z-[20] ${isNextDisabled && "opacity-0"
+            }`}
         >
           <ButtonCarousel>
             <ChevronRight className="text-white w-5 h-5" strokeWidth={2.5} />
@@ -73,9 +95,8 @@ export default function ListCartItem({ products }: ListCartItemProps) {
         <button
           onClick={() => swiperRef.current?.swiper?.slidePrev()}
           disabled={isPrevDisabled}
-          className={`custom-prev-button absolute top-1/2 left-0 -translate-x-1/2 -translate-y-1/2 z-[20] ${
-            isPrevDisabled === true && "opacity-0"
-          }`}
+          className={`custom-prev-button absolute top-1/2 left-0 -translate-x-1/2 -translate-y-1/2 z-[20] ${isPrevDisabled && "opacity-0"
+            }`}
         >
           <ButtonCarousel>
             <ChevronLeft className="text-white w-5 h-5" strokeWidth={2.5} />
@@ -84,8 +105,8 @@ export default function ListCartItem({ products }: ListCartItemProps) {
       </div>
 
       <Swiper
-        slidesPerView={products?.length < 6 ? products?.length : 6}
-        spaceBetween={products?.length < 6 ? 10 : 20}
+        slidesPerView={products?.length < 5 ? products?.length : 5}
+        spaceBetween={products?.length < 5 ? 10 : 20}
         loop={false}
         ref={swiperRef}
       >
