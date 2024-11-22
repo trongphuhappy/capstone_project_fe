@@ -1,5 +1,4 @@
 "use client";
-
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import Search from "@/components/search";
@@ -13,105 +12,225 @@ import { Fragment, useEffect, useState } from "react";
 import Link from "next/link";
 import { useAppSelector } from "@/stores/store";
 import AvatarMenu from "@/components/avatar-menu";
-import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
-// import { useServiceProductCategories } from "@/services/product-categories/services";
-import { productCategories } from "@/utils/locales/en-US/product";
+import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover"
 import { Bell, SquarePen } from "lucide-react";
-import { Backdrop } from "@/components/backdrop";
+import styles from "@/components/header/main.module.css";
+
+interface ISubItem {
+  id: number;
+  name: string;
+  image: string;
+}
+
+interface ICategory {
+  category: string;
+  subItems: ISubItem[];
+}
 
 interface INavItem {
   label: string;
-  subItems: API.ICategoryDescriptions[] | undefined;
-  image: string;
+  categories: ICategory[];
 }
+
 
 const InitialNavItems: INavItem[] = [
   {
     label: "All Products",
-    subItems: [
-      { id: 1, name: "Electronics" },
-      { id: 2, name: "Clothing" },
-      { id: 3, name: "Home Appliances" },
-    ],
-    image: "/images/banner1.png",
+    categories: [
+      {
+        category: "Beds & mattresses",
+        subItems: [
+          { id: 1, name: "Bedding", image: "/images/furniture.png" },
+          { id: 2, name: "Bath Textiles", image: "/images/car1.png" },
+          { id: 3, name: "Curtain & Blinds", image: "/images/banner3.png" },
+          { id: 4, name: "Headphones", image: "/images/banner1.png" },
+          { id: 5, name: "Headphones", image: "/images/sedan1.jpg" },
+          { id: 6, name: "Headphones", image: "/images/suv1.jpg" },
+          { id: 7, name: "Headphones", image: "/images/TV-stand1.webp" }
+        ]
+      },
+      {
+        category: "Clothing 1",
+        subItems: [
+          { id: 4, name: "Shirts", image: "/images/banner4.png" },
+          { id: 5, name: "Pants", image: "/images/suv1.jpg" },
+          { id: 6, name: "Shoes", image: "/images/car2.png" }
+        ]
+      },
+      {
+        category: "Home Appliances",
+        subItems: [
+          { id: 7, name: "Refrigerators", image: "/images/furniture1.png" },
+          { id: 8, name: "Washing Machines", image: "/images/furniture2.png" },
+          { id: 9, name: "Air Conditioners", image: "/images/furniture3.png" }
+        ]
+      }
+    ]
   },
   {
     label: "Furnitures",
-    subItems: [],
-    image: "/images/banner2.png",
+    categories: [
+      {
+        category: "Beds & mattresses",
+        subItems: [
+          { id: 1, name: "Bedding", image: "/images/furniture.png" },
+          { id: 2, name: "Bath Textiles", image: "/images/car1.png" },
+          { id: 3, name: "Curtain & Blinds", image: "/images/banner3.png" },
+          { id: 4, name: "Headphones", image: "/images/banner1.png" },
+          { id: 5, name: "Headphones", image: "/images/sedan1.jpg" },
+          { id: 6, name: "Headphones", image: "/images/suv1.jpg" },
+          { id: 7, name: "Headphones", image: "/images/TV-stand1.webp" }
+        ]
+      },
+      {
+        category: "Clothing 2",
+        subItems: [
+          { id: 4, name: "Shirts", image: "/images/banner4.png" },
+          { id: 5, name: "Pants", image: "/images/suv1.jpg" },
+          { id: 6, name: "Shoes", image: "/images/car2.png" }
+        ]
+      },
+      {
+        category: "Home Appliances",
+        subItems: [
+          { id: 7, name: "Refrigerators", image: "/images/furniture1.png" },
+          { id: 8, name: "Washing Machines", image: "/images/furniture2.png" },
+          { id: 9, name: "Air Conditioners", image: "/images/furniture3.png" }
+        ]
+      }
+    ]
   },
   {
     label: "Vehicles",
-    subItems: [],
-    image: "/images/car1.png",
+    categories: [
+      {
+        category: "Beds & mattresses",
+        subItems: [
+          { id: 1, name: "Bedding", image: "/images/furniture.png" },
+          { id: 2, name: "Bath Textiles", image: "/images/car1.png" },
+          { id: 3, name: "Curtain & Blinds", image: "/images/banner3.png" },
+          { id: 4, name: "Headphones", image: "/images/banner1.png" },
+          { id: 5, name: "Headphones", image: "/images/sedan1.jpg" },
+          { id: 6, name: "Headphones", image: "/images/suv1.jpg" },
+          { id: 7, name: "Headphones", image: "/images/TV-stand1.webp" }
+        ]
+      },
+      {
+        category: "Clothing 2",
+        subItems: [
+          { id: 4, name: "Shirts", image: "/images/banner4.png" },
+          { id: 5, name: "Pants", image: "/images/suv1.jpg" },
+          { id: 6, name: "Shoes", image: "/images/car2.png" }
+        ]
+      },
+      {
+        category: "Home Appliances",
+        subItems: [
+          { id: 7, name: "Refrigerators", image: "/images/furniture1.png" },
+          { id: 8, name: "Washing Machines", image: "/images/furniture2.png" },
+          { id: 9, name: "Air Conditioners", image: "/images/furniture3.png" }
+        ]
+      }
+    ]
   },
   {
     label: "E-Neighbor for LESSOR",
-    subItems: [],
-    image: "/images/auth03.jpg",
+    categories: [
+      {
+        category: "Beds & mattresses",
+        subItems: [
+          { id: 1, name: "Bedding", image: "/images/furniture.png" },
+          { id: 2, name: "Bath Textiles", image: "/images/car1.png" },
+          { id: 3, name: "Curtain & Blinds", image: "/images/banner3.png" },
+          { id: 4, name: "Headphones", image: "/images/banner1.png" },
+          { id: 5, name: "Headphones", image: "/images/sedan1.jpg" },
+          { id: 6, name: "Headphones", image: "/images/suv1.jpg" },
+          { id: 7, name: "Headphones", image: "/images/TV-stand1.webp" }
+        ]
+      },
+      {
+        category: "Clothing 2",
+        subItems: [
+          { id: 4, name: "Shirts", image: "/images/banner4.png" },
+          { id: 5, name: "Pants", image: "/images/suv1.jpg" },
+          { id: 6, name: "Shoes", image: "/images/car2.png" }
+        ]
+      },
+      {
+        category: "Home Appliances",
+        subItems: [
+          { id: 7, name: "Refrigerators", image: "/images/furniture1.png" },
+          { id: 8, name: "Washing Machines", image: "/images/furniture2.png" },
+          { id: 9, name: "Air Conditioners", image: "/images/furniture3.png" }
+        ]
+      }
+    ]
   },
   {
     label: "Contact Us",
-    subItems: [],
-    image: "/images/mordern-sopha.jpg",
-  },
+    categories: [
+      // {
+      //   category: "Beds & mattresses",
+      //   subItems: [
+      //     { id: 1, name: "Bedding", image: "/images/furniture.png" },
+      //     { id: 2, name: "Bath Textiles", image: "/images/car1.png" },
+      //     { id: 3, name: "Curtain & Blinds", image: "/images/banner3.png" },
+      //     { id: 4, name: "Headphones", image: "/images/banner1.png" },
+      //     { id: 5, name: "Headphones", image: "/images/sedan1.jpg" },
+      //     { id: 6, name: "Headphones", image: "/images/suv1.jpg" },
+      //     { id: 7, name: "Headphones", image: "/images/TV-stand1.webp" }
+      //   ]
+      // },
+      // {
+      //   category: "Clothing 2",
+      //   subItems: [
+      //     { id: 4, name: "Shirts", image: "/images/banner4.png" },
+      //     { id: 5, name: "Pants", image: "/images/suv1.jpg" },
+      //     { id: 6, name: "Shoes", image: "/images/car2.png" }
+      //   ]
+      // },
+      // {
+      //   category: "Home Appliances",
+      //   subItems: [
+      //     { id: 7, name: "Refrigerators", image: "/images/furniture1.png" },
+      //     { id: 8, name: "Washing Machines", image: "/images/furniture2.png" },
+      //     { id: 9, name: "Air Conditioners", image: "/images/furniture3.png" }
+      //   ]
+      // }
+    ]
+  }
 ];
 
 export default function Header() {
   const userState = useAppSelector((state) => state.userSlice);
   const categorySlice = useAppSelector((state) => state.categorySlice);
-  const [navItems, setNavItems] = useState<INavItem[]>(InitialNavItems);
-
-  const [underlineWidth, setUnderlineWidth] = useState<number>(0);
-  const [underlineLeft, setUnderlineLeft] = useState<number>(0);
-  const [dropdownIndex, setDropdownIndex] = useState<number | null>(null);
-  const [isDropdownHovered, setIsDropdownHovered] = useState<boolean>(false);
   const [avatarMenuTooltip, setAvatarMenuTooltip] = useState<boolean>(false);
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [openLabel, setOpenLabel] = useState<string | null>(null);
 
-  const handleCategories = async () => {
-    // await useServiceProductCategories();
-  };
-
-  const handleMouseEnter = (index: number, element: HTMLLIElement) => {
-    if (element) {
-      const { offsetWidth, offsetLeft } = element;
-      setUnderlineWidth(offsetWidth);
-      setUnderlineLeft(offsetLeft);
-      setDropdownIndex(index);
-      if (index === 1) {
-        setNavItems((prevNavItems) =>
-          prevNavItems.map((item, i) =>
-            i === 1 ? { ...item, subItems: categorySlice.furniture } : item
-          )
-        );
-      } else if (index === 2) {
-        setNavItems((prevNavItems) =>
-          prevNavItems.map((item, i) =>
-            i === 2 ? { ...item, subItems: categorySlice.vehicles } : item
-          )
-        );
-      }
+  const handleCategoryHover = (item: INavItem) => {
+    setOpenLabel(item.label);
+    if (item.categories && item.categories.length > 0) {
+      setSelectedCategory(item.categories[0].category);
     }
   };
 
-  const handleMouseLeave = () => {
-    if (!isDropdownHovered) {
-      setDropdownIndex(null);
+  const handleCategoryLeave = () => {
+    if (!selectedCategory) {
+      setOpenLabel(null);
     }
   };
 
-  const handleDropdownMouseEnter = () => {
-    setIsDropdownHovered(true);
-  };
-
-  const handleDropdownMouseLeave = () => {
-    setIsDropdownHovered(false);
-    setDropdownIndex(null);
+  const handleCategoryClick = (categoryName: string) => {
+    if (selectedCategory !== categoryName) {
+      setSelectedCategory(categoryName);
+    }
   };
 
   useEffect(() => {
-    handleCategories();
-  }, []);
+    console.log('Selected Category has changed:', selectedCategory);
+  }, [selectedCategory]);
+
 
   const handleToggleAvatarMenuTooltip = () => {
     setAvatarMenuTooltip((prev) => !prev);
@@ -243,69 +362,90 @@ export default function Header() {
       <div className="h-[40px] flex items-center">
         <nav>
           <ul className="flex items-center justify-start gap-x-[60px] relative">
-            {navItems?.map((item, index) => (
+            {InitialNavItems.map((item, index) => (
               <li
                 key={index}
                 className="cursor-pointer relative"
-                onMouseEnter={(e) => handleMouseEnter(index, e.currentTarget)}
-                onMouseLeave={handleMouseLeave}
+                onMouseEnter={() => handleCategoryHover(item)}
+                onMouseLeave={handleCategoryLeave}
               >
-                
                 <span className="text-xs text-black font-semibold font-montserrat">
                   {item.label}
                 </span>
 
-                
                 <AnimatePresence>
-                  {dropdownIndex === index && (
+                  {openLabel === item.label && (
                     <motion.div
-                      className="absolute left-0 top-[calc(100%+10px)] bg-white shadow-lg w-[800px] h-[400px] z-50 flex"
-                      initial={{ opacity: 0, y: -10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -10 }}
+                      className="absolute left-0 top-[calc(100%+10px)] bg-white shadow-lg w-[1100px] h-[400px] z-50 flex"
+                      initial={{ opacity: 0, translateY: -10 }}
+                      animate={{ opacity: 1, translateY: 0 }}
+                      exit={{ opacity: 0, translateY: -10 }}
                       transition={{ duration: 0.3 }}
-                      onMouseEnter={handleDropdownMouseEnter}
-                      onMouseLeave={handleDropdownMouseLeave}
                     >
-                     
-                      <div className="w-1/2 p-4">
-                        {item?.subItems && item.subItems.length > 0 ? (
-                          item.subItems.map((subItem, idx) => (
-                            <div key={idx} className="mb-2">
-                              {subItem.name}
-                            </div>
-                          ))
+                      
+                      <div className="w-1/6 p-4 space-y-4">
+                        {item.categories && item.categories.length > 0 ? (
+                          <div className="space-y-2">
+                            {item.categories.map((category, idx) => (
+                              <div
+                                key={idx}
+                                className="hover:bg-gray-100 p-2 cursor-pointer"
+                                onClick={() => handleCategoryClick(category.category)}
+                              >
+                                <span className="text-sm text-gray-700">{category.category}</span>
+                              </div>
+                            ))}
+                          </div>
                         ) : (
-                          <span className="text-sm text-gray-500">
-                            No subcategories available
-                          </span>
+                          <span className="text-sm text-gray-500">No categories available</span>
                         )}
                       </div>
+                      
+                      <div className={`w-5/6 grid grid-cols-3 gap-2 p-4 max-h-[400px] overflow-y-auto ${styles.imageGallery}`}>
+                        {item.categories
+                          .filter(
+                            (category) =>
+                              selectedCategory === category.category && category.subItems && category.subItems.length > 0
+                          )
+                          .map((category, idx) => (
+                            <div key={idx} className="col-span-3">
+                              <h3 className="text-lg font-semibold text-gray-900 mb-4">
+                                {category.category}
+                              </h3>
+                              <div className="grid grid-cols-4 gap-4 space-y-4">
+                                {category.subItems.map((subItem, subIdx) => (
+                                  <div
+                                    key={subIdx}
+                                    className={`flex flex-row items-center hover:bg-gray-100 ${subIdx === 1 ? 'relative z-10' : ''}`}
+                                  >
+                                    <div className="w-24 h-20 mr-2 relative">
+                                      <Image
+                                        src={subItem.image}
+                                        alt={subItem.name}
+                                        layout="fill"
+                                        objectFit="cover"
+                                        className="shadow-md"
+                                      />
+                                    </div>
+                                    <span className="text-xs text-gray-700">{subItem.name}</span>
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                          ))}
 
-                      <div className="w-1/2 relative">
-                        <Image
-                          src={item?.image}
-                          alt={item?.label}
-                          layout="fill"
-                          objectFit="cover"
-                        />
+                        {item.categories.every(
+                          (category) =>
+                            selectedCategory !== category.category || !category.subItems || category.subItems.length === 0
+                        ) && (
+                            <span className="text-sm text-gray-500 col-span-3">No subitems available</span>
+                          )}
                       </div>
                     </motion.div>
                   )}
                 </AnimatePresence>
               </li>
             ))}
-
-            
-            <motion.span
-              className="absolute transition-all duration-300 rounded-lg border border-[#00939F]"
-              style={{
-                width: underlineWidth,
-                left: underlineLeft,
-                bottom: "-4px",
-              }}
-              layout
-            />
           </ul>
         </nav>
       </div>

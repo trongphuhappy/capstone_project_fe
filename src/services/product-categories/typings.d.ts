@@ -18,6 +18,7 @@ declare namespace API {
   interface ICategoryDescriptions {
     id: number;
     name: string;
+    image: string;
   }
 
   interface ICategoryDetails extends ICategoryDescriptions {
