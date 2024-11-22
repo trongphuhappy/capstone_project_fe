@@ -46,12 +46,12 @@ export default function AdminSidebar() {
                 <RiHome2Line className="text-xl" />
                 <span>Dashboard</span>
               </Link>
-              <BsChevronDown
+              {/* <BsChevronDown
                 className={`transform transition-transform ${openDropdown === "dashboard" ? "rotate-180" : ""
                   } text-gray-400`}
-              />
+              /> */}
             </button>
-            {openDropdown === "dashboard" && (
+            {/* {openDropdown === "dashboard" && (
               <ul className="pl-4 mt-1 space-y-1">
                 <li>
                   <Link
@@ -63,7 +63,7 @@ export default function AdminSidebar() {
                   </Link>
                 </li>
               </ul>
-            )}
+            )} */}
           </li>
           <li>
             <Link
@@ -76,7 +76,7 @@ export default function AdminSidebar() {
           </li>
           <li>
             <Link
-              href="/admin/manageuser"
+              href="/admin/manage-users"
               className="flex items-center space-x-2 p-2 hover:bg-gray-700 rounded-md"
             >
               <BsPerson className="text-lg" />
