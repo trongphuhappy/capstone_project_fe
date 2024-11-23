@@ -169,34 +169,6 @@ const InitialNavItems: INavItem[] = [
   {
     label: "Contact Us",
     categories: [
-      // {
-      //   category: "Beds & mattresses",
-      //   subItems: [
-      //     { id: 1, name: "Bedding", image: "/images/furniture.png" },
-      //     { id: 2, name: "Bath Textiles", image: "/images/car1.png" },
-      //     { id: 3, name: "Curtain & Blinds", image: "/images/banner3.png" },
-      //     { id: 4, name: "Headphones", image: "/images/banner1.png" },
-      //     { id: 5, name: "Headphones", image: "/images/sedan1.jpg" },
-      //     { id: 6, name: "Headphones", image: "/images/suv1.jpg" },
-      //     { id: 7, name: "Headphones", image: "/images/TV-stand1.webp" }
-      //   ]
-      // },
-      // {
-      //   category: "Clothing 2",
-      //   subItems: [
-      //     { id: 4, name: "Shirts", image: "/images/banner4.png" },
-      //     { id: 5, name: "Pants", image: "/images/suv1.jpg" },
-      //     { id: 6, name: "Shoes", image: "/images/car2.png" }
-      //   ]
-      // },
-      // {
-      //   category: "Home Appliances",
-      //   subItems: [
-      //     { id: 7, name: "Refrigerators", image: "/images/furniture1.png" },
-      //     { id: 8, name: "Washing Machines", image: "/images/furniture2.png" },
-      //     { id: 9, name: "Air Conditioners", image: "/images/furniture3.png" }
-      //   ]
-      // }
     ]
   }
 ];
@@ -216,10 +188,9 @@ export default function Header() {
   };
 
   const handleCategoryLeave = () => {
-    if (!selectedCategory) {
-      setOpenLabel(null);
-    }
+    setOpenLabel(null);
   };
+  
 
   const handleCategoryClick = (categoryName: string) => {
     if (selectedCategory !== categoryName) {
@@ -389,7 +360,7 @@ export default function Header() {
                             {item.categories.map((category, idx) => (
                               <div
                                 key={idx}
-                                className="hover:bg-gray-100 p-2 cursor-pointer"
+                                className={`p-2 cursor-pointer ${selectedCategory === category.category ? 'underline' : ''} hover:bg-gray-100`}
                                 onClick={() => handleCategoryClick(category.category)}
                               >
                                 <span className="text-sm text-gray-700">{category.category}</span>
