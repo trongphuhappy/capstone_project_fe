@@ -6,7 +6,7 @@ import { useAppDispatch, useAppSelector } from "@/stores/store";
 
 export default function useUpdateProfileDialog() {
   const dispatch = useAppDispatch();
-
+  
   const updateAvatarProfileDialogState = useAppSelector(
     (state) => state.stateSlice.updateAvatarProfileDialog
   );

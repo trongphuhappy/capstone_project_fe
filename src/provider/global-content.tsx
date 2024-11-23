@@ -9,12 +9,16 @@ import SearchComponent from "@/components/seach-component";
 import useSearchDialog from "@/hooks/use-search-dialog";
 import UpdateAvatarProfile from "@/components/update-avatar-profile";
 import useUpdateProfileDialog from "@/hooks/use-update-profile-dialog";
+import { Backdrop } from "@/components/backdrop";
+import { useAppSelector } from "@/stores/store";
 
 export default function GlobalContent({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const backdropState = useAppSelector((state) => state.stateSlice.backdrop);
+
   const { open: isAddedCartDialogOpen, onCloseAddedCartDialog } =
     useAddedCartDialog();
 
@@ -48,6 +52,7 @@ export default function GlobalContent({
         onClose={onCloseUpdateAvatarProfile}
       />
       <main>{children}</main>
+      <Backdrop open={backdropState.status} />
     </Fragment>
   );
 }

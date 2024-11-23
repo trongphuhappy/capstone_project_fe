@@ -12,6 +12,8 @@ const config: Config = {
       fontFamily: {
         montserrat: ["Montserrat", "sans-serif"],
         poppins: ["Poppins", "sans-serif"],
+        inter: ["Inter", "sans-serif"],
+        mulish: ["Mulish", "sans-serif"],
       },
       colors: {
         background: "hsl(var(--background))",

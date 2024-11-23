@@ -19,40 +19,6 @@ import { productCategories } from "@/utils/locales/en-US/product";
 import { Bell, SquarePen } from "lucide-react";
 import { Backdrop } from "@/components/backdrop";
 
-// interface INavItem {
-//   label: string;
-//   // subItems: API.ICategoryDescriptions[] | undefined;
-//   image: string;
-// }
-
-// const InitialNavItems: INavItem[] = [
-//   {
-//     label: "All Products",
-//     subItems: [],
-//     image: "/images/banner1.png",
-//   },
-//   {
-//     label: "Furnitures",
-//     subItems: [],
-//     image: "/images/banner2.png",
-//   },
-//   {
-//     label: "Vehicles",
-//     subItems: [],
-//     image: "/images/car1.png",
-//   },
-//   {
-//     label: "E-Neighbor for LESSOR",
-//     subItems: [],
-//     image: "/images/auth03.jpg",
-//   },
-//   {
-//     label: "Contact Us",
-//     subItems: [],
-//     image: "/images/mordern-sopha.jpg",
-//   },
-// ];
-
 export default function Header() {
   const userState = useAppSelector((state) => state.userSlice);
   // const [navItems, setNavItems] = useState<INavItem[]>(InitialNavItems);
@@ -174,13 +140,16 @@ export default function Header() {
                 <TooltipTrigger>
                   <div className="flex items-center justify-center gap-x-1 cursor-pointer rounded-[24px] h-12 group">
                     <Link href="/cart">
-                      <img src="/images/bag.svg" alt="bag" />
+                      <img
+                        src="/images/heart-svgrepo-com.svg"
+                        alt="heart-svgrepo-com"
+                      />
                     </Link>
                   </div>
                 </TooltipTrigger>
                 <TooltipContent className="bg-gray-50 shadow-tooltip px-2 py-3 select-none">
                   <span className="text-[#00000d] text-xs font-montserrat font-normal">
-                    Cart
+                    Wish list
                   </span>
                 </TooltipContent>
               </Tooltip>
@@ -237,6 +206,7 @@ export default function Header() {
           )}
         </ul>
       </div>
+
       <div className="h-[40px] flex items-center">
         <nav>
           <ul className="flex items-center justify-start gap-x-[60px] relative">

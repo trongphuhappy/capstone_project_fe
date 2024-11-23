@@ -1,6 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface InitialState {
+  backdrop: {
+    status: false | true;
+  };
   quickViewProduct: {
     open: false | true;
     product: API.IProductCard | null;
@@ -17,6 +20,7 @@ export interface InitialState {
 }
 
 const initialState: InitialState = {
+  backdrop: { status: false },
   addedCartDialog: { open: false },
   quickViewProduct: { open: false, product: null },
   searchDialog: { open: false },
@@ -27,6 +31,12 @@ const stateSlice = createSlice({
   name: "stateSlice",
   initialState: initialState,
   reducers: {
+    openBackdrop: (state) => {
+      state.backdrop.status = true;
+    },
+    closeBackdrop: (state) => {
+      state.backdrop.status = false;
+    },
     openAddedCartDialog: (state) => {
       state.addedCartDialog.open = true;
     },
@@ -60,6 +70,8 @@ const stateSlice = createSlice({
 });
 
 export const {
+  openBackdrop,
+  closeBackdrop,
   openAddedCartDialog,
   closeAddedCartDialog,
   openQuickViewProductDialog,

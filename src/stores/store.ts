@@ -17,6 +17,8 @@ import stateSlice from "@/stores/stateSlice";
 import userSlice from "@/stores/userSlice";
 import homeSlice from "@/stores/homeSlice";
 import cartSlice from "@/stores/cartSlice";
+import differenceSlice from "@/stores/difference-slice";
+import userProfileslice from "@/stores/userProfileSlice";
 
 const persistConfig = {
   key: "root",
@@ -31,6 +33,8 @@ const rootReducer = combineReducers({
   userSlice: userSlice,
   homeSlice: homeSlice,
   cartSlice: cartSlice,
+  differenceSlice: differenceSlice,
+  userProfileslice: userProfileslice,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
