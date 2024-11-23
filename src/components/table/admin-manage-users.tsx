@@ -192,32 +192,29 @@ export default function ManageUser() {
                 </Pagination>
             </div>
 
-            <AlertDialog open={isModalOpen} onOpenChange={setIsModalOpen} >
+            <AlertDialog open={isModalOpen} onOpenChange={setIsModalOpen}>
                 <AlertDialogContent className="bg-white">
                     <AlertDialogHeader>
                         <AlertDialogTitle>
                             {blockedUsers[selectedUser?.index ?? -1] ? 'Unban User' : 'Ban User'}
                         </AlertDialogTitle>
                         <AlertDialogDescription>
-                            {blockedUsers[selectedUser?.index ?? -1] ? (
-                                "Are you sure you want to unban this user?"
-                            ) : (
-                                <>
-                                    <p>Are you sure you want to ban this user?</p>
-                                    <div className="mt-4">
-                                        <label className="block font-medium text-gray-700 mb-1">
-                                            Ban Reason
-                                        </label>
-                                        <input
-                                            type="text"
-                                            value={banReason}
-                                            onChange={(e) => setBanReason(e.target.value)}
-                                            className="w-full p-2 border border-gray-300 rounded"
-                                        />
-                                    </div>
-                                </>
-                            )}
+                            {blockedUsers[selectedUser?.index ?? -1]
+                                ? "Are you sure you want to unban this user?"
+                                : "Are you sure you want to ban this user?"}
                         </AlertDialogDescription>
+
+                        {!blockedUsers[selectedUser?.index ?? -1] && (
+                            <div className="mt-4">
+                                <label className="block font-medium text-gray-700 mb-1">Ban Reason</label>
+                                <input
+                                    type="text"
+                                    value={banReason}
+                                    onChange={(e) => setBanReason(e.target.value)}
+                                    className="w-full p-2 border border-gray-300 rounded"
+                                />
+                            </div>
+                        )}
                     </AlertDialogHeader>
                     <AlertDialogFooter>
                         <AlertDialogCancel onClick={closeModal}>Cancel</AlertDialogCancel>
