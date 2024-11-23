@@ -1,8 +1,8 @@
 import { useMutation } from "@tanstack/react-query";
-import { updateAvatar } from "@/services/member/api-services";
+import { updateAvatar, updateCoverPhoto, updateProfile } from "@/services/member/api-services";
 import useToast from "@/hooks/use-toast";
 import { useAppDispatch } from "@/stores/store";
-import { setAvatarImage, setCoverPhotoImage } from "@/stores/userProfileSlice";
+import { setAvatarImage, setCoverPhotoImage, updateProfile as storeUpdateProfile } from "@/stores/userProfileSlice";
 import { setAvatarProfile } from "@/stores/userSlice";
 import { closeBackdrop } from "@/stores/stateSlice";
 
@@ -48,7 +48,7 @@ export const useServiceUpdateCoverPhoto = () => {
       const formData = new FormData();
       formData.append("CropCoverPhoto", data.cropCoverPhoto);
       formData.append("FullCoverPhoto", data.fullCoverPhoto);
-      return await updateAvatar(formData);
+      return await updateCoverPhoto(formData);
     },
     onSuccess: (data) => {
       dispatch(setCoverPhotoImage(data.value.data));
@@ -59,5 +59,15 @@ export const useServiceUpdateCoverPhoto = () => {
       });
     },
     onError: (error) => {},
+  });
+};
+
+export const useServiceUpdateProfile = () => {
+  const dispatch = useAppDispatch();
+  return useMutation<TResponseData<API.TProfile>, TMeta, REQUEST.TUpdateProfile>({
+    mutationFn: updateProfile,
+    onSuccess: (data) => {
+      dispatch(storeUpdateProfile(data.value.data));
+    },
   });
 };

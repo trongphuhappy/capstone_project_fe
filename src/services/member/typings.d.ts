@@ -8,6 +8,14 @@ declare namespace REQUEST {
     cropCoverPhoto: File;
     fullCoverPhoto: File;
   };
+
+  type TUpdateProfile = {
+    firstName?: string | null;
+    lastName?: string | null;
+    email?: string | null;
+    phoneNumber?: string | null;
+    biography?: string | null;
+  };
 }
 
 declare namespace API {
@@ -38,10 +46,11 @@ declare namespace API {
   };
 
   type TProfile = {
-    firstName: string;
-    lastName: string;
-    email: string;
-    phoneNumber: string;
+    firstName?: string | null;
+    lastName?: string | null;
+    email?: string | null;
+    phoneNumber?: string | null;
+    biography?: string | null;
     cropAvatarUrl?: string | null;
     cropAvatarId?: string | null;
     fullAvatarUrl?: string | null;
@@ -50,8 +59,8 @@ declare namespace API {
     cropCoverPhotoId?: string | null;
     fullCoverPhotoUrl?: string | null;
     fullCoverPhotoId?: string | null;
-    loginType: LoginType;
-    genderType: GenderType;
-    roleUserId: RoleType;
+    loginType?: LoginType | null;
+    genderType?: GenderType | null;
+    roleUserId?: RoleType | null;
   };
 }

@@ -39,3 +39,13 @@ export const updateCoverPhoto = async (data: FormData) => {
   return response.data;
 };
 
+export const updateProfile = async (data: REQUEST.TUpdateProfile) => {
+  const response = await request<TResponseData<API.TProfile>>(
+    API_ENDPOINTS.UPDATE_PROFILE,
+    {
+      method: "PUT",
+      data,
+    }
+  );
+  return response.data;
+};

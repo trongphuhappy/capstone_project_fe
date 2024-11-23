@@ -20,6 +20,10 @@ export default function UpdateBiography({
     onCloseAddBiography();
   };
 
+  const handleSave = () => {
+    onSaveBiography(text);
+  };
+
   return (
     <div className="w-full">
       <textarea
@@ -44,6 +48,7 @@ export default function UpdateBiography({
             </span>
           </button>
           <button
+            onClick={handleSave}
             type="button"
             className="px-3 py-1 bg-[#e2e5e9] rounded-md hover:bg-[#d1d4d7] group shadow-header-shadown"
           >

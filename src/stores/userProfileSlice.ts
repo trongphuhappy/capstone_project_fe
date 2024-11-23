@@ -34,6 +34,14 @@ const userProfileSlice = createSlice({
         state.profile.fullCoverPhotoUrl = action.payload.fullCoverPhotoUrl;
       }
     },
+    updateProfile: (state, action: PayloadAction<API.TProfile>) => {
+      if (state.profile) {
+        state.profile.biography = action.payload.biography;
+        state.profile.firstName = action.payload.firstName;
+        state.profile.lastName = action.payload.lastName;
+        state.profile.phoneNumber = action.payload.phoneNumber;
+      }
+    },
   },
 });
 
@@ -42,5 +50,6 @@ export const {
   removeProfileUser,
   setAvatarImage,
   setCoverPhotoImage,
+  updateProfile,
 } = userProfileSlice.actions;
 export default userProfileSlice.reducer;
