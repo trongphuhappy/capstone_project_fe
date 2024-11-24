@@ -4,6 +4,7 @@ import {
   updateCoverPhoto,
   updateEmail,
   updateProfile,
+  updateVerifyEmail,
 } from "@/services/member/api-services";
 import useToast from "@/hooks/use-toast";
 import { useAppDispatch } from "@/stores/store";
@@ -100,11 +101,29 @@ export const useServiceUpdateEmail = () => {
     },
     onError: () => {
       dispatch(closeBackdrop());
+    },
+  });
+};
+
+export const useServiceUpdateVerifyEmail = () => {
+  const { addToast } = useToast();
+  return useMutation<TResponse, TMeta, REQUEST.TUpdateVerifyEmail>({
+    mutationFn: updateVerifyEmail,
+    onSuccess: (data) => {
       addToast({
-        type: "error",
-        description: "Update email failed, please try again!",
-        duration: 3500,
+        type: "success",
+        description: data.value.message,
+        duration: 5000,
       });
+    },
+    onError: (error) => {
+      if (error.errorCode === "account_noti_exception_01") {
+        addToast({
+          type: "error",
+          description: error.detail,
+          duration: 5000,
+        });
+      }
     },
   });
 };

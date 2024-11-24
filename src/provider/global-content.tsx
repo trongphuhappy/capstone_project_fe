@@ -13,6 +13,8 @@ import { Backdrop } from "@/components/backdrop";
 import { useAppSelector } from "@/stores/store";
 import UpdateEmail from "@/components/update-profile/update-email";
 import useUpdateProfileDialog from "@/hooks/use-update-profile-dialog";
+import UpdateFirstName from "@/components/update-profile/update-firstname";
+import UpdateLastName from "@/components/update-profile/update-lastname";
 
 export default function GlobalContent({
   children,
@@ -34,7 +36,14 @@ export default function GlobalContent({
 
   const { avatarOpen, onCloseUpdateAvatarProfile } = useUpdateAvatarDialog();
 
-  const { profileOpen, onCloseUpdateProfile } = useUpdateProfileDialog();
+  const {
+    openEmail,
+    openFirstName,
+    openLastName,
+    onCloseUpdateEmail,
+    onCloseUpdateFirstName,
+    onCloseUpdateLastName,
+  } = useUpdateProfileDialog();
 
   return (
     <Fragment>
@@ -55,7 +64,9 @@ export default function GlobalContent({
         open={avatarOpen}
         onClose={onCloseUpdateAvatarProfile}
       />
-      <UpdateEmail open={profileOpen} onClose={onCloseUpdateProfile} />
+      <UpdateEmail open={openEmail} onClose={onCloseUpdateEmail} />
+      <UpdateFirstName open={openFirstName} onClose={onCloseUpdateFirstName} />
+      <UpdateLastName open={openLastName} onClose={onCloseUpdateLastName} />
       <main>{children}</main>
       <Backdrop open={backdropState.status} />
     </Fragment>

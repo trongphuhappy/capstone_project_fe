@@ -1,6 +1,10 @@
 import {
-  closeUpdateProfileDialog,
-  openUpdateProfileDialog,
+  closeUpdateEmailDialog,
+  closeUpdateFirstNameDialog,
+  closeUpdateLastNameDialog,
+  openUpdateEmailDialog,
+  openUpdateFirstNameDialog,
+  openUpdateLastNameDialog,
 } from "@/stores/stateSlice";
 import { useAppDispatch, useAppSelector } from "@/stores/store";
 
@@ -11,17 +15,39 @@ export default function useUpdateProfileDialog() {
     (state) => state.stateSlice.updateProfileDialog
   );
 
-  const onOpenUpdateProfile = () => {
-    dispatch(openUpdateProfileDialog());
+  const onOpenUpdateEmail = () => {
+    dispatch(openUpdateEmailDialog());
   };
 
-  const onCloseUpdateProfile = () => {
-    dispatch(closeUpdateProfileDialog());
+  const onCloseUpdateEmail = () => {
+    dispatch(closeUpdateEmailDialog());
+  };
+
+  const onOpenUpdateFirstName = () => {
+    dispatch(openUpdateFirstNameDialog());
+  };
+
+  const onCloseUpdateFirstName = () => {
+    dispatch(closeUpdateFirstNameDialog());
+  };
+
+  const onOpenUpdateLastName = () => {
+    dispatch(openUpdateLastNameDialog());
+  };
+
+  const onCloseUpdateLastName = () => {
+    dispatch(closeUpdateLastNameDialog());
   };
 
   return {
-    profileOpen: updateProfileDialogState.open,
-    onOpenUpdateProfile,
-    onCloseUpdateProfile,
+    openEmail: updateProfileDialogState.openEmail,
+    openFirstName: updateProfileDialogState.openFirstName,
+    openLastName: updateProfileDialogState.openLastName,
+    onOpenUpdateEmail,
+    onCloseUpdateEmail,
+    onOpenUpdateFirstName,
+    onCloseUpdateFirstName,
+    onOpenUpdateLastName,
+    onCloseUpdateLastName,
   };
 }

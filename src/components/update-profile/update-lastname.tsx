@@ -5,26 +5,26 @@ import { X } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { useEffect } from "react";
 import {
-  EmailBody,
-  EmailBodyType,
+  LastNameBody,
+  LastNameBodyType,
 } from "@/utils/schema-validations/user.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useAppDispatch, useAppSelector } from "@/stores/store";
-import { useServiceUpdateEmail } from "@/services/member/services";
-import { openBackdrop } from "@/stores/stateSlice";
+import { useServiceUpdateProfile } from "@/services/member/services";
+import { closeBackdrop, openBackdrop } from "@/stores/stateSlice";
 
-interface UpdateEmailProps {
+interface UpdateLastNameProps {
   open: boolean;
   onClose: () => void;
 }
 
-export default function UpdateEmail({ open, onClose }: UpdateEmailProps) {
+export default function UpdateLastName({ open, onClose }: UpdateLastNameProps) {
   const profileState = useAppSelector(
     (state) => state.userProfileslice.profile
   );
   const dispatch = useAppDispatch();
-  const { mutate } = useServiceUpdateEmail();
+  const { mutate } = useServiceUpdateProfile();
   const {
     register,
     handleSubmit,
@@ -32,34 +32,37 @@ export default function UpdateEmail({ open, onClose }: UpdateEmailProps) {
     setValue,
     formState: { errors },
     reset,
-  } = useForm<EmailBodyType>({
-    resolver: zodResolver(EmailBody),
+  } = useForm<LastNameBodyType>({
+    resolver: zodResolver(LastNameBody),
     defaultValues: {
-      email: profileState?.email || "",
+      lastName: profileState?.lastName || "",
     },
   });
 
   useEffect(() => {
-    if (profileState?.email) setValue("email", profileState?.email);
-  }, [profileState?.email]);
+    if (profileState?.lastName) setValue("lastName", profileState?.lastName);
+  }, [profileState?.lastName]);
 
   const handleClose = () => {
     onClose();
-    if (profileState?.email) setValue("email", profileState?.email);
+    if (profileState?.lastName) setValue("lastName", profileState?.lastName);
   };
 
-  const handleSubmitForm = (data: EmailBodyType) => {
+  const handleSubmitForm = (data: LastNameBodyType) => {
     dispatch(openBackdrop());
-    const form: REQUEST.TUpdateEmail = {
-      email: data.email,
+    const form: REQUEST.TUpdateProfile = {
+      lastName: data.lastName,
     };
     mutate(form, {
-      onSuccess: () => {
+      onSuccess: (data) => {
         reset();
         handleClose();
+        setValue("lastName", data.value.data.lastName || "");
+        dispatch(closeBackdrop());
       },
       onError: (error) => {
-        setError("email", {
+        dispatch(closeBackdrop());
+        setError("lastName", {
           type: "manual",
           message: error.detail,
         });
@@ -89,24 +92,26 @@ export default function UpdateEmail({ open, onClose }: UpdateEmailProps) {
             <div className="flex flex-col items-start gap-y-2">
               <div>
                 <h2 className="text-[24px] font-semibold">
-                  Update your contact email
+                  Update your last name
                 </h2>
                 <p className="text-[15px] opacity-90">
                   Your name will be displayed on your profile, and posts.
                 </p>
               </div>
               <div className="mt-[5px] flex flex-col gap-y-3 w-full">
-                <label className="text-[14px] font-semibold">Email</label>
+                <label className="text-[14px] font-semibold">Last name</label>
                 <Input
                   className={`w-full border border-gray-400 focus-visible:ring-0 focus-visible:none py-5 ${
-                    errors?.email && "border-red-500"
+                    errors?.lastName && "border-red-500"
                   }`}
                   autoComplete="off"
-                  placeholder="Email"
-                  {...register("email")}
+                  placeholder="Last name"
+                  {...register("lastName")}
                 />
-                {errors?.email && (
-                  <span className="text-red-500">{errors?.email?.message}</span>
+                {errors?.lastName && (
+                  <span className="text-red-500">
+                    {errors?.lastName?.message}
+                  </span>
                 )}
               </div>
               <div className="ml-auto mr-0 mt-3">

@@ -18,7 +18,9 @@ export interface InitialState {
     open: false | true;
   };
   updateProfileDialog: {
-    open: false | true;
+    openEmail: false | true;
+    openFirstName: false | true;
+    openLastName: false | true;
   };
 }
 
@@ -28,7 +30,11 @@ const initialState: InitialState = {
   quickViewProduct: { open: false, product: null },
   searchDialog: { open: false },
   updateAvatarProfileDialog: { open: false },
-  updateProfileDialog: { open: false },
+  updateProfileDialog: {
+    openEmail: false,
+    openFirstName: false,
+    openLastName: false,
+  },
 };
 
 const stateSlice = createSlice({
@@ -70,11 +76,23 @@ const stateSlice = createSlice({
     closeUpdateAvatarProfileDialog: (state) => {
       state.updateAvatarProfileDialog.open = false;
     },
-    openUpdateProfileDialog: (state) => {
-      state.updateProfileDialog.open = true;
+    openUpdateEmailDialog: (state) => {
+      state.updateProfileDialog.openEmail = true;
     },
-    closeUpdateProfileDialog: (state) => {
-      state.updateProfileDialog.open = false;
+    closeUpdateEmailDialog: (state) => {
+      state.updateProfileDialog.openEmail = false;
+    },
+    openUpdateFirstNameDialog: (state) => {
+      state.updateProfileDialog.openFirstName = true;
+    },
+    closeUpdateFirstNameDialog: (state) => {
+      state.updateProfileDialog.openFirstName = false;
+    },
+    openUpdateLastNameDialog: (state) => {
+      state.updateProfileDialog.openLastName = true;
+    },
+    closeUpdateLastNameDialog: (state) => {
+      state.updateProfileDialog.openLastName = false;
     },
   },
 });
@@ -90,8 +108,12 @@ export const {
   closeSearchDialog,
   openUpdateAvatarProfileDialog,
   closeUpdateAvatarProfileDialog,
-  openUpdateProfileDialog,
-  closeUpdateProfileDialog,
+  openUpdateEmailDialog,
+  closeUpdateEmailDialog,
+  openUpdateFirstNameDialog,
+  closeUpdateFirstNameDialog,
+  openUpdateLastNameDialog,
+  closeUpdateLastNameDialog,
 } = stateSlice.actions;
 
 export default stateSlice.reducer;
