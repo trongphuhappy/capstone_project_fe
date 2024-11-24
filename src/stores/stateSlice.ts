@@ -21,6 +21,7 @@ export interface InitialState {
     openEmail: false | true;
     openFirstName: false | true;
     openLastName: false | true;
+    openCitizen: false | true;
   };
 }
 
@@ -34,6 +35,7 @@ const initialState: InitialState = {
     openEmail: false,
     openFirstName: false,
     openLastName: false,
+    openCitizen: false,
   },
 };
 
@@ -94,6 +96,12 @@ const stateSlice = createSlice({
     closeUpdateLastNameDialog: (state) => {
       state.updateProfileDialog.openLastName = false;
     },
+    openUpdateCitizenDialog: (state) => {
+      state.updateProfileDialog.openCitizen = true;
+    },
+    closeUpdateCitizenDialog: (state) => {
+      state.updateProfileDialog.openCitizen = false;
+    },
   },
 });
 
@@ -114,6 +122,8 @@ export const {
   closeUpdateFirstNameDialog,
   openUpdateLastNameDialog,
   closeUpdateLastNameDialog,
+  openUpdateCitizenDialog,
+  closeUpdateCitizenDialog,
 } = stateSlice.actions;
 
 export default stateSlice.reducer;

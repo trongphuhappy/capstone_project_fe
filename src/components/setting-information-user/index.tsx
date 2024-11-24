@@ -5,8 +5,12 @@ import useUpdateProfileDialog from "@/hooks/use-update-profile-dialog";
 import { Skeleton } from "@/components/ui/skeleton";
 
 export default function SettingInformationUser() {
-  const { onOpenUpdateEmail, onOpenUpdateFirstName, onOpenUpdateLastName } =
-    useUpdateProfileDialog();
+  const {
+    onOpenUpdateEmail,
+    onOpenUpdateFirstName,
+    onOpenUpdateLastName,
+    onOpenUpdateCitizen,
+  } = useUpdateProfileDialog();
 
   const { profileState, getProfileApi, isPending } = useGetProfile();
 
@@ -24,6 +28,10 @@ export default function SettingInformationUser() {
 
   const handleOpenUpdateLastNamePopup = () => {
     onOpenUpdateLastName();
+  };
+
+  const handleOpenUpdateCitizenPopup = () => {
+    onOpenUpdateCitizen();
   };
 
   useEffect(() => {
@@ -103,8 +111,11 @@ export default function SettingInformationUser() {
               </div>
             </li>
             <li className="px-4 min-h-16 flex flex-row items-center justify-between border-b-slate-300 cursor-pointer hover:bg-zinc-100 select-none">
-              <div className="w-full flex flex-col gap-x-1" onClick={() => {}}>
-                <h4 className="text-base font-semibold">Citizent</h4>
+              <div
+                className="w-full flex flex-col gap-x-1"
+                onClick={handleOpenUpdateCitizenPopup}
+              >
+                <h4 className="text-base font-semibold">Citizen</h4>
                 <p className="text-base text-gray-600">123332423</p>
               </div>
               <div>

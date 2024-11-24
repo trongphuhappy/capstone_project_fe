@@ -1,7 +1,9 @@
 import {
+  closeUpdateCitizenDialog,
   closeUpdateEmailDialog,
   closeUpdateFirstNameDialog,
   closeUpdateLastNameDialog,
+  openUpdateCitizenDialog,
   openUpdateEmailDialog,
   openUpdateFirstNameDialog,
   openUpdateLastNameDialog,
@@ -39,15 +41,26 @@ export default function useUpdateProfileDialog() {
     dispatch(closeUpdateLastNameDialog());
   };
 
+  const onOpenUpdateCitizen = () => {
+    dispatch(openUpdateCitizenDialog());
+  };
+
+  const onCloseUpdateCitizen = () => {
+    dispatch(closeUpdateCitizenDialog());
+  };
+
   return {
     openEmail: updateProfileDialogState.openEmail,
     openFirstName: updateProfileDialogState.openFirstName,
     openLastName: updateProfileDialogState.openLastName,
+    openCitizen: updateProfileDialogState.openCitizen,
     onOpenUpdateEmail,
     onCloseUpdateEmail,
     onOpenUpdateFirstName,
     onCloseUpdateFirstName,
     onOpenUpdateLastName,
     onCloseUpdateLastName,
+    onOpenUpdateCitizen,
+    onCloseUpdateCitizen,
   };
 }
