@@ -1,27 +1,27 @@
 import {
-  closeUpdateAvatarProfileDialog,
-  openUpdateAvatarProfileDialog,
+  closeUpdateProfileDialog,
+  openUpdateProfileDialog,
 } from "@/stores/stateSlice";
 import { useAppDispatch, useAppSelector } from "@/stores/store";
 
 export default function useUpdateProfileDialog() {
   const dispatch = useAppDispatch();
-  
-  const updateAvatarProfileDialogState = useAppSelector(
-    (state) => state.stateSlice.updateAvatarProfileDialog
+
+  const updateProfileDialogState = useAppSelector(
+    (state) => state.stateSlice.updateProfileDialog
   );
 
-  const onOpenUpdateAvatarProfile = () => {
-    dispatch(openUpdateAvatarProfileDialog());
+  const onOpenUpdateProfile = () => {
+    dispatch(openUpdateProfileDialog());
   };
 
-  const onCloseUpdateAvatarProfile = () => {
-    dispatch(closeUpdateAvatarProfileDialog());
+  const onCloseUpdateProfile = () => {
+    dispatch(closeUpdateProfileDialog());
   };
 
   return {
-    avatarOpen: updateAvatarProfileDialogState.open,
-    onOpenUpdateAvatarProfile,
-    onCloseUpdateAvatarProfile,
+    profileOpen: updateProfileDialogState.open,
+    onOpenUpdateProfile,
+    onCloseUpdateProfile,
   };
 }

@@ -8,7 +8,6 @@ import { useRef, useState } from "react";
 import CropImageAvatar from "./crop-image-avatar";
 import { convertBase64ToFile } from "@/utils/Convert/ConvertBase64ToFile";
 import useUpdateAvatar from "@/hooks/use-update-avatar";
-import { Backdrop } from "../backdrop";
 import { openBackdrop } from "@/stores/stateSlice";
 
 interface UpdateAvatarProfileProps {

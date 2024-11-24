@@ -47,6 +47,7 @@ export const useServiceLogout = () => {
     },
     onError: () => {
       removeStorageItem("accessToken");
+      dispatch(removeInfoLogin());
       location.href = "/";
     },
   });

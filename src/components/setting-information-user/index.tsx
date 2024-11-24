@@ -1,28 +1,28 @@
 import { useAppDispatch, useAppSelector } from "@/stores/store";
 import { ChevronRight } from "lucide-react";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
+import UpdateEmail from "../update-profile/update-email";
+import useGetProfile from "@/app/(user)/profile/hooks/useGetProfile";
+import { Backdrop } from "../backdrop";
+import useUpdateProfileDialog from "@/hooks/use-update-profile-dialog";
+import { Skeleton } from "../ui/skeleton";
 
 export default function SettingInformationUser() {
   const dispatch = useAppDispatch();
-  //   const profilePrivateState = useAppSelector(
-  //     (state) => state.userProfileSlice.profilePrivate
-  //   );
 
-  const [emailPopup, setEmailPopup] = useState<boolean>(false);
+  const { onOpenUpdateProfile } = useUpdateProfileDialog();
   const [fullNamePopup, setFullNamePopup] = useState<boolean>(false);
   const [biographyPopup, setBiographyPopup] = useState<boolean>(false);
 
+  const { profileState, getProfileApi, isPending } = useGetProfile();
+
   const fetchUserData = async () => {
-    // await dispatch(getProfilePrivateThunk());
+    await getProfileApi();
   };
 
   const handleOpenEmailPopup = () => {
-    setEmailPopup(true);
-  };
-
-  const handleCloseEmailPopup = () => {
-    setEmailPopup(false);
+    onOpenUpdateProfile();
   };
 
   const handleOpenFullNamePopup = () => {
@@ -61,74 +61,82 @@ export default function SettingInformationUser() {
         </div>
       </header>
       <div className="mt-9 rounded-xl overflow-hidden bg-white">
-        <ul>
-          <li className="px-4 min-h-16 flex flex-row items-center justify-between border-b-slate-300 border-b-[1px] cursor-pointer hover:bg-zinc-100 select-none">
-            <div
-              className="w-full flex flex-col gap-x-1"
-              onClick={handleOpenEmailPopup}
-            >
-              <h4 className="text-base font-semibold">Email</h4>
-              <p className="text-base text-gray-600">email@gmail.com</p>
-            </div>
-            <div>
-              <button>
-                <i>
-                  <ChevronRight />
-                </i>
-              </button>
-            </div>
-          </li>
-          <li className="px-4 min-h-16 flex flex-row items-center justify-between border-b-slate-300 border-b-[1px] cursor-pointer hover:bg-zinc-100 select-none">
-            <div
-              className="w-full flex flex-col gap-x-1"
-              onClick={handleOpenFullNamePopup}
-            >
-              <h4 className="text-base font-semibold">First name</h4>
-              <p className="text-base text-gray-600">First name</p>
-            </div>
-            <div>
-              <button>
-                <i>
-                  <ChevronRight />
-                </i>
-              </button>
-            </div>
-          </li>
-          <li className="px-4 min-h-16 flex flex-row items-center justify-between border-b-slate-300 border-b-[1px] cursor-pointer hover:bg-zinc-100 select-none">
-            <div
-              className="w-full flex flex-col gap-x-1"
-              onClick={handleOpenFullNamePopup}
-            >
-              <h4 className="text-base font-semibold">Last name</h4>
-              <p className="text-base text-gray-600">Last name</p>
-            </div>
-            <div>
-              <button>
-                <i>
-                  <ChevronRight />
-                </i>
-              </button>
-            </div>
-          </li>
-          <li className="px-4 min-h-16 flex flex-row items-center justify-between border-b-slate-300 cursor-pointer hover:bg-zinc-100 select-none">
-            <div
-              className="w-full flex flex-col gap-x-1"
-              onClick={handleOpenBiographyPopup}
-            >
-              <h4 className="text-base font-semibold">Biography</h4>
-              <p className="text-base text-gray-600">
-                Tui là người siêu dễ thương!!!
-              </p>
-            </div>
-            <div>
-              <button>
-                <i>
-                  <ChevronRight />
-                </i>
-              </button>
-            </div>
-          </li>
-        </ul>
+        {!profileState?.profile ? (
+          <Skeleton className="h-[200px]" />
+        ) : (
+          <ul>
+            <li className="px-4 min-h-16 flex flex-row items-center justify-between border-b-slate-300 border-b-[1px] cursor-pointer hover:bg-zinc-100 select-none">
+              <div
+                className="w-full flex flex-col gap-x-1"
+                onClick={handleOpenEmailPopup}
+              >
+                <h4 className="text-base font-semibold">Email</h4>
+                <p className="text-base text-gray-600">
+                  {profileState.profile?.email}
+                </p>
+              </div>
+              <div>
+                <button>
+                  <i>
+                    <ChevronRight />
+                  </i>
+                </button>
+              </div>
+            </li>
+            <li className="px-4 min-h-16 flex flex-row items-center justify-between border-b-slate-300 border-b-[1px] cursor-pointer hover:bg-zinc-100 select-none">
+              <div
+                className="w-full flex flex-col gap-x-1"
+                onClick={handleOpenFullNamePopup}
+              >
+                <h4 className="text-base font-semibold">First name</h4>
+                <p className="text-base text-gray-600">
+                  {profileState?.profile?.firstName}
+                </p>
+              </div>
+              <div>
+                <button>
+                  <i>
+                    <ChevronRight />
+                  </i>
+                </button>
+              </div>
+            </li>
+            <li className="px-4 min-h-16 flex flex-row items-center justify-between border-b-slate-300 border-b-[1px] cursor-pointer hover:bg-zinc-100 select-none">
+              <div
+                className="w-full flex flex-col gap-x-1"
+                onClick={handleOpenFullNamePopup}
+              >
+                <h4 className="text-base font-semibold">Last name</h4>
+                <p className="text-base text-gray-600">
+                  {profileState?.profile?.lastName}
+                </p>
+              </div>
+              <div>
+                <button>
+                  <i>
+                    <ChevronRight />
+                  </i>
+                </button>
+              </div>
+            </li>
+            <li className="px-4 min-h-16 flex flex-row items-center justify-between border-b-slate-300 cursor-pointer hover:bg-zinc-100 select-none">
+              <div
+                className="w-full flex flex-col gap-x-1"
+                onClick={handleOpenBiographyPopup}
+              >
+                <h4 className="text-base font-semibold">Citizent</h4>
+                <p className="text-base text-gray-600">123332423</p>
+              </div>
+              <div>
+                <button>
+                  <i>
+                    <ChevronRight />
+                  </i>
+                </button>
+              </div>
+            </li>
+          </ul>
+        )}
       </div>
     </section>
   );

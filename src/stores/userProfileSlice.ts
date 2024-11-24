@@ -1,6 +1,4 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { setAvatarProfile } from "@/stores/userSlice";
-import { store } from "@/stores/store";
 
 export interface InitialState {
   profile: API.TProfile | null;
@@ -36,10 +34,14 @@ const userProfileSlice = createSlice({
     },
     updateProfile: (state, action: PayloadAction<API.TProfile>) => {
       if (state.profile) {
-        state.profile.biography = action.payload.biography;
-        state.profile.firstName = action.payload.firstName;
-        state.profile.lastName = action.payload.lastName;
-        state.profile.phoneNumber = action.payload.phoneNumber;
+        if (action.payload.biography !== null)
+          state.profile.biography = action.payload.biography;
+        if (action.payload.firstName !== null)
+          state.profile.firstName = action.payload.firstName;
+        if (action.payload.lastName !== null)
+          state.profile.lastName = action.payload.lastName;
+        if (action.payload.phoneNumber !== null)
+          state.profile.phoneNumber = action.payload.phoneNumber;
       }
     },
   },

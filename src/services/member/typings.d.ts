@@ -12,9 +12,12 @@ declare namespace REQUEST {
   type TUpdateProfile = {
     firstName?: string | null;
     lastName?: string | null;
-    email?: string | null;
     phoneNumber?: string | null;
     biography?: string | null;
+  };
+
+  type TUpdateEmail = {
+    email: string;
   };
 }
 
@@ -62,5 +65,6 @@ declare namespace API {
     loginType?: LoginType | null;
     genderType?: GenderType | null;
     roleUserId?: RoleType | null;
+    createdDate?: string | null;
   };
 }

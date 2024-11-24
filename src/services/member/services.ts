@@ -1,10 +1,19 @@
 import { useMutation } from "@tanstack/react-query";
-import { updateAvatar, updateCoverPhoto, updateProfile } from "@/services/member/api-services";
+import {
+  updateAvatar,
+  updateCoverPhoto,
+  updateEmail,
+  updateProfile,
+} from "@/services/member/api-services";
 import useToast from "@/hooks/use-toast";
 import { useAppDispatch } from "@/stores/store";
-import { setAvatarImage, setCoverPhotoImage, updateProfile as storeUpdateProfile } from "@/stores/userProfileSlice";
+import {
+  setAvatarImage,
+  setCoverPhotoImage,
+  updateProfile as storeUpdateProfile,
+} from "@/stores/userProfileSlice";
 import { setAvatarProfile } from "@/stores/userSlice";
-import { closeBackdrop } from "@/stores/stateSlice";
+import { closeBackdrop, openBackdrop } from "@/stores/stateSlice";
 
 export const useServiceUpdateAvatar = () => {
   const { addToast } = useToast();
@@ -64,10 +73,38 @@ export const useServiceUpdateCoverPhoto = () => {
 
 export const useServiceUpdateProfile = () => {
   const dispatch = useAppDispatch();
-  return useMutation<TResponseData<API.TProfile>, TMeta, REQUEST.TUpdateProfile>({
+  return useMutation<
+    TResponseData<API.TProfile>,
+    TMeta,
+    REQUEST.TUpdateProfile
+  >({
     mutationFn: updateProfile,
     onSuccess: (data) => {
       dispatch(storeUpdateProfile(data.value.data));
+    },
+  });
+};
+
+export const useServiceUpdateEmail = () => {
+  const { addToast } = useToast();
+  const dispatch = useAppDispatch();
+  return useMutation<TResponse, TMeta, REQUEST.TUpdateEmail>({
+    mutationFn: updateEmail,
+    onSuccess: (data) => {
+      dispatch(closeBackdrop());
+      addToast({
+        type: "success",
+        description: data.value.message,
+        duration: 3500,
+      });
+    },
+    onError: () => {
+      dispatch(closeBackdrop());
+      addToast({
+        type: "error",
+        description: "Update email failed, please try again!",
+        duration: 3500,
+      });
     },
   });
 };

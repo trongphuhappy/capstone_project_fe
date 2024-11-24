@@ -44,3 +44,12 @@ export const UpdateProfileBody = z.object({
 });
 
 export type UpdateProfileBodyType = z.TypeOf<typeof UpdateProfileBody>;
+
+export const EmailBody = z.object({
+  email: z
+    .string()
+    .email()
+    .refine((val) => val.trim() !== "", { message: "Email is required" }),
+});
+
+export type EmailBodyType = z.TypeOf<typeof EmailBody>;

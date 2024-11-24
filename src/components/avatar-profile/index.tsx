@@ -4,14 +4,14 @@ import { useAppSelector } from "@/stores/store";
 import { useEffect, useState } from "react";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Images, SquareUser } from "lucide-react";
-import useUpdateProfileDialog from "@/hooks/use-update-profile-dialog";
+import useUpdateAvatarDialog from "@/hooks/use-update-avatar-dialog";
 import { Skeleton } from "../ui/skeleton";
 
 export default function AvatarProfile() {
   const profileState = useAppSelector((state) => state.userProfileslice);
   const userState = useAppSelector((state) => state.userSlice.profile);
   const [avatarTooltip, setAvatarTooltip] = useState<boolean>(false);
-  const { onOpenUpdateAvatarProfile } = useUpdateProfileDialog();
+  const { onOpenUpdateAvatarProfile } = useUpdateAvatarDialog();
 
   const [avatar, setAvatar] = useState<string>("");
 

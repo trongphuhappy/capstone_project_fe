@@ -8,9 +8,11 @@ import useQuickViewProduct from "@/hooks/use-quick-view-product";
 import SearchComponent from "@/components/seach-component";
 import useSearchDialog from "@/hooks/use-search-dialog";
 import UpdateAvatarProfile from "@/components/update-avatar-profile";
-import useUpdateProfileDialog from "@/hooks/use-update-profile-dialog";
+import useUpdateAvatarDialog from "@/hooks/use-update-avatar-dialog";
 import { Backdrop } from "@/components/backdrop";
 import { useAppSelector } from "@/stores/store";
+import UpdateEmail from "@/components/update-profile/update-email";
+import useUpdateProfileDialog from "@/hooks/use-update-profile-dialog";
 
 export default function GlobalContent({
   children,
@@ -30,7 +32,9 @@ export default function GlobalContent({
 
   const { open: isSearchDialogOpen, onCloseSearchDialog } = useSearchDialog();
 
-  const { avatarOpen, onCloseUpdateAvatarProfile } = useUpdateProfileDialog();
+  const { avatarOpen, onCloseUpdateAvatarProfile } = useUpdateAvatarDialog();
+
+  const { profileOpen, onCloseUpdateProfile } = useUpdateProfileDialog();
 
   return (
     <Fragment>
@@ -51,6 +55,7 @@ export default function GlobalContent({
         open={avatarOpen}
         onClose={onCloseUpdateAvatarProfile}
       />
+      <UpdateEmail open={profileOpen} onClose={onCloseUpdateProfile} />
       <main>{children}</main>
       <Backdrop open={backdropState.status} />
     </Fragment>

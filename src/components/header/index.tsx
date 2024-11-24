@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
 import Search from "@/components/search";
 import {
   Tooltip,
@@ -13,19 +12,17 @@ import { Fragment, useEffect, useState } from "react";
 import Link from "next/link";
 import { useAppSelector } from "@/stores/store";
 import AvatarMenu from "@/components/avatar-menu";
-import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
-// import { useServiceProductCategories } from "@/services/product-categories/services";
-import { productCategories } from "@/utils/locales/en-US/product";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import { Bell, SquarePen } from "lucide-react";
-import { Backdrop } from "@/components/backdrop";
 
 export default function Header() {
   const userState = useAppSelector((state) => state.userSlice);
   // const [navItems, setNavItems] = useState<INavItem[]>(InitialNavItems);
 
-  const [underlineWidth, setUnderlineWidth] = useState<number>(0);
-  const [underlineLeft, setUnderlineLeft] = useState<number>(0);
-  const [dropdownIndex, setDropdownIndex] = useState<number | null>(null);
   const [isDropdownHovered, setIsDropdownHovered] = useState<boolean>(false);
   const [avatarMenuTooltip, setAvatarMenuTooltip] = useState<boolean>(false);
 
@@ -36,9 +33,6 @@ export default function Header() {
   const handleMouseEnter = (index: number, element: HTMLLIElement) => {
     if (element) {
       const { offsetWidth, offsetLeft } = element;
-      setUnderlineWidth(offsetWidth);
-      setUnderlineLeft(offsetLeft);
-      setDropdownIndex(index);
       // if (index === 1) {
       //   setNavItems((prevNavItems) =>
       //     prevNavItems.map((item, i) =>
@@ -53,21 +47,6 @@ export default function Header() {
       //   );
       // }
     }
-  };
-
-  const handleMouseLeave = () => {
-    if (!isDropdownHovered) {
-      setDropdownIndex(null);
-    }
-  };
-
-  const handleDropdownMouseEnter = () => {
-    setIsDropdownHovered(true);
-  };
-
-  const handleDropdownMouseLeave = () => {
-    setIsDropdownHovered(false);
-    setDropdownIndex(null);
   };
 
   useEffect(() => {

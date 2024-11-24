@@ -3,13 +3,9 @@
 import React, { Fragment, useState } from "react";
 
 import {
-  Calendar,
   CalendarDays,
-  Camera,
-  GraduationCap,
   Heart,
   HeartHandshake,
-  Plus,
   ShieldEllipsis,
 } from "lucide-react";
 
@@ -17,6 +13,7 @@ import UpdateBiography from "@/app/(user)/profile/components/update-biography";
 import { useAppSelector } from "@/stores/store";
 import useUpdateProfile from "@/hooks/use-update-profile";
 import { Skeleton } from "@/components/ui/skeleton";
+import { formatTimeSince } from "@/utils/date";
 
 export default function IntroductionBox() {
   const [isUpdateBiography, setIsUpdateBiography] = useState<boolean>(false);
@@ -101,7 +98,10 @@ export default function IntroductionBox() {
           <CalendarDays className="w-6 h-6 text-gray-700" />
           <span className="text-[15px] font-normal text-gray-700">
             Participated:{" "}
-            <b className="font-medium text-black">10 months ago</b>
+            <b className="font-medium text-black">
+              {userProfileState?.createdDate &&
+                formatTimeSince(userProfileState?.createdDate)}
+            </b>
           </span>
         </div>
         <div className="flex items-center gap-x-2">

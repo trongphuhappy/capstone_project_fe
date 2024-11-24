@@ -49,3 +49,14 @@ export const updateProfile = async (data: REQUEST.TUpdateProfile) => {
   );
   return response.data;
 };
+
+export const updateEmail = async (data: REQUEST.TUpdateEmail) => {
+  const response = await request<TResponse>(
+    API_ENDPOINTS.UPDATE_EMAIL,
+    {
+      method: "PUT",
+      data,
+    }
+  );
+  return response.data;
+};
