@@ -190,7 +190,7 @@ export default function Header() {
   const handleCategoryLeave = () => {
     setOpenLabel(null);
   };
-  
+
 
   const handleCategoryClick = (categoryName: string) => {
     if (selectedCategory !== categoryName) {
@@ -333,93 +333,139 @@ export default function Header() {
       <div className="h-[40px] flex items-center">
         <nav>
           <ul className="flex items-center justify-start gap-x-[60px] relative">
-            {InitialNavItems.map((item, index) => (
-              <li
-                key={index}
-                className="cursor-pointer relative"
-                onMouseEnter={() => handleCategoryHover(item)}
-                onMouseLeave={handleCategoryLeave}
-              >
-                <span className="text-xs text-black font-semibold font-montserrat">
-                  {item.label}
-                </span>
+            {InitialNavItems.map((item, index) => {
+              if (item.label === 'Contact Us') {
+                return (
+                  <li
+                    key={index}
+                    className="cursor-pointer relative"
+                    onMouseEnter={() => handleCategoryHover(item)}
+                    onMouseLeave={handleCategoryLeave}
+                  >
+                    <span className="text-xs text-black font-semibold font-montserrat">
+                      {item.label}
+                    </span>
 
-                <AnimatePresence>
-                  {openLabel === item.label && (
-                    <motion.div
-                      className="absolute left-0 top-[calc(100%+10px)] bg-white shadow-lg w-[1100px] h-[400px] z-50 flex"
-                      initial={{ opacity: 0, translateY: -10 }}
-                      animate={{ opacity: 1, translateY: 0 }}
-                      exit={{ opacity: 0, translateY: -10 }}
-                      transition={{ duration: 0.3 }}
-                    >
-                      
-                      <div className="w-1/6 p-4 space-y-4">
-                        {item.categories && item.categories.length > 0 ? (
-                          <div className="space-y-2">
-                            {item.categories.map((category, idx) => (
-                              <div
-                                key={idx}
-                                className={`p-2 cursor-pointer ${selectedCategory === category.category ? 'underline' : ''} hover:bg-gray-100`}
-                                onClick={() => handleCategoryClick(category.category)}
-                              >
-                                <span className="text-sm text-gray-700">{category.category}</span>
+                    <AnimatePresence>
+                      {openLabel === item.label && (
+                        <motion.div
+                          className="absolute left-0 top-[calc(100%+10px)] bg-white shadow-lg w-[500px] p-4 z-50"
+                          initial={{ opacity: 0, translateY: -10 }}
+                          animate={{ opacity: 1, translateY: 0 }}
+                          exit={{ opacity: 0, translateY: -10 }}
+                          transition={{ duration: 0.3 }}
+                        >
+                          <div className="space-y-4">
+                            <h3 className="text-lg font-semibold">Contact Information</h3>
+                            <div className="grid grid-cols-2 gap-4">
+                              <div className="border-r border-gray-200 pb-4">
+                                <h4 className="text-sm text-gray-700 font-semibold">Email:</h4>
+                                <p className="text-sm text-gray-600">example@example.com</p>
                               </div>
-                            ))}
-                          </div>
-                        ) : (
-                          <span className="text-sm text-gray-500">No categories available</span>
-                        )}
-                      </div>
-                      
-                      <div className={`w-5/6 grid grid-cols-3 gap-2 p-4 max-h-[400px] overflow-y-auto ${styles.imageGallery}`}>
-                        {item.categories
-                          .filter(
-                            (category) =>
-                              selectedCategory === category.category && category.subItems && category.subItems.length > 0
-                          )
-                          .map((category, idx) => (
-                            <div key={idx} className="col-span-3">
-                              <h3 className="text-lg font-semibold text-gray-900 mb-4">
-                                {category.category}
-                              </h3>
-                              <div className="grid grid-cols-4 gap-4 space-y-4">
-                                {category.subItems.map((subItem, subIdx) => (
-                                  <div
-                                    key={subIdx}
-                                    className={`flex flex-row items-center hover:bg-gray-100 ${subIdx === 1 ? 'relative z-10' : ''}`}
-                                  >
-                                    <div className="w-24 h-20 mr-2 relative">
-                                      <Image
-                                        src={subItem.image}
-                                        alt={subItem.name}
-                                        layout="fill"
-                                        objectFit="cover"
-                                        className="shadow-md"
-                                      />
-                                    </div>
-                                    <span className="text-xs text-gray-700">{subItem.name}</span>
-                                  </div>
-                                ))}
+                              <div className=" border-gray-200 pb-4">
+                                <h4 className="text-sm text-gray-700 font-semibold">Phone:</h4>
+                                <p className="text-sm text-gray-600">+123456789</p>
+                              </div>
+                              <div className="border-r border-gray-200 pb-4">
+                                <h4 className="text-sm text-gray-700 font-semibold">Address:</h4>
+                                <p className="text-sm text-gray-600">123 Street, City, Country</p>
+                              </div>
+                              <div>
+                                <h4 className="text-sm text-gray-700 font-semibold">Working Hours:</h4>
+                                <p className="text-sm text-gray-600">Mon - Fri: 9:00 AM - 6:00 PM</p>
                               </div>
                             </div>
-                          ))}
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </li>
+                );
+              }
 
-                        {item.categories.every(
-                          (category) =>
-                            selectedCategory !== category.category || !category.subItems || category.subItems.length === 0
-                        ) && (
-                            <span className="text-sm text-gray-500 col-span-3">No subitems available</span>
+              return (
+                <li
+                  key={index}
+                  className="cursor-pointer relative"
+                  onMouseEnter={() => handleCategoryHover(item)}
+                  onMouseLeave={handleCategoryLeave}
+                >
+                  <span className="text-xs text-black font-semibold font-montserrat">
+                    {item.label}
+                  </span>
+
+                  <AnimatePresence>
+                    {openLabel === item.label && (
+                      <motion.div
+                        className="absolute left-0 top-[calc(100%+10px)] bg-white shadow-lg w-[1100px] h-[400px] z-50 flex"
+                        initial={{ opacity: 0, translateY: -10 }}
+                        animate={{ opacity: 1, translateY: 0 }}
+                        exit={{ opacity: 0, translateY: -10 }}
+                        transition={{ duration: 0.3 }}
+                      >
+                        <div className="w-1/6 p-4 space-y-4">
+                          {item.categories && item.categories.length > 0 ? (
+                            <div className="space-y-2">
+                              {item.categories.map((category, idx) => (
+                                <div
+                                  key={idx}
+                                  className={`p-2 cursor-pointer ${selectedCategory === category.category ? 'underline' : ''} hover:bg-gray-100`}
+                                  onClick={() => handleCategoryClick(category.category)}
+                                >
+                                  <span className="text-sm text-gray-700">{category.category}</span>
+                                </div>
+                              ))}
+                            </div>
+                          ) : (
+                            <span className="text-sm text-gray-500">No categories available</span>
                           )}
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </li>
-            ))}
+                        </div>
+
+                        <div className={`w-5/6 grid grid-cols-3 gap-2 p-4 max-h-[400px] overflow-y-auto`}>
+                          {item.categories
+                            .filter(
+                              (category) =>
+                                selectedCategory === category.category && category.subItems && category.subItems.length > 0
+                            )
+                            .map((category, idx) => (
+                              <div key={idx} className="col-span-3">
+                                <h3 className="text-lg font-semibold text-gray-900 mb-4">{category.category}</h3>
+                                <div className="grid grid-cols-4 gap-4 space-y-4">
+                                  {category.subItems.map((subItem, subIdx) => (
+                                    <div key={subIdx} className={`flex flex-row items-center hover:bg-gray-100 ${subIdx === 1 ? 'relative z-10' : ''}`}>
+                                      <div className="w-24 h-20 mr-2 relative">
+                                        <Image
+                                          src={subItem.image}
+                                          alt={subItem.name}
+                                          layout="fill"
+                                          objectFit="cover"
+                                          className="shadow-md"
+                                        />
+                                      </div>
+                                      <span className="text-xs text-gray-700">{subItem.name}</span>
+                                    </div>
+                                  ))}
+                                </div>
+                              </div>
+                            ))}
+
+                          {item.categories.every(
+                            (category) =>
+                              selectedCategory !== category.category || !category.subItems || category.subItems.length === 0
+                          ) && (
+                              <span className="text-sm text-gray-500 col-span-3">No subitems available</span>
+                            )}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </li>
+              );
+            })}
           </ul>
         </nav>
       </div>
+
     </header>
   );
 }

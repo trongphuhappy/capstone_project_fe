@@ -312,7 +312,6 @@ export default function ProductComponent({ productId }: ProductComponentProps) {
       </div>
 
       <AlertDialog open={isModalOpen} onOpenChange={setIsModalOpen}>
-        <AlertDialogTrigger>Open Dialog</AlertDialogTrigger>
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>Choose Start and End Dates</AlertDialogTitle>
