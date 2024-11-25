@@ -22,6 +22,7 @@ export interface InitialState {
     openFirstName: false | true;
     openLastName: false | true;
     openCitizen: false | true;
+    openUpdateLessor: false | true;
   };
 }
 
@@ -36,6 +37,7 @@ const initialState: InitialState = {
     openFirstName: false,
     openLastName: false,
     openCitizen: false,
+    openUpdateLessor: false,
   },
 };
 
@@ -102,6 +104,12 @@ const stateSlice = createSlice({
     closeUpdateCitizenDialog: (state) => {
       state.updateProfileDialog.openCitizen = false;
     },
+    openUpdateInfoLessorDialog: (state) => {
+      state.updateProfileDialog.openUpdateLessor = true;
+    },
+    closeUpdateInfoLessorDialog: (state) => {
+      state.updateProfileDialog.openUpdateLessor = false;
+    },
   },
 });
 
@@ -124,6 +132,8 @@ export const {
   closeUpdateLastNameDialog,
   openUpdateCitizenDialog,
   closeUpdateCitizenDialog,
+  openUpdateInfoLessorDialog,
+  closeUpdateInfoLessorDialog,
 } = stateSlice.actions;
 
 export default stateSlice.reducer;

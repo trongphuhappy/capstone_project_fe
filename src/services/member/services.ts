@@ -5,6 +5,7 @@ import {
   updateCitizen,
   updateCoverPhoto,
   updateEmail,
+  updateInfoLessor,
   updateProfile,
   updateVerifyEmail,
 } from "@/services/member/api-services";
@@ -169,5 +170,11 @@ export const useServiceGetInfoLessor = () => {
       });
     },
     onError: (error) => {},
+  });
+};
+
+export const useServiceUpdateInfoLessor = () => {
+  return useMutation<TResponse, TMeta, REQUEST.TUpdateLessorInfo>({
+    mutationFn: updateInfoLessor,
   });
 };

@@ -8,20 +8,17 @@ import { useState } from "react";
 export default function useCheckExsitLessor() {
   const { addToast } = useToast();
   const dispatch = useAppDispatch();
-  const [data, setData] = useState<Boolean>(false);
 
   const checkExistLessorApi = async () => {
     dispatch(openBackdrop());
     try {
       const res = await checkLessorExistLessorByAccountId();
       if (isTResponseData(res)) {
-        setData(res.value.data);
+        return res.value.data;
       } else {
-        setData(false);
         return null;
       }
     } catch (error) {
-      setData(false);
       addToast({
         type: "error",
         description: "An error occurred while fetching applications",
@@ -31,5 +28,5 @@ export default function useCheckExsitLessor() {
       dispatch(closeBackdrop());
     }
   };
-  return { checkExistLessorApi, data };
+  return { checkExistLessorApi };
 }

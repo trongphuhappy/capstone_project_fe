@@ -33,6 +33,12 @@ declare namespace REQUEST {
   type TGetInfoLessor = {
     publicLessor?: boolean;
   };
+
+  type TUpdateLessorInfo = {
+    locationType?: number | null;
+    wareHouseAddress?: string | null;
+    shopName?: string | null;
+  };
 }
 
 declare namespace API {

@@ -38,3 +38,12 @@ export const CitizenBody = z.object({
 });
 
 export type CitizenBodyType = z.TypeOf<typeof CitizenBody>;
+
+export const LessorInfoBody = z.object({
+  WareHouseAddress: z
+    .string()
+    .min(2, "Address is 2 characters or more in length"),
+  ShopName: z.string().min(2, "Shop name is 2 characters or more in length"),
+});
+
+export type LessorInfoBodyType = z.TypeOf<typeof LessorInfoBody>;

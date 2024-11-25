@@ -1,5 +1,4 @@
 // import { useServiceProductPage } from "@/services/products/services";
-import { useState } from "react";
 
 // export default function useGetProductsFilter() {
 //   const [products, setProducts] =

@@ -10,6 +10,9 @@ import useGetProfile from "@/app/(user)/profile/hooks/useGetProfile";
 import { useEffect, useState } from "react";
 import IntroductionLessor from "@/app/(user)/profile/components/introduction-lessor";
 import useGetLessor from "../hooks/useGetLessor";
+import useCheckExsitLessor from "@/hooks/use-check-exist-lessor";
+import useToast from "@/hooks/use-toast";
+import { useRouter } from "next/navigation";
 
 interface NavProfile {
   name: string;
@@ -36,13 +39,13 @@ const NAV: NavProfile[] = [
 ];
 
 export default function ProfileComponent() {
+  const { addToast } = useToast();
+  const router = useRouter();
   const userState = useAppSelector((state) => state.userSlice.profile);
-
   const { profileState, getProfileApi, isPending } = useGetProfile();
-
   const { getLessorApi } = useGetLessor();
-
   const [nav, setNav] = useState<number>(0);
+  const { checkExistLessorApi } = useCheckExsitLessor();
 
   const handleGetProfile = async () => {
     await getProfileApi();
@@ -85,6 +88,18 @@ export default function ProfileComponent() {
     });
   };
 
+  const handlePostNow = async () => {
+    const res = await checkExistLessorApi();
+    if (res === false) {
+      addToast({
+        type: "error",
+        description: "Please update information to become a lessor",
+      });
+    } else {
+      router.push("/create-product");
+    }
+  };
+
   return (
     <div>
       <div className="font-montserrat mx-auto">
@@ -110,6 +125,7 @@ export default function ProfileComponent() {
                       <div className="ml-auto flex gap-x-3">
                         <button
                           type="button"
+                          onClick={handlePostNow}
                           className="px-3 py-2 bg-[#e2e5e9] rounded-xl hover:bg-[#00939f] group shadow-header-shadown"
                         >
                           <div className="flex items-center gap-x-3">

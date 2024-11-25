@@ -16,6 +16,7 @@ import useUpdateProfileDialog from "@/hooks/use-update-profile-dialog";
 import UpdateFirstName from "@/components/update-profile/update-firstname";
 import UpdateLastName from "@/components/update-profile/update-lastname";
 import UpdateCitizen from "@/components/update-profile/update-citizen";
+import UpdateLessor from "@/components/update-profile/update-lessor";
 
 export default function GlobalContent({
   children,
@@ -42,10 +43,12 @@ export default function GlobalContent({
     openFirstName,
     openLastName,
     openCitizen,
+    openInfoLessor,
     onCloseUpdateEmail,
     onCloseUpdateFirstName,
     onCloseUpdateLastName,
     onCloseUpdateCitizen,
+    onCloseUpdateInfoLessor,
   } = useUpdateProfileDialog();
 
   return (
@@ -71,7 +74,7 @@ export default function GlobalContent({
       <UpdateFirstName open={openFirstName} onClose={onCloseUpdateFirstName} />
       <UpdateLastName open={openLastName} onClose={onCloseUpdateLastName} />
       <UpdateCitizen open={openCitizen} onClose={onCloseUpdateCitizen} />
-      <UpdateCitizen open={openCitizen} onClose={onCloseUpdateCitizen} />
+      <UpdateLessor open={openInfoLessor} onClose={onCloseUpdateInfoLessor} />
       <main>{children}</main>
       <Backdrop open={backdropState.status} />
     </Fragment>

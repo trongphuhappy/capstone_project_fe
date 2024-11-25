@@ -103,3 +103,11 @@ export const checkLessorExistLessorByAccountId = async () => {
   );
   return response.data;
 };
+
+export const updateInfoLessor = async (data: REQUEST.TUpdateLessorInfo) => {
+  const response = await request<TResponse>(API_ENDPOINTS.UPDATE_INFO_LESSOR, {
+    method: "PUT",
+    data,
+  });
+  return response.data;
+};
