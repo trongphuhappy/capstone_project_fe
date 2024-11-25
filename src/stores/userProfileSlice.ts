@@ -2,9 +2,10 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface InitialState {
   profile: API.TProfile | null;
+  lessor: API.TInfoLessor | null;
 }
 
-const initialState: InitialState = { profile: null };
+const initialState: InitialState = { profile: null, lessor: null };
 
 const userProfileSlice = createSlice({
   name: "userProfileSlice",
@@ -44,6 +45,12 @@ const userProfileSlice = createSlice({
           state.profile.phoneNumber = action.payload.phoneNumber;
       }
     },
+    addInfoLessor: (state, action: PayloadAction<API.TInfoLessor>) => {
+      state.lessor = action.payload;
+    },
+    removeInfoLessor: (state) => {
+      state.lessor = null;
+    },
   },
 });
 
@@ -53,5 +60,7 @@ export const {
   setAvatarImage,
   setCoverPhotoImage,
   updateProfile,
+  addInfoLessor,
+  removeInfoLessor,
 } = userProfileSlice.actions;
 export default userProfileSlice.reducer;

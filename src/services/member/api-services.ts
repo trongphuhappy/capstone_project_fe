@@ -69,14 +69,36 @@ export const updateVerifyEmail = async (data: REQUEST.TUpdateVerifyEmail) => {
 };
 
 export const updateCitizen = async (data: FormData) => {
-  const response = await request<TResponse>(
-    API_ENDPOINTS.UPDATE_CITIZEN,
+  const response = await request<TResponse>(API_ENDPOINTS.UPDATE_CITIZEN, {
+    method: "PUT",
+    data,
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+  return response.data;
+};
+
+export const getInfoLessor = async ({
+  publicLessor = true,
+}: REQUEST.TGetInfoLessor) => {
+  const response = await request<TResponseData<API.TInfoLessor>>(
+    API_ENDPOINTS.GET_INFO_LESSOR,
     {
-      method: "PUT",
-      data,
-      headers: {
-        "Content-Type": "multipart/form-data",
+      method: "GET",
+      params: {
+        publicLessor,
       },
+    }
+  );
+  return response.data;
+};
+
+export const checkLessorExistLessorByAccountId = async () => {
+  const response = await request<TResponseData<Boolean>>(
+    API_ENDPOINTS.CHECK_LESSOR_EXIST,
+    {
+      method: "GET",
     }
   );
   return response.data;

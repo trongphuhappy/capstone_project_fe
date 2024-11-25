@@ -14,6 +14,12 @@ import { useAppSelector } from "@/stores/store";
 import useUpdateProfile from "@/hooks/use-update-profile";
 import { Skeleton } from "@/components/ui/skeleton";
 import { formatTimeSince } from "@/utils/date";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 export default function IntroductionBox() {
   const [isUpdateBiography, setIsUpdateBiography] = useState<boolean>(false);
@@ -107,8 +113,27 @@ export default function IntroductionBox() {
         <div className="flex items-center gap-x-2">
           <ShieldEllipsis className="w-6 h-6 text-gray-700" />
           <span className="text-[15px] font-normal text-gray-700">
-            Verify: <b className="font-medium text-black">Verified</b>
+            Verify:{" "}
+            <b className="font-medium text-black">
+              {userProfileState?.verifyUser ? "Verified" : "Not yet verified"}
+            </b>
           </span>
+          {!userProfileState?.verifyUser && (
+            <TooltipProvider>
+              <Tooltip delayDuration={100}>
+                <TooltipTrigger>
+                  <div className="w-6 h-6 rounded-full flex items-center justify-center bg-red-600">
+                    <span className="text-white">!</span>
+                  </div>
+                </TooltipTrigger>
+                <TooltipContent className="bg-gray-50 shadow-tooltip px-2 py-3 select-none">
+                  <span className="text-[#00000d] text-xs font-montserrat font-normal">
+                    Please update citizen information to rent
+                  </span>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+          )}
         </div>
       </div>
     </div>

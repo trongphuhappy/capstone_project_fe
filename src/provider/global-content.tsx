@@ -71,6 +71,7 @@ export default function GlobalContent({
       <UpdateFirstName open={openFirstName} onClose={onCloseUpdateFirstName} />
       <UpdateLastName open={openLastName} onClose={onCloseUpdateLastName} />
       <UpdateCitizen open={openCitizen} onClose={onCloseUpdateCitizen} />
+      <UpdateCitizen open={openCitizen} onClose={onCloseUpdateCitizen} />
       <main>{children}</main>
       <Backdrop open={backdropState.status} />
     </Fragment>
