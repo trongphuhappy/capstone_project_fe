@@ -112,6 +112,7 @@ export default function UpdateEmail({ open, onClose }: UpdateEmailProps) {
               <div className="ml-auto mr-0 mt-3">
                 <button
                   type="button"
+                  onClick={handleClose}
                   className="mr-2 px-3 py-2 bg-[#e2e5e9] rounded-md hover:bg-[#00939f] group shadow-header-shadown"
                 >
                   <div className="flex items-center gap-x-3">

@@ -116,7 +116,9 @@ export default function SettingInformationUser() {
                 onClick={handleOpenUpdateCitizenPopup}
               >
                 <h4 className="text-base font-semibold">Citizen</h4>
-                <p className="text-base text-gray-600">123332423</p>
+                <p className="text-base text-gray-600">
+                  {profileState?.profile?.citizenId}
+                </p>
               </div>
               <div>
                 <button>

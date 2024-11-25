@@ -5,6 +5,7 @@ const UPDATE_COVER_PHOTO = MEMBER + "/update_cover_photo";
 const UPDATE_PROFILE = MEMBER + "/update_profile";
 const UPDATE_EMAIL = MEMBER + "/update_email";
 const VERIFY_UPDATE_EMAIL = MEMBER + "/verify_update_email";
+const UPDATE_CITIZEN = MEMBER + "/update_citizen";
 
 export default {
   GET_PROFILE,
@@ -13,4 +14,5 @@ export default {
   UPDATE_PROFILE,
   UPDATE_EMAIL,
   VERIFY_UPDATE_EMAIL,
+  UPDATE_CITIZEN,
 };

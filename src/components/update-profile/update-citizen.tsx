@@ -3,16 +3,18 @@
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { X } from "lucide-react";
 import { Input } from "@/components/ui/input";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import {
-  FirstNameBody,
-  FirstNameBodyType,
+  CitizenBody,
+  CitizenBodyType,
 } from "@/utils/schema-validations/user.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useAppDispatch, useAppSelector } from "@/stores/store";
-import { useServiceUpdateProfile } from "@/services/member/services";
+import { useServiceUpdateCitizen, useServiceUpdateProfile } from "@/services/member/services";
 import { closeBackdrop, openBackdrop } from "@/stores/stateSlice";
+import UpdateCitizenImage from "@/components/update-profile/update-citizen-image";
+import useToast from "@/hooks/use-toast";
 
 interface UpdateCitizenProps {
   open: boolean;
@@ -20,11 +22,20 @@ interface UpdateCitizenProps {
 }
 
 export default function UpdateCitizen({ open, onClose }: UpdateCitizenProps) {
+  const { addToast } = useToast();
+  const [citizenFrontImage, setCitizenFrontImage] = useState<
+    { file: File; previewUrl: string }[]
+  >([]);
+
+  const [citizenBackImage, setCitizenBackImage] = useState<
+    { file: File; previewUrl: string }[]
+  >([]);
+
   const profileState = useAppSelector(
     (state) => state.userProfileslice.profile
   );
   const dispatch = useAppDispatch();
-  const { mutate } = useServiceUpdateProfile();
+  const { mutate } = useServiceUpdateCitizen();
   const {
     register,
     handleSubmit,
@@ -32,40 +43,57 @@ export default function UpdateCitizen({ open, onClose }: UpdateCitizenProps) {
     setValue,
     formState: { errors },
     reset,
-  } = useForm<FirstNameBodyType>({
-    resolver: zodResolver(FirstNameBody),
+  } = useForm<CitizenBodyType>({
+    resolver: zodResolver(CitizenBody),
     defaultValues: {
-      firstName: profileState?.firstName || "",
+      citizenNumber: profileState?.citizenId || "",
     },
   });
 
   useEffect(() => {
-    if (profileState?.firstName) setValue("firstName", profileState?.firstName);
+    if (profileState?.citizenId)
+      setValue("citizenNumber", profileState?.citizenId);
   }, [profileState?.firstName]);
 
   const handleClose = () => {
     onClose();
-    if (profileState?.firstName) setValue("firstName", profileState?.firstName);
+    setCitizenFrontImage([]);
+    setCitizenBackImage([]);
+    if (profileState?.citizenId)
+      setValue("citizenNumber", profileState?.citizenId);
   };
 
-  const handleSubmitForm = (data: FirstNameBodyType) => {
+  const handleSubmitForm = (data: CitizenBodyType) => {
+    if (citizenFrontImage.length === 0) {
+      addToast({
+        type: "error",
+        description: "Please upload citizen front image",
+      });
+      return;
+    }
+
+    if (citizenBackImage.length === 0) {
+      addToast({
+        type: "error",
+        description: "Please upload citizen back image",
+      });
+      return;
+    }
+
     dispatch(openBackdrop());
-    const form: REQUEST.TUpdateProfile = {
-      firstName: data.firstName,
+    const form: REQUEST.TUpdateCitizen = {
+      citizenId: data.citizenNumber,
+      frontImageCitizen: citizenFrontImage[0].file,
+      backImageCitizen: citizenBackImage[0].file,
     };
     mutate(form, {
       onSuccess: (data) => {
         reset();
         handleClose();
-        setValue("firstName", data.value.data.firstName || "");
         dispatch(closeBackdrop());
       },
       onError: (error) => {
         dispatch(closeBackdrop());
-        setError("firstName", {
-          type: "manual",
-          message: error.detail,
-        });
       },
     });
   };
@@ -95,28 +123,50 @@ export default function UpdateCitizen({ open, onClose }: UpdateCitizenProps) {
                   Update your citizen
                 </h2>
                 <p className="text-[15px] opacity-90">
-                  Your name will be displayed on your profile, and posts.
+                  Verify identity with citizen
                 </p>
               </div>
-              <div className="mt-[5px] flex flex-col gap-y-3 w-full">
-                <label className="text-[14px] font-semibold">First name</label>
-                <Input
-                  className={`w-full border border-gray-400 focus-visible:ring-0 focus-visible:none py-5 ${
-                    errors?.firstName && "border-red-500"
-                  }`}
-                  autoComplete="off"
-                  placeholder="First name"
-                  {...register("firstName")}
-                />
-                {errors?.firstName && (
-                  <span className="text-red-500">
-                    {errors?.firstName?.message}
-                  </span>
-                )}
+              <div className="w-full">
+                <div className="mt-[5px] flex flex-col gap-y-3 w-full">
+                  <label className="text-[14px] font-semibold">
+                    Citizen number
+                  </label>
+                  <Input
+                    className={`w-full border border-gray-400 focus-visible:ring-0 focus-visible:none py-5 ${
+                      errors?.citizenNumber && "border-red-500"
+                    }`}
+                    autoComplete="off"
+                    placeholder="eg. 123456789"
+                    {...register("citizenNumber")}
+                  />
+                  {errors?.citizenNumber && (
+                    <span className="text-red-500">
+                      {errors?.citizenNumber?.message}
+                    </span>
+                  )}
+                </div>
+                <div className="mt-[5px] flex flex-col gap-y-3 w-full">
+                  <label className="text-[14px] font-semibold">
+                    Citizen image
+                  </label>
+                  <div className="grid grid-cols-2 gap-x-2">
+                    <UpdateCitizenImage
+                      content="Please choose front image"
+                      fileList={citizenFrontImage}
+                      setFileList={setCitizenFrontImage}
+                    />
+                    <UpdateCitizenImage
+                      content="Please choose back image"
+                      fileList={citizenBackImage}
+                      setFileList={setCitizenBackImage}
+                    />
+                  </div>
+                </div>
               </div>
               <div className="ml-auto mr-0 mt-3">
                 <button
                   type="button"
+                  onClick={handleClose}
                   className="mr-2 px-3 py-2 bg-[#e2e5e9] rounded-md hover:bg-[#00939f] group shadow-header-shadown"
                 >
                   <div className="flex items-center gap-x-3">

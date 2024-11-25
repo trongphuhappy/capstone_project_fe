@@ -108,7 +108,7 @@ export default function SettingProfileComponent() {
               <X className="text-gray-500 group-hover:text-gray-700" />
             </button>
             <div className={`${styles.topRight}`}>
-              <SettingInformationUser />
+              {setting === 1 && <SettingInformationUser />}
             </div>
           </div>
         </div>

@@ -1,6 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import {
   updateAvatar,
+  updateCitizen,
   updateCoverPhoto,
   updateEmail,
   updateProfile,
@@ -125,5 +126,27 @@ export const useServiceUpdateVerifyEmail = () => {
         });
       }
     },
+  });
+};
+
+export const useServiceUpdateCitizen = () => {
+  const { addToast } = useToast();
+  const dispatch = useAppDispatch();
+  return useMutation<TResponse, TMeta, REQUEST.TUpdateCitizen>({
+    mutationFn: async (data: REQUEST.TUpdateCitizen) => {
+      const formData = new FormData();
+      formData.append("CitizenId", data.citizenId);
+      formData.append("FrontImageCitizen", data.frontImageCitizen);
+      formData.append("BackImageCitizen", data.backImageCitizen);
+      return await updateCitizen(formData);
+    },
+    onSuccess: (data) => {
+      addToast({
+        type: "success",
+        description: data.value.message,
+        duration: 3500,
+      });
+    },
+    onError: (error) => {},
   });
 };
