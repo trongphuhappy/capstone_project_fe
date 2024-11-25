@@ -8,13 +8,22 @@ import useQuickViewProduct from "@/hooks/use-quick-view-product";
 import SearchComponent from "@/components/seach-component";
 import useSearchDialog from "@/hooks/use-search-dialog";
 import UpdateAvatarProfile from "@/components/update-avatar-profile";
+import useUpdateAvatarDialog from "@/hooks/use-update-avatar-dialog";
+import { Backdrop } from "@/components/backdrop";
+import { useAppSelector } from "@/stores/store";
+import UpdateEmail from "@/components/update-profile/update-email";
 import useUpdateProfileDialog from "@/hooks/use-update-profile-dialog";
+import UpdateFirstName from "@/components/update-profile/update-firstname";
+import UpdateLastName from "@/components/update-profile/update-lastname";
+import UpdateCitizen from "@/components/update-profile/update-citizen";
 
 export default function GlobalContent({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const backdropState = useAppSelector((state) => state.stateSlice.backdrop);
+
   const { open: isAddedCartDialogOpen, onCloseAddedCartDialog } =
     useAddedCartDialog();
 
@@ -26,7 +35,18 @@ export default function GlobalContent({
 
   const { open: isSearchDialogOpen, onCloseSearchDialog } = useSearchDialog();
 
-  const { avatarOpen, onCloseUpdateAvatarProfile } = useUpdateProfileDialog();
+  const { avatarOpen, onCloseUpdateAvatarProfile } = useUpdateAvatarDialog();
+
+  const {
+    openEmail,
+    openFirstName,
+    openLastName,
+    openCitizen,
+    onCloseUpdateEmail,
+    onCloseUpdateFirstName,
+    onCloseUpdateLastName,
+    onCloseUpdateCitizen,
+  } = useUpdateProfileDialog();
 
   return (
     <Fragment>
@@ -47,7 +67,12 @@ export default function GlobalContent({
         open={avatarOpen}
         onClose={onCloseUpdateAvatarProfile}
       />
+      <UpdateEmail open={openEmail} onClose={onCloseUpdateEmail} />
+      <UpdateFirstName open={openFirstName} onClose={onCloseUpdateFirstName} />
+      <UpdateLastName open={openLastName} onClose={onCloseUpdateLastName} />
+      <UpdateCitizen open={openCitizen} onClose={onCloseUpdateCitizen} />
       <main>{children}</main>
+      <Backdrop open={backdropState.status} />
     </Fragment>
   );
 }

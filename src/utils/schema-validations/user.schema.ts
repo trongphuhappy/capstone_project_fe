@@ -1,46 +1,40 @@
 import { z } from "zod";
 
-export const UpdateProfileBody = z.object({
-  id: z.number().int().min(1),
-  password: z.string().min(6).max(100).optional(),
+export const EmailBody = z.object({
   email: z
     .string()
     .email()
     .refine((val) => val.trim() !== "", { message: "Email is required" }),
-  avatar: z.string().url().optional(),
-  address: z.string().optional(),
-  detailedAddress: z.string().optional(),
-  dob: z
-    .string()
-    .refine((val) => !isNaN(Date.parse(val)), {
-      message: "Invalid date of birth",
-    })
-    .optional(),
-  phoneNumber: z
-    .string()
-    .optional()
-    .refine((val) => val === undefined || /^\+?\d+$/.test(val), {
-      message: "Invalid phone number",
-    }),
-  fullName: z
-    .string()
-    .refine((val) => val.trim() !== "", { message: "Full Name is required" }),
-  role: z
-    .string()
-    .refine((val) => val.trim() !== "", { message: "Role is required" })
-    .optional(),
-  citizenId: z
-    .string()
-    .refine((val) => val.trim() !== "", { message: "Citizen ID is required" })
-    .optional(),
-  citizenCardFront: z.string().url().optional(),
-  citizenCardBack: z.string().url().optional(),
-  updatedAt: z
-    .string()
-    .refine((val) => !isNaN(Date.parse(val)), {
-      message: "Invalid updated date",
-    })
-    .optional(),
 });
 
-export type UpdateProfileBodyType = z.TypeOf<typeof UpdateProfileBody>;
+export type EmailBodyType = z.TypeOf<typeof EmailBody>;
+
+export const FirstNameBody = z.object({
+  firstName: z
+    .string()
+    .trim()
+    .min(2, "First name is 2 characters or more in length")
+    .max(256),
+});
+
+export type FirstNameBodyType = z.TypeOf<typeof FirstNameBody>;
+
+export const LastNameBody = z.object({
+  lastName: z
+    .string()
+    .trim()
+    .min(2, "Last name is 2 characters or more in length")
+    .max(256),
+});
+
+export type LastNameBodyType = z.TypeOf<typeof LastNameBody>;
+
+export const CitizenBody = z.object({
+  citizenNumber: z
+    .string()
+    .trim()
+    .min(2, "Citizen is 2 characters or more in length")
+    .max(256),
+});
+
+export type CitizenBodyType = z.TypeOf<typeof CitizenBody>;

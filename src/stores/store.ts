@@ -15,10 +15,10 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 
 import stateSlice from "@/stores/stateSlice";
 import userSlice from "@/stores/userSlice";
-import categorySlice from "@/stores/categorySlice";
 import homeSlice from "@/stores/homeSlice";
 import cartSlice from "@/stores/cartSlice";
 import differenceSlice from "@/stores/difference-slice";
+import userProfileslice from "@/stores/userProfileSlice";
 
 const persistConfig = {
   key: "root",
@@ -31,10 +31,10 @@ const persistConfig = {
 const rootReducer = combineReducers({
   stateSlice: stateSlice,
   userSlice: userSlice,
-  categorySlice: categorySlice,
   homeSlice: homeSlice,
   cartSlice: cartSlice,
   differenceSlice: differenceSlice,
+  userProfileslice: userProfileslice,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

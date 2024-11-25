@@ -4,12 +4,14 @@ import { useAppSelector } from "@/stores/store";
 import { useEffect, useState } from "react";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Images, SquareUser } from "lucide-react";
-import useUpdateProfileDialog from "@/hooks/use-update-profile-dialog";
+import useUpdateAvatarDialog from "@/hooks/use-update-avatar-dialog";
+import { Skeleton } from "../ui/skeleton";
 
 export default function AvatarProfile() {
+  const profileState = useAppSelector((state) => state.userProfileslice);
   const userState = useAppSelector((state) => state.userSlice.profile);
   const [avatarTooltip, setAvatarTooltip] = useState<boolean>(false);
-  const { onOpenUpdateAvatarProfile } = useUpdateProfileDialog();
+  const { onOpenUpdateAvatarProfile } = useUpdateAvatarDialog();
 
   const [avatar, setAvatar] = useState<string>("");
 
@@ -39,7 +41,7 @@ export default function AvatarProfile() {
       <Popover open={avatarTooltip} onOpenChange={setAvatarTooltip}>
         <PopoverTrigger asChild>
           <figure
-            className={`w-[150px] h-[150px] bg-white rounded-full flex items-center justify-center p-2 cursor-pointer ${
+            className={`w-[190px] h-[190px] bg-white rounded-full flex items-center justify-center p-2 cursor-pointer ${
               avatar &&
               "hover:bg-[linear-gradient(to_top,_#d16ba5,_#c777b9,_#ba83ca,_#aa8fd8,_#9a9ae1,_#8aa7ec,_#79b3f4,_#69bff8,_#52cffe,_#41dfff,_#46eefa,_#5ffbf1)]"
             }`}
@@ -49,17 +51,24 @@ export default function AvatarProfile() {
               style={{
                 borderRadius: "50%",
                 overflow: "hidden",
-                width: "140px",
-                height: "140px",
+                width: "170px",
+                height: "170px",
               }}
-              className="flex items-center justify-between border"
+              className="flex items-center justify-between"
             >
-              <img
-                src={userState?.cropAvatarLink}
-                width={140}
-                height={140}
-                alt="avatar"
-              />
+              {profileState.profile?.cropAvatarUrl ? (
+                <img
+                  src={
+                    profileState.profile?.cropAvatarUrl ||
+                    "/images/unknown.webp"
+                  }
+                  width={170}
+                  height={170}
+                  alt="avatar"
+                />
+              ) : (
+                <Skeleton className="w-[170px] h-[170px] rounded-full" />
+              )}
             </div>
           </figure>
         </PopoverTrigger>

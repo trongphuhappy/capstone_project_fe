@@ -1,28 +1,27 @@
 declare namespace REQUEST {
-  interface IFilterProducts {
-    isVehicle?: boolean;
+  type ICategories = {
+    id?: number;
     name?: string;
-    location?: "common.location.HCM" | "common.location.HN";
-    sortField?: "createdAt" | "price" | "accessCount";
-    order?: "ASC" | "DESC";
-    page: number;
-    take: number;
-  }
+    isVehical?: boolean;
+    pageIndex: number;
+    pageSize?: number;
+  };
 }
 
 declare namespace API {
-  interface ICategoriesParams {
-    isVehicle?: string | number | null | boolean;
-  }
-
-  interface ICategoryDescriptions {
+  type Category = {
     id: number;
     name: string;
-    image: string;
-  }
-
-  interface ICategoryDetails extends ICategoryDescriptions {
     isVehicle: boolean;
-    characteristics: string[];
-  }
+  };
+
+  type TGetCategories = {
+    items: Category[];
+    pageIndex: number;
+    pageSize: number;
+    totalCount: number;
+    totalPages: number;
+    hasNextPage: boolean;
+    hasPreviousPage: boolean;
+  };
 }

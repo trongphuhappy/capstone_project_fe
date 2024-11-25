@@ -6,15 +6,27 @@ import { useAppSelector } from "@/stores/store";
 import { Camera, Plus } from "lucide-react";
 import IntroductionBox from "@/app/(user)/profile/components/introduction-box";
 import PostFilterBox from "@/app/(user)/profile/components/post-filter-box";
+import useGetProfile from "@/app/(user)/profile/hooks/useGetProfile";
+import { useEffect, useState } from "react";
 
 export default function ProfileComponent() {
   const userState = useAppSelector((state) => state.userSlice.profile);
+
+  const { profileState, getProfileApi, isPending } = useGetProfile();
+
+  const handleGetProfile = async () => {
+    await getProfileApi();
+  };
+
+  useEffect(() => {
+    handleGetProfile();
+  }, []);
 
   return (
     <div>
       <div className="font-montserrat mx-auto">
         <div className="bg-gray-100 py-5">
-          <div className="relative max-w-[1425px] h-[450px] mx-auto overflow-hidden">
+          <div className="relative max-w-[1425px] h-[500px] mx-auto overflow-hidden">
             <div className="absolute w-full">
               <UpdateCoverPhoto />
               <div className="absolute -bottom-[40%] h-full translate-y-1/2 transform w-full pl-[3%] pr-[3%] flex justify-between items-baseline z-30">
@@ -24,7 +36,9 @@ export default function ProfileComponent() {
                     <div className="w-full flex items-end justify-between">
                       <div>
                         <h2 className="text-2xl font-semibold">
-                          {userState?.firstName + " " + userState?.lastName}
+                          {profileState.profile?.firstName +
+                            " " +
+                            profileState.profile?.lastName}
                         </h2>
                         <p className="mt-1 text-base text-gray-600">
                           520 followers
@@ -41,19 +55,6 @@ export default function ProfileComponent() {
                             </i>
                             <span className="text-base font-medium group-hover:text-white">
                               Post now
-                            </span>
-                          </div>
-                        </button>
-                        <button
-                          type="button"
-                          className="px-3 py-2 bg-[#e2e5e9] rounded-xl hover:bg-[#d1d4d7] group shadow-header-shadown"
-                        >
-                          <div className="flex items-center gap-x-3">
-                            <i>
-                              <Camera className="text-black w-5 h-5 group-hover:text-black" />
-                            </i>
-                            <span className="text-base font-medium group-hover:text-black">
-                              Edit cover photo
                             </span>
                           </div>
                         </button>

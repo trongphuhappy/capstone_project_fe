@@ -1,27 +1,66 @@
 import {
-  closeUpdateAvatarProfileDialog,
-  openUpdateAvatarProfileDialog,
+  closeUpdateCitizenDialog,
+  closeUpdateEmailDialog,
+  closeUpdateFirstNameDialog,
+  closeUpdateLastNameDialog,
+  openUpdateCitizenDialog,
+  openUpdateEmailDialog,
+  openUpdateFirstNameDialog,
+  openUpdateLastNameDialog,
 } from "@/stores/stateSlice";
 import { useAppDispatch, useAppSelector } from "@/stores/store";
 
 export default function useUpdateProfileDialog() {
   const dispatch = useAppDispatch();
 
-  const updateAvatarProfileDialogState = useAppSelector(
-    (state) => state.stateSlice.updateAvatarProfileDialog
+  const updateProfileDialogState = useAppSelector(
+    (state) => state.stateSlice.updateProfileDialog
   );
 
-  const onOpenUpdateAvatarProfile = () => {
-    dispatch(openUpdateAvatarProfileDialog());
+  const onOpenUpdateEmail = () => {
+    dispatch(openUpdateEmailDialog());
   };
 
-  const onCloseUpdateAvatarProfile = () => {
-    dispatch(closeUpdateAvatarProfileDialog());
+  const onCloseUpdateEmail = () => {
+    dispatch(closeUpdateEmailDialog());
+  };
+
+  const onOpenUpdateFirstName = () => {
+    dispatch(openUpdateFirstNameDialog());
+  };
+
+  const onCloseUpdateFirstName = () => {
+    dispatch(closeUpdateFirstNameDialog());
+  };
+
+  const onOpenUpdateLastName = () => {
+    dispatch(openUpdateLastNameDialog());
+  };
+
+  const onCloseUpdateLastName = () => {
+    dispatch(closeUpdateLastNameDialog());
+  };
+
+  const onOpenUpdateCitizen = () => {
+    dispatch(openUpdateCitizenDialog());
+  };
+
+  const onCloseUpdateCitizen = () => {
+    dispatch(closeUpdateCitizenDialog());
   };
 
   return {
-    avatarOpen: updateAvatarProfileDialogState.open,
-    onOpenUpdateAvatarProfile,
-    onCloseUpdateAvatarProfile,
+    openEmail: updateProfileDialogState.openEmail,
+    openFirstName: updateProfileDialogState.openFirstName,
+    openLastName: updateProfileDialogState.openLastName,
+    openCitizen: updateProfileDialogState.openCitizen,
+    onOpenUpdateEmail,
+    onCloseUpdateEmail,
+    onOpenUpdateFirstName,
+    onCloseUpdateFirstName,
+    onOpenUpdateLastName,
+    onCloseUpdateLastName,
+    onOpenUpdateCitizen,
+    onCloseUpdateCitizen,
   };
 }

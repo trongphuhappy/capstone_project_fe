@@ -5,8 +5,16 @@ import { Camera } from "lucide-react";
 import { useRef, useState } from "react";
 import CropImageCover from "@/components/update-cover-photo/crop-image-cover";
 import { convertBase64ToFile } from "@/utils/Convert/ConvertBase64ToFile";
+import useToast from "@/hooks/use-toast";
+import useUpdateCoverPhoto from "@/hooks/use-update-cover-photo";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export default function UpdateCoverPhoto() {
+  const { addToast } = useToast();
+
+  const { onUpdateCoverPhoto, isPending } = useUpdateCoverPhoto();
+
+  const profileState = useAppSelector((state) => state.userProfileslice);
   const userState = useAppSelector((state) => state.userSlice.profile);
   const [coverPhotoSrc, setCoverPhotoSrc] = useState<any>(null);
   const [isCancelCoverPhoto, setIsCancelCoverPhoto] = useState<boolean>(false);
@@ -17,12 +25,12 @@ export default function UpdateCoverPhoto() {
     const newFile = e.target.files[0];
     const allowedTypes = ["image/jpg", "image/jpeg", "image/png"];
 
-    // if (!allowedTypes.includes(newFile?.type)) {
-    //   return Toast({
-    //     err: 1,
-    //     mess: "Please choose image have format JPG, JPEG, PNG",
-    //   });
-    // }
+    if (!allowedTypes.includes(newFile?.type)) {
+      return addToast({
+        type: "error",
+        description: "Please choose image have format JPG, JPEG, PNG",
+      });
+    }
 
     const reader = new FileReader();
     reader.onload = () => {
@@ -49,6 +57,13 @@ export default function UpdateCoverPhoto() {
       base64UrlImage,
       `crop_coverphoto_${userState?.userId}.jpg`
     );
+
+    await onUpdateCoverPhoto({
+      fullCoverPhoto: fullFileCoverPhoto,
+      cropCoverPhoto: cropFileCoverPhoto,
+    });
+
+    handleCloseUpdateCoverPhoto();
   };
 
   return (
@@ -56,19 +71,30 @@ export default function UpdateCoverPhoto() {
       <figure className="w-full h-[300px] overflow-hidden rounded-lg">
         {coverPhotoSrc === null ? (
           <div>
-            <img
-              src={"/images/auth.jpg"}
-              alt="Thumnail"
-              className="w-full h-[300px] object-cover"
-            />
+            {isPending ? (
+              <Skeleton className="w-full h-[300px] object-cover" />
+            ) : (
+              <img
+                src={
+                  profileState.profile?.cropCoverPhotoUrl ||
+                  "/images/banner2.png"
+                }
+                alt="Thumnail"
+                className="w-full h-[300px] object-cover"
+              />
+            )}
           </div>
         ) : (
           <div>
-            <CropImageCover
-              image={coverPhotoSrc}
-              onCancel={handleCancelSaveCoverPhoto}
-              onSubmit={handleSubmit}
-            />
+            {isPending ? (
+              <Skeleton className="w-full h-[300px] object-cover" />
+            ) : (
+              <CropImageCover
+                image={coverPhotoSrc}
+                onCancel={handleCancelSaveCoverPhoto}
+                onSubmit={handleSubmit}
+              />
+            )}
           </div>
         )}
       </figure>

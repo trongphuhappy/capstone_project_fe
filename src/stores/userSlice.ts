@@ -16,8 +16,14 @@ const userSlice = createSlice({
     removeInfoLogin: (state) => {
       state.profile = null;
     },
+    setAvatarProfile: (state, action: PayloadAction<API.TImageProfile>) => {
+      if (state.profile) {
+        state.profile.cropAvatarLink = action.payload.cropAvatarUrl;
+        state.profile.fullAvatarLink = action.payload.fullAvatarUrl;
+      }
+    },
   },
 });
 
-export const { loginUser, removeInfoLogin } = userSlice.actions;
+export const { loginUser, removeInfoLogin, setAvatarProfile } = userSlice.actions;
 export default userSlice.reducer;
