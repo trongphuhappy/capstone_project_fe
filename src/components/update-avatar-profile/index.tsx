@@ -2,11 +2,13 @@
 
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import useToast from "@/hooks/use-toast";
-import { useAppSelector } from "@/stores/store";
+import { useAppDispatch, useAppSelector } from "@/stores/store";
 import { ChevronLeft, Plus, X } from "lucide-react";
 import { useRef, useState } from "react";
 import CropImageAvatar from "./crop-image-avatar";
 import { convertBase64ToFile } from "@/utils/Convert/ConvertBase64ToFile";
+import useUpdateAvatar from "@/hooks/use-update-avatar";
+import { openBackdrop } from "@/stores/stateSlice";
 
 interface UpdateAvatarProfileProps {
   open: boolean;
@@ -17,7 +19,10 @@ export default function UpdateAvatarProfile({
   open,
   onClose,
 }: UpdateAvatarProfileProps) {
+  const dispatch = useAppDispatch();
   const { addToast } = useToast();
+
+  const { onUpdateAvatar, isSuccess } = useUpdateAvatar();
 
   const userState = useAppSelector((state) => state.userSlice.profile);
   const [avatarSrc, setAvatarSrc] = useState<any>(null);
@@ -55,6 +60,7 @@ export default function UpdateAvatarProfile({
   };
 
   const handleSubmit = async (base64UrlImage: any) => {
+    dispatch(openBackdrop());
     const fullFileAvatar = await convertBase64ToFile(
       avatarSrc,
       `fullFile_avatar_${userState?.userId}.jpg`
@@ -65,7 +71,12 @@ export default function UpdateAvatarProfile({
       `crop_avatar_${userState?.userId}.jpg`
     );
 
-    console.log(fullFileAvatar, cropAvatarFile);
+    await onUpdateAvatar({
+      fullAvatar: fullFileAvatar,
+      cropAvatar: cropAvatarFile,
+    } as REQUEST.TUpdateAvatar);
+
+    handleCloseUpdateAvatar();
   };
 
   return (

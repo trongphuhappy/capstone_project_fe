@@ -1,6 +1,5 @@
-const CATEGORIES = "v1/categories";
+const CATEGORIES = "v2/Category";
 
-export const PRODUCT_CATEGORIES = CATEGORIES
-export const PRODUCT_CATEGORIES_DETAILS = `${CATEGORIES}/:categoryId`;
+export const GET_CATEGORIES = CATEGORIES + "/get_all_categories";
 
-export default { PRODUCT_CATEGORIES, PRODUCT_CATEGORIES_DETAILS };
+export default { GET_CATEGORIES };

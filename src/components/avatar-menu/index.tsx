@@ -24,22 +24,17 @@ export default function AvatarMenu({ onCloseTooltip }: AvatarMenuProps) {
       }
       case 2: {
         onCloseTooltip();
-        router.push("/admin/dashboard");
+        router.push("/setting-profile");
         break;
       }
       case 3: {
         onCloseTooltip();
-        // handleOpenTabMessage();
         break;
       }
       case 5: {
         onCloseTooltip();
         handleLogout();
         break;
-      }
-      case 4: {
-        router.push("/staff/application");
-        onCloseTooltip();
       }
       default:
         break;
@@ -60,7 +55,7 @@ export default function AvatarMenu({ onCloseTooltip }: AvatarMenuProps) {
       <ul className="py-2 text-sm text-gray-700" aria-labelledby="avatarButton">
         <li>
           <div
-            onClick={() => handleNavigate(1)}
+            onClick={() => handleNavigate(2)}
             className="cursor-pointer flex items-center justify-between px-4 py-2 bg-white rounded-lg hover:bg-gray-200"
           >
             <div className="flex items-center">

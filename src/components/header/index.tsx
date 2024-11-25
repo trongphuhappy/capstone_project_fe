@@ -12,7 +12,7 @@ import { Fragment, useEffect, useState } from "react";
 import Link from "next/link";
 import { useAppSelector } from "@/stores/store";
 import AvatarMenu from "@/components/avatar-menu";
-import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover"
+import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Bell, SquarePen } from "lucide-react";
 import styles from "@/components/header/main.module.css";
 
@@ -32,7 +32,6 @@ interface INavItem {
   categories: ICategory[];
 }
 
-
 const InitialNavItems: INavItem[] = [
   {
     label: "All Products",
@@ -46,26 +45,26 @@ const InitialNavItems: INavItem[] = [
           { id: 4, name: "Headphones", image: "/images/banner1.png" },
           { id: 5, name: "Headphones", image: "/images/sedan1.jpg" },
           { id: 6, name: "Headphones", image: "/images/suv1.jpg" },
-          { id: 7, name: "Headphones", image: "/images/TV-stand1.webp" }
-        ]
+          { id: 7, name: "Headphones", image: "/images/TV-stand1.webp" },
+        ],
       },
       {
         category: "Clothing 1",
         subItems: [
           { id: 4, name: "Shirts", image: "/images/banner4.png" },
           { id: 5, name: "Pants", image: "/images/suv1.jpg" },
-          { id: 6, name: "Shoes", image: "/images/car2.png" }
-        ]
+          { id: 6, name: "Shoes", image: "/images/car2.png" },
+        ],
       },
       {
         category: "Home Appliances",
         subItems: [
           { id: 7, name: "Refrigerators", image: "/images/furniture1.png" },
           { id: 8, name: "Washing Machines", image: "/images/furniture2.png" },
-          { id: 9, name: "Air Conditioners", image: "/images/furniture3.png" }
-        ]
-      }
-    ]
+          { id: 9, name: "Air Conditioners", image: "/images/furniture3.png" },
+        ],
+      },
+    ],
   },
   {
     label: "Furnitures",
@@ -79,26 +78,26 @@ const InitialNavItems: INavItem[] = [
           { id: 4, name: "Headphones", image: "/images/banner1.png" },
           { id: 5, name: "Headphones", image: "/images/sedan1.jpg" },
           { id: 6, name: "Headphones", image: "/images/suv1.jpg" },
-          { id: 7, name: "Headphones", image: "/images/TV-stand1.webp" }
-        ]
+          { id: 7, name: "Headphones", image: "/images/TV-stand1.webp" },
+        ],
       },
       {
         category: "Clothing 2",
         subItems: [
           { id: 4, name: "Shirts", image: "/images/banner4.png" },
           { id: 5, name: "Pants", image: "/images/suv1.jpg" },
-          { id: 6, name: "Shoes", image: "/images/car2.png" }
-        ]
+          { id: 6, name: "Shoes", image: "/images/car2.png" },
+        ],
       },
       {
         category: "Home Appliances",
         subItems: [
           { id: 7, name: "Refrigerators", image: "/images/furniture1.png" },
           { id: 8, name: "Washing Machines", image: "/images/furniture2.png" },
-          { id: 9, name: "Air Conditioners", image: "/images/furniture3.png" }
-        ]
-      }
-    ]
+          { id: 9, name: "Air Conditioners", image: "/images/furniture3.png" },
+        ],
+      },
+    ],
   },
   {
     label: "Vehicles",
@@ -112,26 +111,26 @@ const InitialNavItems: INavItem[] = [
           { id: 4, name: "Headphones", image: "/images/banner1.png" },
           { id: 5, name: "Headphones", image: "/images/sedan1.jpg" },
           { id: 6, name: "Headphones", image: "/images/suv1.jpg" },
-          { id: 7, name: "Headphones", image: "/images/TV-stand1.webp" }
-        ]
+          { id: 7, name: "Headphones", image: "/images/TV-stand1.webp" },
+        ],
       },
       {
         category: "Clothing 2",
         subItems: [
           { id: 4, name: "Shirts", image: "/images/banner4.png" },
           { id: 5, name: "Pants", image: "/images/suv1.jpg" },
-          { id: 6, name: "Shoes", image: "/images/car2.png" }
-        ]
+          { id: 6, name: "Shoes", image: "/images/car2.png" },
+        ],
       },
       {
         category: "Home Appliances",
         subItems: [
           { id: 7, name: "Refrigerators", image: "/images/furniture1.png" },
           { id: 8, name: "Washing Machines", image: "/images/furniture2.png" },
-          { id: 9, name: "Air Conditioners", image: "/images/furniture3.png" }
-        ]
-      }
-    ]
+          { id: 9, name: "Air Conditioners", image: "/images/furniture3.png" },
+        ],
+      },
+    ],
   },
   {
     label: "E-Neighbor for LESSOR",
@@ -145,37 +144,35 @@ const InitialNavItems: INavItem[] = [
           { id: 4, name: "Headphones", image: "/images/banner1.png" },
           { id: 5, name: "Headphones", image: "/images/sedan1.jpg" },
           { id: 6, name: "Headphones", image: "/images/suv1.jpg" },
-          { id: 7, name: "Headphones", image: "/images/TV-stand1.webp" }
-        ]
+          { id: 7, name: "Headphones", image: "/images/TV-stand1.webp" },
+        ],
       },
       {
         category: "Clothing 2",
         subItems: [
           { id: 4, name: "Shirts", image: "/images/banner4.png" },
           { id: 5, name: "Pants", image: "/images/suv1.jpg" },
-          { id: 6, name: "Shoes", image: "/images/car2.png" }
-        ]
+          { id: 6, name: "Shoes", image: "/images/car2.png" },
+        ],
       },
       {
         category: "Home Appliances",
         subItems: [
           { id: 7, name: "Refrigerators", image: "/images/furniture1.png" },
           { id: 8, name: "Washing Machines", image: "/images/furniture2.png" },
-          { id: 9, name: "Air Conditioners", image: "/images/furniture3.png" }
-        ]
-      }
-    ]
+          { id: 9, name: "Air Conditioners", image: "/images/furniture3.png" },
+        ],
+      },
+    ],
   },
   {
     label: "Contact Us",
-    categories: [
-    ]
-  }
+    categories: [],
+  },
 ];
 
 export default function Header() {
   const userState = useAppSelector((state) => state.userSlice);
-  const categorySlice = useAppSelector((state) => state.categorySlice);
   const [avatarMenuTooltip, setAvatarMenuTooltip] = useState<boolean>(false);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [openLabel, setOpenLabel] = useState<string | null>(null);
@@ -199,9 +196,8 @@ export default function Header() {
   };
 
   useEffect(() => {
-    console.log('Selected Category has changed:', selectedCategory);
+    console.log("Selected Category has changed:", selectedCategory);
   }, [selectedCategory]);
-
 
   const handleToggleAvatarMenuTooltip = () => {
     setAvatarMenuTooltip((prev) => !prev);
@@ -269,7 +265,10 @@ export default function Header() {
                 <TooltipTrigger>
                   <div className="flex items-center justify-center gap-x-1 cursor-pointer rounded-[24px] h-12 group">
                     <Link href="/cart">
-                      <img src="/images/heart-svgrepo-com.svg" alt="heart-svgrepo-com" />
+                      <img
+                        src="/images/heart-svgrepo-com.svg"
+                        alt="heart-svgrepo-com"
+                      />
                     </Link>
                   </div>
                 </TooltipTrigger>
@@ -289,7 +288,10 @@ export default function Header() {
                 </div>
               </li>
               <li>
-                <Popover open={avatarMenuTooltip} onOpenChange={setAvatarMenuTooltip}>
+                <Popover
+                  open={avatarMenuTooltip}
+                  onOpenChange={setAvatarMenuTooltip}
+                >
                   <PopoverTrigger asChild>
                     <div onClick={handleToggleAvatarMenuTooltip}>
                       <figure className="rounded-full border border-zinc-300 overflow-hidden w-10 h-10 flex items-center justify-center hover:bg-gray-200">
