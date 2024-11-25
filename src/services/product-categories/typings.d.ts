@@ -12,6 +12,10 @@ declare namespace API {
   type Category = {
     id: number;
     name: string;
+    image: string;
+  }
+
+  interface ICategoryDetails extends ICategoryDescriptions {
     isVehicle: boolean;
   };
 
