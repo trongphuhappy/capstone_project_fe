@@ -19,7 +19,7 @@ export default function AuthCarousel() {
     >
       <CarouselContent>
         <CarouselItem>
-          <div className="absolute w-full h-[100vh]">
+          <div className="absolute w-full h-[132vh]">
             <Image
               src={"/images/auth.jpg"}
               alt="Authen01"
@@ -27,7 +27,7 @@ export default function AuthCarousel() {
               priority
             />
             <div className="absolute inset-0 bg-black bg-opacity-40"></div>
-            <div className="relative top-[70%]">
+            <div className="absolute inset-0 flex justify-center items-center">
               <p className="font-montserrat text-2xl leading-normal text-gray-50 text-center font-montserrat_alternates">
                 Luxury without ownership
                 <br />
@@ -37,7 +37,7 @@ export default function AuthCarousel() {
           </div>
         </CarouselItem>
         <CarouselItem>
-          <div className="absolute w-full h-[100vh]">
+          <div className="absolute w-full h-[132vh]">
             <Image
               src={"/images/auth01.jpg"}
               alt="Authen02"
@@ -45,7 +45,7 @@ export default function AuthCarousel() {
               priority
             />
             <div className="absolute inset-0 bg-black bg-opacity-40"></div>
-            <div className="relative top-[70%]">
+            <div className="absolute inset-0 flex justify-center items-center">
               <p className="font-montserrat text-2xl leading-normal text-gray-50 text-center font-montserrat_alternates">
                 Elegant in every detail
                 <br />
@@ -55,7 +55,7 @@ export default function AuthCarousel() {
           </div>
         </CarouselItem>
         <CarouselItem>
-          <div className="absolute w-full h-[100vh]">
+          <div className="absolute w-full h-[132vh]">
             <Image
               src={"/images/auth02.jpg"}
               alt="Authen03"
@@ -63,7 +63,7 @@ export default function AuthCarousel() {
               priority
             />
             <div className="absolute inset-0 bg-black bg-opacity-40"></div>
-            <div className="relative top-[70%]">
+            <div className="absolute inset-0 flex justify-center items-center">
               <p className="font-montserrat text-2xl leading-normal text-gray-50 text-center font-montserrat_alternates">
                 Enjoy the journey
                 <br />
@@ -73,7 +73,7 @@ export default function AuthCarousel() {
           </div>
         </CarouselItem>
         <CarouselItem>
-          <div className="relative w-full h-[100vh]">
+          <div className="relative w-full h-[132vh]">
             <Image
               src={"/images/auth03.jpg"}
               alt="Authen04"
@@ -81,7 +81,7 @@ export default function AuthCarousel() {
               priority
             />
             <div className="absolute inset-0 bg-black bg-opacity-40"></div>
-            <div className="relative top-[70%]">
+            <div className="absolute inset-0 flex justify-center items-center">
               <p className="font-montserrat text-2xl leading-normal text-gray-50 text-center font-montserrat_alternates">
                 No need to own.
                 <br />
