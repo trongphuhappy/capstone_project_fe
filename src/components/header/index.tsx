@@ -1,5 +1,6 @@
 "use client";
 import Image from "next/image";
+import { motion, AnimatePresence } from "framer-motion";
 import Search from "@/components/search";
 import {
   Tooltip,
@@ -11,7 +12,7 @@ import { Fragment, useEffect, useState } from "react";
 import Link from "next/link";
 import { useAppSelector } from "@/stores/store";
 import AvatarMenu from "@/components/avatar-menu";
-import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover"
+import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Bell, SquarePen } from "lucide-react";
 import styles from "@/components/header/main.module.css";
 
@@ -31,7 +32,6 @@ interface INavItem {
   categories: ICategory[];
 }
 
-
 const InitialNavItems: INavItem[] = [
   {
     label: "All Products",
@@ -45,26 +45,26 @@ const InitialNavItems: INavItem[] = [
           { id: 4, name: "Headphones", image: "/images/banner1.png" },
           { id: 5, name: "Headphones", image: "/images/sedan1.jpg" },
           { id: 6, name: "Headphones", image: "/images/suv1.jpg" },
-          { id: 7, name: "Headphones", image: "/images/TV-stand1.webp" }
-        ]
+          { id: 7, name: "Headphones", image: "/images/TV-stand1.webp" },
+        ],
       },
       {
         category: "Clothing 1",
         subItems: [
           { id: 4, name: "Shirts", image: "/images/banner4.png" },
           { id: 5, name: "Pants", image: "/images/suv1.jpg" },
-          { id: 6, name: "Shoes", image: "/images/car2.png" }
-        ]
+          { id: 6, name: "Shoes", image: "/images/car2.png" },
+        ],
       },
       {
         category: "Home Appliances",
         subItems: [
           { id: 7, name: "Refrigerators", image: "/images/furniture1.png" },
           { id: 8, name: "Washing Machines", image: "/images/furniture2.png" },
-          { id: 9, name: "Air Conditioners", image: "/images/furniture3.png" }
-        ]
-      }
-    ]
+          { id: 9, name: "Air Conditioners", image: "/images/furniture3.png" },
+        ],
+      },
+    ],
   },
   {
     label: "Furnitures",
@@ -78,26 +78,26 @@ const InitialNavItems: INavItem[] = [
           { id: 4, name: "Headphones", image: "/images/banner1.png" },
           { id: 5, name: "Headphones", image: "/images/sedan1.jpg" },
           { id: 6, name: "Headphones", image: "/images/suv1.jpg" },
-          { id: 7, name: "Headphones", image: "/images/TV-stand1.webp" }
-        ]
+          { id: 7, name: "Headphones", image: "/images/TV-stand1.webp" },
+        ],
       },
       {
         category: "Clothing 2",
         subItems: [
           { id: 4, name: "Shirts", image: "/images/banner4.png" },
           { id: 5, name: "Pants", image: "/images/suv1.jpg" },
-          { id: 6, name: "Shoes", image: "/images/car2.png" }
-        ]
+          { id: 6, name: "Shoes", image: "/images/car2.png" },
+        ],
       },
       {
         category: "Home Appliances",
         subItems: [
           { id: 7, name: "Refrigerators", image: "/images/furniture1.png" },
           { id: 8, name: "Washing Machines", image: "/images/furniture2.png" },
-          { id: 9, name: "Air Conditioners", image: "/images/furniture3.png" }
-        ]
-      }
-    ]
+          { id: 9, name: "Air Conditioners", image: "/images/furniture3.png" },
+        ],
+      },
+    ],
   },
   {
     label: "Vehicles",
@@ -111,26 +111,26 @@ const InitialNavItems: INavItem[] = [
           { id: 4, name: "Headphones", image: "/images/banner1.png" },
           { id: 5, name: "Headphones", image: "/images/sedan1.jpg" },
           { id: 6, name: "Headphones", image: "/images/suv1.jpg" },
-          { id: 7, name: "Headphones", image: "/images/TV-stand1.webp" }
-        ]
+          { id: 7, name: "Headphones", image: "/images/TV-stand1.webp" },
+        ],
       },
       {
         category: "Clothing 2",
         subItems: [
           { id: 4, name: "Shirts", image: "/images/banner4.png" },
           { id: 5, name: "Pants", image: "/images/suv1.jpg" },
-          { id: 6, name: "Shoes", image: "/images/car2.png" }
-        ]
+          { id: 6, name: "Shoes", image: "/images/car2.png" },
+        ],
       },
       {
         category: "Home Appliances",
         subItems: [
           { id: 7, name: "Refrigerators", image: "/images/furniture1.png" },
           { id: 8, name: "Washing Machines", image: "/images/furniture2.png" },
-          { id: 9, name: "Air Conditioners", image: "/images/furniture3.png" }
-        ]
-      }
-    ]
+          { id: 9, name: "Air Conditioners", image: "/images/furniture3.png" },
+        ],
+      },
+    ],
   },
   {
     label: "E-Neighbor for LESSOR",
@@ -144,37 +144,35 @@ const InitialNavItems: INavItem[] = [
           { id: 4, name: "Headphones", image: "/images/banner1.png" },
           { id: 5, name: "Headphones", image: "/images/sedan1.jpg" },
           { id: 6, name: "Headphones", image: "/images/suv1.jpg" },
-          { id: 7, name: "Headphones", image: "/images/TV-stand1.webp" }
-        ]
+          { id: 7, name: "Headphones", image: "/images/TV-stand1.webp" },
+        ],
       },
       {
         category: "Clothing 2",
         subItems: [
           { id: 4, name: "Shirts", image: "/images/banner4.png" },
           { id: 5, name: "Pants", image: "/images/suv1.jpg" },
-          { id: 6, name: "Shoes", image: "/images/car2.png" }
-        ]
+          { id: 6, name: "Shoes", image: "/images/car2.png" },
+        ],
       },
       {
         category: "Home Appliances",
         subItems: [
           { id: 7, name: "Refrigerators", image: "/images/furniture1.png" },
           { id: 8, name: "Washing Machines", image: "/images/furniture2.png" },
-          { id: 9, name: "Air Conditioners", image: "/images/furniture3.png" }
-        ]
-      }
-    ]
+          { id: 9, name: "Air Conditioners", image: "/images/furniture3.png" },
+        ],
+      },
+    ],
   },
   {
     label: "Contact Us",
-    categories: [
-    ]
-  }
+    categories: [],
+  },
 ];
 
 export default function Header() {
   const userState = useAppSelector((state) => state.userSlice);
-  const categorySlice = useAppSelector((state) => state.categorySlice);
   const [avatarMenuTooltip, setAvatarMenuTooltip] = useState<boolean>(false);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [openLabel, setOpenLabel] = useState<string | null>(null);
@@ -189,7 +187,6 @@ export default function Header() {
   const handleCategoryLeave = () => {
     setOpenLabel(null);
   };
-  
 
   const handleCategoryClick = (categoryName: string) => {
     if (selectedCategory !== categoryName) {
@@ -198,9 +195,8 @@ export default function Header() {
   };
 
   useEffect(() => {
-    console.log('Selected Category has changed:', selectedCategory);
+    console.log("Selected Category has changed:", selectedCategory);
   }, [selectedCategory]);
-
 
   const handleToggleAvatarMenuTooltip = () => {
     setAvatarMenuTooltip((prev) => !prev);
@@ -358,30 +354,43 @@ export default function Header() {
                       exit={{ opacity: 0, translateY: -10 }}
                       transition={{ duration: 0.3 }}
                     >
-                      
                       <div className="w-1/6 p-4 space-y-4">
                         {item.categories && item.categories.length > 0 ? (
                           <div className="space-y-2">
                             {item.categories.map((category, idx) => (
                               <div
                                 key={idx}
-                                className={`p-2 cursor-pointer ${selectedCategory === category.category ? 'underline' : ''} hover:bg-gray-100`}
-                                onClick={() => handleCategoryClick(category.category)}
+                                className={`p-2 cursor-pointer ${
+                                  selectedCategory === category.category
+                                    ? "underline"
+                                    : ""
+                                } hover:bg-gray-100`}
+                                onClick={() =>
+                                  handleCategoryClick(category.category)
+                                }
                               >
-                                <span className="text-sm text-gray-700">{category.category}</span>
+                                <span className="text-sm text-gray-700">
+                                  {category.category}
+                                </span>
                               </div>
                             ))}
                           </div>
                         ) : (
-                          <span className="text-sm text-gray-500">No categories available</span>
+                          <span className="text-sm text-gray-500">
+                            No categories available
+                          </span>
                         )}
                       </div>
-                      
-                      <div className={`w-5/6 grid grid-cols-3 gap-2 p-4 max-h-[400px] overflow-y-auto ${styles.imageGallery}`}>
+
+                      <div
+                        className={`w-5/6 grid grid-cols-3 gap-2 p-4 max-h-[400px] overflow-y-auto ${styles.imageGallery}`}
+                      >
                         {item.categories
                           .filter(
                             (category) =>
-                              selectedCategory === category.category && category.subItems && category.subItems.length > 0
+                              selectedCategory === category.category &&
+                              category.subItems &&
+                              category.subItems.length > 0
                           )
                           .map((category, idx) => (
                             <div key={idx} className="col-span-3">
@@ -392,7 +401,9 @@ export default function Header() {
                                 {category.subItems.map((subItem, subIdx) => (
                                   <div
                                     key={subIdx}
-                                    className={`flex flex-row items-center hover:bg-gray-100 ${subIdx === 1 ? 'relative z-10' : ''}`}
+                                    className={`flex flex-row items-center hover:bg-gray-100 ${
+                                      subIdx === 1 ? "relative z-10" : ""
+                                    }`}
                                   >
                                     <div className="w-24 h-20 mr-2 relative">
                                       <Image
@@ -403,7 +414,9 @@ export default function Header() {
                                         className="shadow-md"
                                       />
                                     </div>
-                                    <span className="text-xs text-gray-700">{subItem.name}</span>
+                                    <span className="text-xs text-gray-700">
+                                      {subItem.name}
+                                    </span>
                                   </div>
                                 ))}
                               </div>
@@ -412,10 +425,14 @@ export default function Header() {
 
                         {item.categories.every(
                           (category) =>
-                            selectedCategory !== category.category || !category.subItems || category.subItems.length === 0
+                            selectedCategory !== category.category ||
+                            !category.subItems ||
+                            category.subItems.length === 0
                         ) && (
-                            <span className="text-sm text-gray-500 col-span-3">No subitems available</span>
-                          )}
+                          <span className="text-sm text-gray-500 col-span-3">
+                            No subitems available
+                          </span>
+                        )}
                       </div>
                     </motion.div>
                   )}
