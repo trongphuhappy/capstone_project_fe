@@ -61,6 +61,7 @@ export default function ProfileComponent() {
 
   useEffect(() => {
     handleGetProfile();
+    handleGetInfoLessor();
   }, []);
 
   const renderNav = () => {

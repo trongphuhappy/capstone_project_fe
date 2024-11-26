@@ -13,9 +13,13 @@ import {
 import useGetCategories from "@/hooks/use-get-categories";
 
 export default function CreateProductComponent() {
-  const [fileList, setFileList] = useState<
+  const [productImages, setProductImages] = useState<
     { file: File; previewUrl: string }[]
   >([]);
+
+  const [issuranceImages, setIssuranceImages] = useState<
+  { file: File; previewUrl: string }[]
+>([]);
 
   const { isPending, getCategoriesApi } = useGetCategories();
 
@@ -62,8 +66,8 @@ export default function CreateProductComponent() {
                 <h2 className="text-xl font-semibold">Product images</h2>
                 <div className="mt-6 flex flex-col gap-y-3">
                   <UploadImage
-                    fileList={fileList}
-                    setFileList={setFileList}
+                    fileList={productImages}
+                    setFileList={setProductImages}
                     content="Upload from 1 to 6 images"
                   />
                 </div>
@@ -72,8 +76,8 @@ export default function CreateProductComponent() {
                 <div className="mt-6 flex flex-col gap-y-3">
                   <h2 className="text-xl font-semibold">Insurance images</h2>
                   <UploadImage
-                    fileList={fileList}
-                    setFileList={setFileList}
+                    fileList={issuranceImages}
+                    setFileList={setIssuranceImages}
                     content="Upload front and back"
                   />
                 </div>
