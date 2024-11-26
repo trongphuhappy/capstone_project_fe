@@ -14,8 +14,8 @@ declare namespace REQUEST {
     categoryId?: number | null;
     productImages?: File[] | null;
     insuranceName?: string | null;
-    issueDate?: Date | null;
-    expirationDate?: Date | null;
+    issueDate?: string | null;
+    expirationDate?: string | null;
     insuranceImages?: File[] | null;
     listSurcharges?: TSurcharge[] | null;
   };

@@ -2,70 +2,30 @@
 
 import { Input } from "@/components/ui/input";
 import { DatePicker } from "@/app/(user)/create-product/components/date-picker";
-import { useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "@/stores/store";
-import { createProduct } from "@/stores/productSlice";
 
-export default function IssuranceForm() {
-  const dispatch = useAppDispatch();
-  const createProductState = useAppSelector(state => state.productSlice.createProduct);
+interface IssuranceFormProps {
+  issuranceName: string;
+  issuranceIssueDate: Date | null;
+  issuranceExpireDate: Date | null;
+  insuranceNameError: string | null;
+  issueDateError: string | null;
+  expireDateError: string | null;
+  setInsuranceName: (name: string) => void;
+  setInsuranceIssueDate: (date: Date | null) => void;
+  setInsuranceExpireDate: (date: Date | null) => void;
+}
 
-  const [issuranceName, setInsuranceName] = useState<string>("");
-  const [issuranceIssueDate, setInsuranceIssueDate] = useState<Date>();
-  const [issuranceExpireDate, setInsuranceExpireDate] = useState<Date>();
-  const [insuranceNameError, setInsuranceNameError] = useState<string | null>(
-    null
-  );
-  const [issueDateError, setIssueDateError] = useState<string | null>(null);
-  const [expireDateError, setExpireDateError] = useState<string | null>(null);
-  
-  const validateAndSubmit = () => {
-    let isValid = true;
-
-    setInsuranceNameError(null);
-    setIssueDateError(null);
-    setExpireDateError(null);
-
-    if (!issuranceName.trim()) {
-      setInsuranceNameError("Insurance name cannot be empty.");
-      isValid = false;
-    }
-
-    if (!issuranceIssueDate) {
-      setIssueDateError("Issue date cannot be empty.");
-      isValid = false;
-    }
-
-    if (!issuranceExpireDate) {
-      setExpireDateError("Expiration date cannot be empty.");
-      isValid = false;
-    }
-
-    if (
-      issuranceIssueDate &&
-      issuranceExpireDate &&
-      issuranceIssueDate >= issuranceExpireDate
-    ) {
-      setIssueDateError("Issue date must be earlier than expiration date.");
-      setExpireDateError("Expiration date must be later than issue date.");
-      isValid = false;
-    }
-
-    if (isValid) {
-      dispatch(
-        createProduct({
-          insuranceName: issuranceName,
-          issueDate: issuranceIssueDate,
-          expirationDate: issuranceExpireDate,
-        })
-      );
-    }
-  };
-
-  useEffect(() => {
-    if (createProductState.status === true) validateAndSubmit();
-  }, [createProductState.status]);
-
+export default function IssuranceForm({
+  issuranceName,
+  issuranceIssueDate,
+  issuranceExpireDate,
+  insuranceNameError,
+  issueDateError,
+  expireDateError,
+  setInsuranceName,
+  setInsuranceIssueDate,
+  setInsuranceExpireDate,
+}: IssuranceFormProps) {
   return (
     <div className="mt-4 flex flex-col">
       <div className="flex flex-col gap-y-2 w-full mb-4">
@@ -85,7 +45,7 @@ export default function IssuranceForm() {
         <div className="flex flex-col gap-y-2 w-full mb-4">
           <label className="text-base font-semibold">Issue date</label>
           <DatePicker
-            date={issuranceIssueDate}
+            date={issuranceIssueDate || new Date()}
             onSelect={setInsuranceIssueDate}
           />
           {issueDateError && (
@@ -95,7 +55,7 @@ export default function IssuranceForm() {
         <div className="flex flex-col gap-y-2 w-full mb-4">
           <label className="text-base font-semibold">Expiration date</label>
           <DatePicker
-            date={issuranceExpireDate}
+            date={issuranceExpireDate || new Date()}
             onSelect={setInsuranceExpireDate}
           />
           {expireDateError && (

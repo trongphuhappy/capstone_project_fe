@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
   Tooltip,
@@ -12,16 +12,19 @@ import { Input } from "@/components/ui/input";
 
 interface SurchargeFormProps {
   surcharges: API.Surcharge[];
-  onSubmit: (data: REQUEST.TSurcharge[]) => void;
+  selectedSurcharges: { [key: string]: number | "" };
+  setSelectedSurcharges: (
+    update: (prev: { [key: string]: number | "" }) => {
+      [key: string]: number | "";
+    }
+  ) => void;
 }
 
 export default function SurchargeForm({
   surcharges,
-  onSubmit,
+  selectedSurcharges,
+  setSelectedSurcharges,
 }: SurchargeFormProps) {
-  const [selectedSurcharges, setSelectedSurcharges] = useState<{
-    [key: string]: number | "";
-  }>({});
 
   const handleCheckboxChange = (id: string, checked: boolean) => {
     setSelectedSurcharges((prev) =>
@@ -36,20 +39,6 @@ export default function SurchargeForm({
       ...prev,
       [id]: value === "" ? "" : Number(value),
     }));
-  };
-
-  const handleSubmit = () => {
-    const formattedData = Object.entries(selectedSurcharges)
-      .filter(([, value]) => value !== "")
-      .map(
-        ([id, value]) =>
-          ({
-            surchargeId: id,
-            price: Number(value),
-          } as REQUEST.TSurcharge)
-      );
-
-    onSubmit(formattedData);
   };
 
   const renderSurcharges = () => {
@@ -100,10 +89,6 @@ export default function SurchargeForm({
       );
     });
   };
-
-  // useEffect(() => {
-  //   if (submit === true) handleSubmit();
-  // }, [submit]);
 
   return (
     <div className="font-montserrat flex flex-col gap-y-5">

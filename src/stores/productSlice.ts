@@ -12,9 +12,18 @@ const productSlice = createSlice({
   name: "userSlice",
   initialState: initialState,
   reducers: {
-    createProduct: (state, action: PayloadAction<REQUEST.TCreateProduct>) => {
+    createProductStart: (state) => {
       state.createProduct.status = true;
+    },
+    createProductSuccess: (
+      state,
+      action: PayloadAction<REQUEST.TCreateProduct>
+    ) => {
       state.createProduct.product = action.payload;
+      state.createProduct.status = false;
+    },
+    createProductEnd: (state) => {
+      state.createProduct.status = false;
     },
     removeProduct: (state) => {
       state.createProduct.status = false;
@@ -23,5 +32,10 @@ const productSlice = createSlice({
   },
 });
 
-export const { createProduct, removeProduct } = productSlice.actions;
+export const {
+  createProductStart,
+  createProductSuccess,
+  createProductEnd,
+  removeProduct,
+} = productSlice.actions;
 export default productSlice.reducer;

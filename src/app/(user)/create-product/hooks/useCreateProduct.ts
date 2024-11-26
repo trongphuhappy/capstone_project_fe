@@ -22,6 +22,7 @@ export default function useCreateProduct() {
       policies: "",
       value: 0,
       price: 0,
+      maximumRentDays: 1,
     },
   });
 

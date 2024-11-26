@@ -11,20 +11,36 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import useGetCategories from "@/hooks/use-get-categories";
+import { useAppDispatch, useAppSelector } from "@/stores/store";
+import { create } from "domain";
+import { createProductEnd, createProductSuccess } from "@/stores/productSlice";
+import useToast from "@/hooks/use-toast";
+import { useServiceCreateProduct } from "@/services/product/services";
+import { openBackdrop } from "@/stores/stateSlice";
 
 export default function CreateProductComponent() {
+  const dispatch = useAppDispatch();
+  const { addToast } = useToast();
+  const { mutate, isPending } = useServiceCreateProduct();
   const [productImages, setProductImages] = useState<
     { file: File; previewUrl: string }[]
   >([]);
 
   const [issuranceImages, setIssuranceImages] = useState<
-  { file: File; previewUrl: string }[]
->([]);
+    { file: File; previewUrl: string }[]
+  >([]);
 
-  const { isPending, getCategoriesApi } = useGetCategories();
+  const { getCategoriesApi } = useGetCategories();
 
   const [category, setCategory] = useState<API.Category | null>(null);
   const [categories, setCategories] = useState<API.Category[]>([]);
+  const createProductState = useAppSelector(
+    (state) => state.productSlice.createProduct
+  );
+
+  useEffect(() => {
+    handleGetCategories();
+  }, []);
 
   const handleGetCategories = async () => {
     const res = await getCategoriesApi({ pageIndex: 1, pageSize: 100 });
@@ -32,15 +48,37 @@ export default function CreateProductComponent() {
   };
 
   const handleChangeCategory = async (value: string) => {
-    // const res = await
     if (categories?.length > 0) {
       setCategory(categories[Number.parseInt(value)]);
     }
   };
 
-  useEffect(() => {
-    handleGetCategories();
-  }, []);
+  const handleSubmit = (data: REQUEST.TCreateProduct) => {
+    if (productImages?.length > 0 && issuranceImages?.length > 0) {
+      dispatch(openBackdrop());
+      const formData: REQUEST.TCreateProduct = {
+        ...data,
+        categoryId: category?.id,
+        productImages: productImages.map((image) => image.file),
+        insuranceImages: issuranceImages.map((image) => image.file),
+      };
+      mutate(formData);
+    } else {
+      dispatch(createProductEnd());
+      if (productImages?.length === 0) {
+        addToast({
+          type: "error",
+          description: "Please upload product images",
+        });
+      }
+      if (issuranceImages?.length === 0) {
+        addToast({
+          type: "error",
+          description: "Please upload insurance images",
+        });
+      }
+    }
+  };
 
   return (
     <div className="py-10 font-montserrat">
@@ -85,7 +123,10 @@ export default function CreateProductComponent() {
             </div>
             <div className="flex-1 w-full">
               <div>
-                <CreateProductForm category={category} />
+                <CreateProductForm
+                  category={category}
+                  onSubmit={handleSubmit}
+                />
               </div>
             </div>
           </div>
