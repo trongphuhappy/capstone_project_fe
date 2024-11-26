@@ -1,9 +1,11 @@
 import { useMutation } from "@tanstack/react-query";
 import {
+  checkLessorExistLessorByAccountId,
   updateAvatar,
   updateCitizen,
   updateCoverPhoto,
   updateEmail,
+  updateInfoLessor,
   updateProfile,
   updateVerifyEmail,
 } from "@/services/member/api-services";
@@ -131,7 +133,6 @@ export const useServiceUpdateVerifyEmail = () => {
 
 export const useServiceUpdateCitizen = () => {
   const { addToast } = useToast();
-  const dispatch = useAppDispatch();
   return useMutation<TResponse, TMeta, REQUEST.TUpdateCitizen>({
     mutationFn: async (data: REQUEST.TUpdateCitizen) => {
       const formData = new FormData();
@@ -148,5 +149,11 @@ export const useServiceUpdateCitizen = () => {
       });
     },
     onError: (error) => {},
+  });
+};
+
+export const useServiceUpdateInfoLessor = () => {
+  return useMutation<TResponse, TMeta, REQUEST.TUpdateLessorInfo>({
+    mutationFn: updateInfoLessor,
   });
 };

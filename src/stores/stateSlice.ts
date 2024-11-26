@@ -6,7 +6,7 @@ export interface InitialState {
   };
   quickViewProduct: {
     open: false | true;
-    product: API.IProductCard | null;
+    // product: API.IProductCard | null;
   };
   addedCartDialog: {
     open: false | true;
@@ -22,13 +22,15 @@ export interface InitialState {
     openFirstName: false | true;
     openLastName: false | true;
     openCitizen: false | true;
+    openUpdateLessor: false | true;
   };
 }
 
 const initialState: InitialState = {
   backdrop: { status: false },
   addedCartDialog: { open: false },
-  quickViewProduct: { open: false, product: null },
+  // quickViewProduct: { open: false, product: null },
+  quickViewProduct: { open: false },
   searchDialog: { open: false },
   updateAvatarProfileDialog: { open: false },
   updateProfileDialog: {
@@ -36,6 +38,7 @@ const initialState: InitialState = {
     openFirstName: false,
     openLastName: false,
     openCitizen: false,
+    openUpdateLessor: false,
   },
 };
 
@@ -56,15 +59,15 @@ const stateSlice = createSlice({
       state.addedCartDialog.open = false;
     },
     openQuickViewProductDialog: (
-      state,
-      action: PayloadAction<API.IProductCard>
+      state
+      // action: PayloadAction<API.IProductCard>
     ) => {
       state.quickViewProduct.open = true;
-      state.quickViewProduct.product = action.payload;
+      // state.quickViewProduct.product = action.payload;
     },
     closeQuickProductViewDialog: (state) => {
       state.quickViewProduct.open = false;
-      state.quickViewProduct.product = null;
+      // state.quickViewProduct.product = null;
     },
     openSearchDialog: (state) => {
       state.searchDialog.open = true;
@@ -102,6 +105,12 @@ const stateSlice = createSlice({
     closeUpdateCitizenDialog: (state) => {
       state.updateProfileDialog.openCitizen = false;
     },
+    openUpdateInfoLessorDialog: (state) => {
+      state.updateProfileDialog.openUpdateLessor = true;
+    },
+    closeUpdateInfoLessorDialog: (state) => {
+      state.updateProfileDialog.openUpdateLessor = false;
+    },
   },
 });
 
@@ -124,6 +133,8 @@ export const {
   closeUpdateLastNameDialog,
   openUpdateCitizenDialog,
   closeUpdateCitizenDialog,
+  openUpdateInfoLessorDialog,
+  closeUpdateInfoLessorDialog,
 } = stateSlice.actions;
 
 export default stateSlice.reducer;

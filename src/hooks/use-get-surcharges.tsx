@@ -2,19 +2,19 @@
 
 import { useState } from "react";
 import useToast from "@/hooks/use-toast";
-import { getCategories } from "@/services/categories/api-services";
 import { isTResponseData } from "@/utils/compare";
+import { getSurcharges } from "@/services/surcharge/api-services";
 
-export default function useGetCategories() {
+export default function useGetSurcharges() {
   const { addToast } = useToast();
   const [isPending, setPending] = useState(false);
 
-  const getCategoriesApi = async (params: REQUEST.ICategories) => {
+  const getSurchargesApi = async () => {
     setPending(true);
     try {
-      const res = await getCategories(params);
+      const res = await getSurcharges();
       if (isTResponseData(res)) {
-        return res as TResponseData<API.TGetCategories>;
+        return res as TResponseData<API.TGetSurcharges>;
       } else {
         addToast({
           type: "error",
@@ -31,6 +31,6 @@ export default function useGetCategories() {
 
   return {
     isPending,
-    getCategoriesApi,
+    getSurchargesApi,
   };
 }

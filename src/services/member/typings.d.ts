@@ -28,7 +28,17 @@ declare namespace REQUEST {
     citizenId: string;
     frontImageCitizen: File;
     backImageCitizen: File;
-  }
+  };
+
+  type TGetInfoLessor = {
+    publicLessor?: boolean;
+  };
+
+  type TUpdateLessorInfo = {
+    locationType?: number | null;
+    wareHouseAddress?: string | null;
+    shopName?: string | null;
+  };
 }
 
 declare namespace API {
@@ -45,6 +55,11 @@ declare namespace API {
   enum RoleType {
     Admin = 1,
     Member = 2,
+  }
+
+  enum LocationType {
+    HCM = 1,
+    HN = 2,
   }
 
   type TImageProfile = {
@@ -73,9 +88,17 @@ declare namespace API {
     fullCoverPhotoUrl?: string | null;
     fullCoverPhotoId?: string | null;
     citizenId?: string | null;
+    verifyUser?: boolean | null;
     loginType?: LoginType | null;
     genderType?: GenderType | null;
     roleUserId?: RoleType | null;
     createdDate?: string | null;
+  };
+
+  type TInfoLessor = {
+    accountId?: string | null;
+    wareHouseAddress?: string | null;
+    shopName?: string | null;
+    locationType?: LocationType | null;
   };
 }

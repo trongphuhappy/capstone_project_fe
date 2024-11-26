@@ -1,3 +1,5 @@
+"use client";
+
 import { ChevronRight } from "lucide-react";
 import { useEffect } from "react";
 import useGetProfile from "@/app/(user)/profile/hooks/useGetProfile";
@@ -116,9 +118,13 @@ export default function SettingInformationUser() {
                 onClick={handleOpenUpdateCitizenPopup}
               >
                 <h4 className="text-base font-semibold">Citizen</h4>
-                <p className="text-base text-gray-600">
-                  {profileState?.profile?.citizenId}
-                </p>
+                {profileState?.profile?.citizenId ? (
+                  <p className="text-base text-gray-600">
+                    {profileState?.profile?.citizenId}
+                  </p>
+                ) : (
+                  "Please update citizen information"
+                )}
               </div>
               <div>
                 <button>

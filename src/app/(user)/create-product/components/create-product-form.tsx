@@ -3,54 +3,115 @@
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import useCreateProduct from "@/app/(user)/create-product/hooks/useCreateProduct";
-import { DatePicker } from "@/app/(user)/create-product/components/date-picker";
 import { CreateProductBodyType } from "@/utils/schema-validations/product.schema";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import IssuranceForm from "@/app/(user)/create-product/components/issurance-form";
+import SurchargeForm from "@/app/(user)/create-product/components/surcharge-form";
+import useGetSurcharges from "@/hooks/use-get-surcharges";
 
 interface CreateProductFormProps {
   category: API.Category | null;
+  onSubmit: (data: REQUEST.TCreateProduct) => void;
 }
 
 export default function CreateProductForm({
   category,
+  onSubmit,
 }: CreateProductFormProps) {
   const { register, errors, watch, handleSubmit } = useCreateProduct();
+  const [surcharges, setSurcharges] = useState<API.Surcharge[]>([]);
 
-  // State variables for insurance details
+  const { getSurchargesApi, isPending } = useGetSurcharges();
+
+  // State issurance
   const [issuranceName, setInsuranceName] = useState<string>("");
-  const [issuranceIssueDate, setInsuranceIssueDate] = useState<Date>();
-  const [issuranceExpireDate, setInsuranceExpireDate] = useState<Date>();
-  const [issuranceDescription, setInsuranceDescription] = useState<string>("");
-
-  // State variables for error messages
+  const [issuranceIssueDate, setInsuranceIssueDate] = useState<Date | null>();
+  const [issuranceExpireDate, setInsuranceExpireDate] = useState<Date | null>();
   const [insuranceNameError, setInsuranceNameError] = useState<string | null>(
     null
   );
   const [issueDateError, setIssueDateError] = useState<string | null>(null);
   const [expireDateError, setExpireDateError] = useState<string | null>(null);
 
-  const handleSubmitForm = (data: CreateProductBodyType) => {
+  // State surcharge
+  const [selectedSurcharges, setSelectedSurcharges] = useState<{
+    [key: string]: number | "";
+  }>({});
+
+  useEffect(() => {
+    handleFetchSurcharges();
+  }, []);
+
+  const handleFetchSurcharges = async () => {
+    const res = await getSurchargesApi();
+    if (res) setSurcharges(res.value.data.items);
+  };
+
+  // Validate issurance
+  const validateIssurance = () => {
+    let isValid = true;
+
     setInsuranceNameError(null);
     setIssueDateError(null);
     setExpireDateError(null);
 
-    console.log("123");
-    if (!issuranceName || issuranceName === "") {
-      setInsuranceNameError("Insurance name is required");
-    }
-    if (!issuranceIssueDate) {
-      setIssueDateError("Issue date is required");
-    }
-    if (!issuranceExpireDate) {
-      setExpireDateError("Expire date is required");
+    if (!issuranceName.trim()) {
+      setInsuranceNameError("Insurance name cannot be empty.");
+      isValid = false;
     }
 
-    if (!insuranceNameError && !issueDateError && !expireDateError) {
-      console.log(data);
+    if (!issuranceIssueDate) {
+      setIssueDateError("Issue date cannot be empty.");
+      isValid = false;
     }
+
+    if (!issuranceExpireDate) {
+      setExpireDateError("Expiration date cannot be empty.");
+      isValid = false;
+    }
+
+    if (
+      issuranceIssueDate &&
+      issuranceExpireDate &&
+      issuranceIssueDate >= issuranceExpireDate
+    ) {
+      setIssueDateError("Issue date must be earlier than expiration date.");
+      setExpireDateError("Expiration date must be later than issue date.");
+      isValid = false;
+    }
+    return isValid;
   };
 
-  console.log(insuranceNameError);
+  const handleSubmitForm = (data: CreateProductBodyType) => {
+    try {
+      if (category?.isVehicle === true) {
+        const isCheckIssurance = validateIssurance();
+        const listSurcharges = Object.entries(selectedSurcharges)
+          .filter(([, value]) => value !== "")
+          .map(
+            ([id, value]) =>
+              ({
+                surchargeId: id,
+                price: Number(value),
+              } as REQUEST.TSurcharge)
+          );
+        if (isCheckIssurance) {
+          onSubmit({
+            ...data,
+            insuranceName: issuranceName,
+            issueDate: issuranceIssueDate?.toDateString(),
+            expirationDate: issuranceExpireDate?.toDateString(),
+            listSurcharges: listSurcharges,
+          } as REQUEST.TCreateProduct);
+        } else {
+          onSubmit({
+            ...data,
+            listSurcharges: listSurcharges,
+          } as REQUEST.TCreateProduct);
+        }
+      }
+    } catch {}
+  };
 
   return (
     <div className="w-full">
@@ -100,6 +161,22 @@ export default function CreateProductForm({
                 <span className="text-red-500">{errors?.value?.message}</span>
               )}
             </div>
+            <div className="flex flex-col gap-y-2 w-full mb-4">
+              <label className="text-base font-semibold">
+                Maximum rental days
+              </label>
+              <Input
+                className="border border-gray-400 focus-visible:ring-0 focus-visible:none py-5"
+                autoComplete="off"
+                placeholder="Product purchase"
+                {...register("maximumRentDays", {
+                  valueAsNumber: true,
+                })}
+              />
+              {errors?.maximumRentDays && (
+                <span className="text-red-500">{errors?.maximumRentDays?.message}</span>
+              )}
+            </div>
           </div>
           <div className="flex flex-col gap-y-1 mb-2">
             <label className="text-base font-semibold">Description</label>
@@ -134,51 +211,36 @@ export default function CreateProductForm({
           {category?.isVehicle === true && (
             <div>
               <h3 className="text-xl font-semibold">Insurance</h3>
-              <div className="mt-4 flex flex-col">
-                <div className="flex flex-col gap-y-2 w-full mb-4">
-                  <label className="text-base font-semibold">Name</label>
-                  <Input
-                    className="border border-gray-400 focus-visible:ring-0 focus-visible:none py-5"
-                    autoComplete="off"
-                    placeholder="Insurance name"
-                    value={issuranceName}
-                    onChange={(e) => setInsuranceName(e.target.value)}
-                  />
-                  {insuranceNameError && (
-                    <span className="text-red-500">{insuranceNameError}</span>
-                  )}
-                </div>
-                <div className="flex items-center gap-x-3">
-                  <div className="flex flex-col gap-y-2 w-full mb-4">
-                    <label className="text-base font-semibold">
-                      Issue date
-                    </label>
-                    <DatePicker
-                      date={issuranceIssueDate}
-                      onSelect={setInsuranceExpireDate}
-                    />
-                    {issueDateError && (
-                      <span className="text-red-500">{issueDateError}</span>
-                    )}
-                  </div>
-                  <div className="flex flex-col gap-y-2 w-full mb-4">
-                    <label className="text-base font-semibold">
-                      Expiration date
-                    </label>
-                    <DatePicker
-                      date={issuranceExpireDate}
-                      onSelect={setInsuranceExpireDate}
-                    />
-                    {expireDateError && (
-                      <span className="text-red-500">{expireDateError}</span>
-                    )}
-                  </div>
-                </div>
-              </div>
+              <IssuranceForm
+                issuranceExpireDate={issuranceExpireDate || null}
+                issuranceIssueDate={issuranceIssueDate || null}
+                issuranceName={issuranceName || ""}
+                issueDateError={issueDateError}
+                expireDateError={expireDateError}
+                insuranceNameError={insuranceNameError}
+                setInsuranceExpireDate={setInsuranceExpireDate}
+                setInsuranceIssueDate={setInsuranceIssueDate}
+                setInsuranceName={setInsuranceName || null}
+              />
             </div>
           )}
+          <div className="mt-2">
+            <div className="flex items-center">
+              <h3 className="text-xl font-semibold mr-2">Surchage</h3>
+              <span>(may or may not be filled in.)</span>
+            </div>
+            <div className="mt-4">
+              {surcharges?.length > 0 && (
+                <SurchargeForm
+                  surcharges={surcharges}
+                  selectedSurcharges={selectedSurcharges}
+                  setSelectedSurcharges={setSelectedSurcharges}
+                />
+              )}
+            </div>
+          </div>
         </div>
-        <div className="text-right">
+        <div className="text-right mt-4">
           <button
             type="button"
             className="mr-3 px-3 py-2 bg-[#e2e5e9] rounded-xl hover:bg-[#00939f] group shadow-header-shadown"

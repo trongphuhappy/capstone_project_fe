@@ -2,10 +2,12 @@ import {
   closeUpdateCitizenDialog,
   closeUpdateEmailDialog,
   closeUpdateFirstNameDialog,
+  closeUpdateInfoLessorDialog,
   closeUpdateLastNameDialog,
   openUpdateCitizenDialog,
   openUpdateEmailDialog,
   openUpdateFirstNameDialog,
+  openUpdateInfoLessorDialog,
   openUpdateLastNameDialog,
 } from "@/stores/stateSlice";
 import { useAppDispatch, useAppSelector } from "@/stores/store";
@@ -49,11 +51,20 @@ export default function useUpdateProfileDialog() {
     dispatch(closeUpdateCitizenDialog());
   };
 
+  const onOpenUpdateInfoLessor = () => {
+    dispatch(openUpdateInfoLessorDialog());
+  };
+
+  const onCloseUpdateInfoLessor = () => {
+    dispatch(closeUpdateInfoLessorDialog());
+  };
+
   return {
     openEmail: updateProfileDialogState.openEmail,
     openFirstName: updateProfileDialogState.openFirstName,
     openLastName: updateProfileDialogState.openLastName,
     openCitizen: updateProfileDialogState.openCitizen,
+    openInfoLessor: updateProfileDialogState.openUpdateLessor,
     onOpenUpdateEmail,
     onCloseUpdateEmail,
     onOpenUpdateFirstName,
@@ -62,5 +73,7 @@ export default function useUpdateProfileDialog() {
     onCloseUpdateLastName,
     onOpenUpdateCitizen,
     onCloseUpdateCitizen,
+    onOpenUpdateInfoLessor,
+    onCloseUpdateInfoLessor,
   };
 }

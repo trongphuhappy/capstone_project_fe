@@ -1,5 +1,5 @@
 import request from "@/services/interceptor";
-import { GET_CATEGORIES } from "@/services/product-categories/api-path";
+import { GET_CATEGORIES } from "@/services/categories/api-path";
 
 export const getCategories = async (categoryOptions?: REQUEST.ICategories) => {
   const params: Record<string, any> = {};

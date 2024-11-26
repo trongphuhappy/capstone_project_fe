@@ -15,6 +15,9 @@ import AvatarMenu from "@/components/avatar-menu";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Bell, SquarePen } from "lucide-react";
 import styles from "@/components/header/main.module.css";
+import useCheckExsitLessor from "@/hooks/use-check-exist-lessor";
+import useToast from "@/hooks/use-toast";
+import { useRouter } from "next/navigation";
 
 interface ISubItem {
   id: number;
@@ -172,10 +175,14 @@ const InitialNavItems: INavItem[] = [
 ];
 
 export default function Header() {
+  const { addToast } = useToast();
+  const router = useRouter();
   const userState = useAppSelector((state) => state.userSlice);
   const [avatarMenuTooltip, setAvatarMenuTooltip] = useState<boolean>(false);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [openLabel, setOpenLabel] = useState<string | null>(null);
+
+  const { checkExistLessorApi } = useCheckExsitLessor();
 
   const handleCategoryHover = (item: INavItem) => {
     setOpenLabel(item.label);
@@ -205,6 +212,18 @@ export default function Header() {
 
   const handleCloseAvatarMenuTooltip = () => {
     setAvatarMenuTooltip(false);
+  };
+
+  const handlePostNow = async () => {
+    const res = await checkExistLessorApi();
+    if (res === false) {
+      addToast({
+        type: "error",
+        description: "Please update information to become a lessor",
+      });
+    } else {
+      router.push("/create-product");
+    }
   };
 
   return (
@@ -318,7 +337,7 @@ export default function Header() {
                 </Popover>
               </li>
               <li>
-                <button>
+                <button type="button" onClick={handlePostNow}>
                   <div className="flex items-center gap-x-2 px-5 py-2 rounded-md bg-[#00939f] hover:bg-[#15757e]">
                     <SquarePen className="w-5 h-5 text-white" />
                     <span className="text-[14px] font-semibold text-white">

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import useAddedCartDialog from "@/hooks/use-added-cart-dialog";
+// import useAddedCartDialog from "@/hooks/use-added-cart-dialog";
 import { useAppSelector } from "@/stores/store";
 import { formatCurrencyVND } from "@/utils/format-currency";
 import { productCategories } from "@/utils/locales/en-US/product";

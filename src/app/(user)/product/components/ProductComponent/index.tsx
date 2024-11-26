@@ -22,11 +22,11 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { convertToProductCard } from "@/services/products/services";
+// import { convertToProductCard } from "@/services/products/services";
 import CustomerReviews from "@/components/customer-reviews";
 import { PiListHeart } from "react-icons/pi";
 import { useEffect, useState } from "react";
-import useAddedCartDialog from "@/hooks/use-added-cart-dialog";
+// import useAddedCartDialog from "@/hooks/use-added-cart-dialog";
 import { formatCurrencyVND } from "@/utils/format-currency";
 import { productLocale } from "@/utils/locales/en-US/product";
 

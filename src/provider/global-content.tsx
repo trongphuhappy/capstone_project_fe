@@ -1,10 +1,10 @@
 "use client";
 
 import { Fragment } from "react";
-import AddedCartDialog from "@/components/addded-cart-dialog";
-import useAddedCartDialog from "@/hooks/use-added-cart-dialog";
-import QuickViewCart from "@/components/quick-view-cart";
-import useQuickViewProduct from "@/hooks/use-quick-view-product";
+// import AddedCartDialog from "@/components/addded-cart-dialog";
+// import useAddedCartDialog from "@/hooks/use-added-cart-dialog";
+// import QuickViewCart from "@/components/quick-view-cart";
+// import useQuickViewProduct from "@/hooks/use-quick-view-product";
 import SearchComponent from "@/components/seach-component";
 import useSearchDialog from "@/hooks/use-search-dialog";
 import UpdateAvatarProfile from "@/components/update-avatar-profile";
@@ -16,6 +16,7 @@ import useUpdateProfileDialog from "@/hooks/use-update-profile-dialog";
 import UpdateFirstName from "@/components/update-profile/update-firstname";
 import UpdateLastName from "@/components/update-profile/update-lastname";
 import UpdateCitizen from "@/components/update-profile/update-citizen";
+import UpdateLessor from "@/components/update-profile/update-lessor";
 
 export default function GlobalContent({
   children,
@@ -24,14 +25,14 @@ export default function GlobalContent({
 }>) {
   const backdropState = useAppSelector((state) => state.stateSlice.backdrop);
 
-  const { open: isAddedCartDialogOpen, onCloseAddedCartDialog } =
-    useAddedCartDialog();
+  // const { open: isAddedCartDialogOpen, onCloseAddedCartDialog } =
+  //   useAddedCartDialog();
 
-  const {
-    open: isQuickviewProduct,
-    product,
-    onCloseQuickViewProductDialog,
-  } = useQuickViewProduct();
+  // const {
+  //   open: isQuickviewProduct,
+  //   product,
+  //   onCloseQuickViewProductDialog,
+  // } = useQuickViewProduct();
 
   const { open: isSearchDialogOpen, onCloseSearchDialog } = useSearchDialog();
 
@@ -42,15 +43,17 @@ export default function GlobalContent({
     openFirstName,
     openLastName,
     openCitizen,
+    openInfoLessor,
     onCloseUpdateEmail,
     onCloseUpdateFirstName,
     onCloseUpdateLastName,
     onCloseUpdateCitizen,
+    onCloseUpdateInfoLessor,
   } = useUpdateProfileDialog();
 
   return (
     <Fragment>
-      <AddedCartDialog
+      {/* <AddedCartDialog
         open={isAddedCartDialogOpen}
         onClose={onCloseAddedCartDialog}
       />
@@ -58,7 +61,7 @@ export default function GlobalContent({
         open={isQuickviewProduct}
         onClose={onCloseQuickViewProductDialog}
         product={product}
-      />
+      /> */}
       <SearchComponent
         open={isSearchDialogOpen}
         onClose={onCloseSearchDialog}
@@ -71,6 +74,7 @@ export default function GlobalContent({
       <UpdateFirstName open={openFirstName} onClose={onCloseUpdateFirstName} />
       <UpdateLastName open={openLastName} onClose={onCloseUpdateLastName} />
       <UpdateCitizen open={openCitizen} onClose={onCloseUpdateCitizen} />
+      <UpdateLessor open={openInfoLessor} onClose={onCloseUpdateInfoLessor} />
       <main>{children}</main>
       <Backdrop open={backdropState.status} />
     </Fragment>
