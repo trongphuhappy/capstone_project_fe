@@ -1,10 +1,10 @@
 "use client";
 
 import { Fragment } from "react";
-import AddedCartDialog from "@/components/addded-cart-dialog";
-import useAddedCartDialog from "@/hooks/use-added-cart-dialog";
-import QuickViewCart from "@/components/quick-view-cart";
-import useQuickViewProduct from "@/hooks/use-quick-view-product";
+// import AddedCartDialog from "@/components/addded-cart-dialog";
+// import useAddedCartDialog from "@/hooks/use-added-cart-dialog";
+// import QuickViewCart from "@/components/quick-view-cart";
+// import useQuickViewProduct from "@/hooks/use-quick-view-product";
 import SearchComponent from "@/components/seach-component";
 import useSearchDialog from "@/hooks/use-search-dialog";
 import UpdateAvatarProfile from "@/components/update-avatar-profile";
@@ -25,14 +25,14 @@ export default function GlobalContent({
 }>) {
   const backdropState = useAppSelector((state) => state.stateSlice.backdrop);
 
-  const { open: isAddedCartDialogOpen, onCloseAddedCartDialog } =
-    useAddedCartDialog();
+  // const { open: isAddedCartDialogOpen, onCloseAddedCartDialog } =
+  //   useAddedCartDialog();
 
-  const {
-    open: isQuickviewProduct,
-    product,
-    onCloseQuickViewProductDialog,
-  } = useQuickViewProduct();
+  // const {
+  //   open: isQuickviewProduct,
+  //   product,
+  //   onCloseQuickViewProductDialog,
+  // } = useQuickViewProduct();
 
   const { open: isSearchDialogOpen, onCloseSearchDialog } = useSearchDialog();
 
@@ -53,7 +53,7 @@ export default function GlobalContent({
 
   return (
     <Fragment>
-      <AddedCartDialog
+      {/* <AddedCartDialog
         open={isAddedCartDialogOpen}
         onClose={onCloseAddedCartDialog}
       />
@@ -61,7 +61,7 @@ export default function GlobalContent({
         open={isQuickviewProduct}
         onClose={onCloseQuickViewProductDialog}
         product={product}
-      />
+      /> */}
       <SearchComponent
         open={isSearchDialogOpen}
         onClose={onCloseSearchDialog}
