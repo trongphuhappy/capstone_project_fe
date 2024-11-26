@@ -6,7 +6,7 @@ export interface InitialState {
   };
   quickViewProduct: {
     open: false | true;
-    product: API.IProductCard | null;
+    // product: API.IProductCard | null;
   };
   addedCartDialog: {
     open: false | true;
@@ -29,7 +29,8 @@ export interface InitialState {
 const initialState: InitialState = {
   backdrop: { status: false },
   addedCartDialog: { open: false },
-  quickViewProduct: { open: false, product: null },
+  // quickViewProduct: { open: false, product: null },
+  quickViewProduct: { open: false },
   searchDialog: { open: false },
   updateAvatarProfileDialog: { open: false },
   updateProfileDialog: {
@@ -58,15 +59,15 @@ const stateSlice = createSlice({
       state.addedCartDialog.open = false;
     },
     openQuickViewProductDialog: (
-      state,
-      action: PayloadAction<API.IProductCard>
+      state
+      // action: PayloadAction<API.IProductCard>
     ) => {
       state.quickViewProduct.open = true;
-      state.quickViewProduct.product = action.payload;
+      // state.quickViewProduct.product = action.payload;
     },
     closeQuickProductViewDialog: (state) => {
       state.quickViewProduct.open = false;
-      state.quickViewProduct.product = null;
+      // state.quickViewProduct.product = null;
     },
     openSearchDialog: (state) => {
       state.searchDialog.open = true;

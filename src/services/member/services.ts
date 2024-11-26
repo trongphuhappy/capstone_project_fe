@@ -152,27 +152,6 @@ export const useServiceUpdateCitizen = () => {
   });
 };
 
-export const useServiceGetInfoLessor = () => {
-  const { addToast } = useToast();
-  return useMutation<TResponse, TMeta, REQUEST.TUpdateCitizen>({
-    mutationFn: async (data: REQUEST.TUpdateCitizen) => {
-      const formData = new FormData();
-      formData.append("CitizenId", data.citizenId);
-      formData.append("FrontImageCitizen", data.frontImageCitizen);
-      formData.append("BackImageCitizen", data.backImageCitizen);
-      return await updateCitizen(formData);
-    },
-    onSuccess: (data) => {
-      addToast({
-        type: "success",
-        description: data.value.message,
-        duration: 3500,
-      });
-    },
-    onError: (error) => {},
-  });
-};
-
 export const useServiceUpdateInfoLessor = () => {
   return useMutation<TResponse, TMeta, REQUEST.TUpdateLessorInfo>({
     mutationFn: updateInfoLessor,

@@ -4,9 +4,12 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import useCreateProduct from "@/app/(user)/create-product/hooks/useCreateProduct";
 import { CreateProductBodyType } from "@/utils/schema-validations/product.schema";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import IssuranceForm from "@/app/(user)/create-product/components/issurance-form";
-import SurchageForm from "@/app/(user)/create-product/components/surchage-form";
+import SurchargeForm from "@/app/(user)/create-product/components/surcharge-form";
+import useGetSurcharges from "@/hooks/use-get-surcharges";
+import { useAppDispatch, useAppSelector } from "@/stores/store";
+import { createProduct } from "@/stores/productSlice";
 
 interface CreateProductFormProps {
   category: API.Category | null;
@@ -15,42 +18,54 @@ interface CreateProductFormProps {
 export default function CreateProductForm({
   category,
 }: CreateProductFormProps) {
+  const dispatch = useAppDispatch();
   const { register, errors, watch, handleSubmit } = useCreateProduct();
-  const [isSubmit, setSubmit] = useState<boolean>(false);
+  const [surcharges, setSurcharges] = useState<API.Surcharge[]>([]);
+  const [sumbitSurcharges, setSubmitSurcharges] = useState<
+    REQUEST.TSurcharge[]
+  >([]);
+  const createProductState = useAppSelector(
+    (state) => state.productSlice.createProduct
+  );
 
-  const [insuranceData, setInsuranceData] = useState<{
-    issuranceName: string;
-    issuranceIssueDate: Date | undefined;
-    issuranceExpireDate: Date | undefined;
-  } | null>(null);
+  const { getSurchargesApi, isPending } = useGetSurcharges();
 
-  const handleInsuranceSubmit = (data: {
-    issuranceName: string;
-    issuranceIssueDate: Date | undefined;
-    issuranceExpireDate: Date | undefined;
-  }) => {
-    setInsuranceData(data);
+  useEffect(() => {
+    handleFetchSurcharges();
+  }, []);
+
+  const handleFetchSurcharges = async () => {
+    const res = await getSurchargesApi();
+    if (res) setSurcharges(res.value.data.items);
   };
 
-  const handleSubmitData = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    setSubmit(true);
-    handleSubmit(handleSubmitForm)();
+  const handleSurchargeSubmit = (data: REQUEST.TSurcharge[]) => {
+    setSubmitSurcharges(data);
   };
 
   const handleSubmitForm = (data: CreateProductBodyType) => {
     try {
-      console.log(insuranceData + " " + data);
+      dispatch(
+        createProduct({
+          name: data.name,
+          price: data.price,
+          value: data.value,
+          description: data.description,
+          policies: data.policies,
+        })
+      );
     } catch {
     } finally {
-      setInsuranceData(null);
-      setSubmit(false);
     }
-    // console.log("Final Form Submit", { insuranceData });
   };
+
+  const handleSubmitData = () => {};
+
+  console.log(createProductState);
+
   return (
     <div className="w-full">
-      <form onSubmit={handleSubmitData}>
+      <form onSubmit={handleSubmit(handleSubmitForm)}>
         <h2 className="text-xl font-semibold">Information details</h2>
         <div className="mt-4 flex flex-col">
           <div className="flex flex-col gap-y-2 w-full mb-4">
@@ -130,10 +145,7 @@ export default function CreateProductForm({
           {category?.isVehicle === true && (
             <div>
               <h3 className="text-xl font-semibold">Insurance</h3>
-              <IssuranceForm
-                submit={isSubmit}
-                onSubmit={handleInsuranceSubmit}
-              />
+              <IssuranceForm />
             </div>
           )}
           <div className="mt-2">
@@ -141,7 +153,14 @@ export default function CreateProductForm({
               <h3 className="text-xl font-semibold mr-2">Surchage</h3>
               <span>(may or may not be filled in.)</span>
             </div>
-            <SurchageForm />
+            <div className="mt-4">
+              {surcharges?.length > 0 && (
+                <SurchargeForm
+                  surcharges={surcharges}
+                  onSubmit={handleSurchargeSubmit}
+                />
+              )}
+            </div>
           </div>
         </div>
         <div className="text-right">

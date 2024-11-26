@@ -3,20 +3,13 @@
 import { Input } from "@/components/ui/input";
 import { DatePicker } from "@/app/(user)/create-product/components/date-picker";
 import { useEffect, useState } from "react";
+import { useAppDispatch, useAppSelector } from "@/stores/store";
+import { createProduct } from "@/stores/productSlice";
 
-interface IssuranceFormProps {
-  submit: boolean;
-  onSubmit: (data: {
-    issuranceName: string;
-    issuranceIssueDate: Date | undefined;
-    issuranceExpireDate: Date | undefined;
-  }) => void;
-}
+export default function IssuranceForm() {
+  const dispatch = useAppDispatch();
+  const createProductState = useAppSelector(state => state.productSlice.createProduct);
 
-export default function IssuranceForm({
-  submit,
-  onSubmit,
-}: IssuranceFormProps) {
   const [issuranceName, setInsuranceName] = useState<string>("");
   const [issuranceIssueDate, setInsuranceIssueDate] = useState<Date>();
   const [issuranceExpireDate, setInsuranceExpireDate] = useState<Date>();
@@ -25,7 +18,7 @@ export default function IssuranceForm({
   );
   const [issueDateError, setIssueDateError] = useState<string | null>(null);
   const [expireDateError, setExpireDateError] = useState<string | null>(null);
-
+  
   const validateAndSubmit = () => {
     let isValid = true;
 
@@ -59,17 +52,19 @@ export default function IssuranceForm({
     }
 
     if (isValid) {
-      onSubmit({
-        issuranceName,
-        issuranceIssueDate,
-        issuranceExpireDate,
-      });
+      dispatch(
+        createProduct({
+          insuranceName: issuranceName,
+          issueDate: issuranceIssueDate,
+          expirationDate: issuranceExpireDate,
+        })
+      );
     }
   };
 
   useEffect(() => {
-    if (submit === true) validateAndSubmit();
-  }, [submit]);
+    if (createProductState.status === true) validateAndSubmit();
+  }, [createProductState.status]);
 
   return (
     <div className="mt-4 flex flex-col">
