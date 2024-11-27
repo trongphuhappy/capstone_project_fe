@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useState, useEffect } from "react";
 import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
 import { CiSearch } from "react-icons/ci";
@@ -73,8 +74,6 @@ const ManageProducts = () => {
         setFilteredProducts(updatedProducts); 
         setIsModalOpen(false); 
     };
-    
-
 
     return (
         <div className="text-gray-900 font-open_sans">

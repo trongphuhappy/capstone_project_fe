@@ -68,17 +68,6 @@ export const updateVerifyEmail = async (data: REQUEST.TUpdateVerifyEmail) => {
   return response.data;
 };
 
-export const updateCitizen = async (data: FormData) => {
-  const response = await request<TResponse>(API_ENDPOINTS.UPDATE_CITIZEN, {
-    method: "PUT",
-    data,
-    headers: {
-      "Content-Type": "multipart/form-data",
-    },
-  });
-  return response.data;
-};
-
 export const getInfoLessor = async ({
   publicLessor = true,
 }: REQUEST.TGetInfoLessor) => {

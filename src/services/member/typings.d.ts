@@ -23,13 +23,7 @@ declare namespace REQUEST {
   type TUpdateVerifyEmail = {
     userId: string;
   };
-
-  type TUpdateCitizen = {
-    citizenId: string;
-    frontImageCitizen: File;
-    backImageCitizen: File;
-  };
-
+  
   type TGetInfoLessor = {
     publicLessor?: boolean;
   };
@@ -87,8 +81,6 @@ declare namespace API {
     cropCoverPhotoId?: string | null;
     fullCoverPhotoUrl?: string | null;
     fullCoverPhotoId?: string | null;
-    citizenId?: string | null;
-    verifyUser?: boolean | null;
     loginType?: LoginType | null;
     genderType?: GenderType | null;
     roleUserId?: RoleType | null;

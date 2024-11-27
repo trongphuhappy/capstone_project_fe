@@ -1,3 +1,9 @@
+export enum confirmStatus {
+  Pending = 0,
+  Approved = 1,
+  Rejected = -1,
+}
+
 export const categories = {
   title: "Categories",
   sub: [
