@@ -30,7 +30,6 @@ export default function RegisterForm() {
     valueConfirmPassword,
     typePassword,
     typeConfirmPassword,
-    isPending,
     handleToggleTypePassword,
     handleToggleConfirmPassword,
   } = useRegisterForm();

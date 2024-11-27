@@ -13,6 +13,7 @@ import { removeStorageItem, setStorageItem } from "@/utils/local-storage";
 import { useAppDispatch } from "@/stores/store";
 import { loginUser, removeInfoLogin } from "@/stores/userSlice";
 import useToast from "@/hooks/use-toast";
+import { closeBackdrop } from "@/stores/stateSlice";
 
 export const useServiceLogin = () => {
   const dispatch = useAppDispatch();
@@ -31,8 +32,15 @@ export const useServiceLogin = () => {
 };
 
 export const useServiceRegister = () => {
+  const dispatch = useAppDispatch();
   return useMutation<TResponse, TMeta, REQUEST.TRegister>({
     mutationFn: register,
+    onSuccess: () => {
+      dispatch(closeBackdrop());
+    },
+    onError: () => {
+      dispatch(closeBackdrop());
+    },
   });
 };
 

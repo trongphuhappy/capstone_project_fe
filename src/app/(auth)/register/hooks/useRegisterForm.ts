@@ -10,8 +10,11 @@ import { useState } from "react";
 import { useServiceRegister } from "@/services/auth/services";
 import { useRouter } from "next/navigation";
 import useToast from "@/hooks/use-toast";
+import { useAppDispatch } from "@/stores/store";
+import { openBackdrop } from "@/stores/stateSlice";
 
 export function useRegisterForm() {
+  const dispatch = useAppDispatch();
   const router = useRouter();
   const [typePassword, setTypePassword] = useState<boolean>(false);
   const [typeConfirmPassword, setTypeConfirmPassword] =
@@ -40,6 +43,7 @@ export function useRegisterForm() {
   });
 
   const onSubmit = async (data: REQUEST.TRegister) => {
+    dispatch(openBackdrop());
     try {
       mutate(data, {
         onSuccess: async (data) => {

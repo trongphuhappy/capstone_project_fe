@@ -29,16 +29,6 @@ export const LastNameBody = z.object({
 
 export type LastNameBodyType = z.TypeOf<typeof LastNameBody>;
 
-export const CitizenBody = z.object({
-  citizenNumber: z
-    .string()
-    .trim()
-    .min(2, "Citizen is 2 characters or more in length")
-    .max(256),
-});
-
-export type CitizenBodyType = z.TypeOf<typeof CitizenBody>;
-
 export const LessorInfoBody = z.object({
   WareHouseAddress: z
     .string()

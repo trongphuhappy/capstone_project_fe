@@ -1,10 +1,8 @@
 import {
-  closeUpdateCitizenDialog,
   closeUpdateEmailDialog,
   closeUpdateFirstNameDialog,
   closeUpdateInfoLessorDialog,
   closeUpdateLastNameDialog,
-  openUpdateCitizenDialog,
   openUpdateEmailDialog,
   openUpdateFirstNameDialog,
   openUpdateInfoLessorDialog,
@@ -43,14 +41,6 @@ export default function useUpdateProfileDialog() {
     dispatch(closeUpdateLastNameDialog());
   };
 
-  const onOpenUpdateCitizen = () => {
-    dispatch(openUpdateCitizenDialog());
-  };
-
-  const onCloseUpdateCitizen = () => {
-    dispatch(closeUpdateCitizenDialog());
-  };
-
   const onOpenUpdateInfoLessor = () => {
     dispatch(openUpdateInfoLessorDialog());
   };
@@ -63,7 +53,6 @@ export default function useUpdateProfileDialog() {
     openEmail: updateProfileDialogState.openEmail,
     openFirstName: updateProfileDialogState.openFirstName,
     openLastName: updateProfileDialogState.openLastName,
-    openCitizen: updateProfileDialogState.openCitizen,
     openInfoLessor: updateProfileDialogState.openUpdateLessor,
     onOpenUpdateEmail,
     onCloseUpdateEmail,
@@ -71,8 +60,6 @@ export default function useUpdateProfileDialog() {
     onCloseUpdateFirstName,
     onOpenUpdateLastName,
     onCloseUpdateLastName,
-    onOpenUpdateCitizen,
-    onCloseUpdateCitizen,
     onOpenUpdateInfoLessor,
     onCloseUpdateInfoLessor,
   };

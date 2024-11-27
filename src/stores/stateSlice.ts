@@ -1,3 +1,4 @@
+import { confirmStatus } from "@/const/products";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface InitialState {
@@ -21,8 +22,11 @@ export interface InitialState {
     openEmail: false | true;
     openFirstName: false | true;
     openLastName: false | true;
-    openCitizen: false | true;
     openUpdateLessor: false | true;
+  };
+  censorProductDialog: {
+    open: false | true;
+    type: confirmStatus;
   };
 }
 
@@ -37,9 +41,9 @@ const initialState: InitialState = {
     openEmail: false,
     openFirstName: false,
     openLastName: false,
-    openCitizen: false,
     openUpdateLessor: false,
   },
+  censorProductDialog: { open: false, type: confirmStatus.Approved },
 };
 
 const stateSlice = createSlice({
@@ -99,17 +103,19 @@ const stateSlice = createSlice({
     closeUpdateLastNameDialog: (state) => {
       state.updateProfileDialog.openLastName = false;
     },
-    openUpdateCitizenDialog: (state) => {
-      state.updateProfileDialog.openCitizen = true;
-    },
-    closeUpdateCitizenDialog: (state) => {
-      state.updateProfileDialog.openCitizen = false;
-    },
     openUpdateInfoLessorDialog: (state) => {
       state.updateProfileDialog.openUpdateLessor = true;
     },
     closeUpdateInfoLessorDialog: (state) => {
       state.updateProfileDialog.openUpdateLessor = false;
+    },
+    openCensorProductDialog: (state, action: PayloadAction<confirmStatus>) => {
+      state.censorProductDialog.open = true;
+      state.censorProductDialog.type = action.payload;
+    },
+    closeCensorProductDialog: (state) => {
+      state.censorProductDialog.open = false;
+      state.censorProductDialog.type = confirmStatus.Approved;
     },
   },
 });
@@ -131,10 +137,10 @@ export const {
   closeUpdateFirstNameDialog,
   openUpdateLastNameDialog,
   closeUpdateLastNameDialog,
-  openUpdateCitizenDialog,
-  closeUpdateCitizenDialog,
   openUpdateInfoLessorDialog,
   closeUpdateInfoLessorDialog,
+  openCensorProductDialog,
+  closeCensorProductDialog,
 } = stateSlice.actions;
 
 export default stateSlice.reducer;

@@ -1,11 +1,14 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { stat } from "fs";
 
 export interface InitialState {
   createProduct: { status: boolean; product: REQUEST.TCreateProduct | null };
+  reviewProduct: API.TProduct | null;
 }
 
 const initialState: InitialState = {
   createProduct: { status: false, product: null },
+  reviewProduct: null,
 };
 
 const productSlice = createSlice({
@@ -29,6 +32,12 @@ const productSlice = createSlice({
       state.createProduct.status = false;
       state.createProduct.product = null;
     },
+    addReviewProduct: (state, action: PayloadAction<API.TProduct>) => {
+      state.reviewProduct = action.payload;
+    },
+    removeReviewProduct: (state) => {
+      state.reviewProduct = null;
+    },
   },
 });
 
@@ -37,5 +46,7 @@ export const {
   createProductSuccess,
   createProductEnd,
   removeProduct,
+  addReviewProduct,
+  removeReviewProduct,
 } = productSlice.actions;
 export default productSlice.reducer;
