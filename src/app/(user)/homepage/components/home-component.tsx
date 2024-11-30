@@ -4,70 +4,117 @@ import HomeBanner from "@/components/home-banner";
 import { ChevronRight } from "lucide-react";
 import dynamic from "next/dynamic";
 import ListCartItem from "./list-cart-item";
-import { useEffect } from "react";
-import useProductView from "../hooks/useProductView";
 import { useRouter } from "next/navigation";
-import FurnitureItem from "@/components/furniture-item";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
+import useGetProducts from "@/hooks/use-get-products";
+import { useState } from "react";
+import { confirmStatus } from "@/const/products";
 
 const mockFurnitures = [
   {
     productId: "1",
     name: "Sofa Set",
     description: "Comfortable sofa set for living room.",
-    images: ["/images/Furniture1.webp", "/images/Furniture2.webp", "/images/Furniture3.webp", "/images/Furniture4.webp", "/images/Furniture5.webp"],
-    lessor: { shopName: "Furniture Shop", description: "Best furniture for your home" },
+    images: [
+      "/images/Furniture1.webp",
+      "/images/Furniture2.webp",
+      "/images/Furniture3.webp",
+      "/images/Furniture4.webp",
+      "/images/Furniture5.webp",
+    ],
+    lessor: {
+      shopName: "Furniture Shop",
+      description: "Best furniture for your home",
+    },
     price: 199.99,
     timeUnit: "month",
     location: "Hanoi",
-    policies: ["Free shipping", "30-day return"]
+    policies: ["Free shipping", "30-day return"],
   },
   {
     productId: "2",
     name: "Dining Table",
     description: "Stylish dining table for your kitchen.",
-    images: ["/images/Dinning-table1.webp", "/images/Dinning-table2.webp", "/images/Dinning-table3.webp", "/images/Dinning-table4.webp", "/images/Dinning-table5.webp"],
-    lessor: { shopName: "Furniture Shop", description: "Best furniture for your home" },
+    images: [
+      "/images/Dinning-table1.webp",
+      "/images/Dinning-table2.webp",
+      "/images/Dinning-table3.webp",
+      "/images/Dinning-table4.webp",
+      "/images/Dinning-table5.webp",
+    ],
+    lessor: {
+      shopName: "Furniture Shop",
+      description: "Best furniture for your home",
+    },
     price: 150.99,
     timeUnit: "month",
     location: "Hanoi",
-    policies: ["Free shipping", "30-day return"]
+    policies: ["Free shipping", "30-day return"],
   },
   {
     productId: "3",
     name: "Natural Wood Office Desk",
-    description: "An office desk with a natural wood surface, simple yet elegant design, suitable for any work environment.",
-    images: ["/images/office-desk1.jpg", "/images/office-desk2.jpg", "/images/office-desk3.jpg", "/images/office-desk4.jpg", "/images/office-desk5.jpg"],
-    lessor: { shopName: "Furniture Shop", description: "Best furniture for your home" },
+    description:
+      "An office desk with a natural wood surface, simple yet elegant design, suitable for any work environment.",
+    images: [
+      "/images/office-desk1.jpg",
+      "/images/office-desk2.jpg",
+      "/images/office-desk3.jpg",
+      "/images/office-desk4.jpg",
+      "/images/office-desk5.jpg",
+    ],
+    lessor: {
+      shopName: "Furniture Shop",
+      description: "Best furniture for your home",
+    },
     price: 150.99,
     timeUnit: "month",
     location: "Hanoi",
-    policies: ["Free shipping", "30-day return"]
+    policies: ["Free shipping", "30-day return"],
   },
   {
     productId: "4",
     name: "Premium Wooden Bed",
-    description: "A bed made from premium wood, offering durability and comfort. Ideal for a luxurious bedroom.",
-    images: ["/images/wood-bed1.webp", "/images/wood-bed2.webp", "/images/wood-bed3.webp", "/images/wood-bed4.webp", "/images/wood-bed5.webp"],
-    lessor: { shopName: "Furniture Shop", description: "Best furniture for your home" },
+    description:
+      "A bed made from premium wood, offering durability and comfort. Ideal for a luxurious bedroom.",
+    images: [
+      "/images/wood-bed1.webp",
+      "/images/wood-bed2.webp",
+      "/images/wood-bed3.webp",
+      "/images/wood-bed4.webp",
+      "/images/wood-bed5.webp",
+    ],
+    lessor: {
+      shopName: "Furniture Shop",
+      description: "Best furniture for your home",
+    },
     price: 150.99,
     timeUnit: "month",
     location: "Hanoi",
-    policies: ["Free shipping", "30-day return"]
+    policies: ["Free shipping", "30-day return"],
   },
   {
     productId: "5",
     name: "Industrial Wood TV Stand",
-    description: "A TV stand with a sleek, industrial design made from high-quality wood, adding elegance to your living room.",
-    images: ["/images/TV-stand1.webp", "/images/TV-stand2.webp", "/images/TV-stand3.webp", "/images/TV-stand4.webp", "/images/TV-stand5.webp"],
-    lessor: { shopName: "Furniture Shop", description: "Best furniture for your home" },
+    description:
+      "A TV stand with a sleek, industrial design made from high-quality wood, adding elegance to your living room.",
+    images: [
+      "/images/TV-stand1.webp",
+      "/images/TV-stand2.webp",
+      "/images/TV-stand3.webp",
+      "/images/TV-stand4.webp",
+      "/images/TV-stand5.webp",
+    ],
+    lessor: {
+      shopName: "Furniture Shop",
+      description: "Best furniture for your home",
+    },
     price: 150.99,
     timeUnit: "month",
     location: "Hanoi",
-    policies: ["Free shipping", "30-day return"]
+    policies: ["Free shipping", "30-day return"],
   },
-
 ];
 
 const mockCars = [
@@ -76,55 +123,90 @@ const mockCars = [
     name: "Lamborghini Aventador",
     description: "Perfect car for long road trips.",
     images: ["/images/car.png", "/images/lamborghini3.jpg"],
-    lessor: { shopName: "Car Rental Shop", description: "Reliable car rentals" },
+    lessor: {
+      shopName: "Car Rental Shop",
+      description: "Reliable car rentals",
+    },
     price: 250,
     timeUnit: "day",
     location: "Hanoi",
-    policies: ["Unlimited mileage", "Free cancellation"]
+    policies: ["Unlimited mileage", "Free cancellation"],
   },
   {
     productId: "2",
     name: "Premium 7-Seater SUV",
-    description: "A spacious SUV perfect for families and long trips. With 7 seats and high ground clearance, it provides both luxury and utility, ideal for both city roads and rough terrains.",
-    images: ["/images/suv1.jpg", "/images/suv2.jpg", "/images/suv3.jpg", "/images/suv4.jpg", "/images/suv5.jpg"],
-    lessor: { shopName: "Car Rental Shop", description: "Reliable car rentals" },
+    description:
+      "A spacious SUV perfect for families and long trips. With 7 seats and high ground clearance, it provides both luxury and utility, ideal for both city roads and rough terrains.",
+    images: [
+      "/images/suv1.jpg",
+      "/images/suv2.jpg",
+      "/images/suv3.jpg",
+      "/images/suv4.jpg",
+      "/images/suv5.jpg",
+    ],
+    lessor: {
+      shopName: "Car Rental Shop",
+      description: "Reliable car rentals",
+    },
     price: 180,
     timeUnit: "day",
     location: "Hanoi",
-    policies: ["Unlimited mileage", "Free cancellation"]
+    policies: ["Unlimited mileage", "Free cancellation"],
   },
   {
     productId: "3",
     name: "Luxury Sedan",
-    description: "A sleek and stylish sedan designed for comfort and elegance. It offers a smooth ride with advanced safety features, ideal for business trips or family outings.",
-    images: ["/images/sedan1.jpg", "/images/sedan2.jpg", "/images/sedan3.jpg", "/images/sedan4.jpg", "/images/sedan5.jpg"],
-    lessor: { shopName: "Car Rental Shop", description: "Reliable car rentals" },
+    description:
+      "A sleek and stylish sedan designed for comfort and elegance. It offers a smooth ride with advanced safety features, ideal for business trips or family outings.",
+    images: [
+      "/images/sedan1.jpg",
+      "/images/sedan2.jpg",
+      "/images/sedan3.jpg",
+      "/images/sedan4.jpg",
+      "/images/sedan5.jpg",
+    ],
+    lessor: {
+      shopName: "Car Rental Shop",
+      description: "Reliable car rentals",
+    },
     price: 180,
     timeUnit: "day",
     location: "Hanoi",
-    policies: ["Unlimited mileage", "Free cancellation"]
+    policies: ["Unlimited mileage", "Free cancellation"],
   },
   {
     productId: "4",
     name: "Norton Dominator",
     description: "Comfortable sedan for city drives.",
-    images: ["/images/motorcycle1.jpg", "/images/motorcycle2.jpg", "/images/motorcycle3.jpg", "/images/motorcycle4.webp", "/images/motorcycle5.jpg"],
-    lessor: { shopName: "Car Rental Shop", description: "Reliable car rentals" },
+    images: [
+      "/images/motorcycle1.jpg",
+      "/images/motorcycle2.jpg",
+      "/images/motorcycle3.jpg",
+      "/images/motorcycle4.webp",
+      "/images/motorcycle5.jpg",
+    ],
+    lessor: {
+      shopName: "Car Rental Shop",
+      description: "Reliable car rentals",
+    },
     price: 180,
     timeUnit: "day",
     location: "Hanoi",
-    policies: ["Unlimited mileage", "Free cancellation"]
+    policies: ["Unlimited mileage", "Free cancellation"],
   },
   {
     productId: "5",
     name: "Lamborghini",
     description: "Comfortable sedan for city drives.",
     images: ["/images/lamborghini1.jpg", "/images/lamborghini2.webp"],
-    lessor: { shopName: "Car Rental Shop", description: "Reliable car rentals" },
+    lessor: {
+      shopName: "Car Rental Shop",
+      description: "Reliable car rentals",
+    },
     price: 180,
     timeUnit: "day",
     location: "Hanoi",
-    policies: ["Unlimited mileage", "Free cancellation"]
+    policies: ["Unlimited mileage", "Free cancellation"],
   },
 ];
 
@@ -157,6 +239,17 @@ export default function HomeComponent() {
   const [ref4, inView4] = useInView({ triggerOnce: true, threshold: 0.2 });
   const [ref5, inView5] = useInView({ triggerOnce: true, threshold: 0.2 });
   const [ref6, inView6] = useInView({ triggerOnce: true, threshold: 0.2 });
+
+  const { getProductsApi, isPending } = useGetProducts();
+  const [furnitures, setFurnitures] = useState<API.TProduct[] | null>(null);
+  const [cars, setCars] = useState<API.TProduct[] | null>(null);
+
+  // const handleFetchProducts = async () => {
+  //   const res = await getProductsApi({
+  //     confirmStatus: confirmStatus.Approved,
+
+  //   });
+  // };
 
   return (
     <div>
@@ -294,7 +387,6 @@ export default function HomeComponent() {
                 </div>
               </div>
             </motion.div>
-
           </div>
           <motion.div
             ref={ref6}

@@ -1,7 +1,7 @@
 "use client";
 
 import { X } from "lucide-react";
-import { Dialog, DialogContent, DialogTitle } from "../ui/dialog";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { confirmStatus } from "@/const/products";
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";

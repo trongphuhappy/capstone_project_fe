@@ -12,8 +12,6 @@ import {
 } from "@/components/ui/select";
 import useGetCategories from "@/hooks/use-get-categories";
 import { useAppDispatch, useAppSelector } from "@/stores/store";
-import { create } from "domain";
-import { createProductEnd, createProductSuccess } from "@/stores/productSlice";
 import useToast from "@/hooks/use-toast";
 import { useServiceCreateProduct } from "@/services/product/services";
 import { openBackdrop } from "@/stores/stateSlice";
@@ -21,7 +19,7 @@ import { openBackdrop } from "@/stores/stateSlice";
 export default function CreateProductComponent() {
   const dispatch = useAppDispatch();
   const { addToast } = useToast();
-  const { mutate, isPending } = useServiceCreateProduct();
+  const { mutate } = useServiceCreateProduct();
   const [productImages, setProductImages] = useState<
     { file: File; previewUrl: string }[]
   >([]);
@@ -34,9 +32,6 @@ export default function CreateProductComponent() {
 
   const [category, setCategory] = useState<API.Category | null>(null);
   const [categories, setCategories] = useState<API.Category[]>([]);
-  const createProductState = useAppSelector(
-    (state) => state.productSlice.createProduct
-  );
 
   useEffect(() => {
     handleGetCategories();

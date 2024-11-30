@@ -18,6 +18,11 @@ import UpdateLastName from "@/components/update-profile/update-lastname";
 import UpdateLessor from "@/components/update-profile/update-lessor";
 import CensorDialog from "@/components/censor-dialog";
 import useCensorProductDialog from "@/hooks/use-censor-product-dialog";
+import useQuickViewProduct from "@/hooks/use-quick-view-product";
+import QuickViewCard from "@/components/quick-view-card";
+import RentDialog from "@/components/rent-dialog";
+import useRentNow from "@/hooks/use-rent-now";
+import useRentDialog from "@/hooks/use-rent-dialog";
 
 export default function GlobalContent({
   children,
@@ -41,7 +46,19 @@ export default function GlobalContent({
     onCloseUpdateInfoLessor,
   } = useUpdateProfileDialog();
 
-  const { open: isCensorOpenDialog, type: isTypeCensor, onCloseCensorProductDialog } = useCensorProductDialog();
+  const {
+    open: isCensorOpenDialog,
+    type: isTypeCensor,
+    onCloseCensorProductDialog,
+  } = useCensorProductDialog();
+
+  const {
+    open: isQuickViewProductDialog,
+    quickViewProduct,
+    onCloseQuickViewProductDialog,
+  } = useQuickViewProduct();
+
+  const { open: isRentDialog, onCloseRentProductDialog } = useRentDialog();
 
   return (
     <Fragment>
@@ -57,7 +74,17 @@ export default function GlobalContent({
       <UpdateFirstName open={openFirstName} onClose={onCloseUpdateFirstName} />
       <UpdateLastName open={openLastName} onClose={onCloseUpdateLastName} />
       <UpdateLessor open={openInfoLessor} onClose={onCloseUpdateInfoLessor} />
-      <CensorDialog open={isCensorOpenDialog} type={isTypeCensor} onClose={onCloseCensorProductDialog} />
+      <CensorDialog
+        open={isCensorOpenDialog}
+        type={isTypeCensor}
+        onClose={onCloseCensorProductDialog}
+      />
+      <QuickViewCard
+        product={quickViewProduct}
+        open={isQuickViewProductDialog}
+        onOpenChange={onCloseQuickViewProductDialog}
+      />
+      <RentDialog open={isRentDialog} onClose={onCloseRentProductDialog} />
       <main>{children}</main>
       <Backdrop open={backdropState.status} />
     </Fragment>

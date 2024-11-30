@@ -17,7 +17,7 @@ export default function TableProducts({ products }: TableProductsProps) {
   const handleReject = (product: API.TProduct) => {
     onOpenCensorProductDialog(confirmStatus.Rejected, product);
   };
-  
+
   return (
     <div className="px-3 py-4 flex justify-center">
       <table className="w-full text-md bg-white shadow-md rounded mb-4">
@@ -47,7 +47,7 @@ export default function TableProducts({ products }: TableProductsProps) {
                   />
                 </td>
                 <td className="p-3 px-5">{product.name}</td>
-                <td className="p-3 px-5">{product.category}</td>
+                <td className="p-3 px-5">{product?.category?.categoryName}</td>
                 <td className="p-3 px-5">{formatCurrencyVND(product.value)}</td>
                 <td className="p-3 px-5">{formatCurrencyVND(product.price)}</td>
                 <td className="p-3 px-5">{product.maximumRentDays}</td>

@@ -1,14 +1,14 @@
 declare namespace REQUEST {}
 
 declare namespace API {
-  type Surcharge = {
+  type TSurcharge = {
     id: string;
     name: string;
     description: string;
   };
 
   type TGetSurcharges = {
-    items: Surcharge[];
+    items: TSurcharge[];
     pageIndex: number;
     pageSize: number;
     totalCount: number;

@@ -16,27 +16,31 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import stateSlice from "@/stores/stateSlice";
 import userSlice from "@/stores/userSlice";
 import homeSlice from "@/stores/homeSlice";
-// import cartSlice from "@/stores/cartSlice";
 import differenceSlice from "@/stores/difference-slice";
 import userProfileslice from "@/stores/userProfileSlice";
 import productSlice from "@/stores/productSlice";
+import quickViewProductSlice from "@/stores/quickViewProductSlice";
+import categorySlice from "@/stores/categorySlice";
+import rentSlice from "@/stores/rentSlice";
 
 const persistConfig = {
   key: "root",
   version: 1,
   storage,
-  blacklist: ["stateSlice"],
-  whitelist: ["userSlice", "categorySlice", "homeSlice", "cartSlice"],
+  blacklist: ["stateSlice", "quickViewProductSlice", "rentSlice"],
+  whitelist: ["userSlice", "categorySlice", "homeSlice"],
 };
 
 const rootReducer = combineReducers({
   stateSlice: stateSlice,
   userSlice: userSlice,
   homeSlice: homeSlice,
-  // cartSlice: cartSlice,
   differenceSlice: differenceSlice,
   userProfileslice: userProfileslice,
   productSlice: productSlice,
+  quickViewProductSlice: quickViewProductSlice,
+  categorySlice: categorySlice,
+  rentSlice: rentSlice,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

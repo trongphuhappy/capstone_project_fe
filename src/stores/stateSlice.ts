@@ -7,7 +7,6 @@ export interface InitialState {
   };
   quickViewProduct: {
     open: false | true;
-    // product: API.IProductCard | null;
   };
   addedCartDialog: {
     open: false | true;
@@ -28,12 +27,14 @@ export interface InitialState {
     open: false | true;
     type: confirmStatus;
   };
+  rentDialog: {
+    open: false | true;
+  };
 }
 
 const initialState: InitialState = {
   backdrop: { status: false },
   addedCartDialog: { open: false },
-  // quickViewProduct: { open: false, product: null },
   quickViewProduct: { open: false },
   searchDialog: { open: false },
   updateAvatarProfileDialog: { open: false },
@@ -44,6 +45,7 @@ const initialState: InitialState = {
     openUpdateLessor: false,
   },
   censorProductDialog: { open: false, type: confirmStatus.Approved },
+  rentDialog: { open: false },
 };
 
 const stateSlice = createSlice({
@@ -62,16 +64,11 @@ const stateSlice = createSlice({
     closeAddedCartDialog: (state) => {
       state.addedCartDialog.open = false;
     },
-    openQuickViewProductDialog: (
-      state
-      // action: PayloadAction<API.IProductCard>
-    ) => {
+    openQuickViewProductDialog: (state) => {
       state.quickViewProduct.open = true;
-      // state.quickViewProduct.product = action.payload;
     },
-    closeQuickProductViewDialog: (state) => {
+    closeQuickViewProductDialog: (state) => {
       state.quickViewProduct.open = false;
-      // state.quickViewProduct.product = null;
     },
     openSearchDialog: (state) => {
       state.searchDialog.open = true;
@@ -117,6 +114,12 @@ const stateSlice = createSlice({
       state.censorProductDialog.open = false;
       state.censorProductDialog.type = confirmStatus.Approved;
     },
+    openRentProductDialog: (state) => {
+      state.rentDialog.open = true;
+    },
+    closeRentProductDialog: (state) => {
+      state.rentDialog.open = false;
+    },
   },
 });
 
@@ -126,7 +129,7 @@ export const {
   openAddedCartDialog,
   closeAddedCartDialog,
   openQuickViewProductDialog,
-  closeQuickProductViewDialog,
+  closeQuickViewProductDialog,
   openSearchDialog,
   closeSearchDialog,
   openUpdateAvatarProfileDialog,
@@ -141,6 +144,8 @@ export const {
   closeUpdateInfoLessorDialog,
   openCensorProductDialog,
   closeCensorProductDialog,
+  openRentProductDialog,
+  closeRentProductDialog,
 } = stateSlice.actions;
 
 export default stateSlice.reducer;

@@ -61,3 +61,21 @@ export const getProducts = async ({
   );
   return response.data;
 };
+
+export const getProductById = async ({
+  Id,
+  AccountId = null,
+}: REQUEST.TGetProductById) => {
+  const params: Record<string, any> = {};
+  if (Id) params.Id = Id;
+  if (AccountId) params.AccountId = AccountId;
+
+  const response = await request<TResponseData<API.TProduct>>(
+    API_ENDPOINTS.GET_PRODUCT_BY_ID,
+    {
+      method: "GET",
+      params: Object.keys(params).length > 0 ? params : undefined,
+    }
+  );
+  return response.data;
+};

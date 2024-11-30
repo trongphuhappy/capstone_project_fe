@@ -1,6 +1,6 @@
 "use client";
 
-import CartProductItem from "@/components/cart-product-item-v1";
+import CartProductItem from "@/components/card-product-item";
 import {
   Select,
   SelectContent,
@@ -14,6 +14,8 @@ import { filters } from "@/const/products";
 import { useEffect, useState } from "react";
 import PaginatedComponent from "@/components/paginated";
 import { useSearchParams, useRouter } from "next/navigation";
+import useGetProducts from "@/hooks/use-get-products";
+import { set } from "date-fns";
 
 export default function ProductsComponent() {
   const searchParams = useSearchParams();
@@ -36,34 +38,21 @@ export default function ProductsComponent() {
 
   const [currentPage, setCurrentPage] = useState<number>(1);
 
-  // const { products, handleGetProductsFilter } = useGetProductsFilter();
-  const products = null;
+  const { getProductsApi } = useGetProducts();
+  const [products, setProducts] = useState<API.TGetProducts | null>(null);
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
-    // handleGetData(page);
   };
 
-  // const handleGetData = async (pageIndex: number) => {
-  //   await handleGetProductsFilter({
-  //     isVehicle:
-  //       category !== null && category !== "others"
-  //         ? category === "vehicles"
-  //         : undefined,
-  //     location:
-  //       location !== "others"
-  //         ? (location as "common.location.HCM" | "common.location.HN")
-  //         : undefined,
-  //     sortField:
-  //       sortField !== "others"
-  //         ? (sortField as "createdAt" | "price" | "accessCount")
-  //         : undefined,
-  //     name: searchName != null ? searchName : "",
-  //     order: order !== "others" ? (order as "ASC" | "DESC") : undefined,
-  //     page: pageIndex,
-  //     take: 12,
-  //   });
-  // };
+  const handleFetchProducts = async (pageIndex: number) => {
+    const res = await getProductsApi({
+      name: searchName,
+      pageIndex: pageIndex,
+      pageSize: 12,
+    });
+    if (res) setProducts(res.value.data);
+  };
 
   const updateQueryParams = () => {
     const queryParams: Record<string, string | null> = {
@@ -88,10 +77,10 @@ export default function ProductsComponent() {
 
   useEffect(() => {
     if (currentPage !== 1) {
-      // handleGetData(1);
+      handleFetchProducts(1);
       setCurrentPage(1);
     } else {
-      // handleGetData(currentPage);
+      handleFetchProducts(currentPage);
     }
   }, [category, location, sortField, order]);
 
@@ -101,13 +90,13 @@ export default function ProductsComponent() {
 
   return (
     <div className="my-3 py-5 px-[50px] font-montserrat">
-      {/* <div>
+      <div>
         <div className="flex items-baseline gap-x-5">
           {searchName !== null && searchName !== "" && (
             <h3 className="font-semibold text-3xl">{searchName}</h3>
           )}
           <span className="font-normal text-base">
-            {products?.meta?.itemCount} product
+            {products?.totalCount} product
           </span>
         </div>
         <div className="mt-5">
@@ -151,27 +140,25 @@ export default function ProductsComponent() {
           </div>
           <div className="py-6">
             <div className="grid grid-cols-5 gap-y-4">
-              {products?.data?.map(
-                (product: API.IProductCard, index: number) => {
-                  return <CartProductItem key={index} product={product} />;
-                }
-              )}
+              {products?.items?.map((product: API.TProduct, index: number) => {
+                return <CartProductItem key={index} product={product} />;
+              })}
             </div>
-            {products?.data && products?.data?.length > 0 && (
+            {products && products?.totalCount > 0 && (
               <div className="mt-5">
                 <PaginatedComponent
-                  totalPages={products?.meta?.pageCount || 1}
+                  totalPages={products?.totalPages || 1}
                   currentPage={currentPage}
                   onPageChange={handlePageChange}
                 />
               </div>
             )}
-            {products?.data && products?.data?.length === 0 && (
+            {products?.totalCount === 0 && (
               <h3 className="text-xl">No result</h3>
             )}
           </div>
         </div>
-      </div> */}
+      </div>
     </div>
   );
 }

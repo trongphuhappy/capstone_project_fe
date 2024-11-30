@@ -1,4 +1,4 @@
-import CartProductItem from "@/components/cart-product-item-v1";
+import CartProductItem from "@/components/card-product-item";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
@@ -74,7 +74,8 @@ export default function ListCartItem({ products }: ListCartItemProps) {
           marginRight: index === list.length - 1 ? '0' : '25px', 
         }}
       >
-        <CartProductItem product={item} />
+        {/* <CartProductItem product={item} /> */}
+        Card product item
       </SwiperSlide>
     ));
   };

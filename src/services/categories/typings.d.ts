@@ -12,6 +12,7 @@ declare namespace API {
   type Category = {
     id: number;
     name: string;
+    image?: image | null;
     isVehicle: boolean;
   };
 
