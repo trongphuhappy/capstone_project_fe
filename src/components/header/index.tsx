@@ -53,12 +53,12 @@ export default function Header() {
 
   return (
     <header className="mx-auto font-montserrat">
-      <div className="px-[50px] py-4 flex items-center justify-between gap-x-16">
+      <div className="px-[50px] py-4 flex items-center justify-between gap-x-4 md:gap-x-8 lg:gap-x-16 w-full">
         <Link href="/">
           <figure className="flex items-center gap-x-2">
             <Image src={"/images/logo.svg"} alt="logo" width={50} height={50} />
             <span className="text-[#00939F]">-</span>
-            <h1 className="text-black text-2xl font-semibold font-montserrat">
+            <h1 className="text-black md:text-2xl text-xl font-semibold font-montserrat">
               Neighbor
             </h1>
           </figure>
@@ -91,7 +91,7 @@ export default function Header() {
                           clipRule="evenodd"
                         ></path>
                       </svg>
-                      <span className="whitespace-nowrap font-montserrat text-[#00000] font-semibold">
+                      <span className="whitespace-nowrap font-montserrat text-[#00000] font-semibold hidden sm:block">
                         Hello! Log in or sign up
                       </span>
                     </Link>
