@@ -19,7 +19,7 @@ export default function CreateProductForm({
   onSubmit,
 }: CreateProductFormProps) {
   const { register, errors, watch, handleSubmit } = useCreateProduct();
-  const [surcharges, setSurcharges] = useState<API.Surcharge[]>([]);
+  const [surcharges, setSurcharges] = useState<API.TSurcharge[]>([]);
 
   const { getSurchargesApi, isPending } = useGetSurcharges();
 

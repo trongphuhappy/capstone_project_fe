@@ -35,6 +35,7 @@ export const getProducts = async ({
   accountLessorId = null,
   pageIndex = null,
   pageSize = null,
+  isVehicle = null,
 }: REQUEST.TGetProductsFilter) => {
   const params: Record<string, any> = {};
   if (id) params.id = id;
@@ -51,6 +52,7 @@ export const getProducts = async ({
   if (accountLessorId) params.accountLessorId = accountLessorId;
   if (pageIndex) params.pageIndex = pageIndex;
   if (pageSize) params.pageSize = pageSize;
+  if (isVehicle) params.isVehicle = isVehicle;
 
   const response = await request<TResponseData<API.TGetProducts>>(
     API_ENDPOINTS.GET_PRODUCTS,
@@ -59,5 +61,33 @@ export const getProducts = async ({
       params: Object.keys(params).length > 0 ? params : undefined,
     }
   );
+  return response.data;
+};
+
+export const getProductById = async ({
+  Id,
+  AccountId = null,
+}: REQUEST.TGetProductById) => {
+  const params: Record<string, any> = {};
+  if (Id) params.Id = Id;
+  if (AccountId) params.AccountId = AccountId;
+
+  const response = await request<TResponseData<API.TProduct>>(
+    API_ENDPOINTS.GET_PRODUCT_BY_ID,
+    {
+      method: "GET",
+      params: Object.keys(params).length > 0 ? params : undefined,
+    }
+  );
+  return response.data;
+};
+
+export const addToWishList = async ({ ProductId }: REQUEST.TAddToWishlist) => {
+  const response = await request<TResponse>(API_ENDPOINTS.CONFIRM_PRODUCT, {
+    method: "PUT",
+    data: {
+      ProductId,
+    },
+  });
   return response.data;
 };

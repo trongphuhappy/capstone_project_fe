@@ -1,0 +1,44 @@
+.categoryMenu {
+  position: relative;
+  width: 100%;
+  /* border-bottom: 1px solid #ccc; */
+}
+
+.categories {
+  display: flex;
+  gap: 70px;
+  position: relative;
+  padding: 0 50px;
+}
+
+.category {
+  font-family: "Montserrat", sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 10px 0;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.category:hover {
+  color: #007bff;
+}
+
+.slider {
+  position: absolute;
+  bottom: 0;
+  height: 3px;
+  background-color: #007bff;
+  border-radius: 4px;
+}
+
+.boxCategoryContent {
+  position: absolute;
+  border-top: 1px solid #e7e6e6;
+  top: 100%;
+  width: 100%;
+  background-color: #fff;
+  z-index: 100;
+  padding: 20px 50px 0;
+}

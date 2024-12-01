@@ -47,19 +47,48 @@ declare namespace REQUEST {
     value?: string | null;
     maximumRentDays?: string | null;
     categoryId?: string | null;
-    confirmStatus?: string | null;
+    confirmStatus?: confirmStatus | null;
     accountUserId?: string | null;
     accountLessorId?: string | null;
     pageIndex?: number | null;
     pageSize?: number | null;
+    isVehicle?: boolean | null;
+  };
+
+  type TGetProductById = {
+    Id: string;
+    AccountId?: string | null;
+  };
+
+  type TAddToWishlist = {
+    ProductId: string;
   };
 }
 
 declare namespace API {
-  type Lessor = {
+  type TCategory = {
+    categoryId: number;
+    categoryName: string;
+    isVehicle: boolean;
+  };
+
+  type TLessor = {
     lessorId: string;
     wareHouseAddress: string;
     shopName: string;
+  };
+
+  type TInsurance = {
+    name: string;
+    issueDate: string;
+    expirationDate: string;
+    insuranceImagesUrl: string;
+  };
+
+  type TProductSurcharge = {
+    surchargeId: string;
+    surchargeName: string;
+    price: number;
   };
 
   type TProduct = {
@@ -73,12 +102,13 @@ declare namespace API {
     value: number;
     maximumRentDays: number;
     confirmStatus: REQUEST.confirmStatus;
-    isAddedToWishlist: boolean;
-    category: null;
+    isAddedToWishlist?: boolean | null;
+    isProductBelongsToUser?: boolean | null;
+    category?: TCategory | null;
     productImagesUrl: string[];
-    insurance: null;
-    surcharges: null;
-    lessor: Lessor;
+    insurance?: API.TInsurance | null;
+    surcharges?: API.TProductSurcharge[] | null;
+    lessor: TLessor;
   };
 
   type TGetProducts = {
