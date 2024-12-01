@@ -16,14 +16,15 @@ function AdminManageProduct() {
   const debouncedSearchTerm = useDebounce(search, 600);
 
   const [products, setProducts] = useState<API.TGetProducts | null>(null);
-  const [filteredProducts, setFilteredProducts] = useState("all");
+  const [filteredProducts, setFilteredProducts] =
+    useState<confirmStatus | null>(null);
 
   const handleFetchProducts = async () => {
     const res = await getProductsApi({
       pageIndex: currentPage,
       pageSize: productsPerPage,
       name: debouncedSearchTerm,
-      confirmStatus: filteredProducts !== "all" ? filteredProducts : null,
+      confirmStatus: filteredProducts,
     });
     if (res) setProducts(res.value.data || null);
   };
@@ -59,9 +60,11 @@ function AdminManageProduct() {
             onChange={(e) => {
               const status = e.target.value;
               if (status === "all") {
-                setFilteredProducts("all");
+                setFilteredProducts(null);
               } else {
-                setFilteredProducts(e.target.value);
+                setFilteredProducts(
+                  confirmStatus[status as keyof typeof confirmStatus]
+                );
               }
             }}
             className="p-2 border border-gray-400 rounded focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200"

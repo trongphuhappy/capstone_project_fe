@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
   Tooltip,
@@ -11,7 +10,7 @@ import {
 import { Input } from "@/components/ui/input";
 
 interface SurchargeFormProps {
-  surcharges: API.Surcharge[];
+  surcharges: API.TSurcharge[];
   selectedSurcharges: { [key: string]: number | "" };
   setSelectedSurcharges: (
     update: (prev: { [key: string]: number | "" }) => {
