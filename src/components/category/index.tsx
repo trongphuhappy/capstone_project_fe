@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
 import styles from "@/components/category/category.module.css";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import useGetCategories from "@/hooks/use-get-categories";
 import { useAppDispatch, useAppSelector } from "@/stores/store";
 import { addCategory } from "@/stores/categorySlice";
 import { Categories } from "@/const/category";
-import { categories } from "@/const/products";
 
 export default function Category() {
   const dispatch = useAppDispatch();

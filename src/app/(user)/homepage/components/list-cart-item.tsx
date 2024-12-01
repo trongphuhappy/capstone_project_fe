@@ -11,20 +11,8 @@ interface Lessor {
   description: string;
 }
 
-interface IProductCard {
-  productId: string;
-  name: string;
-  description: string;
-  images: string[];
-  lessor: Lessor;
-  price: number;
-  timeUnit: string;
-  location: string;
-  policies: string[];
-}
-
 interface ListCartItemProps {
-  products: IProductCard[];
+  products: API.TProduct[];
 }
 
 const ButtonCarousel = styled.div`
@@ -66,16 +54,15 @@ export default function ListCartItem({ products }: ListCartItemProps) {
     }
   }, []);
 
-  const renderCarousel = (list: IProductCard[]) => {
+  const renderCarousel = (list: API.TProduct[]) => {
     return list?.map((item, index) => (
       <SwiperSlide
         key={index}
         style={{
-          marginRight: index === list.length - 1 ? '0' : '25px', 
+          marginRight: index === list.length - 1 ? "0" : "25px",
         }}
       >
-        {/* <CartProductItem product={item} /> */}
-        Card product item
+        <CartProductItem product={item} />
       </SwiperSlide>
     ));
   };
@@ -86,8 +73,9 @@ export default function ListCartItem({ products }: ListCartItemProps) {
         <button
           onClick={() => swiperRef.current?.swiper?.slideNext()}
           disabled={isNextDisabled}
-          className={`custom-next-button absolute top-1/2 right-0 translate-x-1/2 -translate-y-1/2 z-[20] ${isNextDisabled && "opacity-0"
-            }`}
+          className={`custom-next-button absolute top-1/2 right-0 translate-x-1/2 -translate-y-1/2 z-[20] ${
+            isNextDisabled && "opacity-0"
+          }`}
         >
           <ButtonCarousel>
             <ChevronRight className="text-white w-5 h-5" strokeWidth={2.5} />
@@ -96,8 +84,9 @@ export default function ListCartItem({ products }: ListCartItemProps) {
         <button
           onClick={() => swiperRef.current?.swiper?.slidePrev()}
           disabled={isPrevDisabled}
-          className={`custom-prev-button absolute top-1/2 left-0 -translate-x-1/2 -translate-y-1/2 z-[20] ${isPrevDisabled && "opacity-0"
-            }`}
+          className={`custom-prev-button absolute top-1/2 left-0 -translate-x-1/2 -translate-y-1/2 z-[20] ${
+            isPrevDisabled && "opacity-0"
+          }`}
         >
           <ButtonCarousel>
             <ChevronLeft className="text-white w-5 h-5" strokeWidth={2.5} />

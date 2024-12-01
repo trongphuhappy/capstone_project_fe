@@ -4,23 +4,23 @@ export enum confirmStatus {
   Rejected = -1,
 }
 
-export const categories = {
-  title: "Categories",
-  sub: [
-    {
-      id: "vehicles",
-      title: "Vehicles",
-    },
-    {
-      id: "furnitures",
-      title: "Furnitures",
-    },
-    {
-      id: "others",
-      title: "Others",
-    },
-  ],
-};
+// export const categories = {
+//   title: "Categories",
+//   sub: [
+//     {
+//       id: "vehicles",
+//       title: "Vehicles",
+//     },
+//     {
+//       id: "furnitures",
+//       title: "Furnitures",
+//     },
+//     {
+//       id: "others",
+//       title: "Others",
+//     },
+//   ],
+// };
 
 export const locations = {
   title: "Locations",
@@ -76,4 +76,4 @@ export const orders = {
   ],
 };
 
-export const filters = [categories, locations, sortBy, orders];
+export const filters = [locations, sortBy, orders];

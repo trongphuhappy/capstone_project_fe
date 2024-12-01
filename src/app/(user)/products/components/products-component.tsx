@@ -15,11 +15,17 @@ import { useEffect, useState } from "react";
 import PaginatedComponent from "@/components/paginated";
 import { useSearchParams, useRouter } from "next/navigation";
 import useGetProducts from "@/hooks/use-get-products";
-import { set } from "date-fns";
+import { useAppDispatch, useAppSelector } from "@/stores/store";
+import useGetCategories from "@/hooks/use-get-categories";
+import { addCategory } from "@/stores/categorySlice";
 
 export default function ProductsComponent() {
+  const dispatch = useAppDispatch();
   const searchParams = useSearchParams();
   const router = useRouter();
+  const categoryState = useAppSelector((state) => state.categorySlice);
+
+  const { getCategoriesApi, isPending } = useGetCategories();
 
   const [searchName, setSearchName] = useState<string | null>(
     searchParams.get("searchName")
@@ -38,6 +44,8 @@ export default function ProductsComponent() {
 
   const [currentPage, setCurrentPage] = useState<number>(1);
 
+  const [categories, setCategories] = useState<API.Category[]>([]);
+
   const { getProductsApi } = useGetProducts();
   const [products, setProducts] = useState<API.TGetProducts | null>(null);
 
@@ -45,11 +53,19 @@ export default function ProductsComponent() {
     setCurrentPage(page);
   };
 
+  const handleFetchCategory = async () => {
+    const res = await getCategoriesApi({ pageIndex: 1, pageSize: 100 });
+    if (res?.value?.data.items) {
+      setCategories(res?.value?.data?.items);
+    }
+  };
+
   const handleFetchProducts = async (pageIndex: number) => {
     const res = await getProductsApi({
       name: searchName,
       pageIndex: pageIndex,
       pageSize: 12,
+      categoryId: category,
     });
     if (res) setProducts(res.value.data);
   };
@@ -88,6 +104,13 @@ export default function ProductsComponent() {
     updateQueryParams(); // Update URL on initial load or when state changes
   }, [category, location, sortField, order, currentPage, searchName]);
 
+  useEffect(() => {
+    if (categories?.length === 0) {
+      // Fetch categories
+      handleFetchCategory();
+    }
+  }, []);
+
   return (
     <div className="my-3 py-5 px-[50px] font-montserrat">
       <div>
@@ -101,6 +124,29 @@ export default function ProductsComponent() {
         </div>
         <div className="mt-5">
           <div className="flex items-center gap-x-8 pb-6 border-b-[1px] border-[#e5e5e5]">
+            <Select
+              onValueChange={(value) => {
+                const index = Number.parseInt(value);
+                setCategory(categories[index].id.toString());
+              }}
+            >
+              <SelectTrigger className="w-[180px] rounded-3xl bg-[#f5f5f5] border-none hover:bg-[#d5d5d5] text-[#11111] text-xs font-bold">
+                <SelectValue placeholder="Category" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  {categories?.map((item: API.Category, index: number) => (
+                    <SelectItem
+                      key={index}
+                      value={index.toString()}
+                      className="font-montserrat py-2 select-none"
+                    >
+                      {item.name}
+                    </SelectItem>
+                  ))}
+                </SelectGroup>
+              </SelectContent>
+            </Select>
             {filters?.map((filter, index) => (
               <Select
                 key={index}

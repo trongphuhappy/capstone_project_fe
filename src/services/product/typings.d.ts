@@ -47,16 +47,21 @@ declare namespace REQUEST {
     value?: string | null;
     maximumRentDays?: string | null;
     categoryId?: string | null;
-    confirmStatus?: number | null;
+    confirmStatus?: confirmStatus | null;
     accountUserId?: string | null;
     accountLessorId?: string | null;
     pageIndex?: number | null;
     pageSize?: number | null;
+    isVehicle?: boolean | null;
   };
 
   type TGetProductById = {
     Id: string;
     AccountId?: string | null;
+  };
+
+  type TAddToWishlist = {
+    ProductId: string;
   };
 }
 

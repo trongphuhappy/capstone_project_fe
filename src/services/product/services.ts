@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import { confirmProduct, createProduct } from "@/services/product/api-services";
+import { addToWishList, confirmProduct, createProduct } from "@/services/product/api-services";
 import useToast from "@/hooks/use-toast";
 import { useAppDispatch } from "@/stores/store";
 import { closeBackdrop } from "@/stores/stateSlice";
@@ -69,6 +69,29 @@ export const useServiceConfirmProduct = () => {
   const dispatch = useAppDispatch();
   return useMutation<TResponse, TMeta, REQUEST.TConfirmProduct>({
     mutationFn: confirmProduct,
+    onSuccess: (data) => {
+      dispatch(closeBackdrop());
+      addToast({
+        type: "success",
+        description: data.value.message,
+        duration: 3500,
+      });
+    },
+    onError: (error) => {
+      dispatch(closeBackdrop());
+      addToast({
+        type: "error",
+        description: error.detail,
+      });
+    },
+  });
+};
+
+export const useServiceAddWishlistProduct = () => {
+  const { addToast } = useToast();
+  const dispatch = useAppDispatch();
+  return useMutation<TResponse, TMeta, REQUEST.TAddToWishlist>({
+    mutationFn: addToWishList,
     onSuccess: (data) => {
       dispatch(closeBackdrop());
       addToast({

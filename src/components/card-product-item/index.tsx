@@ -1,60 +1,22 @@
 "use client";
-import { HiEye, HiShoppingCart } from "react-icons/hi";
+
+import { HiEye } from "react-icons/hi";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from "@/components/ui/alert-dialog";
-import styles from "@/components/card-product-item/card-product-item.module.css";
-// import useQuickViewProduct from "@/hooks/use-quick-view-product";
 
-import {
-  productCategories,
-  productLocale,
-} from "@/utils/locales/en-US/product";
 import Link from "next/link";
-import { use, useState } from "react";
-import { Button } from "@/components/ui/button";
-import { IoMdClose } from "react-icons/io";
-import { motion } from "framer-motion";
 import { formatCurrencyVND } from "@/utils/format-currency";
-import { ChevronLeft, ChevronRight, Heart, View } from "lucide-react";
+import { Heart } from "lucide-react";
 import { useAppSelector } from "@/stores/store";
 import useQuickViewProduct from "@/hooks/use-quick-view-product";
-
-interface Lessor {
-  shopName: string;
-  description: string;
-}
-
-// interface IProductCard {
-//   productId: string;
-//   name: string;
-//   description: string;
-//   images: string[];
-//   lessor: Lessor;
-//   price: number;
-//   timeUnit: string;
-//   location: string;
-//   policies: string[];
-// }
 
 interface CardProductItemProps {
   product: API.TProduct;
 }
-
-// const product: IProductCard = {
 //   productId: "12345",
 //   name: "Modern Sofa",
 //   description: "A comfortable and stylish modern sofa for your living room.",
@@ -86,6 +48,8 @@ export default function CardProductItem({ product }: CardProductItemProps) {
     onOpenQuickViewProductDialog(product);
   };
 
+  const handleToggleWishlish = () => {};
+
   return (
     <div className="sale-box w-[220px] cursor-pointer font-montserrat group">
       <div>
@@ -104,7 +68,7 @@ export default function CardProductItem({ product }: CardProductItemProps) {
             <TooltipProvider>
               <Tooltip delayDuration={100}>
                 <TooltipTrigger>
-                  <div>
+                  <div onClick={handleToggleWishlish}>
                     <Heart />
                   </div>
                 </TooltipTrigger>
@@ -124,10 +88,13 @@ export default function CardProductItem({ product }: CardProductItemProps) {
         <p className="text-xs mt-2 font-normal">
           Shop name: <b className="font-normal">{product.lessor.shopName}</b>
         </p>
-        <div className="mt-4 flex items-center justify-between">
-          <p className="text-xl font-bold">
-            Rent price: {formatCurrencyVND(product.price)}
-          </p>
+        <div className="mt-4 flex items-end justify-between">
+          <div>
+            <p className="text-xs">Rent price: </p>
+            <p className="mt-2 text-xl font-bold">
+              {formatCurrencyVND(product.price)} / Day
+            </p>
+          </div>
           {product.isProductBelongsToUser === false && (
             <TooltipProvider>
               <Tooltip delayDuration={100}>
