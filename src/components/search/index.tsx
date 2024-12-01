@@ -21,7 +21,7 @@ export default function Search() {
   return (
     <div className="w-full h-full" onClick={onOpenSearchDialog}>
       <div className="w-full h-full relative z-30 overflow-hidden">
-        <div className="absolute w-full h-full z-30 opacity-1 cursor-pointer"></div>
+        <div className="sm:flex items-center justify-center w-20 lg:w-full md:w-48 sm:w-[50px] h-full cursor-pointer bg-[#f5f5f5] rounded-full"></div>
         <input
           type="text"
           id="search"
@@ -34,7 +34,7 @@ export default function Search() {
           fill="currentColor"
           width="1.5rem"
           height="1.5rem"
-          className="absolute left-6 top-1/2 -translate-y-1/2 pointer-events-none"
+          className="sm:absolute md:left-6 sm:left-3 sm:top-1/2 sm:-translate-y-1/2 pointer-events-none"
         >
           <path
             fillRule="evenodd"
