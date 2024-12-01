@@ -18,203 +18,18 @@ import styles from "@/components/header/main.module.css";
 import useCheckExsitLessor from "@/hooks/use-check-exist-lessor";
 import useToast from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
-import { AiOutlineMenu } from "react-icons/ai";
-
-interface ISubItem {
-  id: number;
-  name: string;
-  image: string;
-}
-
-interface ICategory {
-  category: string;
-  subItems: ISubItem[];
-}
-
-interface INavItem {
-  label: string;
-  categories: ICategory[];
-}
-
-const InitialNavItems: INavItem[] = [
-  {
-    label: "All Products",
-    categories: [
-      {
-        category: "Beds & mattresses",
-        subItems: [
-          { id: 1, name: "Bedding", image: "/images/furniture.png" },
-          { id: 2, name: "Bath Textiles", image: "/images/car1.png" },
-          { id: 3, name: "Curtain & Blinds", image: "/images/banner3.png" },
-          { id: 4, name: "Headphones", image: "/images/banner1.png" },
-          { id: 5, name: "Headphones", image: "/images/sedan1.jpg" },
-          { id: 6, name: "Headphones", image: "/images/suv1.jpg" },
-          { id: 7, name: "Headphones", image: "/images/TV-stand1.webp" },
-        ],
-      },
-      {
-        category: "Clothing 1",
-        subItems: [
-          { id: 4, name: "Shirts", image: "/images/banner4.png" },
-          { id: 5, name: "Pants", image: "/images/suv1.jpg" },
-          { id: 6, name: "Shoes", image: "/images/car2.png" },
-        ],
-      },
-      {
-        category: "Home Appliances",
-        subItems: [
-          { id: 7, name: "Refrigerators", image: "/images/furniture1.png" },
-          { id: 8, name: "Washing Machines", image: "/images/furniture2.png" },
-          { id: 9, name: "Air Conditioners", image: "/images/furniture3.png" },
-        ],
-      },
-    ],
-  },
-  {
-    label: "Furnitures",
-    categories: [
-      {
-        category: "Beds & mattresses",
-        subItems: [
-          { id: 1, name: "Bedding", image: "/images/furniture.png" },
-          { id: 2, name: "Bath Textiles", image: "/images/car1.png" },
-          { id: 3, name: "Curtain & Blinds", image: "/images/banner3.png" },
-          { id: 4, name: "Headphones", image: "/images/banner1.png" },
-          { id: 5, name: "Headphones", image: "/images/sedan1.jpg" },
-          { id: 6, name: "Headphones", image: "/images/suv1.jpg" },
-          { id: 7, name: "Headphones", image: "/images/TV-stand1.webp" },
-        ],
-      },
-      {
-        category: "Clothing 2",
-        subItems: [
-          { id: 4, name: "Shirts", image: "/images/banner4.png" },
-          { id: 5, name: "Pants", image: "/images/suv1.jpg" },
-          { id: 6, name: "Shoes", image: "/images/car2.png" },
-        ],
-      },
-      {
-        category: "Home Appliances",
-        subItems: [
-          { id: 7, name: "Refrigerators", image: "/images/furniture1.png" },
-          { id: 8, name: "Washing Machines", image: "/images/furniture2.png" },
-          { id: 9, name: "Air Conditioners", image: "/images/furniture3.png" },
-        ],
-      },
-    ],
-  },
-  {
-    label: "Vehicles",
-    categories: [
-      {
-        category: "Beds & mattresses",
-        subItems: [
-          { id: 1, name: "Bedding", image: "/images/furniture.png" },
-          { id: 2, name: "Bath Textiles", image: "/images/car1.png" },
-          { id: 3, name: "Curtain & Blinds", image: "/images/banner3.png" },
-          { id: 4, name: "Headphones", image: "/images/banner1.png" },
-          { id: 5, name: "Headphones", image: "/images/sedan1.jpg" },
-          { id: 6, name: "Headphones", image: "/images/suv1.jpg" },
-          { id: 7, name: "Headphones", image: "/images/TV-stand1.webp" },
-        ],
-      },
-      {
-        category: "Clothing 2",
-        subItems: [
-          { id: 4, name: "Shirts", image: "/images/banner4.png" },
-          { id: 5, name: "Pants", image: "/images/suv1.jpg" },
-          { id: 6, name: "Shoes", image: "/images/car2.png" },
-        ],
-      },
-      {
-        category: "Home Appliances",
-        subItems: [
-          { id: 7, name: "Refrigerators", image: "/images/furniture1.png" },
-          { id: 8, name: "Washing Machines", image: "/images/furniture2.png" },
-          { id: 9, name: "Air Conditioners", image: "/images/furniture3.png" },
-        ],
-      },
-    ],
-  },
-  {
-    label: "E-Neighbor for LESSOR",
-    categories: [
-      {
-        category: "Beds & mattresses",
-        subItems: [
-          { id: 1, name: "Bedding", image: "/images/furniture.png" },
-          { id: 2, name: "Bath Textiles", image: "/images/car1.png" },
-          { id: 3, name: "Curtain & Blinds", image: "/images/banner3.png" },
-          { id: 4, name: "Headphones", image: "/images/banner1.png" },
-          { id: 5, name: "Headphones", image: "/images/sedan1.jpg" },
-          { id: 6, name: "Headphones", image: "/images/suv1.jpg" },
-          { id: 7, name: "Headphones", image: "/images/TV-stand1.webp" },
-        ],
-      },
-      {
-        category: "Clothing 2",
-        subItems: [
-          { id: 4, name: "Shirts", image: "/images/banner4.png" },
-          { id: 5, name: "Pants", image: "/images/suv1.jpg" },
-          { id: 6, name: "Shoes", image: "/images/car2.png" },
-        ],
-      },
-      {
-        category: "Home Appliances",
-        subItems: [
-          { id: 7, name: "Refrigerators", image: "/images/furniture1.png" },
-          { id: 8, name: "Washing Machines", image: "/images/furniture2.png" },
-          { id: 9, name: "Air Conditioners", image: "/images/furniture3.png" },
-        ],
-      },
-    ],
-  },
-  {
-    label: "Contact Us",
-    categories: [],
-  },
-];
+import Category from "@/components/category";
 
 export default function Header() {
   const { addToast } = useToast();
   const router = useRouter();
   const userState = useAppSelector((state) => state.userSlice);
   const [avatarMenuTooltip, setAvatarMenuTooltip] = useState<boolean>(false);
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [openLabel, setOpenLabel] = useState<string | null>(null);
   const [isMobile, setIsMobile] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   
   const { checkExistLessorApi } = useCheckExsitLessor();
-
-  const handleCategoryHover = (item: INavItem) => {
-    setOpenLabel(item.label);
-    if (item.categories && item.categories.length > 0) {
-      setSelectedCategory(item.categories[0].category);
-    }
-  };
-
-  const handleCategoryLeave = () => {
-    setOpenLabel(null);
-  };
-
-
-  const handleCategoryClick = (categoryName: string) => {
-    if (selectedCategory !== categoryName) {
-      setSelectedCategory(categoryName);
-    }
-  };
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth <= 768);
-    };
-
-    handleResize(); // Kiểm tra ngay khi component mount
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-    console.log("Selected Category has changed:", selectedCategory);
-  }, [selectedCategory]);
 
   const handleToggleAvatarMenuTooltip = () => {
     setAvatarMenuTooltip((prev) => !prev);
@@ -237,8 +52,8 @@ export default function Header() {
   };
 
   return (
-    <header className="px-4 mx-auto font-montserrat w-full">
-      <div className="py-4 xl:px-10 md:pl-8 sm:pl-14 sm:flex sm:items-center sm:justify-between gap-x-16 w-full">
+    <header className="mx-auto font-montserrat">
+      <div className="px-[50px] py-4 flex items-center justify-between gap-x-16">
         <Link href="/">
           <figure className="flex items-center gap-x-2">
             <Image src={"/images/logo.svg"} alt="logo" width={50} height={50} />
@@ -354,143 +169,9 @@ export default function Header() {
         </ul>
       </div>
 
-
-      <div className="h-[40px] pl-10 flex items-center">
-        <nav>
-          <ul className="flex items-center justify-start gap-x-[60px] relative">
-            {InitialNavItems.map((item, index) => {
-              if (item.label === 'Contact Us') {
-                return (
-                  <li
-                    key={index}
-                    className="cursor-pointer relative"
-                    onMouseEnter={() => handleCategoryHover(item)}
-                    onMouseLeave={handleCategoryLeave}
-                  >
-                    <span className="text-xs text-black font-semibold font-montserrat">
-                      {item.label}
-                    </span>
-
-                    <AnimatePresence>
-                      {openLabel === item.label && (
-                        <motion.div
-                          className="absolute left-0 top-[calc(100%+10px)] bg-white shadow-lg w-[500px] p-4 z-50"
-                          initial={{ opacity: 0, translateY: -10 }}
-                          animate={{ opacity: 1, translateY: 0 }}
-                          exit={{ opacity: 0, translateY: -10 }}
-                          transition={{ duration: 0.3 }}
-                        >
-                          <div className="space-y-4">
-                            <h3 className="text-lg font-semibold">Contact Information</h3>
-                            <div className="grid grid-cols-2 gap-4">
-                              <div className="border-r border-gray-200 pb-4">
-                                <h4 className="text-sm text-gray-700 font-semibold">Email:</h4>
-                                <p className="text-sm text-gray-600">example@example.com</p>
-                              </div>
-                              <div className=" border-gray-200 pb-4">
-                                <h4 className="text-sm text-gray-700 font-semibold">Phone:</h4>
-                                <p className="text-sm text-gray-600">+123456789</p>
-                              </div>
-                              <div className="border-r border-gray-200 pb-4">
-                                <h4 className="text-sm text-gray-700 font-semibold">Address:</h4>
-                                <p className="text-sm text-gray-600">123 Street, City, Country</p>
-                              </div>
-                              <div>
-                                <h4 className="text-sm text-gray-700 font-semibold">Working Hours:</h4>
-                                <p className="text-sm text-gray-600">Mon - Fri: 9:00 AM - 6:00 PM</p>
-                              </div>
-                            </div>
-                          </div>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </li>
-                );
-              }
-
-              return (
-                <li
-                  key={index}
-                  className="cursor-pointer relative"
-                  onMouseEnter={() => handleCategoryHover(item)}
-                  onMouseLeave={handleCategoryLeave}
-                >
-                  <span className="text-xs text-black font-semibold font-montserrat">
-                    {item.label}
-                  </span>
-
-                  <AnimatePresence>
-                    {openLabel === item.label && (
-                      <motion.div
-                        className="absolute left-0 top-[calc(100%+10px)] bg-white shadow-lg w-[1100px] h-[400px] z-50 flex"
-                        initial={{ opacity: 0, translateY: -10 }}
-                        animate={{ opacity: 1, translateY: 0 }}
-                        exit={{ opacity: 0, translateY: -10 }}
-                        transition={{ duration: 0.3 }}
-                      >
-                        <div className="w-1/6 p-4 space-y-4">
-                          {item.categories && item.categories.length > 0 ? (
-                            <div className="space-y-2">
-                              {item.categories.map((category, idx) => (
-                                <div
-                                  key={idx}
-                                  className={`p-2 cursor-pointer ${selectedCategory === category.category ? 'underline' : ''} hover:bg-gray-100`}
-                                  onClick={() => handleCategoryClick(category.category)}
-                                >
-                                  <span className="text-sm text-gray-700">{category.category}</span>
-                                </div>
-                              ))}
-                            </div>
-                          ) : (
-                            <span className="text-sm text-gray-500">No categories available</span>
-                          )}
-                        </div>
-
-                        <div className={`w-5/6 grid grid-cols-3 gap-2 p-4 max-h-[400px] overflow-y-auto`}>
-                          {item.categories
-                            .filter(
-                              (category) =>
-                                selectedCategory === category.category && category.subItems && category.subItems.length > 0
-                            )
-                            .map((category, idx) => (
-                              <div key={idx} className="col-span-3">
-                                <h3 className="text-lg font-semibold text-gray-900 mb-4">{category.category}</h3>
-                                <div className="grid grid-cols-4 gap-4 space-y-4">
-                                  {category.subItems.map((subItem, subIdx) => (
-                                    <div key={subIdx} className={`flex flex-row items-center hover:bg-gray-100 ${subIdx === 1 ? 'relative z-10' : ''}`}>
-                                      <div className="w-24 h-20 mr-2 relative">
-                                        <Image
-                                          src={subItem.image}
-                                          alt={subItem.name}
-                                          layout="fill"
-                                          objectFit="cover"
-                                          className="shadow-md"
-                                        />
-                                      </div>
-                                      <span className="text-xs text-gray-700">{subItem.name}</span>
-                                    </div>
-                                  ))}
-                                </div>
-                              </div>
-                            ))}
-
-                          {item.categories.every(
-                            (category) =>
-                              selectedCategory !== category.category || !category.subItems || category.subItems.length === 0
-                          ) && (
-                              <span className="text-sm text-gray-500 col-span-3">No subitems available</span>
-                            )}
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </li>
-              );
-            })}
-          </ul>
-        </nav>
+      <div className="h-[60px] flex items-center">
+        <Category />
       </div>
-
     </header>
   );
 }

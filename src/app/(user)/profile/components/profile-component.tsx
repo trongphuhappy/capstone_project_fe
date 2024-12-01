@@ -4,15 +4,13 @@ import AvatarProfile from "@/components/avatar-profile";
 import UpdateCoverPhoto from "@/components/update-cover-photo";
 import { useAppSelector } from "@/stores/store";
 import { Plus } from "lucide-react";
-import IntroductionBox from "@/app/(user)/profile/components/introduction-box";
-import PostFilterBox from "@/app/(user)/profile/components/post-filter-box";
 import useGetProfile from "@/app/(user)/profile/hooks/useGetProfile";
 import { useEffect, useState } from "react";
-import IntroductionLessor from "@/app/(user)/profile/components/introduction-lessor";
-import useGetLessor from "../hooks/useGetLessor";
+import useGetLessor from "@/app/(user)/profile/hooks/useGetLessor";
 import useCheckExsitLessor from "@/hooks/use-check-exist-lessor";
 import useToast from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
+import PostComponent from "@/app/(user)/profile/components/post-component";
 
 interface NavProfile {
   name: string;
@@ -100,7 +98,7 @@ export default function ProfileComponent() {
       router.push("/create-product");
     }
   };
-
+  
   return (
     <div>
       <div className="font-montserrat mx-auto">
@@ -152,19 +150,7 @@ export default function ProfileComponent() {
           </div>
         </div>
         <main className="my-3 w-full max-w-[1425px] mx-auto relative">
-          <div className="flex items-start gap-x-5">
-            <section className="sticky top-[10px] z-20 w-[30%]">
-              <div className="flex flex-col gap-y-2">
-                <IntroductionBox />
-                <IntroductionLessor />
-              </div>
-            </section>
-            <section className="flex-1 sticky w-full flex flex-col gap-y-3">
-              <div>
-                <PostFilterBox />
-              </div>
-            </section>
-          </div>
+          <PostComponent />
         </main>
       </div>
     </div>

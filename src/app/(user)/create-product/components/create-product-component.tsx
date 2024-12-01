@@ -12,8 +12,6 @@ import {
 } from "@/components/ui/select";
 import useGetCategories from "@/hooks/use-get-categories";
 import { useAppDispatch, useAppSelector } from "@/stores/store";
-import { create } from "domain";
-import { createProductEnd, createProductSuccess } from "@/stores/productSlice";
 import useToast from "@/hooks/use-toast";
 import { useServiceCreateProduct } from "@/services/product/services";
 import { openBackdrop } from "@/stores/stateSlice";
@@ -21,7 +19,7 @@ import { openBackdrop } from "@/stores/stateSlice";
 export default function CreateProductComponent() {
   const dispatch = useAppDispatch();
   const { addToast } = useToast();
-  const { mutate, isPending } = useServiceCreateProduct();
+  const { mutate } = useServiceCreateProduct();
   const [productImages, setProductImages] = useState<
     { file: File; previewUrl: string }[]
   >([]);
@@ -34,9 +32,6 @@ export default function CreateProductComponent() {
 
   const [category, setCategory] = useState<API.Category | null>(null);
   const [categories, setCategories] = useState<API.Category[]>([]);
-  const createProductState = useAppSelector(
-    (state) => state.productSlice.createProduct
-  );
 
   useEffect(() => {
     handleGetCategories();
@@ -54,7 +49,15 @@ export default function CreateProductComponent() {
   };
 
   const handleSubmit = (data: REQUEST.TCreateProduct) => {
-    if (productImages?.length > 0 && issuranceImages?.length > 0) {
+    if (productImages?.length > 0) {
+      // Case product is vehicle but no insurance images
+      if (category?.isVehicle === true && issuranceImages?.length === 0) {
+        addToast({
+          type: "error",
+          description: "Please upload insurance images",
+        });
+        return;
+      }
       dispatch(openBackdrop());
       const formData: REQUEST.TCreateProduct = {
         ...data,
@@ -64,17 +67,10 @@ export default function CreateProductComponent() {
       };
       mutate(formData);
     } else {
-      dispatch(createProductEnd());
       if (productImages?.length === 0) {
         addToast({
           type: "error",
           description: "Please upload product images",
-        });
-      }
-      if (issuranceImages?.length === 0) {
-        addToast({
-          type: "error",
-          description: "Please upload insurance images",
         });
       }
     }

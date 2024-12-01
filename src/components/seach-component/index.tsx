@@ -1,10 +1,14 @@
 import useDebounce from "@/hooks/use-debounce";
+import useGetProducts from "@/hooks/use-get-products";
 // import useGetProductsFilter from "@/hooks/useGetProductsFilter";
 import { formatCurrencyVND } from "@/utils/format-currency";
-import { productCategories, productLocale } from "@/utils/locales/en-US/product";
+import {
+  productCategories,
+  productLocale,
+} from "@/utils/locales/en-US/product";
 import { ArrowRight, X } from "lucide-react";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 
 interface SearchComponentProps {
   open: boolean;
@@ -16,12 +20,16 @@ export default function SearchComponent({
   onClose,
 }: SearchComponentProps) {
   const [searchName, setSearchName] = useState("");
+  const [dots, setDots] = useState(0);
   const debouncedSearchTerm = useDebounce(searchName, 600);
 
-  // const { products, handleGetProductsFilter } = useGetProductsFilter();
+  const { getProductsApi, isPending } = useGetProducts();
+
+  const [products, setProducts] = useState<API.TProduct[]>([]);
 
   const handleCloseSearch = () => {
     onClose();
+    setProducts([]);
   };
 
   const handleResetSearchName = () => {
@@ -29,15 +37,18 @@ export default function SearchComponent({
   };
 
   const handleFetchDataSearch = async () => {
-    // await handleGetProductsFilter({
-    //   page: 1,
-    //   take: 3,
-    //   name: debouncedSearchTerm,
-    // });
+    const res = await getProductsApi({
+      name: debouncedSearchTerm,
+      pageIndex: 1,
+      pageSize: 3,
+      confirmStatus: 1,
+      statusType: 1,
+    });
+    if (res) setProducts(res?.value?.data?.items);
   };
 
   const nextPageProducts = () => {
-    onClose();
+    handleCloseSearch();
     window.location.href = `/products?searchName=${searchName}`;
   };
 
@@ -45,34 +56,45 @@ export default function SearchComponent({
     handleFetchDataSearch();
   }, [debouncedSearchTerm]);
 
-  // const renderProducts = () => {
-  //   return products?.data?.map((product: API.IProductCard, index: number) => {
-  //     return (
-  //       <Link key={index} href={`/product/${product.id}`} onClick={onClose}>
-  //         <div className="py-2 px-2 flex items-start gap-x-4 hover:bg-slate-100 cursor-pointer">
-  //           <img
-  //             src={product.image}
-  //             alt={product.name}
-  //             className="w-[100px] h-[100px] border"
-  //           />
-  //           <div className="flex flex-col gap-y-2">
-  //             <h3 className="text-base">Name: {product.name}</h3>
-  //             <p className="font-montserrat text-[15px]">
-  //               Type: {productCategories[product?.category?.name]}
-  //             </p>
-  //             <div className="flex items-baseline gap-x-3">
-  //               <span className="text-base font-montserrat">Price:</span>
-  //               <p className="text-2xl text-black font-semibold">
-  //                 {product && formatCurrencyVND(product?.price)}
-  //                 {product && productLocale[product?.timeUnit]}
-  //               </p>
-  //             </div>
-  //           </div>
-  //         </div>
-  //       </Link>
-  //     );
-  //   });
-  // };
+  useEffect(() => {
+    if (isPending) {
+      const interval = setInterval(() => {
+        setDots((prev) => (prev + 1) % 4);
+      }, 500);
+      return () => clearInterval(interval);
+    } else {
+      setDots(0);
+    }
+  }, [isPending]);
+
+  const renderProducts = () => {
+    return products?.map((product: API.TProduct, index: number) => {
+      return (
+        <Link key={index} href={`/product/${product.id}`} onClick={onClose}>
+          <div className="py-2 px-2 flex items-start gap-x-4 hover:bg-slate-100 cursor-pointer">
+            <img
+              src={product.productImagesUrl[0]}
+              alt={product.name}
+              className="w-[100px] h-[100px] border"
+            />
+            <div className="flex flex-col gap-y-2">
+              <h3 className="text-base">Name: {product.name}</h3>
+              <p className="font-montserrat text-[15px]">
+                Type: {product?.category?.categoryName}
+              </p>
+              <div className="flex items-baseline gap-x-3">
+                <span className="text-base font-montserrat">Price:</span>
+                <p className="text-2xl text-black font-semibold">
+                  {product && formatCurrencyVND(product?.price)} /{" "}
+                  {product?.maximumRentDays} days
+                </p>
+              </div>
+            </div>
+          </div>
+        </Link>
+      );
+    });
+  };
 
   return (
     <div
@@ -124,20 +146,30 @@ export default function SearchComponent({
                   </div>
                 </div>
               </div>
-              {/* <div className="mt-3">
-                {products?.data && products?.data?.length > 0 ? (
-                  debouncedSearchTerm !== "" ? (
-                    <h3 className="text-base font-light">
-                      3 results for {debouncedSearchTerm}
-                    </h3>
-                  ) : (
-                    <h3 className="text-base font-light">3 results</h3>
-                  )
+              <div className="mt-3">
+                {isPending === false ? (
+                  <Fragment>
+                    {products && products?.length > 0 ? (
+                      debouncedSearchTerm !== "" ? (
+                        <h3 className="text-base font-light">
+                          3 results for {debouncedSearchTerm}
+                        </h3>
+                      ) : (
+                        <h3 className="text-base font-light">3 results</h3>
+                      )
+                    ) : (
+                      <h3 className="text-base font-light">No results</h3>
+                    )}
+                  </Fragment>
                 ) : (
-                  <h3 className="text-base font-light">No results</h3>
+                  <Fragment>
+                    <h3 className="text-base font-light">
+                      Đang tìm kiếm{".".repeat(dots)}
+                    </h3>
+                  </Fragment>
                 )}
                 <div className="py-3">{renderProducts()}</div>
-              </div> */}
+              </div>
             </div>
           </div>
         </div>

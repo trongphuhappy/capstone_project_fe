@@ -1,28 +1,38 @@
-// import {
-//   closeQuickProductViewDialog,
-//   openQuickViewProductDialog,
-// } from "@/stores/stateSlice";
-// import { useAppDispatch, useAppSelector } from "@/stores/store";
+import {
+  addQuickViewProduct,
+  removeQuickViewProduct,
+} from "@/stores/quickViewProductSlice";
+import {
+  closeQuickViewProductDialog,
+  openQuickViewProductDialog,
+} from "@/stores/stateSlice";
+import { useAppDispatch, useAppSelector } from "@/stores/store";
 
-// export default function useQuickViewProduct() {
-//   const dispatch = useAppDispatch();
+export default function useQuickViewProduct() {
+  const dispatch = useAppDispatch();
 
-//   const quickViewProductDialogState = useAppSelector(
-//     (state) => state.stateSlice.quickViewProduct
-//   );
+  const quickViewProductDialogState = useAppSelector(
+    (state) => state.stateSlice.quickViewProduct
+  );
 
-//   const onOpenQuickViewProductDialog = (product: API.IProductCard) => {
-//     dispatch(openQuickViewProductDialog(product));
-//   };
+  const quickViewProductState = useAppSelector(
+    (state) => state.quickViewProductSlice.product
+  );
 
-//   const onCloseQuickViewProductDialog = () => {
-//     dispatch(closeQuickProductViewDialog());
-//   };
+  const onOpenQuickViewProductDialog = (product: API.TProduct) => {
+    dispatch(openQuickViewProductDialog());
+    dispatch(addQuickViewProduct(product));
+  };
 
-//   return {
-//     open: quickViewProductDialogState.open,
-//     product: quickViewProductDialogState.product,
-//     onOpenQuickViewProductDialog,
-//     onCloseQuickViewProductDialog,
-//   };
-// }
+  const onCloseQuickViewProductDialog = () => {
+    dispatch(closeQuickViewProductDialog());
+    dispatch(removeQuickViewProduct());
+  };
+
+  return {
+    open: quickViewProductDialogState.open,
+    quickViewProduct: quickViewProductState,
+    onOpenQuickViewProductDialog,
+    onCloseQuickViewProductDialog,
+  };
+}

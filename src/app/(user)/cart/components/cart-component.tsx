@@ -97,14 +97,6 @@ const CartComponent = () => {
     });
   };
 
-  // const handleUpdateQuantity = (id: string, newQuantity: number) => {
-  //   setProducts((prevProducts) =>
-  //     prevProducts.map((product) =>
-  //       product.id === id ? { ...product, quantity: newQuantity } : product
-  //     )
-  //   );
-  // };
-
   const handleGoToProductsPage = () => {
     router.push("/products");
   };

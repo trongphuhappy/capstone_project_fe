@@ -1,7 +1,31 @@
+import CardProductItem from "@/components/card-product-item";
+import useGetProducts from "@/hooks/use-get-products";
+import { useAppSelector } from "@/stores/store";
 import { Plus, SlidersHorizontal } from "lucide-react";
+import { Fragment, useEffect, useState } from "react";
 
 export default function PostFilterBox() {
-  const products = [1,2];
+  const userState = useAppSelector((state) => state.userSlice);
+  const { getProductsApi, isPending } = useGetProducts();
+
+  const [products, setProducts] = useState<API.TProduct[]>([]);
+
+  const handleFetchProduct = async () => {
+    const res = await getProductsApi({
+      accountLessorId: userState.profile?.userId,
+    });
+    if (res) setProducts(res.value.data.items || []);
+  };
+
+  useEffect(() => {
+    handleFetchProduct();
+  }, []);
+
+  const renderProducts = () => {
+    return products?.map((product, index) => {
+      return <CardProductItem key={index} product={product} />;
+    });
+  };
 
   return (
     <div className="w-full min-h-[300px] p-[15px] rounded-lg shadow-box-shadown break-words">
@@ -26,7 +50,9 @@ export default function PostFilterBox() {
       </div>
       <div className="my-2">
         {products !== null ? (
-          <div>123</div>
+          <div className="grid grid-cols-4 gap-x-5 gap-y-7">
+            {renderProducts()}
+          </div>
         ) : (
           <div className="flex items-center gap-x-4">
             <p className="text-xl">You don't have any products yet</p>

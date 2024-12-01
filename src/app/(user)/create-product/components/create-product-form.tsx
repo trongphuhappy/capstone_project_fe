@@ -19,7 +19,7 @@ export default function CreateProductForm({
   onSubmit,
 }: CreateProductFormProps) {
   const { register, errors, watch, handleSubmit } = useCreateProduct();
-  const [surcharges, setSurcharges] = useState<API.Surcharge[]>([]);
+  const [surcharges, setSurcharges] = useState<API.TSurcharge[]>([]);
 
   const { getSurchargesApi, isPending } = useGetSurcharges();
 
@@ -84,17 +84,17 @@ export default function CreateProductForm({
 
   const handleSubmitForm = (data: CreateProductBodyType) => {
     try {
+      const listSurcharges = Object.entries(selectedSurcharges)
+        .filter(([, value]) => value !== "")
+        .map(
+          ([id, value]) =>
+            ({
+              surchargeId: id,
+              price: Number(value),
+            } as REQUEST.TSurcharge)
+        );
       if (category?.isVehicle === true) {
         const isCheckIssurance = validateIssurance();
-        const listSurcharges = Object.entries(selectedSurcharges)
-          .filter(([, value]) => value !== "")
-          .map(
-            ([id, value]) =>
-              ({
-                surchargeId: id,
-                price: Number(value),
-              } as REQUEST.TSurcharge)
-          );
         if (isCheckIssurance) {
           onSubmit({
             ...data,
@@ -103,12 +103,12 @@ export default function CreateProductForm({
             expirationDate: issuranceExpireDate?.toDateString(),
             listSurcharges: listSurcharges,
           } as REQUEST.TCreateProduct);
-        } else {
-          onSubmit({
-            ...data,
-            listSurcharges: listSurcharges,
-          } as REQUEST.TCreateProduct);
         }
+      } else {
+        onSubmit({
+          ...data,
+          listSurcharges: listSurcharges,
+        } as REQUEST.TCreateProduct);
       }
     } catch {}
   };
@@ -174,7 +174,9 @@ export default function CreateProductForm({
                 })}
               />
               {errors?.maximumRentDays && (
-                <span className="text-red-500">{errors?.maximumRentDays?.message}</span>
+                <span className="text-red-500">
+                  {errors?.maximumRentDays?.message}
+                </span>
               )}
             </div>
           </div>

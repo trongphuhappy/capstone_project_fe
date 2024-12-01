@@ -15,8 +15,14 @@ import UpdateEmail from "@/components/update-profile/update-email";
 import useUpdateProfileDialog from "@/hooks/use-update-profile-dialog";
 import UpdateFirstName from "@/components/update-profile/update-firstname";
 import UpdateLastName from "@/components/update-profile/update-lastname";
-import UpdateCitizen from "@/components/update-profile/update-citizen";
 import UpdateLessor from "@/components/update-profile/update-lessor";
+import CensorDialog from "@/components/censor-dialog";
+import useCensorProductDialog from "@/hooks/use-censor-product-dialog";
+import useQuickViewProduct from "@/hooks/use-quick-view-product";
+import QuickViewCard from "@/components/quick-view-card";
+import RentDialog from "@/components/rent-dialog";
+import useRentNow from "@/hooks/use-rent-now";
+import useRentDialog from "@/hooks/use-rent-dialog";
 
 export default function GlobalContent({
   children,
@@ -24,15 +30,6 @@ export default function GlobalContent({
   children: React.ReactNode;
 }>) {
   const backdropState = useAppSelector((state) => state.stateSlice.backdrop);
-
-  // const { open: isAddedCartDialogOpen, onCloseAddedCartDialog } =
-  //   useAddedCartDialog();
-
-  // const {
-  //   open: isQuickviewProduct,
-  //   product,
-  //   onCloseQuickViewProductDialog,
-  // } = useQuickViewProduct();
 
   const { open: isSearchDialogOpen, onCloseSearchDialog } = useSearchDialog();
 
@@ -42,26 +39,29 @@ export default function GlobalContent({
     openEmail,
     openFirstName,
     openLastName,
-    openCitizen,
     openInfoLessor,
     onCloseUpdateEmail,
     onCloseUpdateFirstName,
     onCloseUpdateLastName,
-    onCloseUpdateCitizen,
     onCloseUpdateInfoLessor,
   } = useUpdateProfileDialog();
 
+  const {
+    open: isCensorOpenDialog,
+    type: isTypeCensor,
+    onCloseCensorProductDialog,
+  } = useCensorProductDialog();
+
+  const {
+    open: isQuickViewProductDialog,
+    quickViewProduct,
+    onCloseQuickViewProductDialog,
+  } = useQuickViewProduct();
+
+  const { open: isRentDialog, onCloseRentProductDialog } = useRentDialog();
+
   return (
     <Fragment>
-      {/* <AddedCartDialog
-        open={isAddedCartDialogOpen}
-        onClose={onCloseAddedCartDialog}
-      />
-      <QuickViewCart
-        open={isQuickviewProduct}
-        onClose={onCloseQuickViewProductDialog}
-        product={product}
-      /> */}
       <SearchComponent
         open={isSearchDialogOpen}
         onClose={onCloseSearchDialog}
@@ -73,8 +73,18 @@ export default function GlobalContent({
       <UpdateEmail open={openEmail} onClose={onCloseUpdateEmail} />
       <UpdateFirstName open={openFirstName} onClose={onCloseUpdateFirstName} />
       <UpdateLastName open={openLastName} onClose={onCloseUpdateLastName} />
-      <UpdateCitizen open={openCitizen} onClose={onCloseUpdateCitizen} />
       <UpdateLessor open={openInfoLessor} onClose={onCloseUpdateInfoLessor} />
+      <CensorDialog
+        open={isCensorOpenDialog}
+        type={isTypeCensor}
+        onClose={onCloseCensorProductDialog}
+      />
+      <QuickViewCard
+        product={quickViewProduct}
+        open={isQuickViewProductDialog}
+        onOpenChange={onCloseQuickViewProductDialog}
+      />
+      <RentDialog open={isRentDialog} onClose={onCloseRentProductDialog} />
       <main>{children}</main>
       <Backdrop open={backdropState.status} />
     </Fragment>
