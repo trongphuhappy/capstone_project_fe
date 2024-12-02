@@ -89,8 +89,8 @@ export default function CreateProductForm({
         .map(
           ([id, value]) =>
             ({
-              surchargeId: id,
-              price: Number(value),
+              SurchargeId: id,
+              Price: Number(value),
             } as REQUEST.TSurcharge)
         );
       if (category?.isVehicle === true) {
@@ -133,14 +133,21 @@ export default function CreateProductForm({
           <div className="flex items-center gap-x-3">
             <div className="flex flex-col gap-y-2 w-full mb-4">
               <label className="text-base font-semibold">Rent</label>
-              <Input
-                className="border border-gray-400 focus-visible:ring-0 focus-visible:none py-5"
-                autoComplete="off"
-                placeholder="Rent"
-                {...register("price", {
-                  valueAsNumber: true,
-                })}
-              />
+              <div className="relative pr-7 border border-gray-400 rounded-md">
+                <Input
+                  type="number"
+                  className="border-none focus-visible:ring-0 focus-visible:none py-5 bg-transparent"
+                  autoComplete="off"
+                  placeholder="Rent"
+                  {...register("price", {
+                    valueAsNumber: true,
+                  })}
+                />
+                <span className="absolute top-1/2 -translate-y-1/2 right-[1%]">
+                  Vnd
+                </span>
+              </div>
+
               {errors?.price && (
                 <span className="text-red-500">{errors?.price?.message}</span>
               )}
@@ -149,14 +156,20 @@ export default function CreateProductForm({
               <label className="text-base font-semibold">
                 Product purchase
               </label>
-              <Input
-                className="border border-gray-400 focus-visible:ring-0 focus-visible:none py-5"
-                autoComplete="off"
-                placeholder="Product purchase"
-                {...register("value", {
-                  valueAsNumber: true,
-                })}
-              />
+              <div className="relative pr-7 border border-gray-400 rounded-md">
+                <Input
+                  type="number"
+                  className="border-none focus-visible:ring-0 focus-visible:none py-5 bg-transparent"
+                  autoComplete="off"
+                  placeholder="Product purchase"
+                  {...register("value", {
+                    valueAsNumber: true,
+                  })}
+                />
+                <span className="absolute top-1/2 -translate-y-1/2 right-[1%]">
+                  Vnd
+                </span>
+              </div>
               {errors?.value && (
                 <span className="text-red-500">{errors?.value?.message}</span>
               )}
@@ -165,14 +178,20 @@ export default function CreateProductForm({
               <label className="text-base font-semibold">
                 Maximum rental days
               </label>
-              <Input
-                className="border border-gray-400 focus-visible:ring-0 focus-visible:none py-5"
-                autoComplete="off"
-                placeholder="Product purchase"
-                {...register("maximumRentDays", {
-                  valueAsNumber: true,
-                })}
-              />
+              <div className="relative pr-7 border border-gray-400 rounded-md">
+                <Input
+                  type="number"
+                  className="border-none focus-visible:ring-0 focus-visible:none py-5 bg-transparent"
+                  autoComplete="off"
+                  placeholder="Product purchase"
+                  {...register("maximumRentDays", {
+                    valueAsNumber: true,
+                  })}
+                />
+                <span className="absolute top-1/2 -translate-y-1/2 right-[1%]">
+                  Day
+                </span>
+              </div>
               {errors?.maximumRentDays && (
                 <span className="text-red-500">
                   {errors?.maximumRentDays?.message}

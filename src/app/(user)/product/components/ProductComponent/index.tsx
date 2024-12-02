@@ -4,7 +4,7 @@ import BreadcrumbComponent from "@/components/breadcrumb";
 import ImageGallery from "@/app/(user)/product/components/ImageGallery";
 import CustomerReviews from "@/components/customer-reviews";
 import { PiListHeart } from "react-icons/pi";
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { formatCurrencyVND } from "@/utils/format-currency";
 import useGetProductDetail from "@/app/(user)/product/hooks/useGetProduct";
 import { useAppSelector } from "@/stores/store";
@@ -12,6 +12,13 @@ import Surcharge from "@/app/(user)/product/components/ProductComponent/surcharg
 import Insurance from "@/app/(user)/product/components/ProductComponent/insurance";
 import Detail from "@/app/(user)/product/components/ProductComponent/detail";
 import useRentDialog from "@/hooks/use-rent-dialog";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import useToast from "@/hooks/use-toast";
 
 interface ProductComponentProps {
   productId: string;
@@ -97,6 +104,7 @@ const productDetails: ProductDetails = {
 };
 
 export default function ProductComponent({ productId }: ProductComponentProps) {
+  const { addToast } = useToast();
   const userState = useAppSelector((state) => state.userSlice);
   const { getProductDetail, isPending } = useGetProductDetail();
   const { onOpenRentProductDialog } = useRentDialog();
@@ -116,7 +124,28 @@ export default function ProductComponent({ productId }: ProductComponentProps) {
   };
 
   const handleRentNow = () => {
-    if (product) onOpenRentProductDialog(product);
+    if (product) {
+      if (product.confirmStatus === 1) {
+        onOpenRentProductDialog(product);
+      } else {
+        {
+          product.confirmStatus === 0 &&
+            addToast({
+              type: "error",
+              description:
+                "This product has not been approved by the admin so it cannot be purchased",
+            });
+        }
+        {
+          product.confirmStatus === -1 &&
+            addToast({
+              type: "error",
+              description: `The product was rejected with reason: ${product?.rejectReason}`,
+            });
+        }
+        return;
+      }
+    }
   };
 
   useEffect(() => {
@@ -140,9 +169,32 @@ export default function ProductComponent({ productId }: ProductComponentProps) {
             {/* Detail product */}
             <div className="w-[50%]">
               <div className="pb-4">
-                <h1 className="font-semibold text-[#111111] text-2xl uppercase">
-                  {product?.name}
-                </h1>
+                <div className="flex items-center gap-x-7">
+                  <h1 className="font-semibold text-[#111111] text-2xl uppercase">
+                    {product?.name}
+                  </h1>
+                  {(product?.confirmStatus === 0 ||
+                    product?.confirmStatus === -1) && (
+                    <div>
+                      <TooltipProvider>
+                        <Tooltip delayDuration={100}>
+                          <TooltipTrigger>
+                            <div className="w-5 h-5 rounded-full flex items-center justify-center bg-red-500">
+                              <span className="text-white text-[12px]">!</span>
+                            </div>
+                          </TooltipTrigger>
+                          <TooltipContent className="bg-gray-50 shadow-tooltip px-2 py-3 select-none">
+                            <span className="text-[#00000d] text-xs font-montserrat font-normal">
+                              {product?.confirmStatus === 0
+                                ? "The product has not been approved by an administrator"
+                                : `The product has been rejected with reason: ${product?.rejectReason}`}
+                            </span>
+                          </TooltipContent>
+                        </Tooltip>
+                      </TooltipProvider>
+                    </div>
+                  )}
+                </div>
                 <div className="mt-4 flex items-baseline">
                   <p className="text-4xl text-black font-semibold">
                     {formatCurrencyVND(product?.price || 0)} / Day
@@ -196,50 +248,54 @@ export default function ProductComponent({ productId }: ProductComponentProps) {
               </div>
               <hr className="mb-4" />
               {/* if the product does not belong to the lessor*/}
-              {product?.isProductBelongsToUser === false ? (
-                <div className="my-2">
-                  <div className="flex items-center gap-x-3">
+              <div>
+                <Fragment>
+                  {product?.isProductBelongsToUser === false ? (
+                    <div className="my-2">
+                      <div className="flex items-center gap-x-3">
+                        <button
+                          type="button"
+                          className="w-full h-[56px] px-[12px] border border-[#0056a3] rounded-3xl group"
+                          onClick={handleAddToCart}
+                        >
+                          <span className="flex items-center justify-center font-semibold text-[#0056a3] group-hover:text-opacity-50">
+                            <PiListHeart className="mr-2 text-lg" />
+                            Add To Wishlist
+                          </span>
+                        </button>
+
+                        {product?.statusType === 1 ? (
+                          <button
+                            type="button"
+                            onClick={handleRentNow}
+                            className="w-full h-[56px] px-[12px] border border-[#0056a3] bg-[#0056a3] rounded-3xl hover:opacity-90"
+                          >
+                            <span className="font-semibold text-white">
+                              Rent Now
+                            </span>
+                          </button>
+                        ) : (
+                          <button
+                            type="button"
+                            className="w-full h-[56px] px-[12px] border border-[#0056a3] bg-[#0056a3] rounded-3xl hover:opacity-90 opacity-50"
+                          >
+                            <span className="font-semibold text-white">
+                              This product is currently rented
+                            </span>
+                          </button>
+                        )}
+                      </div>
+                    </div>
+                  ) : (
                     <button
                       type="button"
-                      className="w-full h-[56px] px-[12px] border border-[#0056a3] rounded-3xl group"
-                      onClick={handleAddToCart}
+                      className="w-full h-[56px] px-[12px] border border-[#0056a3] bg-[#0056a3] rounded-3xl hover:opacity-90"
                     >
-                      <span className="flex items-center justify-center font-semibold text-[#0056a3] group-hover:text-opacity-50">
-                        <PiListHeart className="mr-2 text-lg" />
-                        Add To Wishlist
-                      </span>
+                      <span className="font-semibold text-white">Edit</span>
                     </button>
-
-                    {product?.statusType === 1 ? (
-                      <button
-                        type="button"
-                        onClick={handleRentNow}
-                        className="w-full h-[56px] px-[12px] border border-[#0056a3] bg-[#0056a3] rounded-3xl hover:opacity-90"
-                      >
-                        <span className="font-semibold text-white">
-                          Rent Now
-                        </span>
-                      </button>
-                    ) : (
-                      <button
-                        type="button"
-                        className="w-full h-[56px] px-[12px] border border-[#0056a3] bg-[#0056a3] rounded-3xl hover:opacity-90 opacity-50"
-                      >
-                        <span className="font-semibold text-white">
-                          This product is currently rented
-                        </span>
-                      </button>
-                    )}
-                  </div>
-                </div>
-              ) : (
-                <button
-                  type="button"
-                  className="w-full h-[56px] px-[12px] border border-[#0056a3] bg-[#0056a3] rounded-3xl hover:opacity-90"
-                >
-                  <span className="font-semibold text-white">Edit</span>
-                </button>
-              )}
+                  )}
+                </Fragment>
+              </div>
             </div>
           </div>
 

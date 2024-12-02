@@ -1,7 +1,7 @@
 declare namespace REQUEST {
   type TSurcharge = {
-    surchargeId: string;
-    price: number;
+    SurchargeId: string;
+    Price: number;
   };
 
   type TCreateProduct = {
@@ -108,6 +108,7 @@ declare namespace API {
     productImagesUrl: string[];
     insurance?: API.TInsurance | null;
     surcharges?: API.TProductSurcharge[] | null;
+    rejectReason?: string | null;
     lessor: TLessor;
   };
 
