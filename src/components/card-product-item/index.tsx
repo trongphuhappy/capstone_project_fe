@@ -51,13 +51,13 @@ export default function CardProductItem({ product }: CardProductItemProps) {
   const handleToggleWishlish = () => {};
 
   return (
-    <div className="sale-box w-[220px] cursor-pointer font-montserrat group">
+    <div className="sale-box w-[240px] cursor-pointer font-montserrat group">
       <div>
         <Link href={`/product/${product.id}`}>
           <img
             src={product.productImagesUrl[0]}
             alt={product.name}
-            className="block w-full h-[220px] object-cover"
+            className="block w-full h-[240px] object-cover"
           />
         </Link>
       </div>

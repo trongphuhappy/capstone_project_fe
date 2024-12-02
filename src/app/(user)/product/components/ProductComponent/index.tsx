@@ -124,27 +124,34 @@ export default function ProductComponent({ productId }: ProductComponentProps) {
   };
 
   const handleRentNow = () => {
-    if (product) {
-      if (product.confirmStatus === 1) {
-        onOpenRentProductDialog(product);
-      } else {
-        {
-          product.confirmStatus === 0 &&
-            addToast({
-              type: "error",
-              description:
-                "This product has not been approved by the admin so it cannot be purchased",
-            });
+    if (userState.profile != null) {
+      if (product) {
+        if (product.confirmStatus === 1) {
+          onOpenRentProductDialog(product);
+        } else {
+          {
+            product.confirmStatus === 0 &&
+              addToast({
+                type: "error",
+                description:
+                  "This product has not been approved by the admin so it cannot be purchased",
+              });
+          }
+          {
+            product.confirmStatus === -1 &&
+              addToast({
+                type: "error",
+                description: `The product was rejected with reason: ${product?.rejectReason}`,
+              });
+          }
+          return;
         }
-        {
-          product.confirmStatus === -1 &&
-            addToast({
-              type: "error",
-              description: `The product was rejected with reason: ${product?.rejectReason}`,
-            });
-        }
-        return;
       }
+    } else {
+      addToast({
+        type: "error",
+        description: "Please login to rent this product",
+      });
     }
   };
 
