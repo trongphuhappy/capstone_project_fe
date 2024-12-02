@@ -26,7 +26,9 @@ export default function Header() {
   const userState = useAppSelector((state) => state.userSlice);
   const [avatarMenuTooltip, setAvatarMenuTooltip] = useState<boolean>(false);
   const [openLabel, setOpenLabel] = useState<string | null>(null);
-
+  const [isMobile, setIsMobile] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  
   const { checkExistLessorApi } = useCheckExsitLessor();
 
   const handleToggleAvatarMenuTooltip = () => {
@@ -51,19 +53,21 @@ export default function Header() {
 
   return (
     <header className="mx-auto font-montserrat">
-      <div className="px-[50px] py-4 flex items-center justify-between gap-x-16">
+      <div className="px-[50px] py-4 flex items-center justify-between gap-x-4 md:gap-x-8 lg:gap-x-16 w-full">
         <Link href="/">
           <figure className="flex items-center gap-x-2">
             <Image src={"/images/logo.svg"} alt="logo" width={50} height={50} />
             <span className="text-[#00939F]">-</span>
-            <h1 className="text-black text-2xl font-semibold font-montserrat">
+            <h1 className="text-black md:text-2xl text-xl font-semibold font-montserrat">
               Neighbor
             </h1>
           </figure>
         </Link>
-        <section className="w-full h-10 flex-1">
+
+        <section className="w-full h-10 flex-1 hidden sm:block">
           <Search />
         </section>
+
         <ul className="flex items-center gap-x-7">
           {userState.profile === null && (
             <li>
@@ -87,7 +91,7 @@ export default function Header() {
                           clipRule="evenodd"
                         ></path>
                       </svg>
-                      <span className="whitespace-nowrap font-montserrat text-[#00000] font-semibold">
+                      <span className="whitespace-nowrap font-montserrat text-[#00000] font-semibold hidden sm:block">
                         Hello! Log in or sign up
                       </span>
                     </Link>
@@ -101,16 +105,13 @@ export default function Header() {
               </TooltipProvider>
             </li>
           )}
-          <li>
+          <li className="inline-flex">
             <TooltipProvider>
               <Tooltip delayDuration={100}>
                 <TooltipTrigger>
-                  <div className="flex items-center justify-center gap-x-1 cursor-pointer rounded-[24px] h-12 group">
+                  <div className="flex items-center justify-center gap-x-1 cursor-pointer rounded-[24px] h-12 w-12 group">
                     <Link href="/cart">
-                      <img
-                        src="/images/heart-svgrepo-com.svg"
-                        alt="heart-svgrepo-com"
-                      />
+                      <img src="/images/heart-svgrepo-com.svg" alt="heart-svgrepo-com" className="w-full h-full object-contain" />
                     </Link>
                   </div>
                 </TooltipTrigger>
@@ -122,6 +123,7 @@ export default function Header() {
               </Tooltip>
             </TooltipProvider>
           </li>
+
           {userState.profile !== null && (
             <Fragment>
               <li>
@@ -130,21 +132,14 @@ export default function Header() {
                 </div>
               </li>
               <li>
-                <Popover
-                  open={avatarMenuTooltip}
-                  onOpenChange={setAvatarMenuTooltip}
-                >
+                <Popover open={avatarMenuTooltip} onOpenChange={setAvatarMenuTooltip}>
                   <PopoverTrigger asChild>
                     <div onClick={handleToggleAvatarMenuTooltip}>
                       <figure className="rounded-full border border-zinc-300 overflow-hidden w-10 h-10 flex items-center justify-center hover:bg-gray-200">
                         <img
                           id="avatarButton"
                           className="w-9 h-9 rounded-full cursor-pointer"
-                          src={
-                            userState?.profile?.cropAvatarLink !== ""
-                              ? userState?.profile?.cropAvatarLink
-                              : "/images/unknown.webp"
-                          }
+                          src={userState?.profile?.cropAvatarLink !== "" ? userState?.profile?.cropAvatarLink : "/images/unknown.webp"}
                           alt="Avatar"
                         />
                       </figure>

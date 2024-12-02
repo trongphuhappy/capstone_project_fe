@@ -19,7 +19,7 @@ export default function AuthCarousel() {
     >
       <CarouselContent>
         <CarouselItem>
-          <div className="absolute w-full h-[132vh]">
+          <div className="absolute w-full h-[100vh]">
             <Image
               src={"/images/auth.jpg"}
               alt="Authen01"
@@ -37,7 +37,7 @@ export default function AuthCarousel() {
           </div>
         </CarouselItem>
         <CarouselItem>
-          <div className="absolute w-full h-[132vh]">
+          <div className="absolute w-full h-[100vh]">
             <Image
               src={"/images/auth01.jpg"}
               alt="Authen02"
@@ -55,7 +55,7 @@ export default function AuthCarousel() {
           </div>
         </CarouselItem>
         <CarouselItem>
-          <div className="absolute w-full h-[132vh]">
+          <div className="absolute w-full h-[100vh]">
             <Image
               src={"/images/auth02.jpg"}
               alt="Authen03"
@@ -73,7 +73,7 @@ export default function AuthCarousel() {
           </div>
         </CarouselItem>
         <CarouselItem>
-          <div className="relative w-full h-[132vh]">
+          <div className="relative w-full h-[100vh]">
             <Image
               src={"/images/auth03.jpg"}
               alt="Authen04"

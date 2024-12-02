@@ -13,10 +13,11 @@ import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer className="px-[50px] py-10 pb-[28px] bg-[#e1e1e1]">
-      <div className="content">
-        <div className="flex gap-[145px]">
-          <div className="text w-[45%]">
+    <footer className="px-4 md:px-8 lg:px-[50px] py-10 pb-[28px] bg-[#e1e1e1]">
+      <div className="content max-w-[1200px] mx-auto">
+        <div className="flex flex-col lg:flex-row gap-10 lg:gap-[145px]">
+         
+          <div className="text lg:w-[45%]">
             <a href="#">
               <figure className="flex items-center gap-x-2">
                 <Image
@@ -31,31 +32,30 @@ export default function Footer() {
                 </h1>
               </figure>
             </a>
-            <p className="mt-[30px] font-poppins font-normal text-[14px] leading-[1.86] text-[#000000]">
+            <p className="mt-6 font-poppins font-normal text-sm leading-[1.86] text-[#000000]">
               Enjoy convenience and style with our car and furniture rental
               service – the simple solution for your travel needs and home decor
               dreams.
             </p>
-            <div className="mt-[18px] flex items-center gap-[18px]">
-              <figure className="bg-black px-3 py-2">
-                <img
-                  src="/images/facebook_icon.svg"
-                  alt="facebook"
-                  className=""
-                />
+            <div className="mt-4 flex items-center gap-4">
+              <figure className="bg-black p-2 rounded">
+                <img src="/images/facebook_icon.svg" alt="facebook" />
               </figure>
-              <figure className="bg-black px-3 py-2">
+              <figure className="bg-black p-2 rounded">
                 <img src="/images/instagram_icon.svg" alt="instagram" />
               </figure>
-              <figure className="bg-black px-3 py-2">
+              <figure className="bg-black p-2 rounded">
                 <img src="/images/twitter_icon.svg" alt="twitter" />
               </figure>
             </div>
           </div>
-          <div className="font-poppins grid grid-cols-3">
-            <div className="w-max">
+
+         
+          <div className="font-poppins grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            
+            <div>
               <p className="font-semibold text-base text-[#000000]">Service</p>
-              <ul className="mt-5">
+              <ul className="mt-4">
                 <li>
                   <Link href="#">
                     <span className="font-light text-base text-[#00000075] hover:text-[#000000]">
@@ -63,21 +63,21 @@ export default function Footer() {
                     </span>
                   </Link>
                 </li>
-                <li className="mt-6">
+                <li className="mt-4">
                   <Link href="#">
                     <span className="font-light text-base text-[#00000075] hover:text-[#000000]">
                       Rent Furniture
                     </span>
                   </Link>
                 </li>
-                <li className="mt-6">
+                <li className="mt-4">
                   <Link href="#">
                     <span className="font-light text-base text-[#00000075] hover:text-[#000000]">
                       Features
                     </span>
                   </Link>
                 </li>
-                <li className="mt-6">
+                <li className="mt-4">
                   <Link href="#">
                     <span className="font-light text-base text-[#00000075] hover:text-[#000000]">
                       Delivery
@@ -86,9 +86,10 @@ export default function Footer() {
                 </li>
               </ul>
             </div>
-            <div className="w-max">
+           
+            <div>
               <p className="font-semibold text-base text-[#000000]">Support</p>
-              <ul className="mt-5">
+              <ul className="mt-4">
                 <li>
                   <Link href="#">
                     <span className="font-light text-base text-[#00000075] hover:text-[#000000]">
@@ -96,21 +97,21 @@ export default function Footer() {
                     </span>
                   </Link>
                 </li>
-                <li className="mt-6">
+                <li className="mt-4">
                   <Link href="#">
                     <span className="font-light text-base text-[#00000075] hover:text-[#000000]">
                       Terms & Conditions
                     </span>
                   </Link>
                 </li>
-                <li className="mt-6">
+                <li className="mt-4">
                   <Link href="#">
                     <span className="font-light text-base text-[#00000075] hover:text-[#000000]">
                       Privacy Policy
                     </span>
                   </Link>
                 </li>
-                <li className="mt-6">
+                <li className="mt-4">
                   <Link href="#">
                     <span className="font-light text-base text-[#00000075] hover:text-[#000000]">
                       Contact Us
@@ -119,14 +120,15 @@ export default function Footer() {
                 </li>
               </ul>
             </div>
-            <div className="w-[237px]">
+           
+            <div>
               <p className="font-semibold text-base text-[#000000]">Company</p>
-              <ul className="mt-5">
+              <ul className="mt-4">
                 <li>
                   <span className="font-medium text-base text-[#000000]">
                     Location:
                   </span>{" "}
-                  <span className="text-[15px] text-[#00000075] hover:text-[#000000] font-light">
+                  <span className="text-sm text-[#00000075] hover:text-[#000000] font-light">
                     27 Division St, New York, NY 10002, USA
                   </span>
                 </li>
@@ -134,15 +136,15 @@ export default function Footer() {
                   <span className="font-medium text-base text-[#000000]">
                     Email:
                   </span>{" "}
-                  <span className="text-[15px] text-[#00000075] hover:text-[#000000] font-light">
-                    email@gmail.com:
+                  <span className="text-sm text-[#00000075] hover:text-[#000000] font-light">
+                    email@gmail.com
                   </span>
                 </li>
                 <li className="mt-4">
                   <span className="font-medium text-base text-[#000000]">
                     Phone:
                   </span>{" "}
-                  <span className="text-[15px] text-[#00000075] hover:text-[#000000] font-light">
+                  <span className="text-sm text-[#00000075] hover:text-[#000000] font-light">
                     +84 123456789
                   </span>
                 </li>
@@ -150,11 +152,13 @@ export default function Footer() {
             </div>
           </div>
         </div>
-        <div className="mt-[38px] w-full h-[1px] bg-[#59554b]"></div>
-        <p className="mt-[28px] text-center font-normal text-base text-[#807d74]">
+
+        <div className="mt-10 w-full h-[1px] bg-[#59554b]"></div>
+        <p className="mt-6 text-center font-normal text-sm text-[#807d74]">
           Copyright ©2024 neighbor.com. All rights reserved.
         </p>
       </div>
     </footer>
+
   );
 }
