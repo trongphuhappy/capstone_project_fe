@@ -1,7 +1,7 @@
 import { useServiceAddWishlistProduct } from "@/services/product/services";
 import { useAppDispatch, useAppSelector } from "@/stores/store";
 import useToast from "@/hooks/use-toast";
-import { openBackdrop } from "@/stores/stateSlice";
+import { openBackdrop } from "@/stores/state-slice";
 
 export default function useAddWishlist() {
   const { addToast } = useToast();

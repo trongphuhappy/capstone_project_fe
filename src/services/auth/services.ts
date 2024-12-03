@@ -4,6 +4,9 @@ import {
 } from "@/utils/schema-validations/auth.schema";
 import { useMutation } from "@tanstack/react-query";
 import {
+  forgotPasswordChange,
+  forgotPasswordEmail,
+  forgotPasswordOtp,
   login,
   logout,
   register,
@@ -11,9 +14,10 @@ import {
 } from "@/services/auth/api-services";
 import { removeStorageItem, setStorageItem } from "@/utils/local-storage";
 import { useAppDispatch } from "@/stores/store";
-import { loginUser, removeInfoLogin } from "@/stores/userSlice";
+import { loginUser, removeInfoLogin } from "@/stores/user-slice";
 import useToast from "@/hooks/use-toast";
-import { closeBackdrop } from "@/stores/stateSlice";
+import { closeBackdrop } from "@/stores/state-slice";
+import { ForgotPasswordEmailBodyType } from "@/utils/schema-validations/forgot-password.schema";
 
 export const useServiceLogin = () => {
   const dispatch = useAppDispatch();
@@ -84,5 +88,24 @@ export const useServiceVerifyEmail = () => {
         });
       }
     },
+  });
+};
+
+export const useServiceForgotPasswordEmail = () => {
+  return useMutation<TResponseData, TMeta, ForgotPasswordEmailBodyType>({
+    mutationFn: forgotPasswordEmail,
+    onSuccess: () => {},
+  });
+};
+
+export const useServiceForgotPasswordOtp = () => {
+  return useMutation<TResponseData, TMeta, API.TAuthForgotPasswordOtp>({
+    mutationFn: forgotPasswordOtp,
+  });
+};
+
+export const useServiceForgotPasswordChange = () => {
+  return useMutation<TResponseData, TMeta, API.TAuthForgotPasswordChange>({
+    mutationFn: forgotPasswordChange,
   });
 };

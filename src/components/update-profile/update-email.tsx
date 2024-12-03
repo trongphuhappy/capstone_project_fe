@@ -12,7 +12,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useAppDispatch, useAppSelector } from "@/stores/store";
 import { useServiceUpdateEmail } from "@/services/member/services";
-import { openBackdrop } from "@/stores/stateSlice";
+import { openBackdrop } from "@/stores/state-slice";
 
 interface UpdateEmailProps {
   open: boolean;

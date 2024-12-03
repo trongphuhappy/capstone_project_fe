@@ -14,9 +14,9 @@ import {
   setAvatarImage,
   setCoverPhotoImage,
   updateProfile as storeUpdateProfile,
-} from "@/stores/userProfileSlice";
-import { setAvatarProfile } from "@/stores/userSlice";
-import { closeBackdrop, openBackdrop } from "@/stores/stateSlice";
+} from "@/stores/user-profile-slice";
+import { setAvatarProfile } from "@/stores/user-slice";
+import { closeBackdrop, openBackdrop } from "@/stores/state-slice";
 
 export const useServiceUpdateAvatar = () => {
   const { addToast } = useToast();

@@ -1,7 +1,7 @@
 import useToast from "@/hooks/use-toast";
 import { getProfile } from "@/services/member/api-services";
 import { useAppDispatch, useAppSelector } from "@/stores/store";
-import { addProfileUser } from "@/stores/userProfileSlice";
+import { addProfileUser } from "@/stores/user-profile-slice";
 import { isTResponseData } from "@/utils/compare";
 import { useState } from "react";
 

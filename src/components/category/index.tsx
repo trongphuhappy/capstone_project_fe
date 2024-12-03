@@ -3,7 +3,7 @@ import styles from "@/components/category/category.module.css";
 import { motion } from "framer-motion";
 import useGetCategories from "@/hooks/use-get-categories";
 import { useAppDispatch, useAppSelector } from "@/stores/store";
-import { addCategory } from "@/stores/categorySlice";
+import { addCategory } from "@/stores/category-slice";
 import { Categories } from "@/const/category";
 
 export default function Category() {

@@ -1,11 +1,11 @@
 import {
   addQuickViewProduct,
   removeQuickViewProduct,
-} from "@/stores/quickViewProductSlice";
+} from "@/stores/quick-view-product-slice";
 import {
   closeQuickViewProductDialog,
   openQuickViewProductDialog,
-} from "@/stores/stateSlice";
+} from "@/stores/state-slice";
 import { useAppDispatch, useAppSelector } from "@/stores/store";
 
 export default function useQuickViewProduct() {

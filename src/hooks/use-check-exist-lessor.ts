@@ -1,6 +1,6 @@
 import useToast from "@/hooks/use-toast";
 import { checkLessorExistLessorByAccountId } from "@/services/member/api-services";
-import { closeBackdrop, openBackdrop } from "@/stores/stateSlice";
+import { closeBackdrop, openBackdrop } from "@/stores/state-slice";
 import { useAppDispatch } from "@/stores/store";
 import { isTResponseData } from "@/utils/compare";
 import { useState } from "react";

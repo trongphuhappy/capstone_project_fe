@@ -6,7 +6,7 @@ import {
 } from "@/services/product/api-services";
 import useToast from "@/hooks/use-toast";
 import { useAppDispatch } from "@/stores/store";
-import { closeBackdrop, openBackdrop } from "@/stores/stateSlice";
+import { closeBackdrop, openBackdrop } from "@/stores/state-slice";
 
 export const useServiceCreateProduct = () => {
   const { addToast } = useToast();
