@@ -52,7 +52,7 @@ export const getProducts = async ({
   if (accountLessorId) params.accountLessorId = accountLessorId;
   if (pageIndex) params.pageIndex = pageIndex;
   if (pageSize) params.pageSize = pageSize;
-  if (isVehicle) params.isVehicle = isVehicle;
+  if (isVehicle != null) params.isVehicle = isVehicle;
 
   const response = await request<TResponseData<API.TGetProducts>>(
     API_ENDPOINTS.GET_PRODUCTS,
@@ -82,11 +82,11 @@ export const getProductById = async ({
   return response.data;
 };
 
-export const addToWishList = async ({ ProductId }: REQUEST.TAddToWishlist) => {
-  const response = await request<TResponse>(API_ENDPOINTS.CONFIRM_PRODUCT, {
+export const addToWishList = async ({ productId }: REQUEST.TAddToWishlist) => {
+  const response = await request<TResponse>(API_ENDPOINTS.ADD_TO_WISHLIST, {
     method: "PUT",
-    data: {
-      ProductId,
+    params: {
+      ProductId: productId,
     },
   });
   return response.data;

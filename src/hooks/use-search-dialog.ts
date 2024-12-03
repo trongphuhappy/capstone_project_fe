@@ -1,4 +1,4 @@
-import { closeSearchDialog, openSearchDialog } from "@/stores/stateSlice";
+import { closeSearchDialog, openSearchDialog } from "@/stores/state-slice";
 import { useAppDispatch, useAppSelector } from "@/stores/store";
 
 export default function useSearchDialog() {

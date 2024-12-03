@@ -12,7 +12,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useAppDispatch, useAppSelector } from "@/stores/store";
 import { useServiceUpdateProfile } from "@/services/member/services";
-import { closeBackdrop, openBackdrop } from "@/stores/stateSlice";
+import { closeBackdrop, openBackdrop } from "@/stores/state-slice";
 
 interface UpdateLastNameProps {
   open: boolean;

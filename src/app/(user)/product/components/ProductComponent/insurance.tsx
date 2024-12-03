@@ -21,10 +21,10 @@ export default function Insurance({ insurance }: InsuranceProps) {
       <AlertDialogTrigger asChild>
         <button className="text-blue-500 underline">See insurance here</button>
       </AlertDialogTrigger>
-      <AlertDialogContent>
+      <AlertDialogContent className="font-montserrat">
         <AlertDialogHeader>
-          <AlertDialogTitle>Insurance Confirmation</AlertDialogTitle>
-          <AlertDialogDescription>
+          <AlertDialogTitle>Insurance confirmation</AlertDialogTitle>
+          <AlertDialogDescription className="text-base">
             Here is the insurance image for this product.
           </AlertDialogDescription>
         </AlertDialogHeader>
@@ -35,8 +35,11 @@ export default function Insurance({ insurance }: InsuranceProps) {
             className="w-full max-w-xl h-auto object-cover cursor-pointer"
           />
         </div>
+
         <AlertDialogFooter>
-          <AlertDialogAction>Close</AlertDialogAction>
+          <AlertDialogAction className="bg-[#0056a3] hover:bg-[#0056a#]">
+            Close
+          </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

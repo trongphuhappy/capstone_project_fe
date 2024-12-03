@@ -1,8 +1,8 @@
-import { addRentProduct, removeRentProduct } from "@/stores/rentSlice";
+import { addRentProduct, removeRentProduct } from "@/stores/rent-slice";
 import {
   closeRentProductDialog,
   openRentProductDialog,
-} from "@/stores/stateSlice";
+} from "@/stores/state-slice";
 import { useAppDispatch, useAppSelector } from "@/stores/store";
 
 export default function useRentDialog() {

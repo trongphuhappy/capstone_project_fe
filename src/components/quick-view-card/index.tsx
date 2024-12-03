@@ -3,6 +3,7 @@ import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { IoMdClose } from "react-icons/io";
 import { formatCurrencyVND } from "@/utils/format-currency";
 import { PiListHeart } from "react-icons/pi";
+import useAddWishlist from "@/hooks/use-add-wishlist";
 
 interface QuickViewCardProps {
   open: boolean;
@@ -18,8 +19,15 @@ export default function QuickViewCard({
   const handleClose = () => {
     onOpenChange();
   };
+  const { addWishlistProduct } = useAddWishlist();
 
   const [selectedImage, setSelectedImage] = useState<number>(0);
+
+  const handleAddToWishlist = async () => {
+    await addWishlistProduct({
+      productId: product?.id || "",
+    });
+  };
 
   return (
     <Dialog open={open} onOpenChange={handleClose}>
@@ -96,7 +104,7 @@ export default function QuickViewCard({
                     <button
                       type="button"
                       className="w-full h-[56px] px-[12px] border border-[#0056a3] rounded-3xl group"
-                      // onClick={handleAddToCart}
+                      onClick={handleAddToWishlist}
                     >
                       <span className="flex items-center justify-center font-semibold text-[#0056a3] group-hover:text-opacity-50">
                         <PiListHeart className="mr-2 text-lg" />

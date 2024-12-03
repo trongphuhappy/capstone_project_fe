@@ -12,7 +12,7 @@ import {
 } from "@/utils/schema-validations/censor.schema";
 import { useServiceConfirmProduct } from "@/services/product/services";
 import { useAppDispatch, useAppSelector } from "@/stores/store";
-import { openBackdrop } from "@/stores/stateSlice";
+import { openBackdrop } from "@/stores/state-slice";
 
 interface CensorDialogProps {
   open: boolean;

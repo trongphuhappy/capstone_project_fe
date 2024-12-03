@@ -18,6 +18,12 @@ span {
   font-weight: 400;
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
 /* This class makes the buttons visible on hover */
 .group:hover .carousel-button {
   opacity: 1; /* Show the buttons on hover */

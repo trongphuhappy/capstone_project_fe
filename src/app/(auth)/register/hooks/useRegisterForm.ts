@@ -11,7 +11,7 @@ import { useServiceRegister } from "@/services/auth/services";
 import { useRouter } from "next/navigation";
 import useToast from "@/hooks/use-toast";
 import { useAppDispatch } from "@/stores/store";
-import { openBackdrop } from "@/stores/stateSlice";
+import { openBackdrop } from "@/stores/state-slice";
 
 export function useRegisterForm() {
   const dispatch = useAppDispatch();
@@ -41,6 +41,7 @@ export function useRegisterForm() {
       phoneNumber: "",
     },
   });
+
 
   const onSubmit = async (data: REQUEST.TRegister) => {
     dispatch(openBackdrop());

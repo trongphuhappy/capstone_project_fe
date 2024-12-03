@@ -24,7 +24,6 @@ export default function SurchargeForm({
   selectedSurcharges,
   setSelectedSurcharges,
 }: SurchargeFormProps) {
-
   const handleCheckboxChange = (id: string, checked: boolean) => {
     setSelectedSurcharges((prev) =>
       checked
@@ -75,14 +74,20 @@ export default function SurchargeForm({
             </TooltipProvider>
           </div>
           {isChecked && (
-            <Input
-              type="number"
-              className="mt-4 border border-gray-400 focus-visible:ring-0 focus-visible:none py-5"
-              autoComplete="off"
-              placeholder={`${item.name}`}
-              value={selectedSurcharges[item.id]}
-              onChange={(e) => handleInputChange(item.id, e.target.value)}
-            />
+            <div className="mt-4 relative pr-7 border border-gray-400 rounded-md">
+              <Input
+                type="number"
+                className="border-none focus-visible:ring-0 focus-visible:none py-5 bg-transparent"
+                autoComplete="off"
+                placeholder={`${item.name}`}
+                value={selectedSurcharges[item.id]}
+                onChange={(e) => handleInputChange(item.id, e.target.value)}
+              />
+
+              <span className="absolute top-1/2 -translate-y-1/2 right-[1%]">
+                Vnd
+              </span>
+            </div>
           )}
         </div>
       );
