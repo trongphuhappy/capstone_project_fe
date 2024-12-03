@@ -17,7 +17,7 @@ import { useSearchParams, useRouter } from "next/navigation";
 import useGetProducts from "@/hooks/use-get-products";
 import { useAppDispatch, useAppSelector } from "@/stores/store";
 import useGetCategories from "@/hooks/use-get-categories";
-import { addCategory } from "@/stores/categorySlice";
+import { addCategory } from "@/stores/category-slice";
 
 export default function ProductsComponent() {
   const dispatch = useAppDispatch();

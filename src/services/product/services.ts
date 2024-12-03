@@ -1,8 +1,12 @@
 import { useMutation } from "@tanstack/react-query";
-import { addToWishList, confirmProduct, createProduct } from "@/services/product/api-services";
+import {
+  addToWishList,
+  confirmProduct,
+  createProduct,
+} from "@/services/product/api-services";
 import useToast from "@/hooks/use-toast";
 import { useAppDispatch } from "@/stores/store";
-import { closeBackdrop } from "@/stores/stateSlice";
+import { closeBackdrop, openBackdrop } from "@/stores/state-slice";
 
 export const useServiceCreateProduct = () => {
   const { addToast } = useToast();
@@ -37,8 +41,15 @@ export const useServiceCreateProduct = () => {
       }
 
       if (data?.listSurcharges) {
-        data?.listSurcharges.forEach((surcharge) => {
-          formData.append("ListSurcharges", JSON.stringify(surcharge));
+        data.listSurcharges.forEach((surcharge, index) => {
+          formData.append(
+            `ListSurcharges[${index}].SurchargeId`,
+            surcharge.SurchargeId
+          );
+          formData.append(
+            `ListSurcharges[${index}].Price`,
+            surcharge.Price.toString()
+          );
         });
       }
 

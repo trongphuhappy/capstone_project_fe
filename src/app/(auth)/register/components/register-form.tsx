@@ -17,6 +17,7 @@ import { Genders } from "@/const/authentication";
 import { useState } from "react";
 import { Controller } from "react-hook-form";
 import { RegisterBodyType } from "@/utils/schema-validations/auth.schema";
+import useLoginGoogle from "@/hooks/use-login-google";
 
 export default function RegisterForm() {
   const [gender, setGender] = useState<string>(Genders[0].value);
@@ -33,6 +34,8 @@ export default function RegisterForm() {
     handleToggleTypePassword,
     handleToggleConfirmPassword,
   } = useRegisterForm();
+
+  const { handleLoginGoogle, isPendingGoogle } = useLoginGoogle();
 
   const handleSubmitForm = (data: RegisterBodyType) => {
     const request: REQUEST.TRegister = {
@@ -108,8 +111,9 @@ export default function RegisterForm() {
               Code
             </label>
             <div
-              className={`block p-2 border-2 border-gray-300 rounded-md text-center ${errors?.phoneNumber?.message && "border-red-500"
-                }`}
+              className={`block p-2 border-2 border-gray-300 rounded-md text-center ${
+                errors?.phoneNumber?.message && "border-red-500"
+              }`}
             >
               +84
             </div>
@@ -150,24 +154,28 @@ export default function RegisterForm() {
           />
         </div>
         <button
-          className={`mt-2 block w-full rounded-md py-2 ${Object.keys(errors).length === 0 ? "bg-[#7a3cdd]" : "bg-[#C3B1E1]"
-            }`}
+          className={`mt-2 block w-full rounded-md py-2 ${
+            Object.keys(errors).length === 0 ? "bg-[#7a3cdd]" : "bg-[#C3B1E1]"
+          }`}
         >
           <span className="text-base text-gray-200">Sign Up</span>
         </button>
         <div className="flex items-center justify-between gap-3">
           <div
-            className={`w-[50%] h-1 rounded-full ${Object.keys(errors).length === 0 ? "bg-[#7a3cdd]" : "bg-[#C3B1E1]"
-              }`}
+            className={`w-[50%] h-1 rounded-full ${
+              Object.keys(errors).length === 0 ? "bg-[#7a3cdd]" : "bg-[#C3B1E1]"
+            }`}
           ></div>
           <span className="text-gray-400">OR</span>
           <div
-            className={`w-[50%] h-1 rounded-full ${Object.keys(errors).length === 0 ? "bg-[#7a3cdd]" : "bg-[#C3B1E1]"
-              }`}
+            className={`w-[50%] h-1 rounded-full ${
+              Object.keys(errors).length === 0 ? "bg-[#7a3cdd]" : "bg-[#C3B1E1]"
+            }`}
           ></div>
         </div>
         <button
           type="button"
+          onClick={() => handleLoginGoogle()}
           className="w-full rounded-md py-2 bg-white border border-gray-400 hover:bg-gray-300 flex items-center justify-center space-x-2"
         >
           <img

@@ -16,7 +16,7 @@ export default function RentDialog({ open, onClose }: RentDialogProps) {
   const productRentState = useAppSelector((state) => state.rentSlice);
 
   const [rentTime, setRentTime] = useState<Date | null>(new Date());
-  const [returnTime, setReturnTime] = useState<Date | null>();
+  const [returnTime, setReturnTime] = useState<Date | null>(new Date());
 
   const [rentTimeError, setRentTimeError] = useState<string | null>(null);
   const [returnTimeError, setReturnTimeError] = useState<string | null>(null);

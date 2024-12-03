@@ -14,7 +14,7 @@ import useGetCategories from "@/hooks/use-get-categories";
 import { useAppDispatch, useAppSelector } from "@/stores/store";
 import useToast from "@/hooks/use-toast";
 import { useServiceCreateProduct } from "@/services/product/services";
-import { openBackdrop } from "@/stores/stateSlice";
+import { openBackdrop } from "@/stores/state-slice";
 
 export default function CreateProductComponent() {
   const dispatch = useAppDispatch();

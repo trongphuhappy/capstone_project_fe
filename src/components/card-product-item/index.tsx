@@ -13,6 +13,7 @@ import { formatCurrencyVND } from "@/utils/format-currency";
 import { Heart } from "lucide-react";
 import { useAppSelector } from "@/stores/store";
 import useQuickViewProduct from "@/hooks/use-quick-view-product";
+import useAddWishlist from "@/hooks/use-add-wishlist";
 
 interface CardProductItemProps {
   product: API.TProduct;
@@ -41,6 +42,7 @@ interface CardProductItemProps {
 
 export default function CardProductItem({ product }: CardProductItemProps) {
   const userState = useAppSelector((state) => state.userSlice.profile);
+  const { addWishlistProduct } = useAddWishlist();
 
   const { onOpenQuickViewProductDialog } = useQuickViewProduct();
 
@@ -48,16 +50,20 @@ export default function CardProductItem({ product }: CardProductItemProps) {
     onOpenQuickViewProductDialog(product);
   };
 
-  const handleToggleWishlish = () => {};
+  const handleAddToWishlist = async () => {
+    await addWishlistProduct({
+      productId: product?.id || "",
+    });
+  };
 
   return (
-    <div className="sale-box w-[220px] cursor-pointer font-montserrat group">
+    <div className="sale-box w-[240px] cursor-pointer font-montserrat group">
       <div>
         <Link href={`/product/${product.id}`}>
           <img
             src={product.productImagesUrl[0]}
             alt={product.name}
-            className="block w-full h-[220px] object-cover"
+            className="block w-full h-[240px] object-cover"
           />
         </Link>
       </div>
@@ -68,7 +74,7 @@ export default function CardProductItem({ product }: CardProductItemProps) {
             <TooltipProvider>
               <Tooltip delayDuration={100}>
                 <TooltipTrigger>
-                  <div onClick={handleToggleWishlish}>
+                  <div onClick={handleAddToWishlist}>
                     <Heart />
                   </div>
                 </TooltipTrigger>

@@ -1,7 +1,7 @@
 import {
   closeUpdateAvatarProfileDialog,
   openUpdateAvatarProfileDialog,
-} from "@/stores/stateSlice";
+} from "@/stores/state-slice";
 import { useAppDispatch, useAppSelector } from "@/stores/store";
 
 export default function useUpdateAvatarDialog() {

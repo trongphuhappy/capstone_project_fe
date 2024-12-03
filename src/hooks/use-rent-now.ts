@@ -1,5 +1,5 @@
 import { useServiceCreateOrder } from "@/services/order/services";
-import { closeBackdrop, openBackdrop } from "@/stores/stateSlice";
+import { closeBackdrop, openBackdrop } from "@/stores/state-slice";
 import { useAppDispatch } from "@/stores/store";
 
 export default function useRentNow() {

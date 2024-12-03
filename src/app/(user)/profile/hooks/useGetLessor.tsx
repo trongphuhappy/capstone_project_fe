@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from "@/stores/store";
 import {
   addInfoLessor,
   removeInfoLessor,
-} from "@/stores/userProfileSlice";
+} from "@/stores/user-profile-slice";
 import { isTResponseData } from "@/utils/compare";
 import { useState } from "react";
 

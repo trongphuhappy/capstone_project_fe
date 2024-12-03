@@ -10,7 +10,7 @@ import { confirmStatus } from "@/const/products";
 
 function AdminManageProduct() {
   const { getProductsApi, isPending } = useGetProducts();
-  const [productsPerPage, setProductsPerPage] = useState(5);
+  const [productsPerPage, setProductsPerPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
   const [search, setSearch] = useState("");
   const debouncedSearchTerm = useDebounce(search, 600);
@@ -35,7 +35,7 @@ function AdminManageProduct() {
 
   useEffect(() => {
     handleFetchProducts();
-  }, [debouncedSearchTerm, currentPage, filteredProducts]);
+  }, [debouncedSearchTerm, currentPage, filteredProducts, productsPerPage]);
 
   return (
     <div className="text-gray-900 font-open_sans">
@@ -88,7 +88,7 @@ function AdminManageProduct() {
             }}
             className="p-2 border border-gray-400 rounded focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
           >
-            {[5, 10, 15, 20].map((number) => (
+            {[10, 15, 20].map((number) => (
               <option key={number} value={number}>
                 {number}
               </option>

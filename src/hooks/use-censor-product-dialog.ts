@@ -1,9 +1,9 @@
 import { confirmStatus } from "@/const/products";
-import { addReviewProduct, removeReviewProduct } from "@/stores/productSlice";
+import { addReviewProduct, removeReviewProduct } from "@/stores/product-slice";
 import {
   closeCensorProductDialog,
   openCensorProductDialog,
-} from "@/stores/stateSlice";
+} from "@/stores/state-slice";
 import { useAppDispatch, useAppSelector } from "@/stores/store";
 
 export default function useCensorProductDialog() {
