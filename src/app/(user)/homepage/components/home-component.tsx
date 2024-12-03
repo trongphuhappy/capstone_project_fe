@@ -105,7 +105,7 @@ export default function HomeComponent() {
           </motion.div>
         </section>
         <section>
-          <div className="bg-[url('/images/home-bg.jpg')] bg-cover bg-no-repeat bg-bottom w-full h-[60vh] shadow-md flex items-center justify-center relative p-4">
+          <div className="bg-[url('/images/home-bg.jpg')] bg-cover bg-no-repeat bg-bottom w-full md:h-[60vh] h-[75vh] shadow-md flex items-center justify-center relative p-4">
             <div className="absolute inset-0 bg-black bg-opacity-50"></div>
             <motion.div
               ref={ref3}
@@ -115,12 +115,12 @@ export default function HomeComponent() {
               transition={{ duration: 0.7 }}
               className="relative z-10 w-full"
             >
-              <div className="flex justify-center w-full p-20 ml-0">
+              <div className="flex justify-center w-full md:p-20 p-5 ml-0">
                 <div className="w-[700px] text-center flex flex-col gap-y-3 items-center">
-                  <h1 className="text-white text-3xl font-bold font-montserrat">
+                  <h1 className="text-white md:text-3xl text-lg font-bold font-montserrat">
                     Convenient Furniture Rental
                   </h1>
-                  <p className="font-montserrat text-white text-base">
+                  <p className="font-montserrat text-white md:text-base text-sm">
                     Furniture rental services offer cost savings, flexibility in
                     style changes, and optimization of living and working
                     spaces.
@@ -130,7 +130,7 @@ export default function HomeComponent() {
                     className="inline-flex w-max items-center justify-center gap-x-2 bg-gray-50 h-10 px-5 rounded-md hover:bg-gray-200"
                     onClick={handleFurnitureViewmore}
                   >
-                    <span className="text-[15px] font-montserrat text-black font-normal">
+                    <span className="text-[12px] md:text-[15px] font-montserrat text-black font-normal">
                       Explore
                     </span>
                     <div className="w-4 h-4 relative rounded-full border border-black">
@@ -151,7 +151,7 @@ export default function HomeComponent() {
             className="mt-3 py-5"
           >
             <div className="flex items-center justify-between">
-              <h2 className="text-[25px] font-bold font-montserrat mb-[5px]">
+              <h2 className="md:text-[25px] text-[16px] font-bold font-montserrat mb-[5px]">
                 Furniture
               </h2>
               {furnitures?.length > 0 && (
@@ -169,14 +169,14 @@ export default function HomeComponent() {
                 {furnitures.length > 0 ? (
                   <ListCartItem products={furnitures} />
                 ) : (
-                  <h2>No furniture</h2>
+                  <h2 className="md:text-base text-sm">No furniture</h2>
                 )}
               </div>
             </div>
           </motion.div>
         </section>
         <section className="py-4">
-          <div className="bg-[url('/images/home-bg1.jpg')] bg-cover bg-no-repeat bg-center w-full h-[60vh] shadow-md flex flex-col items-start justify-center relative p-4">
+          <div className="bg-[url('/images/home-bg1.jpg')] bg-cover bg-no-repeat bg-center w-full lg:h-[60vh] md:h-[90vh] h-[85vh] shadow-md flex flex-col items-start justify-center relative p-4">
             <div className="absolute inset-0 bg-black bg-opacity-50"></div>
 
             <motion.div
@@ -187,12 +187,12 @@ export default function HomeComponent() {
               transition={{ duration: 0.7 }}
               className="relative z-10 w-full"
             >
-              <div className="flex justify-center w-full p-20 ml-0">
+              <div className="flex justify-center w-full md:p-20 p-5 ml-0">
                 <div className="w-[700px] text-center flex flex-col gap-y-3 items-center">
-                  <h1 className="text-white text-3xl font-bold font-montserrat">
+                  <h1 className="text-white md:text-3xl text-lg font-bold font-montserrat">
                     Explore with a Car, Share Memories
                   </h1>
-                  <p className="font-montserrat text-white text-base">
+                  <p className="font-montserrat text-white md:text-base text-sm">
                     Rent a car and embark on unforgettable journeys with your
                     loved ones, discovering new places and creating lasting
                     memories together.
@@ -202,7 +202,7 @@ export default function HomeComponent() {
                     className="inline-flex w-max items-center justify-center gap-x-2 bg-gray-50 h-10 px-5 rounded-md hover:bg-gray-200"
                     onClick={handleCarViewmore}
                   >
-                    <span className="text-[15px] font-montserrat text-black font-normal">
+                    <span className="text-[12px] md:text-[15px] font-montserrat text-black font-normal">
                       Explore
                     </span>
                     <div className="w-4 h-4 relative rounded-full border border-black">
@@ -222,7 +222,7 @@ export default function HomeComponent() {
             className="mt-3 py-5"
           >
             <div className="flex items-center justify-between">
-              <h2 className="text-[25px] font-bold font-montserrat mb-[5px]">
+              <h2 className="md:text-[25px] text-[16px] font-bold font-montserrat mb-[5px]">
                 Vehicle
               </h2>
               {cars?.length > 0 && (
@@ -240,7 +240,7 @@ export default function HomeComponent() {
                 {cars?.length > 0 ? (
                   <ListCartItem products={cars} />
                 ) : (
-                  <h2 className="text-sm font-medium">No products available yet</h2>
+                  <h2 className="md:text-base text-sm">No products available yet</h2>
                 )}
               </div>
             </div>
