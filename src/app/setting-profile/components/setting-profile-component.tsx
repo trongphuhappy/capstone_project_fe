@@ -55,16 +55,16 @@ export default function SettingProfileComponent() {
                     height={50}
                   />
                   <span className="text-[#00939F]">-</span>
-                  <h1 className="text-black text-2xl font-semibold font-montserrat">
+                  <h1 className="text-black text-lg md:text-2xl font-semibold font-montserrat">
                     Neighbor
                   </h1>
                 </figure>
               </div>
               <div className="mt-3 flex flex-col gap-y-4">
-                <h2 className="text-3xl font-bold font-sans text-[#1C2B33]">
+                <h2 className="text-xl lg:text-3xl font-bold font-sans text-[#1C2B33]">
                   Setting account
                 </h2>
-                <p className="text-base opacity-[0.9]">
+                <p className="text-sm lg:text-base opacity-[0.9]">
                   Manage your account settings like personal information,
                   security settings, notification management, and more.
                 </p>
@@ -81,7 +81,7 @@ export default function SettingProfileComponent() {
                   <i>
                     <User />
                   </i>
-                  <span className="text-base">Personal information</span>
+                  <span className="text-sm lg:text-base">Personal information</span>
                 </div>
                 <div
                   className={`flex items-center gap-[16px] p-[14px_18px] cursor-pointer font-medium rounded-[10px] transition-colors duration-[0.1s] select-none ${
@@ -94,7 +94,7 @@ export default function SettingProfileComponent() {
                   <i>
                     <Shield />
                   </i>
-                  <span className="text-base">Passwords and security</span>
+                  <span className="text-sm lg:text-base">Passwords and security</span>
                 </div>
               </div>
             </header>

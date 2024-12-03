@@ -65,8 +65,68 @@
 }
 
 .right {
+  position: relative;
   flex: 1;
   padding-bottom: 10px;
   overflow-y: auto;
   height: 100%;
 }
+
+@media (max-width: 1024px) {
+  .left {
+    width: 40%;
+    border-right: 1px solid #dee3e9;
+  }
+
+  .topLeft {
+    height: 100%;
+    padding: 30px 70px 0 70px;
+  }
+
+  .topRight {
+    height: 100%;
+    padding: 30px 120px 0 80px;
+  }
+}
+
+@media (max-width: 768px) {
+  .left {
+    width: 45%;
+    border-right: 1px solid #dee3e9;
+  }
+
+  .topRight {
+    height: 100%;
+    padding: 30px 40px 0 40px;
+  }
+}
+
+@media (max-width: 650px) {
+  .container {
+    min-height: 100vh; 
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .row {
+    flex-direction: column;
+    flex-wrap: nowrap;
+    height: auto; 
+  }
+  .left,
+  .right {
+    width: 100%;
+    height: auto;
+    border-bottom: 1px solid #dee3e9;
+    padding-bottom: 80px;
+  }
+  .topLeft {
+    height: 100%;
+    padding: 30px 40px 0 40px;
+  }
+  .topRight {
+    height: 100%;
+    padding: 0px 40px 0 40px;
+  }
+}
+
+
