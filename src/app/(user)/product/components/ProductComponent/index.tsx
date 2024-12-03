@@ -19,6 +19,8 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import useToast from "@/hooks/use-toast";
+import { useServiceAddWishlistProduct } from "@/services/product/services";
+import useAddWishlist from "@/hooks/use-add-wishlist";
 
 interface ProductComponentProps {
   productId: string;
@@ -108,10 +110,15 @@ export default function ProductComponent({ productId }: ProductComponentProps) {
   const userState = useAppSelector((state) => state.userSlice);
   const { getProductDetail, isPending } = useGetProductDetail();
   const { onOpenRentProductDialog } = useRentDialog();
+  const { addWishlistProduct } = useAddWishlist();
 
   const [product, setProduct] = useState<API.TProduct | null>(null);
 
-  const handleAddToCart = () => {};
+  const handleAddToWishlist = async () => {
+    await addWishlistProduct({
+      productId: productId,
+    });
+  };
 
   const handleFetchProduct = async () => {
     const res = await getProductDetail({
@@ -216,7 +223,12 @@ export default function ProductComponent({ productId }: ProductComponentProps) {
                 </div>
                 <div className="flex items-center gap-x-3 mt-4">
                   <p className="text-base font-montserrat">Lessor: </p>
-                  <p className="text-gray-500">{product?.lessor.shopName}</p>
+                  <a
+                    href={`/public-profile/${product.lessor.lessorId}`}
+                    className="text-gray-500 hover:text-blue-700"
+                  >
+                    {product?.lessor.shopName}
+                  </a>
                 </div>
                 <div className="flex items-center gap-x-3 mt-4">
                   <p className="text-base font-montserrat">Location: </p>
@@ -263,7 +275,7 @@ export default function ProductComponent({ productId }: ProductComponentProps) {
                         <button
                           type="button"
                           className="w-full h-[56px] px-[12px] border border-[#0056a3] rounded-3xl group"
-                          onClick={handleAddToCart}
+                          onClick={handleAddToWishlist}
                         >
                           <span className="flex items-center justify-center font-semibold text-[#0056a3] group-hover:text-opacity-50">
                             <PiListHeart className="mr-2 text-lg" />

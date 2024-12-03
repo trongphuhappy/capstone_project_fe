@@ -6,7 +6,7 @@ import {
 } from "@/services/product/api-services";
 import useToast from "@/hooks/use-toast";
 import { useAppDispatch } from "@/stores/store";
-import { closeBackdrop } from "@/stores/stateSlice";
+import { closeBackdrop, openBackdrop } from "@/stores/stateSlice";
 
 export const useServiceCreateProduct = () => {
   const { addToast } = useToast();
@@ -46,7 +46,10 @@ export const useServiceCreateProduct = () => {
             `ListSurcharges[${index}].SurchargeId`,
             surcharge.SurchargeId
           );
-          formData.append(`ListSurcharges[${index}].Price`, surcharge.Price.toString());
+          formData.append(
+            `ListSurcharges[${index}].Price`,
+            surcharge.Price.toString()
+          );
         });
       }
 

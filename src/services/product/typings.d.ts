@@ -61,7 +61,7 @@ declare namespace REQUEST {
   };
 
   type TAddToWishlist = {
-    ProductId: string;
+    productId: string;
   };
 }
 

@@ -1,14 +1,24 @@
 import { useServiceAddWishlistProduct } from "@/services/product/services";
+import { useAppDispatch, useAppSelector } from "@/stores/store";
+import useToast from "@/hooks/use-toast";
 import { openBackdrop } from "@/stores/stateSlice";
-import { useAppDispatch } from "@/stores/store";
 
 export default function useAddWishlist() {
+  const { addToast } = useToast();
   const dispatch = useAppDispatch();
-  const { mutate, isPending } = useServiceAddWishlistProduct();
+  const { mutate } = useServiceAddWishlistProduct();
+  const userState = useAppSelector((state) => state.userSlice.profile);
 
   const addWishlistProduct = async (params: REQUEST.TAddToWishlist) => {
-    dispatch(openBackdrop());
-    mutate(params);
+    if (userState !== null) {
+      dispatch(openBackdrop());
+      mutate(params);
+    } else {
+      addToast({
+        type: "error",
+        description: "Please login to add to wishlist",
+      });
+    }
   };
 
   return { addWishlistProduct };

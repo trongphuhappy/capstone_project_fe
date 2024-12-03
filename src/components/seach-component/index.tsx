@@ -30,6 +30,8 @@ export default function SearchComponent({
   const handleCloseSearch = () => {
     onClose();
     setProducts([]);
+    setSearchName("");
+    setDots(0);
   };
 
   const handleResetSearchName = () => {
@@ -53,11 +55,12 @@ export default function SearchComponent({
   };
 
   useEffect(() => {
-    handleFetchDataSearch();
+    if (debouncedSearchTerm !== "") handleFetchDataSearch();
+    else setProducts([]);
   }, [debouncedSearchTerm]);
 
   useEffect(() => {
-    if (isPending) {
+    if (isPending === true) {
       const interval = setInterval(() => {
         setDots((prev) => (prev + 1) % 4);
       }, 500);
