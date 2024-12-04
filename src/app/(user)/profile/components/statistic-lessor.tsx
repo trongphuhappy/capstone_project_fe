@@ -1,6 +1,7 @@
 "use client";
 
 import BoxStatictisMonth from "@/app/(user)/profile/components/box-statistic-month";
+import SingleAreaChart from "@/components/chart/SingleChart";
 
 export default function StatisticLessor() {
   return (
@@ -12,6 +13,10 @@ export default function StatisticLessor() {
           valueThisMonth={1235}
         />
       </section>
+      <div className="grid grid-cols-4 gap-4">
+        <div className="col-span-2"><SingleAreaChart chartId="hs-single-area-chart-1"/></div>
+        <div className="col-span-2"><SingleAreaChart chartId="hs-single-area-chart-2"/></div>
+      </div>
     </div>
   );
 }
