@@ -37,7 +37,7 @@ export default function SettingInformationUser() {
     <section>
       <header>
         <div className="mt-[56px] flex flex-col gap-y-4">
-          <h2 className="text-3xl font-bold font-sans text-[#1C2B33]">
+          <h2 className="text-xl lg:text-3xl font-bold font-sans text-[#1C2B33]">
             Personal information
           </h2>
           <p className="text-base opacity-[0.9]">
