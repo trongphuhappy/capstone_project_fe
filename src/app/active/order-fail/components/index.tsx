@@ -3,7 +3,7 @@
 import useToast from "@/hooks/use-toast";
 import { useEffect } from "react";
 
-export default function OrderSuccessComponent({
+export default function OrderFailComponent({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -11,9 +11,9 @@ export default function OrderSuccessComponent({
   const { addToast } = useToast();
   useEffect(() => {
     addToast({
-      type: "success",
+      type: "error",
       description:
-        "The transaction is successful, the lessor will contact you soon, please wait",
+        "Transaction has been canceled, thank you for your interest in this product.",
       duration: 3500,
     });
   }, []);

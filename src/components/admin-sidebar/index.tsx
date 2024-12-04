@@ -10,7 +10,7 @@ import {
   BsChevronDown,
   BsBoxArrowInRight,
 } from "react-icons/bs";
-import { AiOutlineForm, AiOutlinePieChart } from "react-icons/ai";
+import { AiFillProduct, AiOutlineForm, AiOutlinePieChart } from "react-icons/ai";
 import { RiHome2Line } from "react-icons/ri";
 import { useAppSelector } from "@/stores/store";
 import { BsCoin } from "react-icons/bs";
@@ -26,14 +26,13 @@ export default function AdminSidebar() {
 
   return (
     <aside
-      className={`${staffState.openSidebar === false ? "w-72" : "w-0"
-        } bg-gray-900 text-white h-screen transition-all`}
+      className={`${
+        staffState.openSidebar === false ? "w-72" : "w-0"
+      } bg-gray-900 text-white h-screen transition-all`}
     >
       <div className="p-4 ml-4 w-full">
         <ul className="space-y-1">
-          <li className="pt-4 text-sm font-semibold text-gray-400">
-            ADMIN
-          </li>
+          <li className="pt-4 text-sm font-semibold text-gray-400">ADMIN</li>
           <li>
             <button
               onClick={() => toggleDropdown("dashboard")}
@@ -81,6 +80,15 @@ export default function AdminSidebar() {
             >
               <BsPerson className="text-lg" />
               <span>Manage Users</span>
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="/admin/manage-orders"
+              className="flex items-center space-x-2 p-2 hover:bg-gray-700 rounded-md"
+            >
+              <AiFillProduct  className="text-lg" />
+              <span>Manage Order</span>
             </Link>
           </li>
         </ul>

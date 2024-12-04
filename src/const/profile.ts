@@ -9,6 +9,10 @@ export const NavBars: NavbarProfile[] = [
     value: "post",
   },
   {
+    name: "Lease Tracker",
+    value: "lease-tracker",
+  },
+  {
     name: "Statistic",
     value: "statistic",
   },

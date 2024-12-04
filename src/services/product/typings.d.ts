@@ -63,6 +63,17 @@ declare namespace REQUEST {
   type TAddToWishlist = {
     productId: string;
   };
+
+  type TConfirmOrder = {
+    orderId: string;
+    isApproved: boolean;
+    rejectReason: string;
+  };
+
+  type TReportOrder = {
+    orderId: string;
+    userReport: string;
+  };
 }
 
 declare namespace API {
