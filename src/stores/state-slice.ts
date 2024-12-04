@@ -1,3 +1,4 @@
+import { CheckOrderStatus, OrderStatusType } from "@/const/order";
 import { confirmStatus } from "@/const/products";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
@@ -30,6 +31,10 @@ export interface InitialState {
   rentDialog: {
     open: false | true;
   };
+  checkOrderProductDialog: {
+    open: false | true;
+    type: CheckOrderStatus;
+  };
 }
 
 const initialState: InitialState = {
@@ -46,6 +51,7 @@ const initialState: InitialState = {
   },
   censorProductDialog: { open: false, type: confirmStatus.Approved },
   rentDialog: { open: false },
+  checkOrderProductDialog: { open: false, type: CheckOrderStatus.Approved },
 };
 
 const stateSlice = createSlice({
@@ -120,6 +126,17 @@ const stateSlice = createSlice({
     closeRentProductDialog: (state) => {
       state.rentDialog.open = false;
     },
+    openCheckOrderProductDialog: (
+      state,
+      action: PayloadAction<CheckOrderStatus>
+    ) => {
+      state.checkOrderProductDialog.open = true;
+      state.checkOrderProductDialog.type = action.payload;
+    },
+    closeCheckOrderProductDialog: (state) => {
+      state.checkOrderProductDialog.open = false;
+      state.checkOrderProductDialog.type = CheckOrderStatus.Approved;
+    },
   },
 });
 
@@ -146,6 +163,8 @@ export const {
   closeCensorProductDialog,
   openRentProductDialog,
   closeRentProductDialog,
+  openCheckOrderProductDialog,
+  closeCheckOrderProductDialog,
 } = stateSlice.actions;
 
 export default stateSlice.reducer;

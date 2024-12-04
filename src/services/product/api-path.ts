@@ -5,6 +5,7 @@ const GET_PRODUCT_BY_ID = PRODUCT + "/get_product_by_id";
 const CONFIRM_PRODUCT = PRODUCT + "/confirm_product";
 const ADD_TO_WISHLIST = PRODUCT + "/add_to_wishlist";
 
+
 export default {
   CREATE_PRODUCT,
   GET_PRODUCTS,

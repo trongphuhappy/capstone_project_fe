@@ -78,7 +78,11 @@ export default function RentDialog({ open, onClose }: RentDialogProps) {
                 </b>
               </h3>
               <p className="mt-1">
-                Complete your payment, an amazing experience awaits!
+                Please deposit 30% in advance to rent the product
+              </p>
+              <p className="mt-1">
+                Maximum rent days: {productRentState.product?.maximumRentDays}{" "}
+                day
               </p>
             </div>
             <div className="mt-3 flex flex-col gap-y-2 w-full mb-4">

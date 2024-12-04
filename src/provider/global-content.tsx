@@ -21,8 +21,9 @@ import useCensorProductDialog from "@/hooks/use-censor-product-dialog";
 import useQuickViewProduct from "@/hooks/use-quick-view-product";
 import QuickViewCard from "@/components/quick-view-card";
 import RentDialog from "@/components/rent-dialog";
-import useRentNow from "@/hooks/use-rent-now";
 import useRentDialog from "@/hooks/use-rent-dialog";
+import CheckOrderDialog from "@/components/check-order-dialog";
+import useCheckOrderProductDialog from "@/hooks/use-check-order-product-dialog";
 
 export default function GlobalContent({
   children,
@@ -60,6 +61,12 @@ export default function GlobalContent({
 
   const { open: isRentDialog, onCloseRentProductDialog } = useRentDialog();
 
+  const {
+    open: isCheckOrderDialog,
+    type: isTypeCheckOrder,
+    onCloseOrderProductDialog,
+  } = useCheckOrderProductDialog();
+
   return (
     <Fragment>
       <SearchComponent
@@ -85,6 +92,11 @@ export default function GlobalContent({
         onOpenChange={onCloseQuickViewProductDialog}
       />
       <RentDialog open={isRentDialog} onClose={onCloseRentProductDialog} />
+      <CheckOrderDialog
+        open={isCheckOrderDialog}
+        type={isTypeCheckOrder}
+        onClose={onCloseOrderProductDialog}
+      />
       <main>{children}</main>
       <Backdrop open={backdropState.status} />
     </Fragment>
