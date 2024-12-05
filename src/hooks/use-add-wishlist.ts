@@ -9,10 +9,17 @@ export default function useAddWishlist() {
   const { mutate } = useServiceAddWishlistProduct();
   const userState = useAppSelector((state) => state.userSlice.profile);
 
-  const addWishlistProduct = async (params: REQUEST.TAddToWishlist) => {
+  const addWishlistProduct = async (
+    params: REQUEST.TAddToWishlist,
+    handleAddHeart: () => void
+  ) => {
     if (userState !== null) {
       dispatch(openBackdrop());
-      mutate(params);
+      mutate(params, {
+        onSuccess: () => {
+          handleAddHeart();
+        },
+      });
     } else {
       addToast({
         type: "error",

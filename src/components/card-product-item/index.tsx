@@ -50,10 +50,17 @@ export default function CardProductItem({ product }: CardProductItemProps) {
     onOpenQuickViewProductDialog(product);
   };
 
+  const handleAddHeart = () => {
+    product.isAddedToWishlist = !product.isAddedToWishlist;
+  };
+
   const handleAddToWishlist = async () => {
-    await addWishlistProduct({
-      productId: product?.id || "",
-    });
+    await addWishlistProduct(
+      {
+        productId: product?.id || "",
+      },
+      handleAddHeart
+    );
   };
 
   return (
@@ -75,7 +82,11 @@ export default function CardProductItem({ product }: CardProductItemProps) {
               <Tooltip delayDuration={100}>
                 <TooltipTrigger>
                   <div onClick={handleAddToWishlist}>
-                    <Heart />
+                    {product.isAddedToWishlist === false ? (
+                      <Heart strokeWidth={1.4} />
+                    ) : (
+                      <Heart strokeWidth={1.4} color="red" fill="red" />
+                    )}
                   </div>
                 </TooltipTrigger>
                 <TooltipContent className="bg-gray-50 shadow-tooltip px-2 py-3 select-none">

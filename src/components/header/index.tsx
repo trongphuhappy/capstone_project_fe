@@ -1,6 +1,5 @@
 "use client";
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
 import Search from "@/components/search";
 import {
   Tooltip,
@@ -8,13 +7,12 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useState } from "react";
 import Link from "next/link";
 import { useAppSelector } from "@/stores/store";
 import AvatarMenu from "@/components/avatar-menu";
-import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Bell, SquarePen } from "lucide-react";
-import styles from "@/components/header/main.module.css";
 import useCheckExsitLessor from "@/hooks/use-check-exist-lessor";
 import useToast from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
@@ -25,9 +23,6 @@ export default function Header() {
   const router = useRouter();
   const userState = useAppSelector((state) => state.userSlice);
   const [avatarMenuTooltip, setAvatarMenuTooltip] = useState<boolean>(false);
-  const [openLabel, setOpenLabel] = useState<string | null>(null);
-  const [isMobile, setIsMobile] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
   
   const { checkExistLessorApi } = useCheckExsitLessor();
 
@@ -110,7 +105,7 @@ export default function Header() {
               <Tooltip delayDuration={100}>
                 <TooltipTrigger>
                   <div className="flex items-center justify-center gap-x-1 cursor-pointer rounded-[24px] h-12 w-12 group">
-                    <Link href="/cart">
+                    <Link href="/wishlist">
                       <img src="/images/heart-svgrepo-com.svg" alt="heart-svgrepo-com" className="w-full h-full object-contain" />
                     </Link>
                   </div>

@@ -74,6 +74,13 @@ declare namespace REQUEST {
     orderId: string;
     userReport: string;
   };
+
+  type TGetWishlist = {
+    id?: string | null;
+    name?: string | null;
+    pageIndex?: number | null;
+    pageSize?: number | null;
+  }
 }
 
 declare namespace API {

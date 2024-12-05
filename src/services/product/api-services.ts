@@ -92,4 +92,24 @@ export const addToWishList = async ({ productId }: REQUEST.TAddToWishlist) => {
   return response.data;
 };
 
+export const getAllWishlist = async ({
+  id = null,
+  name = null,
+  pageIndex = null,
+  pageSize = null,
+}: REQUEST.TGetWishlist) => {
+  const params: Record<string, any> = {};
+  if (id) params.id = id;
+  if (name) params.name = name;
+  if (pageIndex) params.pageIndex = pageIndex;
+  if (pageSize) params.pageSize = pageSize;
 
+  const response = await request<TResponseData<API.TGetProducts>>(
+    API_ENDPOINTS.GET_ALL_WISHLIST,
+    {
+      method: "GET",
+      params: Object.keys(params).length > 0 ? params : undefined,
+    }
+  );
+  return response.data;
+};
