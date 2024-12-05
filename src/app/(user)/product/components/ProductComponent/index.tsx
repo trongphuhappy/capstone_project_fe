@@ -114,10 +114,17 @@ export default function ProductComponent({ productId }: ProductComponentProps) {
 
   const [product, setProduct] = useState<API.TProduct | null>(null);
 
+  const handleAddWishlist = () => {
+    if (product) product.isAddedToWishlist = !product.isAddedToWishlist;
+  };
+
   const handleAddToWishlist = async () => {
-    await addWishlistProduct({
-      productId: productId,
-    });
+    await addWishlistProduct(
+      {
+        productId: productId,
+      },
+      handleAddWishlist
+    );
   };
 
   const handleFetchProduct = async () => {
@@ -279,7 +286,9 @@ export default function ProductComponent({ productId }: ProductComponentProps) {
                         >
                           <span className="flex items-center justify-center font-semibold text-[#0056a3] group-hover:text-opacity-50">
                             <PiListHeart className="mr-2 text-lg" />
-                            Add To Wishlist
+                            {product.isAddedToWishlist === false
+                              ? "Add To Wishlist"
+                              : "Remove From Wishlist"}
                           </span>
                         </button>
 

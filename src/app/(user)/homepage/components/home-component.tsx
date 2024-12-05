@@ -10,6 +10,7 @@ import { useInView } from "react-intersection-observer";
 import useGetProducts from "@/hooks/use-get-products";
 import { useEffect, useState } from "react";
 import { confirmStatus } from "@/const/products";
+import { useAppSelector } from "@/stores/store";
 
 const CarouselDiscoverHome = dynamic(
   () => import("@/app/(user)/homepage/components/carousel-discover-home"),
@@ -20,6 +21,7 @@ const CarouselDiscoverHome = dynamic(
 
 export default function HomeComponent() {
   const router = useRouter();
+  const userState = useAppSelector((state) => state.userSlice.profile);
 
   const handleCarViewmore = () => {
     location.href = "/products?category=vehicles&page=1";
@@ -51,6 +53,7 @@ export default function HomeComponent() {
       statusType: 1,
       pageIndex: 1,
       pageSize: 5,
+      accountUserId: userState?.userId ?? null,
       isVehicle: false,
     });
     if (response) {
@@ -64,6 +67,7 @@ export default function HomeComponent() {
       statusType: 1,
       pageIndex: 1,
       pageSize: 5,
+      accountUserId: userState?.userId ?? null,
       isVehicle: true,
     });
     if (response) {
@@ -240,7 +244,9 @@ export default function HomeComponent() {
                 {cars?.length > 0 ? (
                   <ListCartItem products={cars} />
                 ) : (
-                  <h2 className="md:text-base text-sm">No products available yet</h2>
+                  <h2 className="md:text-base text-sm">
+                    No products available yet
+                  </h2>
                 )}
               </div>
             </div>

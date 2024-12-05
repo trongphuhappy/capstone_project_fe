@@ -4,6 +4,9 @@ import { IoMdClose } from "react-icons/io";
 import { formatCurrencyVND } from "@/utils/format-currency";
 import { PiListHeart } from "react-icons/pi";
 import useAddWishlist from "@/hooks/use-add-wishlist";
+import { useAppSelector } from "@/stores/store";
+import useRentDialog from "@/hooks/use-rent-dialog";
+import useToast from "@/hooks/use-toast";
 
 interface QuickViewCardProps {
   open: boolean;
@@ -16,17 +19,62 @@ export default function QuickViewCard({
   onOpenChange,
   product,
 }: QuickViewCardProps) {
+  const { addToast } = useToast();
+  const userState = useAppSelector((state) => state.userSlice);
   const handleClose = () => {
     onOpenChange();
   };
   const { addWishlistProduct } = useAddWishlist();
-
+  const { onOpenRentProductDialog } = useRentDialog();
+  const [wishlist, setWishlist] = useState<boolean>(
+    product?.isAddedToWishlist || false
+  );
   const [selectedImage, setSelectedImage] = useState<number>(0);
 
+  const handleChangeWishlist = async () => {
+    setWishlist((prev) => !prev);
+  };
+
   const handleAddToWishlist = async () => {
-    await addWishlistProduct({
-      productId: product?.id || "",
-    });
+    await addWishlistProduct(
+      {
+        productId: product?.id || "",
+      },
+      handleChangeWishlist
+    );
+  };
+
+  const handleRentNow = () => {
+    handleClose();
+    if (userState.profile != null) {
+      if (product) {
+        if (product.confirmStatus === 1) {
+          onOpenRentProductDialog(product);
+        } else {
+          {
+            product.confirmStatus === 0 &&
+              addToast({
+                type: "error",
+                description:
+                  "This product has not been approved by the admin so it cannot be purchased",
+              });
+          }
+          {
+            product.confirmStatus === -1 &&
+              addToast({
+                type: "error",
+                description: `The product was rejected with reason: ${product?.rejectReason}`,
+              });
+          }
+          return;
+        }
+      }
+    } else {
+      addToast({
+        type: "error",
+        description: "Please login to rent this product",
+      });
+    }
   };
 
   return (
@@ -108,14 +156,16 @@ export default function QuickViewCard({
                     >
                       <span className="flex items-center justify-center font-semibold text-[#0056a3] group-hover:text-opacity-50">
                         <PiListHeart className="mr-2 text-lg" />
-                        Add To Wishlist
+                        {wishlist === false
+                          ? "Add To Wishlist"
+                          : "Remove From Wishlist"}
                       </span>
                     </button>
 
                     <button
                       type="button"
                       className="w-full h-[56px] px-[12px] border border-[#0056a3] bg-[#0056a3] rounded-3xl hover:opacity-90"
-                      // onClick={() => setIsModalOpen(true)}
+                      onClick={handleRentNow}
                     >
                       <span className="font-semibold text-white">Rent Now</span>
                     </button>
