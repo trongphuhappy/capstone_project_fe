@@ -100,10 +100,21 @@ export default function CardProductItem({ product }: CardProductItemProps) {
         </div>
         <p className="text-xs mt-1 font-normal">
           Cateogory:{" "}
-          <b className="font-normal">{product.category?.categoryName}</b>
+          <Link
+            href={`/products?category=${product.category?.categoryId}&page=1`}
+          >
+            <b className="font-normal hover:text-blue-500">
+              {product.category?.categoryName}
+            </b>
+          </Link>
         </p>
         <p className="text-xs mt-2 font-normal">
-          Shop name: <b className="font-normal">{product.lessor.shopName}</b>
+          Shop name:{" "}
+          <Link href={`/public-profile/${product.lessor.accountId}`}>
+            <b className="font-normal hover:text-blue-500">
+              {product.lessor.shopName}
+            </b>
+          </Link>
         </p>
         <div className="mt-4 flex items-end justify-between">
           <div>

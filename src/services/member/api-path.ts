@@ -8,6 +8,8 @@ const VERIFY_UPDATE_EMAIL = MEMBER + "/verify_update_email";
 const GET_INFO_LESSOR = MEMBER + "/get_infor_lessor";
 const CHECK_LESSOR_EXIST = MEMBER + "/check_lessor_exist";
 const UPDATE_INFO_LESSOR = MEMBER + "/update_info_lessor";
+const GET_PROFILE_BY_ID = MEMBER + "/get_profile_by_id";
+const GET_INFO_LESSOR_BY_ID = MEMBER + "/get_infor_lessor_by_id";
 
 export default {
   GET_PROFILE,
@@ -19,4 +21,6 @@ export default {
   GET_INFO_LESSOR,
   CHECK_LESSOR_EXIST,
   UPDATE_INFO_LESSOR,
+  GET_PROFILE_BY_ID,
+  GET_INFO_LESSOR_BY_ID,
 };

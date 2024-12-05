@@ -18,6 +18,11 @@ import {
   checkOrderProductProductBody,
   checkOrderProductProductBodyType,
 } from "@/utils/schema-validations/order.schema";
+import {
+  feedbackProductBody,
+  feedbackProductBodyType,
+} from "@/utils/schema-validations/feedback.schema";
+import { useServiceCreateFeedback } from "@/services/feedback/services";
 
 interface CheckOrderDialogProps {
   open: boolean;
@@ -30,6 +35,11 @@ export default function CheckOrderDialog({
   type,
   onClose,
 }: CheckOrderDialogProps) {
+  const userState = useAppSelector((state) => state.userSlice);
+  const checkOrderProductState = useAppSelector(
+    (state) => state.rentSlice.checkOrderProduct
+  );
+
   const {
     register,
     watch,
@@ -45,18 +55,32 @@ export default function CheckOrderDialog({
     },
   });
 
+  const {
+    register: feedbackRegister,
+    watch: feedbackWatch,
+    handleSubmit: feedbackHandleSubmit,
+    setError: feedbackSetError,
+    formState: { errors: feedbackErrors },
+    reset: feedbackReset,
+    control: feedbackControl,
+  } = useForm<feedbackProductBodyType>({
+    resolver: zodResolver(feedbackProductBody),
+    defaultValues: {
+      content: "",
+    },
+  });
+
   const dispatch = useAppDispatch();
-  const checkOrderProductState = useAppSelector(
-    (state) => state.rentSlice.checkOrderProduct
-  );
 
   const { mutate: mutateUser } = useServiceUserConfirmOrder();
   const { mutate: mutateLessor } = useServiceLessorConfirmOrder();
   const { mutate: mutateReport } = useServiceUserReportOrder();
   const { mutate: mutateAdmin } = useServiceAdminConfirmOrder();
+  const { mutate: mutateFeedback } = useServiceCreateFeedback();
 
   const handleClose = () => {
     reset();
+    feedbackReset();
     onClose();
   };
 
@@ -152,6 +176,26 @@ export default function CheckOrderDialog({
         );
       }
     }
+  };
+
+  const handleFeedback = (data: feedbackProductBodyType) => {
+    dispatch(openBackdrop());
+    mutateFeedback(
+      {
+        accountId: userState.profile?.userId || "",
+        orderId: checkOrderProductState?.order.id || "",
+        content: data.content,
+        productId: checkOrderProductState?.order?.product.id || "",
+      },
+      {
+        onSuccess: () => {
+          handleClose();
+        },
+        onError: () => {
+          handleClose();
+        },
+      }
+    );
   };
 
   const handleReport = (data: checkOrderProductProductBodyType) => {
@@ -306,6 +350,59 @@ export default function CheckOrderDialog({
                       {...register("rejectReason")}
                     />
                     {errors?.rejectReason && (
+                      <span className="text-red-500">
+                        {errors?.rejectReason?.message}
+                      </span>
+                    )}
+                  </div>
+                </div>
+
+                <div className="ml-auto mr-0 mt-3">
+                  <button
+                    type="button"
+                    onClick={handleClose}
+                    className="mr-2 px-3 py-2 bg-[#e2e5e9] rounded-md hover:bg-[#00939f] group shadow-header-shadown"
+                  >
+                    <div className="flex items-center gap-x-3">
+                      <span className="text-[14px] font-medium group-hover:text-white">
+                        Cancel
+                      </span>
+                    </div>
+                  </button>
+                  <button
+                    type="submit"
+                    className="px-3 py-2 bg-[#e2e5e9] rounded-md hover:bg-[#00939f] group shadow-header-shadown"
+                  >
+                    <div className="flex items-center gap-x-3">
+                      <span className="text-[14px] font-medium group-hover:text-white">
+                        Submit
+                      </span>
+                    </div>
+                  </button>
+                </div>
+              </div>
+            </form>
+          )}
+          {type === CheckOrderStatus.Feedback && (
+            <form onSubmit={feedbackHandleSubmit(handleFeedback)}>
+              <div className="flex flex-col items-start gap-y-2">
+                <div>
+                  <h2 className="text-[24px] font-semibold">Feedback</h2>
+                  <p className="mt-3 text-[15px] opacity-90">
+                    Please fill content
+                  </p>
+                </div>
+                <div className="mt-[5px] w-full">
+                  <div className="flex flex-col gap-y-2">
+                    <Input
+                      className={`w-full border border-gray-400 focus-visible:ring-0 focus-visible:none py-5 ${
+                        feedbackErrors?.content && "border-red-500"
+                      }`}
+                      autoComplete="off"
+                      placeholder="Content"
+                      {...feedbackRegister("content")}
+                    />
+                    {feedbackErrors?.content && (
                       <span className="text-red-500">
                         {errors?.rejectReason?.message}
                       </span>

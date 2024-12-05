@@ -3,10 +3,13 @@ import PaginatedComponent from "@/components/paginated";
 import useGetProducts from "@/hooks/use-get-products";
 import { useAppSelector } from "@/stores/store";
 import { Plus, SlidersHorizontal } from "lucide-react";
-import { Fragment, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
-export default function PostFilterBox() {
-  const userState = useAppSelector((state) => state.userSlice);
+interface IPostFilterBoxProps {
+  accountId: string;
+}
+
+export default function PostFilterBox({ accountId }: IPostFilterBoxProps) {
   const { getProductsApi, isPending } = useGetProducts();
 
   const [products, setProducts] = useState<API.TGetProducts | null>(null);
@@ -19,7 +22,7 @@ export default function PostFilterBox() {
 
   const handleFetchProducts = async (pageIndex: number) => {
     const res = await getProductsApi({
-      accountLessorId: userState.profile?.userId,
+      accountLessorId: accountId,
       pageIndex: pageIndex,
       pageSize: 10,
     });

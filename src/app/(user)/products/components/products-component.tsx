@@ -51,6 +51,7 @@ export default function ProductsComponent() {
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
+    handleFetchProducts(page);
   };
 
   const handleFetchCategory = async () => {

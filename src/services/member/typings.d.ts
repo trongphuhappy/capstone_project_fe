@@ -1,4 +1,7 @@
 declare namespace REQUEST {
+  type TGetProfileById = {
+    accountId: string;
+  };
   type TUpdateAvatar = {
     cropAvatar: File;
     fullAvatar: File;
@@ -23,9 +26,13 @@ declare namespace REQUEST {
   type TUpdateVerifyEmail = {
     userId: string;
   };
-  
+
   type TGetInfoLessor = {
     publicLessor?: boolean;
+  };
+
+  type TGetInfoLessorById = {
+    accountId: string;
   };
 
   type TUpdateLessorInfo = {
@@ -68,6 +75,7 @@ declare namespace API {
   };
 
   type TProfile = {
+    id?: string | null;
     firstName?: string | null;
     lastName?: string | null;
     email?: string | null;
