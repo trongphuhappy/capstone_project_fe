@@ -51,7 +51,6 @@ export default function PostFilterBox({ accountId }: IPostFilterBoxProps) {
         <div>
           <button
             type="button"
-            // onClick={openUpdateBiography}
             className="w-full px-3 py-[6px] bg-[#e2e5e9] rounded-sm hover:bg-[#d1d4d7] group shadow-header-shadown"
           >
             <div className="flex gap-x-2 items-center">
@@ -66,39 +65,20 @@ export default function PostFilterBox({ accountId }: IPostFilterBoxProps) {
         </div>
       </div>
       <div className="my-2">
-        {products !== null ? (
-          <div>
-            <div className="grid grid-cols-3 gap-x-5 gap-y-7">
-              {renderProducts()}
+        <div>
+          <div className="grid grid-cols-3 gap-x-5 gap-y-7">
+            {renderProducts()}
+          </div>
+          {products && products?.totalCount > 0 && (
+            <div className="mt-5">
+              <PaginatedComponent
+                totalPages={products?.totalPages || 1}
+                currentPage={currentPage}
+                onPageChange={handlePageChange}
+              />
             </div>
-            {products && products?.totalCount > 0 && (
-              <div className="mt-5">
-                <PaginatedComponent
-                  totalPages={products?.totalPages || 1}
-                  currentPage={currentPage}
-                  onPageChange={handlePageChange}
-                />
-              </div>
-            )}
-          </div>
-        ) : (
-          <div className="flex items-center gap-x-4">
-            <p className="text-xl">You don't have any products yet</p>
-            <button
-              type="button"
-              className="px-3 py-2 bg-[#e2e5e9] rounded-xl hover:bg-[#00939f] group shadow-header-shadown"
-            >
-              <div className="flex items-center gap-x-3">
-                <i>
-                  <Plus className="text-black w-5 h-5 group-hover:text-white" />
-                </i>
-                <span className="text-base font-medium group-hover:text-white">
-                  Post now
-                </span>
-              </div>
-            </button>
-          </div>
-        )}
+          )}
+        </div>
       </div>
     </div>
   );
