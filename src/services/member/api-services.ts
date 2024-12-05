@@ -11,6 +11,21 @@ export const getProfile = async () => {
   return response.data;
 };
 
+export const getProfileById = async ({
+  accountId,
+}: REQUEST.TGetProfileById) => {
+  const response = await request<TResponseData<API.TProfile>>(
+    API_ENDPOINTS.GET_PROFILE_BY_ID,
+    {
+      method: "GET",
+      params: {
+        accountId: accountId,
+      },
+    }
+  );
+  return response.data;
+};
+
 export const updateAvatar = async (data: FormData) => {
   const response = await request<TResponseData<API.TImageProfile>>(
     API_ENDPOINTS.UPDATE_AVATAR,
@@ -77,6 +92,21 @@ export const getInfoLessor = async ({
       method: "GET",
       params: {
         publicLessor,
+      },
+    }
+  );
+  return response.data;
+};
+
+export const getInfoLessorById = async ({
+  accountId,
+}: REQUEST.TGetInfoLessorById) => {
+  const response = await request<TResponseData<API.TInfoLessor>>(
+    API_ENDPOINTS.GET_INFO_LESSOR_BY_ID,
+    {
+      method: "GET",
+      params: {
+        accountId: accountId,
       },
     }
   );

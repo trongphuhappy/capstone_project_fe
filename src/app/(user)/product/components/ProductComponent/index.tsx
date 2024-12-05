@@ -21,6 +21,7 @@ import {
 import useToast from "@/hooks/use-toast";
 import { useServiceAddWishlistProduct } from "@/services/product/services";
 import useAddWishlist from "@/hooks/use-add-wishlist";
+import useGetFeedbacks from "@/hooks/use-get-feedback";
 
 interface ProductComponentProps {
   productId: string;
@@ -109,10 +110,12 @@ export default function ProductComponent({ productId }: ProductComponentProps) {
   const { addToast } = useToast();
   const userState = useAppSelector((state) => state.userSlice);
   const { getProductDetail, isPending } = useGetProductDetail();
+  const { getFeedbackApi, isPending: isPendingFeedback } = useGetFeedbacks();
   const { onOpenRentProductDialog } = useRentDialog();
   const { addWishlistProduct } = useAddWishlist();
 
   const [product, setProduct] = useState<API.TProduct | null>(null);
+  const [feedbacks, setFeedbacks] = useState<API.TFeedback[]>([]);
 
   const handleAddWishlist = () => {
     if (product) product.isAddedToWishlist = !product.isAddedToWishlist;
@@ -134,6 +137,15 @@ export default function ProductComponent({ productId }: ProductComponentProps) {
     });
     if (res) {
       setProduct(res.value.data || null);
+    }
+  };
+
+  const handleFetchFeedback = async () => {
+    const res = await getFeedbackApi({
+      productId: productId,
+    });
+    if (res) {
+      setFeedbacks(res?.value?.data?.items || []);
     }
   };
 
@@ -171,6 +183,7 @@ export default function ProductComponent({ productId }: ProductComponentProps) {
 
   useEffect(() => {
     handleFetchProduct();
+    handleFetchFeedback();
   }, [productId]);
 
   return (
@@ -337,7 +350,7 @@ export default function ProductComponent({ productId }: ProductComponentProps) {
       )}
 
       <div className="border rounded-md p-8 mt-8">
-        <CustomerReviews />
+        <CustomerReviews Feedbacks={feedbacks} />
       </div>
     </div>
   );

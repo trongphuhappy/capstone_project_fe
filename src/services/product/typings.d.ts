@@ -80,7 +80,7 @@ declare namespace REQUEST {
     name?: string | null;
     pageIndex?: number | null;
     pageSize?: number | null;
-  }
+  };
 }
 
 declare namespace API {
@@ -91,6 +91,7 @@ declare namespace API {
   };
 
   type TLessor = {
+    accountId?: string | null;
     lessorId: string;
     wareHouseAddress: string;
     shopName: string;

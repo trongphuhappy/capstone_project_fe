@@ -18,4 +18,5 @@ export enum CheckOrderStatus {
   Approved = 0,
   Rejected = 1,
   Report = 2,
+  Feedback = 3
 }

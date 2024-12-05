@@ -27,6 +27,7 @@ import {
   OrderReportStatusType,
   OrderStatusType,
 } from "@/const/order";
+import { confirmStatus } from "@/const/products";
 import useCheckOrderProductDialog from "@/hooks/use-check-order-product-dialog";
 import useGetOrders from "@/hooks/use-get-orders";
 import { useAppSelector } from "@/stores/store";
@@ -36,7 +37,7 @@ import { Fragment, useEffect, useState } from "react";
 export default function LeaseTracker() {
   const { onOpenCheckOrderProductDialog } = useCheckOrderProductDialog();
   const userState = useAppSelector((state) => state.userSlice);
-  const { getAllOrdersApi, isPending } = useGetOrders();
+  const { getAllOrdersApi } = useGetOrders();
   const [orders, setOrders] = useState<API.TGetAllOrders | null>(null);
   const [currentPage, setCurrentPage] = useState<number>(1);
 
@@ -188,31 +189,33 @@ export default function LeaseTracker() {
                                   .replace(/([A-Z])/g, " $1")
                                   .trim()}
                               </span>
-                              {order.orderReportStatus !==
-                                OrderReportStatusType.NotConflict && (
-                                <Fragment>
-                                  <TooltipProvider>
-                                    <Tooltip delayDuration={100}>
-                                      <TooltipTrigger>
-                                        <div className="w-5 h-5 rounded-full flex items-center justify-center bg-red-500">
-                                          <span className="text-white text-[12px]">
-                                            !
+                              {order.orderStatus !==
+                                OrderStatusType.CompletedRented &&
+                                order.orderReportStatus !==
+                                  OrderReportStatusType.NotConflict && (
+                                  <Fragment>
+                                    <TooltipProvider>
+                                      <Tooltip delayDuration={100}>
+                                        <TooltipTrigger>
+                                          <div className="w-5 h-5 rounded-full flex items-center justify-center bg-red-500">
+                                            <span className="text-white text-[12px]">
+                                              !
+                                            </span>
+                                          </div>
+                                        </TooltipTrigger>
+                                        <TooltipContent className="bg-gray-50 shadow-tooltip px-2 py-3 select-none">
+                                          <span className="text-[#00000d] text-xs font-montserrat font-normal">
+                                            {OrderReportStatusType[
+                                              order.orderReportStatus
+                                            ]
+                                              .replace(/([A-Z])/g, " $1")
+                                              .trim()}
                                           </span>
-                                        </div>
-                                      </TooltipTrigger>
-                                      <TooltipContent className="bg-gray-50 shadow-tooltip px-2 py-3 select-none">
-                                        <span className="text-[#00000d] text-xs font-montserrat font-normal">
-                                          {OrderReportStatusType[
-                                            order.orderReportStatus
-                                          ]
-                                            .replace(/([A-Z])/g, " $1")
-                                            .trim()}
-                                        </span>
-                                      </TooltipContent>
-                                    </Tooltip>
-                                  </TooltipProvider>
-                                </Fragment>
-                              )}
+                                        </TooltipContent>
+                                      </Tooltip>
+                                    </TooltipProvider>
+                                  </Fragment>
+                                )}
                             </TableCell>
                             <TableCell className="text-center">
                               {order.orderReportStatus ===
@@ -265,6 +268,24 @@ export default function LeaseTracker() {
                                           >
                                             <span className="text-center text-[15px] font-medium text-white">
                                               Report
+                                            </span>
+                                          </div>
+                                        </Fragment>
+                                      )}
+                                      {order.orderStatus ===
+                                        OrderStatusType.CompletedRented && (
+                                        <Fragment>
+                                          <div
+                                            onClick={() =>
+                                              handleOpenCheckOrder(
+                                                order,
+                                                CheckOrderStatus.Feedback
+                                              )
+                                            }
+                                            className="cursor-pointer w-full py-[6px] bg-teal-500 rounded-sm hover:bg-teal-600 group shadow-header-shadown"
+                                          >
+                                            <span className="text-center text-[15px] font-medium text-white">
+                                              Feedback
                                             </span>
                                           </div>
                                         </Fragment>
