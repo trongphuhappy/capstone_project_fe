@@ -84,7 +84,7 @@ export default function CreateProductComponent() {
             <SelectTrigger className="w-full border-2 border-gray-500 py-5">
               <SelectValue placeholder="Select category" />
             </SelectTrigger>
-            <SelectContent>
+            <SelectContent className="max-w-full sm:max-w-[245px]">
               {categories.map((category, index) => (
                 <SelectItem key={index} value={index.toString()}>
                   {category.name}
@@ -94,10 +94,10 @@ export default function CreateProductComponent() {
           </Select>
         </div>
         {category != null ? (
-          <div className="w-full flex items-start gap-x-12">
-            <div className="w-[25%]">
+          <div className="w-full flex flex-col lg:flex-row items-start gap-x-12">
+            <div className="w-full lg:w-[25%]">
               <div>
-                <h2 className="text-xl font-semibold">Product images</h2>
+                <h2 className="text-lg lg:text-xl font-semibold">Product images</h2>
                 <div className="mt-6 flex flex-col gap-y-3">
                   <UploadImage
                     fileList={productImages}
@@ -108,7 +108,7 @@ export default function CreateProductComponent() {
               </div>
               {category?.isVehicle === true && (
                 <div className="mt-6 flex flex-col gap-y-3">
-                  <h2 className="text-xl font-semibold">Insurance images</h2>
+                  <h2 className="text-lg lg:text-xl font-semibold">Insurance images</h2>
                   <UploadImage
                     fileList={issuranceImages}
                     setFileList={setIssuranceImages}

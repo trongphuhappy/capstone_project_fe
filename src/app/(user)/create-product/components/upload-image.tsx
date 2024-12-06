@@ -91,7 +91,7 @@ export default function UpdateImage({
             <figure className="px-16 py-4">
               <div className="flex flex-col items-center gap-y-1 w-max">
                 <Camera className="w-[50px] h-[50px] text-[#00939f]" />
-                <span className="text-base font-semibold text-[#00939f]">
+                <span className="text-xs lg:text-base font-semibold text-[#00939f]">
                   {content}
                 </span>
               </div>

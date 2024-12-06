@@ -41,7 +41,7 @@ export default function IssuranceForm({
           <span className="text-red-500">{insuranceNameError}</span>
         )}
       </div>
-      <div className="flex items-center gap-x-3">
+      <div className="flex flex-col md:flex-row md:gap-x-3 gap-y-4 lg:items-center">
         <div className="flex flex-col gap-y-2 w-full mb-4">
           <label className="text-base font-semibold">Issue date</label>
           <DatePicker
