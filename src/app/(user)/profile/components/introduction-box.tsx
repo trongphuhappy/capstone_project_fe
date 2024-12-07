@@ -37,7 +37,7 @@ export default function IntroductionBox() {
 
   return (
     <div className="w-full p-[15px] rounded-lg shadow-box-shadown break-words">
-      <h3 className="text-[18px] font-semibold">Introduction</h3>
+      <h3 className="text-[16px] lg:text-[18px] font-semibold">Introduction</h3>
       <div className="py-3">
         {isUpdateBiography === false ? (
           <Fragment>
@@ -64,7 +64,7 @@ export default function IntroductionBox() {
                       Edit biography
                     </span>
                   ) : (
-                    <span className="text-center text-[15px] font-medium text-black">
+                    <span className="text-center text-[13px] lg:text-[15px] font-medium text-black">
                       Add biography
                     </span>
                   )}
@@ -82,20 +82,20 @@ export default function IntroductionBox() {
       </div>
       <div className="flex flex-col gap-y-4">
         <div className="flex items-center gap-x-2">
-          <Heart className="w-6 h-6 text-gray-700" />
-          <span className="text-[15px] font-normal text-gray-700">
+          <Heart className="w-5 h-5 lg:w-6 lg:h-6 text-gray-700" />
+          <span className="text-[13px] lg:text-[15px] font-normal text-gray-700">
             Following: <b className="font-medium text-black">10</b>
           </span>
         </div>
         <div className="flex items-center gap-x-2">
-          <HeartHandshake className="w-6 h-6 text-gray-700" />
-          <span className="text-[15px] font-normal text-gray-700">
+          <HeartHandshake className="w-5 h-5 lg:w-6 lg:h-6 text-gray-700" />
+          <span className="text-[13px] lg:text-[15px] font-normal text-gray-700">
             Followers: <b className="font-medium text-black">10</b>
           </span>
         </div>
         <div className="flex items-center gap-x-2">
-          <CalendarDays className="w-6 h-6 text-gray-700" />
-          <span className="text-[15px] font-normal text-gray-700">
+          <CalendarDays className="w-5 h-5 lg:w-6 lg:h-6 text-gray-700" />
+          <span className="text-[13px] lg:text-[15px] font-normal text-gray-700">
             Participated:{" "}
             <b className="font-medium text-black">
               {userProfileState?.createdDate &&

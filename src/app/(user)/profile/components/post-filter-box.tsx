@@ -44,7 +44,7 @@ export default function PostFilterBox() {
   return (
     <div className="w-full min-h-[300px] p-[15px] rounded-lg shadow-box-shadown break-words">
       <div className="flex items-center justify-between pb-3 border-b-2">
-        <h3 className="text-[18px] font-semibold">Post</h3>
+        <h3 className="text-[16px] lg:text-[18px] font-semibold">Post</h3>
         <div>
           <button
             type="button"
@@ -55,7 +55,7 @@ export default function PostFilterBox() {
               <i>
                 <SlidersHorizontal className="text-black w-5 h-5" />
               </i>
-              <span className="text-center text-[15px] font-medium text-black">
+              <span className="text-center text-[13px] lg:text-[15px] font-medium text-black">
                 Filter
               </span>
             </div>

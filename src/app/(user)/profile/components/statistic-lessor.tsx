@@ -8,7 +8,7 @@ import SingleAreaChart from "@/components/chart/SingleChart";
 export default function StatisticLessor() {
   return (
     <div className="font-montserrat">
-      <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-6">
+      <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-6 px-4">
         <BoxStatictisMonth
           title="Total rent"
           valueLastMoth={1234}
@@ -16,7 +16,7 @@ export default function StatisticLessor() {
         />
       </section>
 
-      <section className="grid grid-cols-2 sm:grid-cols-2 gap-6 mb-6">
+      <section className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
         <div className="col-span-1">
           <SingleAreaChart chartId="hs-single-area-chart-1" />
         </div>

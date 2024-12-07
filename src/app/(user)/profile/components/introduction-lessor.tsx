@@ -21,13 +21,13 @@ export default function IntroductionLessor() {
   return (
     <div className="w-full p-[15px] rounded-lg shadow-box-shadown break-words">
       <div className="flex items-center justify-between">
-        <h3 className="text-[18px] font-semibold">Lessor</h3>
+        <h3 className="text-[16px] lg:text-[18px] font-semibold">Lessor</h3>
         <button
           type="button"
           onClick={handleUpdateLessor}
           className="px-3 py-[3px] bg-[#e2e5e9] rounded-sm hover:bg-[#d1d4d7] group shadow-header-shadown"
         >
-          <span className="text-center text-[15px] font-medium text-black">
+          <span className="text-center text-[13px] lg:text-[15px] font-medium text-black">
             {inforLessorState != null ? "Edit" : "Add"}
           </span>
         </button>
@@ -65,7 +65,7 @@ export default function IntroductionLessor() {
           </div>
         </div>
       ) : (
-        <h3 className="my-4">Please update to post rental informations</h3>
+        <h3 className="my-4 text-sm lg:text-base">Please update to post rental informations</h3>
       )}
     </div>
   );
