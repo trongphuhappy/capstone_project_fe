@@ -97,7 +97,7 @@ export default function LeaseTracker() {
         </header>
         <div>
           <div>
-            <div className="grid grid-cols-4 gap-x-10 gap-y-3">
+            <div className="grid grid-cols-1 lg:grid-cols-4 gap-x-10 gap-y-3">
               <div className="flex flex-col gap-y-2 w-full">
                 <label className="text-base text-[#6f6f6f]">Lessor</label>
                 <Select

@@ -31,7 +31,7 @@ export default function AdminHeader() {
     };
 
     return (
-        <header className="bg-white py-4 ">
+        <header className="bg-white py-4">
             <div className="flex items-center justify-between">
                 <div>
                     <button onClick={handleToggleSidebar}>

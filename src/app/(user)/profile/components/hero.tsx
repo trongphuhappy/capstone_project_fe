@@ -72,7 +72,7 @@ export default function Hero({ nav, setNav }: HeroProps) {
               <div className="w-full">
                 <div className="flex items-center gap-x-4 pb-3 border-b">
                   <AvatarProfile />
-                  <div className="w-full flex items-end justify-between">
+                  <div className="w-full flex flex-col md:flex-row items-end justify-between">
                     <div>
                       <h2 className="text-2xl font-semibold">
                         {profileState.profile?.firstName +
@@ -83,7 +83,7 @@ export default function Hero({ nav, setNav }: HeroProps) {
                         520 followers
                       </p>
                     </div>
-                    <div className="ml-auto flex gap-x-3">
+                    <div className="mr-10 md:ml-auto flex gap-x-3">
                       <button
                         type="button"
                         onClick={handlePostNow}

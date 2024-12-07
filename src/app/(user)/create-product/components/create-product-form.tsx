@@ -116,7 +116,7 @@ export default function CreateProductForm({
   return (
     <div className="w-full">
       <form onSubmit={handleSubmit(handleSubmitForm)}>
-        <h2 className="text-xl font-semibold">Information details</h2>
+        <h2 className="text-lg lg:text-xl font-semibold">Information details</h2>
         <div className="mt-4 flex flex-col">
           <div className="flex flex-col gap-y-2 w-full mb-4">
             <label className="text-base font-semibold">Title</label>
@@ -130,8 +130,8 @@ export default function CreateProductForm({
               <span className="text-red-500">{errors?.name?.message}</span>
             )}
           </div>
-          <div className="flex items-center gap-x-3">
-            <div className="flex flex-col gap-y-2 w-full mb-4">
+          <div className="flex flex-wrap lg:flex-nowrap gap-y-4 lg:gap-x-3">
+            <div className="flex flex-col gap-y-2 w-full sm:w-[48%] lg:w-full">
               <label className="text-base font-semibold">Rent</label>
               <div className="relative pr-7 border border-gray-400 rounded-md">
                 <Input
@@ -231,7 +231,7 @@ export default function CreateProductForm({
           </div>
           {category?.isVehicle === true && (
             <div>
-              <h3 className="text-xl font-semibold">Insurance</h3>
+              <h3 className="text-lg lg:text-xl font-semibold">Insurance</h3>
               <IssuranceForm
                 issuranceExpireDate={issuranceExpireDate || null}
                 issuranceIssueDate={issuranceIssueDate || null}
@@ -247,7 +247,7 @@ export default function CreateProductForm({
           )}
           <div className="mt-2">
             <div className="flex items-center">
-              <h3 className="text-xl font-semibold mr-2">Surchage</h3>
+              <h3 className="text-lg lg:text-xl font-semibold mr-2">Surchage</h3>
               <span>(may or may not be filled in.)</span>
             </div>
             <div className="mt-4">
