@@ -90,7 +90,7 @@ export default function HomeBanner() {
               </span>
             </div>
           </motion.div>
-          <motion.div
+          {/* <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease: "easeOut", delay: 1.4 }}
@@ -110,7 +110,7 @@ export default function HomeBanner() {
               </span>
             </div>
 
-          </motion.div>
+          </motion.div> */}
         </div>
       </div>
     </div>

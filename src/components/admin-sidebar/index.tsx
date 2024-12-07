@@ -27,7 +27,7 @@ export default function AdminSidebar() {
   return (
     <aside
       className={`${
-        staffState.openSidebar === false ? "w-72" : "w-0"
+        staffState.openSidebar === true ? "w-72 xl:w-0" : "w-0 xl:w-72"
       } bg-gray-900 text-white h-screen transition-all`}
     >
       <div className="p-4 ml-4 w-full">
