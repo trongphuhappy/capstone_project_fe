@@ -155,7 +155,7 @@ export default function RegisterForm() {
         </div>
         <button
           className={`mt-2 block w-full rounded-md py-2 ${
-            Object.keys(errors).length === 0 ? "bg-[#7a3cdd]" : "bg-[#C3B1E1]"
+            Object.keys(errors).length === 0 ? "bg-teal-700" : "bg-teal-100"
           }`}
         >
           <span className="text-base text-gray-200">Sign Up</span>
@@ -163,13 +163,13 @@ export default function RegisterForm() {
         <div className="flex items-center justify-between gap-3">
           <div
             className={`w-[50%] h-1 rounded-full ${
-              Object.keys(errors).length === 0 ? "bg-[#7a3cdd]" : "bg-[#C3B1E1]"
+              Object.keys(errors).length === 0 ? "bg-teal-700" : "bg-teal-100"
             }`}
           ></div>
           <span className="text-gray-400">OR</span>
           <div
             className={`w-[50%] h-1 rounded-full ${
-              Object.keys(errors).length === 0 ? "bg-[#7a3cdd]" : "bg-[#C3B1E1]"
+              Object.keys(errors).length === 0 ? "bg-teal-700" : "bg-teal-100"
             }`}
           ></div>
         </div>
