@@ -142,12 +142,12 @@ const ChatBot: React.FC = () => {
                 <div className="flex-1 p:2 sm:p-6 justify-between flex flex-col h-[80vh] bg-white w-1/3 fixed bottom-0 right-0 shadow-lg z-50 mb-24 rounded-lg mr-20">
                     <div className="flex items-center space-x-2 p-3 border-b-2 border-gray-200 justify-between">
                         <div className="flex items-center">
-                            <div className="h-10 w-10 rounded-full bg-yellow-300 flex items-center justify-center">
-                                <span className="text-white text-xl">KH</span>
+                            <div className="h-10 w-10 rounded-full bg-teal-600 flex items-center justify-center">
+                                <span className="text-white text-xl">FU</span>
                             </div>
                             <div className="ml-2">
-                                <h2 className="font-bold">Nguyen Hanh</h2>
-                                <p className="text-sm text-gray-500">HCM</p>
+                                <h2 className="font-bold">FOO</h2>
+                                <p className="text-sm text-gray-500">E-Neighbor Chatbot</p>
                             </div>
                         </div>
                         <button className="ml-auto text-gray-500 hover:text-black" onClick={() => setIsChatVisible(false)}>
