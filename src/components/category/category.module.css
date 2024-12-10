@@ -5,21 +5,21 @@
 
 .categories {
   display: flex;
-  flex-wrap: wrap; 
-  gap: 20px; 
+  flex-wrap: wrap;
+  gap: 20px;
   position: relative;
-  padding: 0 50px; 
+  padding: 0 50px;
 }
 
 .category {
   font-family: "Montserrat", sans-serif;
-  font-size: 14px; 
+  font-size: 14px;
   font-weight: 600;
   cursor: pointer;
   padding: 10px 0;
   position: relative;
   transition: color 0.3s ease;
-  white-space: nowrap; 
+  white-space: nowrap;
 }
 
 .category:hover {
@@ -41,23 +41,23 @@
   width: 100%;
   background-color: #fff;
   z-index: 100;
-  padding: 20px 20px 0; 
+  padding: 20px 20px 0;
+  box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;
 }
-
 
 @media (max-width: 425px) {
   .categories {
-    flex-direction: column; 
-    padding: 10px; 
-    gap: 10px; 
+    flex-direction: column;
+    padding: 10px;
+    gap: 10px;
   }
 
   .category {
-    font-size: 13px; 
-    padding: 8px 0; 
+    font-size: 13px;
+    padding: 8px 0;
   }
 
   .boxCategoryContent {
-    padding: 10px; 
+    padding: 10px;
   }
 }
