@@ -61,8 +61,8 @@ export default function LoginForm() {
               type="submit"
               className={`mt-2 block w-full rounded-md py-2 ${
                 Object.keys(errors).length === 0
-                  ? "bg-[#7a3cdd]"
-                  : "bg-[#C3B1E1]"
+                  ? "bg-teal-700"
+                  : "bg-teal-100"
               }`}
             >
               <span className="text-base text-gray-200">
@@ -73,16 +73,16 @@ export default function LoginForm() {
               <div
                 className={`w-[45%] h-1 rounded-full ${
                   Object.keys(errors).length === 0
-                    ? "bg-[#7a3cdd]"
-                    : "bg-[#C3B1E1]"
+                    ? "bg-teal-700"
+                    : "bg-teal-100"
                 }`}
               ></div>
               <span className="text-gray-400 font-montserrat">OR</span>
               <div
                 className={`w-[45%] h-1 rounded-full ${
                   Object.keys(errors).length === 0
-                    ? "bg-[#7a3cdd]"
-                    : "bg-[#C3B1E1]"
+                    ? "bg-teal-700"
+                    : "bg-teal-100"
                 }`}
               ></div>
             </div>
