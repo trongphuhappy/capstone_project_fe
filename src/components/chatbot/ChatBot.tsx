@@ -83,28 +83,6 @@ const ChatBot: React.FC = () => {
     ];
 
     const replies: string[][] = [
-        ["Hello!", "Hi!", "Hey!", "Hi there!", "Howdy"],
-        ["Fine... how are you?", "Pretty well, how are you?", "Fantastic, how are you?"],
-        ["Nothing much", "About to go to sleep", "Can you guess?", "I don't know actually"],
-        ["I am infinite"],
-        ["I am just a bot", "I am a bot. What are you?"],
-        ["The one true God, JavaScript"],
-        ["I am nameless", "I don't have a name"],
-        ["I love you too", "Me too"],
-        ["Have you ever felt bad?", "Glad to hear it"],
-        ["Why?", "Why? You shouldn't!", "Try watching TV"],
-        ["What about?", "Once upon a time..."],
-        ["Tell me a story", "Tell me a joke", "Tell me about yourself"],
-        ["Bye", "Goodbye", "See you later"],
-        ["Sushi", "Pizza"],
-        ["Bro!"],
-        ["Great question"],
-        ["That's ok", "I understand", "What do you want to talk about?"],
-        ["Please say something :("],
-        ["Haha!", "Good one!"],
-        ["Heads", "Tails"],
-        ["You can buy me a coffee at: <a href='https://www.facebook.com/PhuNguyen192002/' target='_blank' style='text-decoration:underline;'>https://www.facebook.com/PhuNguyen192002/</a>"],
-
         // Phản hồi về đồ nội thất
         ["Yes, we have a wide range of furniture for rent.", "You can rent sofas, beds, tables, and more!"],
         ["We provide office furniture like desks, chairs, and storage units.", "Yes, you can rent furniture for your office or events."],
@@ -140,7 +118,29 @@ const ChatBot: React.FC = () => {
         ["Có yêu cầu đặt cọc, mức đặt cọc phụ thuộc vào loại sản phẩm.", "Tiền cọc sẽ được hoàn trả trong vòng 7 ngày sau khi trả đồ."],
         ["Chúng tôi không có phí ẩn, mọi chi phí được liệt kê rõ ràng.", "Giá đã bao gồm thuế, không lo phát sinh."],
         ["Hiện đang có chương trình giảm giá cho thuê dài hạn, tham khảo thêm trên website.", "Khuyến mãi đặc biệt đang chờ bạn!"],
-        ["Chúng tôi làm việc cả cuối tuần và ngày lễ.", "Giờ hoạt động linh hoạt, phục vụ nhu cầu của bạn."]
+        ["Chúng tôi làm việc cả cuối tuần và ngày lễ.", "Giờ hoạt động linh hoạt, phục vụ nhu cầu của bạn."],
+
+        ["Hello!", "Hi!", "Hey!", "Hi there!", "Howdy"],
+        ["Fine... how are you?", "Pretty well, how are you?", "Fantastic, how are you?"],
+        ["Nothing much", "About to go to sleep", "Can you guess?", "I don't know actually"],
+        ["I am infinite"],
+        ["I am just a bot", "I am a bot. What are you?"],
+        ["The one true God, JavaScript"],
+        ["I am nameless", "I don't have a name"],
+        ["I love you too", "Me too"],
+        ["Have you ever felt bad?", "Glad to hear it"],
+        ["Why?", "Why? You shouldn't!", "Try watching TV"],
+        ["What about?", "Once upon a time..."],
+        ["Tell me a story", "Tell me a joke", "Tell me about yourself"],
+        ["Bye", "Goodbye", "See you later"],
+        ["Sushi", "Pizza"],
+        ["Bro!"],
+        ["Great question"],
+        ["That's ok", "I understand", "What do you want to talk about?"],
+        ["Please say something :("],
+        ["Haha!", "Good one!"],
+        ["Heads", "Tails"],
+        ["You can buy me a coffee at: <a href='https://www.facebook.com/PhuNguyen192002/' target='_blank' style='text-decoration:underline;'>https://www.facebook.com/PhuNguyen192002/</a>"]
     ];
 
     const alternative: string[] = ["Same", "Go on...", "Bro...", "Try again", "I'm listening...", "I don't understand :/"];
