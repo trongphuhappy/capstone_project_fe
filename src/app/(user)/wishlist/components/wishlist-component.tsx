@@ -75,7 +75,7 @@ const WishlistComponent = () => {
     return products?.items?.map((product) => (
       <div
         key={product.id}
-        className="mb-6 p-6 sm:flex sm:justify-start border-b border-t items-center"
+        className="mb-6 p-6 sm:flex sm:justify-start border-b border-t items-center xl:space-x-8"
       >
         <div className="sm:w-1/3">
           <Link href={`/product/${product.id}`}>
@@ -104,9 +104,9 @@ const WishlistComponent = () => {
               <b className="font-normal">{product.lessor.shopName}</b>
             </p>
           </Link>
-          <div className="flex items-end border-gray-100 mt-2 justify-between">
+          <div className="flex flex-col sm:flex-row  border-gray-100 mt-2 justify-between">
             <Link href={`/product/${product.id}`}>
-              <div className="mt-4 flex items-end justify-between">
+              <div className="mt-4 flex flex-col sm:flex-row justify-between">
                 <div>
                   <p className="text-xs">Rent price: </p>
                   <p className="mt-2 text-xl font-bold">
@@ -117,11 +117,12 @@ const WishlistComponent = () => {
             </Link>
             <button
               onClick={() => handleRentNow(product)}
-              className="bg-[#0056a3] text-white py-2 px-6 rounded-full hover:opacity-90"
+              className="bg-[#0056a3] text-white py-2 px-6 rounded-full hover:opacity-90 mt-2 sm:mt-0"
             >
               Rent Now
             </button>
           </div>
+
         </div>
       </div>
     ));
@@ -162,7 +163,7 @@ const WishlistComponent = () => {
   return (
     <div className="flex flex-col min-h-screen pt-20 font-montserrat">
       <h1 className="mb-10 text-center text-2xl font-bold">My Wishlist</h1>
-      <div className="mx-auto max-w-6xl justify-center px-6 md:flex md:space-x-10 xl:px-0">
+      <div className="max-w-7xl justify-center px-6 md:flex md:space-x-10 xl:px-0 xl:ml-20">
         {products?.items && products?.items?.length > 0 ? (
           <div className="rounded-lg w-full">{renderProducts()}</div>
         ) : (

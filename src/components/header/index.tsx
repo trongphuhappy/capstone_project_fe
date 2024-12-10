@@ -48,7 +48,7 @@ export default function Header() {
 
   return (
     <header className="mx-auto font-montserrat">
-      <div className="px-[50px] py-4 flex items-center justify-between gap-x-4 md:gap-x-8 lg:gap-x-16 w-full flex-wrap">
+      <div className="pl-[25px] pr-[50px] py-4 flex items-center justify-between gap-x-4 md:gap-x-8 lg:gap-x-16 w-full flex-wrap">
         <Link href="/">
           <figure className="flex items-center gap-x-2">
             <Image src={"/images/logo.svg"} alt="logo" width={50} height={50} />
