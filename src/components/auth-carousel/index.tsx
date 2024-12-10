@@ -27,7 +27,7 @@ export default function AuthCarousel() {
               priority
             />
             <div className="absolute inset-0 bg-black bg-opacity-40"></div>
-            <div className="relative top-[70%]">
+            <div className="absolute inset-0 flex justify-center items-center">
               <p className="font-montserrat text-2xl leading-normal text-gray-50 text-center font-montserrat_alternates">
                 Luxury without ownership
                 <br />
@@ -45,7 +45,7 @@ export default function AuthCarousel() {
               priority
             />
             <div className="absolute inset-0 bg-black bg-opacity-40"></div>
-            <div className="relative top-[70%]">
+            <div className="absolute inset-0 flex justify-center items-center">
               <p className="font-montserrat text-2xl leading-normal text-gray-50 text-center font-montserrat_alternates">
                 Elegant in every detail
                 <br />
@@ -63,7 +63,7 @@ export default function AuthCarousel() {
               priority
             />
             <div className="absolute inset-0 bg-black bg-opacity-40"></div>
-            <div className="relative top-[70%]">
+            <div className="absolute inset-0 flex justify-center items-center">
               <p className="font-montserrat text-2xl leading-normal text-gray-50 text-center font-montserrat_alternates">
                 Enjoy the journey
                 <br />
@@ -81,7 +81,7 @@ export default function AuthCarousel() {
               priority
             />
             <div className="absolute inset-0 bg-black bg-opacity-40"></div>
-            <div className="relative top-[70%]">
+            <div className="absolute inset-0 flex justify-center items-center">
               <p className="font-montserrat text-2xl leading-normal text-gray-50 text-center font-montserrat_alternates">
                 No need to own.
                 <br />

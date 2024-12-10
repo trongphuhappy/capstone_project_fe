@@ -3,6 +3,7 @@
 import { useLoginForm } from "@/app/(auth)/login/hooks/useLoginForm";
 import { Backdrop } from "@/components/backdrop";
 import InputAuth from "@/components/input-auth";
+import useLoginGoogle from "@/hooks/use-login-google";
 import Link from "next/link";
 
 export default function LoginForm() {
@@ -17,13 +18,15 @@ export default function LoginForm() {
     handleToggleTypePassword,
   } = useLoginForm();
 
+  const { handleLoginGoogle, isPendingGoogle } = useLoginGoogle();
+
   return (
-    <div>
-      <div className="w-[70%] px-5 py-4 m-auto">
-        <h2 className="text-[1.5rem] leading-8 font-medium font-montserrat">
+    <div className="w-full min-h-screen flex justify-center items-center bg-white font-montserrat">
+      <div className="w-full max-w-max px-5 py-4 m-auto">
+        <h2 className="text-[1.5rem] leading-8 font-medium text-center">
           Log In
         </h2>
-        <span className="text-gray-500 inline-block mt-2 font-montserrat">
+        <span className="text-gray-500 inline-block mt-2 text-center">
           Creating beautiful spaces without the hassle of ownership – rent your
           dream furniture today!
         </span>
@@ -33,12 +36,12 @@ export default function LoginForm() {
         >
           <div className="flex flex-col gap-y-2">
             <InputAuth
-              id="username"
-              label="Username"
+              id="Email"
+              label="Email"
               type="text"
               autoComplete="off"
-              register={register("userName")}
-              error={errors?.userName?.message}
+              register={register("email")}
+              error={errors?.email?.message}
             />
           </div>
           <div className="flex flex-col gap-y-2">
@@ -55,19 +58,20 @@ export default function LoginForm() {
           </div>
           <div className="flex flex-col gap-y-5">
             <button
-              className={`mt-2 block w-[100%] rounded-md py-2 ${
+              type="submit"
+              className={`mt-2 block w-full rounded-md py-2 ${
                 Object.keys(errors).length === 0
                   ? "bg-[#7a3cdd]"
                   : "bg-[#C3B1E1]"
               }`}
             >
-              <span className="text-base text-gray-200 font-montserrat">
+              <span className="text-base text-gray-200">
                 Log In
               </span>
             </button>
             <div className="flex items-center justify-between gap-3">
               <div
-                className={`w-[50%] h-1 rounded-full ${
+                className={`w-[45%] h-1 rounded-full ${
                   Object.keys(errors).length === 0
                     ? "bg-[#7a3cdd]"
                     : "bg-[#C3B1E1]"
@@ -75,7 +79,7 @@ export default function LoginForm() {
               ></div>
               <span className="text-gray-400 font-montserrat">OR</span>
               <div
-                className={`w-[50%] h-1 rounded-full ${
+                className={`w-[45%] h-1 rounded-full ${
                   Object.keys(errors).length === 0
                     ? "bg-[#7a3cdd]"
                     : "bg-[#C3B1E1]"
@@ -84,30 +88,35 @@ export default function LoginForm() {
             </div>
             <button
               type="button"
-              className={`block w-[100%] rounded-md py-2 bg-white border border-gray-400 hover:bg-gray-300`}
+              onClick={() => handleLoginGoogle()}
+              className="w-full rounded-md py-2 bg-white border border-gray-400 hover:bg-gray-300 flex items-center justify-center space-x-2"
             >
-              <div className="relative">
-                <figure className="absolute top-1/2 -translate-y-1/2 left-[38%]">
-                  <img
-                    src={"/images/Google-icon.svg"}
-                    alt="Login with Google"
-                    width={25}
-                    height={25}
-                    className="block"
-                  />
-                </figure>
-                <span className="text-base text-gray-700">Google</span>
-              </div>
+              <img
+                src={"/images/Google-icon.svg"}
+                alt="Login with Google"
+                width={25}
+                height={25}
+                className="block"
+              />
+              <span className="text-base text-gray-700">Google</span>
             </button>
+
             <div className="flex justify-between">
-              <p className="text-[1rem] font-montserrat">
+              <p className="text-[1rem]">
                 First time using Neighbor?{" "}
                 <Link href="/register">
-                  <span className="font-bold cursor-pointer font-montserrat">
+                  <span className="font-bold cursor-pointer">
                     Sign up
                   </span>
                 </Link>
               </p>
+              <Link href="/forgot-password">
+                <p className="text-[1rem]">
+                  <span className="font-bold cursor-pointer">
+                    Forgot password?
+                  </span>
+                </p>
+              </Link>
             </div>
           </div>
         </form>

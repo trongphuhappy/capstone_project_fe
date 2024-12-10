@@ -1,7 +1,8 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import GlobalContent from "./global-content";
+import GlobalContent from "@/provider/global-content";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 
 const StoreProvider = dynamic(
   () => import("@/provider/redux-provider").then((mod) => mod.StoreProvider),
@@ -15,7 +16,6 @@ const ReactQueryProvider = dynamic(
   { ssr: false }
 );
 
-
 export default function Provider({
   children,
 }: Readonly<{
@@ -24,7 +24,9 @@ export default function Provider({
   return (
     <StoreProvider>
       <ReactQueryProvider>
-        <GlobalContent>{children}</GlobalContent>
+        <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENTID || ""}>
+          <GlobalContent>{children}</GlobalContent>
+        </GoogleOAuthProvider>
       </ReactQueryProvider>
     </StoreProvider>
   );

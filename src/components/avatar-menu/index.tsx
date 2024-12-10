@@ -18,23 +18,23 @@ export default function AvatarMenu({ onCloseTooltip }: AvatarMenuProps) {
   const handleNavigate = (index: number) => {
     switch (index) {
       case 1: {
-        router.push("/profile");
         onCloseTooltip();
+        router.push("/profile");
         break;
       }
       case 2: {
-        router.push("/admin/dashboard");
         onCloseTooltip();
+        router.push("/setting-profile");
         break;
       }
       case 3: {
         onCloseTooltip();
-        // handleOpenTabMessage();
         break;
       }
-      case 4: {
-        router.push("/staff/application");
+      case 5: {
         onCloseTooltip();
+        handleLogout();
+        break;
       }
       default:
         break;
@@ -49,13 +49,13 @@ export default function AvatarMenu({ onCloseTooltip }: AvatarMenuProps) {
       >
         <div className="font-bold">Hello</div>
         <div className="text-xs text-gray-500 truncate">
-          {userState.profile?.userName}
+          {userState.profile?.firstName + " " + userState.profile?.lastName}
         </div>
       </div>
       <ul className="py-2 text-sm text-gray-700" aria-labelledby="avatarButton">
         <li>
           <div
-            onClick={() => handleNavigate(1)}
+            onClick={() => handleNavigate(2)}
             className="cursor-pointer flex items-center justify-between px-4 py-2 bg-white rounded-lg hover:bg-gray-200"
           >
             <div className="flex items-center">
@@ -87,7 +87,7 @@ export default function AvatarMenu({ onCloseTooltip }: AvatarMenuProps) {
 
       <div className="py-1">
         <div
-          onClick={handleLogout}
+          onClick={() => handleNavigate(5)}
           className="cursor-pointer flex items-center justify-between px-4 py-2 bg-white rounded-lg hover:bg-gray-200"
         >
           <div className="flex items-center">

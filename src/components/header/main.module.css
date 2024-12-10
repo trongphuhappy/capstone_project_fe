@@ -1,0 +1,18 @@
+.imageGallery::-webkit-scrollbar {
+    width: 8px;
+    height: 6px;
+  }
+  
+  .imageGallery::-webkit-scrollbar-track {
+    background: #f0f0f0;
+  }
+  
+  .imageGallery::-webkit-scrollbar-thumb {
+    background: #a2a2a2;
+    border-radius: 10px;
+  }
+  
+  .imageGallery::-webkit-scrollbar-thumb:hover {
+    background: #a2a2a2;
+  }
+  

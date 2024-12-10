@@ -1,4 +1,4 @@
-import CartProductItem from "@/components/cart-product-item-v1";
+import CartProductItem from "@/components/card-product-item";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
@@ -6,8 +6,13 @@ import { Swiper, SwiperSlide } from "swiper/react";
 
 import "swiper/swiper-bundle.css";
 
+interface Lessor {
+  shopName: string;
+  description: string;
+}
+
 interface ListCartItemProps {
-  products: API.IProductCard[];
+  products: API.TProduct[];
 }
 
 const ButtonCarousel = styled.div`
@@ -49,13 +54,19 @@ export default function ListCartItem({ products }: ListCartItemProps) {
     }
   }, []);
 
-  const renderCarousel = (list: API.IProductCard[]) => {
+  const renderCarousel = (list: API.TProduct[]) => {
     return list?.map((item, index) => (
-      <SwiperSlide key={index}>
+      <SwiperSlide
+        key={index}
+        style={{
+          marginRight: index === list.length - 1 ? "0" : "25px",
+        }}
+      >
         <CartProductItem product={item} />
       </SwiperSlide>
     ));
   };
+
   return (
     <div className="relative">
       <div className="opacity-0 group-hover:opacity-100">
@@ -63,7 +74,7 @@ export default function ListCartItem({ products }: ListCartItemProps) {
           onClick={() => swiperRef.current?.swiper?.slideNext()}
           disabled={isNextDisabled}
           className={`custom-next-button absolute top-1/2 right-0 translate-x-1/2 -translate-y-1/2 z-[20] ${
-            isNextDisabled === true && "opacity-0"
+            isNextDisabled && "opacity-0"
           }`}
         >
           <ButtonCarousel>
@@ -74,7 +85,7 @@ export default function ListCartItem({ products }: ListCartItemProps) {
           onClick={() => swiperRef.current?.swiper?.slidePrev()}
           disabled={isPrevDisabled}
           className={`custom-prev-button absolute top-1/2 left-0 -translate-x-1/2 -translate-y-1/2 z-[20] ${
-            isPrevDisabled === true && "opacity-0"
+            isPrevDisabled && "opacity-0"
           }`}
         >
           <ButtonCarousel>
@@ -84,8 +95,8 @@ export default function ListCartItem({ products }: ListCartItemProps) {
       </div>
 
       <Swiper
-        slidesPerView={products?.length < 6 ? products?.length : 6}
-        spaceBetween={products?.length < 6 ? 10 : 20}
+        slidesPerView={products?.length < 5 ? products?.length : 5}
+        spaceBetween={products?.length < 5 ? 10 : 20}
         loop={false}
         ref={swiperRef}
       >

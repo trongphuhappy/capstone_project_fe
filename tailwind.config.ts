@@ -12,6 +12,8 @@ const config: Config = {
       fontFamily: {
         montserrat: ["Montserrat", "sans-serif"],
         poppins: ["Poppins", "sans-serif"],
+        inter: ["Inter", "sans-serif"],
+        mulish: ["Mulish", "sans-serif"],
       },
       colors: {
         background: "hsl(var(--background))",
@@ -67,6 +69,8 @@ const config: Config = {
           "rgba(9, 30, 66, 0.25) 0px 4px 8px -5px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px",
         "box-item":
           "rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px",
+        "box-shadown":
+          "rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px",
       },
       keyframes: {
         "accordion-down": {

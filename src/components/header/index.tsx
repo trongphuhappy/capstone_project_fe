@@ -1,7 +1,5 @@
 "use client";
-
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
 import Search from "@/components/search";
 import {
   Tooltip,
@@ -9,147 +7,65 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { useEffect, useState } from "react";
+import { Fragment, useState } from "react";
 import Link from "next/link";
 import { useAppSelector } from "@/stores/store";
-import AvatarMenu from "../avatar-menu";
-import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
-import { useServiceProductCategories } from "@/services/product-categories/services";
-import { productCategories } from "@/utils/locales/en-US/product";
-
-interface INavItem {
-  label: string;
-  subItems: API.ICategoryDescriptions[] | undefined;
-  image: string;
-}
-
-const InitialNavItems: INavItem[] = [
-  {
-    label: "All Products",
-    subItems: [],
-    image: "/images/banner1.png",
-  },
-  {
-    label: "Furnitures",
-    subItems: [],
-    image: "/images/banner2.png",
-  },
-  {
-    label: "Vehicles",
-    subItems: [],
-    image: "/images/car1.png",
-  },
-  {
-    label: "E-Neighbor for LESSOR",
-    subItems: [],
-    image: "/images/auth03.jpg",
-  },
-  {
-    label: "Contact Us",
-    subItems: [],
-    image: "/images/mordern-sopha.jpg",
-  },
-];
+import AvatarMenu from "@/components/avatar-menu";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Bell, SquarePen } from "lucide-react";
+import useCheckExsitLessor from "@/hooks/use-check-exist-lessor";
+import useToast from "@/hooks/use-toast";
+import { useRouter } from "next/navigation";
+import Category from "@/components/category";
 
 export default function Header() {
+  const { addToast } = useToast();
+  const router = useRouter();
   const userState = useAppSelector((state) => state.userSlice);
-  const categorySlice = useAppSelector((state) => state.categorySlice);
-  const [navItems, setNavItems] = useState<INavItem[]>(InitialNavItems);
+  const [avatarMenuTooltip, setAvatarMenuTooltip] = useState<boolean>(false);
+  
+  const { checkExistLessorApi } = useCheckExsitLessor();
 
-  const [underlineWidth, setUnderlineWidth] = useState<number>(0);
-  const [underlineLeft, setUnderlineLeft] = useState<number>(0);
-  const [dropdownIndex, setDropdownIndex] = useState<number | null>(null);
-  const [isDropdownHovered, setIsDropdownHovered] = useState<boolean>(false);
-
-  const handleCategories = async () => {
-    await useServiceProductCategories();
+  const handleToggleAvatarMenuTooltip = () => {
+    setAvatarMenuTooltip((prev) => !prev);
   };
 
-  const handleMouseEnter = (index: number, element: HTMLLIElement) => {
-    if (element) {
-      const { offsetWidth, offsetLeft } = element;
-      setUnderlineWidth(offsetWidth);
-      setUnderlineLeft(offsetLeft);
-      setDropdownIndex(index);
-      if (index === 1) {
-        setNavItems((prevNavItems) =>
-          prevNavItems.map((item, i) =>
-            i === 1 ? { ...item, subItems: categorySlice.furniture } : item
-          )
-        );
-      } else if (index === 2) {
-        setNavItems((prevNavItems) =>
-          prevNavItems.map((item, i) =>
-            i === 2 ? { ...item, subItems: categorySlice.vehicles } : item
-          )
-        );
-      }
+  const handleCloseAvatarMenuTooltip = () => {
+    setAvatarMenuTooltip(false);
+  };
+
+  const handlePostNow = async () => {
+    const res = await checkExistLessorApi();
+    if (res === false) {
+      addToast({
+        type: "error",
+        description: "Please update information to become a lessor",
+      });
+    } else {
+      router.push("/create-product");
     }
   };
-
-  const handleMouseLeave = () => {
-    if (!isDropdownHovered) {
-      setDropdownIndex(null);
-    }
-  };
-
-  const handleDropdownMouseEnter = () => {
-    setIsDropdownHovered(true);
-  };
-
-  const handleDropdownMouseLeave = () => {
-    setIsDropdownHovered(false);
-    setDropdownIndex(null);
-  };
-
-  useEffect(() => {
-    handleCategories();
-  }, []);
 
   return (
-    <header className="px-[50px] mx-auto">
-      <div className="py-4 flex items-center justify-between gap-x-16">
+    <header className="mx-auto font-montserrat">
+      <div className="px-[50px] py-4 flex items-center justify-between gap-x-4 md:gap-x-8 lg:gap-x-16 w-full flex-wrap">
         <Link href="/">
           <figure className="flex items-center gap-x-2">
             <Image src={"/images/logo.svg"} alt="logo" width={50} height={50} />
             <span className="text-[#00939F]">-</span>
-            <h1 className="text-black text-2xl font-semibold font-montserrat">
+            <h1 className="text-black md:text-2xl text-xl font-semibold font-montserrat">
               Neighbor
             </h1>
           </figure>
         </Link>
-        <section className="w-full h-10 flex-1">
+
+        <section className="w-full h-10 flex-1 hidden sm:block">
           <Search />
         </section>
-        <ul className="flex items-center gap-x-3">
-          <li>
-            {userState.profile != null ? (
-              <div>
-                <Popover>
-                  <PopoverTrigger asChild>
-                    <figure className="rounded-full border border-zinc-300 overflow-hidden w-12 h-12 flex items-center justify-center hover:bg-teal-400">
-                      <img
-                        id="avatarButton"
-                        className="w-10 h-10 rounded-full cursor-pointer"
-                        src={
-                          userState?.profile?.avatar !== ""
-                            ? userState?.profile?.avatar
-                            : "/images/unknown.webp"
-                        }
-                        alt="Avatar"
-                      />
-                    </figure>
-                  </PopoverTrigger>
-                  <PopoverContent
-                    side="bottom"
-                    align="center"
-                    className="w-auto h-auto text-white rounded-md p-0 overflow-hidden"
-                  >
-                    <AvatarMenu onCloseTooltip={() => {}} />
-                  </PopoverContent>
-                </Popover>
-              </div>
-            ) : (
+
+        <ul className="flex items-center gap-x-7">
+          {userState.profile === null && (
+            <li>
               <TooltipProvider>
                 <Tooltip delayDuration={100}>
                   <TooltipTrigger>
@@ -170,7 +86,7 @@ export default function Header() {
                           clipRule="evenodd"
                         ></path>
                       </svg>
-                      <span className="whitespace-nowrap font-montserrat text-[#00000] font-semibold">
+                      <span className="whitespace-nowrap font-montserrat text-[#00000] font-semibold hidden sm:block">
                         Hello! Log in or sign up
                       </span>
                     </Link>
@@ -182,87 +98,74 @@ export default function Header() {
                   </TooltipContent>
                 </Tooltip>
               </TooltipProvider>
-            )}
-          </li>
-          <li>
+            </li>
+          )}
+          <li className="inline-flex">
             <TooltipProvider>
               <Tooltip delayDuration={100}>
                 <TooltipTrigger>
-                  <div className="min-w-12 flex items-center justify-center gap-x-1 hover:bg-[#ccc] cursor-pointer rounded-[24px] h-12">
-                    <Link href="/cart">
-                      <img src="/images/bag.svg" alt="bag" />
+                  <div className="flex items-center justify-center gap-x-1 cursor-pointer rounded-[24px] h-12 w-12 group">
+                    <Link href="/wishlist">
+                      <img src="/images/heart-svgrepo-com.svg" alt="heart-svgrepo-com" className="w-full h-full object-contain" />
                     </Link>
                   </div>
                 </TooltipTrigger>
                 <TooltipContent className="bg-gray-50 shadow-tooltip px-2 py-3 select-none">
                   <span className="text-[#00000d] text-xs font-montserrat font-normal">
-                    Cart
+                    Wish list
                   </span>
                 </TooltipContent>
               </Tooltip>
             </TooltipProvider>
           </li>
+
+          {userState.profile !== null && (
+            <Fragment>
+              <li>
+                <div className="flex items-center justify-center gap-x-1 cursor-pointer rounded-[24px] h-12 group">
+                  <Bell className="group-hover:text-purple-400" />
+                </div>
+              </li>
+              <li>
+                <Popover open={avatarMenuTooltip} onOpenChange={setAvatarMenuTooltip}>
+                  <PopoverTrigger asChild>
+                    <div onClick={handleToggleAvatarMenuTooltip}>
+                      <figure className="rounded-full border border-zinc-300 overflow-hidden w-10 h-10 flex items-center justify-center hover:bg-gray-200">
+                        <img
+                          id="avatarButton"
+                          className="w-9 h-9 rounded-full cursor-pointer"
+                          src={userState?.profile?.cropAvatarLink !== "" ? userState?.profile?.cropAvatarLink : "/images/unknown.webp"}
+                          alt="Avatar"
+                        />
+                      </figure>
+                    </div>
+                  </PopoverTrigger>
+                  <PopoverContent
+                    side="bottom"
+                    align="center"
+                    className="w-auto h-auto text-white rounded-md p-0"
+                  >
+                    <AvatarMenu onCloseTooltip={handleCloseAvatarMenuTooltip} />
+                  </PopoverContent>
+                </Popover>
+              </li>
+              <li>
+                <button type="button" onClick={handlePostNow}>
+                  <div className="flex items-center gap-x-2 px-5 py-2 rounded-md bg-[#00939f] hover:bg-[#15757e]">
+                    <SquarePen className="w-5 h-5 text-white" />
+                    <span className="text-[14px] font-semibold text-white">
+                      POST
+                    </span>
+                  </div>
+                </button>
+              </li>
+            </Fragment>
+          )}
         </ul>
       </div>
-      <div className="h-[40px] flex items-center">
-        <nav>
-          <ul className="flex items-center justify-start gap-x-[60px] relative">
-            {navItems?.map((item, index) => (
-              <li
-                key={index}
-                className="cursor-pointer relative"
-                onMouseEnter={(e) => handleMouseEnter(index, e.currentTarget)}
-                onMouseLeave={handleMouseLeave}
-              >
-                <span className="text-xs text-black font-semibold font-montserrat">
-                  {item.label}
-                </span>
-                <AnimatePresence>
-                  {dropdownIndex === index && (
-                    <motion.div
-                      className="absolute left-0 top-[calc(100%+10px)] bg-white shadow-lg w-[800px] h-[400px] z-50 flex"
-                      initial={{ opacity: 0, y: -10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -10 }}
-                      transition={{ duration: 0.3 }}
-                      onMouseEnter={handleDropdownMouseEnter}
-                      onMouseLeave={handleDropdownMouseLeave}
-                    >
-                      <div className="w-1/2 p-4">
-                        {item?.subItems?.map((subItem, subIndex) => (
-                          <a
-                            key={subIndex}
-                            href="#"
-                            className="block px-2 py-1 text-sm text-black hover:bg-gray-200"
-                          >
-                            {productCategories[subItem.name]}
-                          </a>
-                        ))}
-                      </div>
-                      <div className="w-1/2 relative">
-                        <Image
-                          src={item?.image}
-                          alt={item?.label}
-                          layout="fill"
-                          objectFit="cover"
-                        />
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </li>
-            ))}
-            <motion.span
-              className="absolute transition-all duration-300 rounded-lg border border-[#00939F]"
-              style={{
-                width: underlineWidth,
-                left: underlineLeft,
-                bottom: "-4px",
-              }}
-              layout
-            />
-          </ul>
-        </nav>
+
+      <div className="h-[60px] flex items-center">
+        <Category />
       </div>
     </header>
   );

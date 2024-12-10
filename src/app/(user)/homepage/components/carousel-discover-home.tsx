@@ -9,6 +9,7 @@ import styled from "styled-components";
 import Link from "next/link";
 import { Slide, SlideWorks } from "@/mock/homepage";
 
+
 const CarouselContainer = styled.div`
   &:hover h3 {
     text-decoration: underline;
@@ -63,17 +64,17 @@ export default function CarouselDiscoverHome() {
               src={item.image}
               alt={item.title}
               loading="lazy"
-              className="block object-cover w-full h-[480px]"
+              className="block object-cover w-full h-[350px] md:h-[400px]"
             />
             <div
-              className="h-[300px] p-[30px] flex flex-col justify-between flex-1"
+              className="h-[300px] xl:h-[350px] lg:h-[400px] p-[30px] flex flex-col justify-between flex-1"
               style={{ background: item.backgroundContent }}
             >
               <div className="mb-16 flex flex-col gap-y-5">
-                <h3 className="text-xl font-montserrat font-bold text-white">
+                <h3 className="text-base lg:text-xl font-montserrat font-bold text-white">
                   {item.title}
                 </h3>
-                <p className="font-montserrat text-white">{item.description}</p>
+                <p className="font-montserrat text-white text-sm lg:text-base">{item.description}</p>
               </div>
               <div className="w-11 h-11 inline-flex items-center justify-center rounded-full bg-[#000]">
                 <span>
@@ -136,6 +137,20 @@ export default function CarouselDiscoverHome() {
         slidesPerView={SlideWorks.length < 3 ? SlideWorks.length : 3}
         spaceBetween={30}
         ref={swiperRef}
+        breakpoints={{
+          1024: {
+            slidesPerView: SlideWorks.length < 3 ? SlideWorks.length : 3,
+            spaceBetween: 30,
+          },
+          768: {
+            slidesPerView: 2, 
+            spaceBetween: 20,
+          },
+          0: {
+            slidesPerView: 1, 
+            spaceBetween: 10,
+          },
+        }}
       >
         {renderCarousel(SlideWorks)}
       </Swiper>
