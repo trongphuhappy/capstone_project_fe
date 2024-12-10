@@ -5,6 +5,7 @@ import useGetCategories from "@/hooks/use-get-categories";
 import { useAppDispatch, useAppSelector } from "@/stores/store";
 import { addCategory } from "@/stores/category-slice";
 import { Categories } from "@/const/category";
+import Link from "next/link";
 
 export default function Category() {
   const dispatch = useAppDispatch();
@@ -47,46 +48,39 @@ export default function Category() {
 
   const renderFurnitureAndCarContent = (
     index: number,
-    name: string,
-    image: string
+    category: API.Category
   ) => {
     return (
-      <div
-        key={index}
-        className="cursor-pointer flex items-center gap-x-3 group"
-      >
-        <figure className="w-[110px] h-[70px]">
-          <img src={image} alt={name} className="w-full h-full object-cover" />
-        </figure>
-        <span className="font-semibold text-base group-hover:underline">
-          {name}
-        </span>
-      </div>
+      <a href={`/products?category=${category.id}&page=1`}>
+        <div
+          key={index}
+          className="cursor-pointer flex items-center gap-x-3 group"
+        >
+          <figure className="w-[110px] h-[70px]">
+            <img
+              src={category.image}
+              alt={category.name}
+              className="w-full h-full object-cover"
+            />
+          </figure>
+          <span className="font-semibold text-base group-hover:underline">
+            {category.name}
+          </span>
+        </div>
+      </a>
     );
   };
-
-  // const renderAllProductsContent = () => {
-  //   return (
-  //     <div className="flex w-full">
-  //       <div className="w-[15%] border-r-2">
-  //         <div className="text-base font-semibold">Furniture</div>
-  //         <div className="mt-3 mb-2 text-base font-semibold">Car</div>
-  //       </div>
-  //       <div className="pl-2 w-full flex-1 bg-yellow-300">123</div>
-  //     </div>
-  //   );
-  // };
 
   const renderCategoriesContent = () => {
     if (category === "Furniture") {
       return categoryState.furniture?.map(
         (item: API.Category, index: number) => {
-          return renderFurnitureAndCarContent(index, item.name, item.image);
+          return renderFurnitureAndCarContent(index, item);
         }
       );
     } else if (category === "Car") {
       return categoryState.car?.map((item: API.Category, index: number) => {
-        return renderFurnitureAndCarContent(index, item.name, item.image);
+        return renderFurnitureAndCarContent(index, item);
       });
     }
   };

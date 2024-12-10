@@ -20,15 +20,14 @@ const CarouselDiscoverHome = dynamic(
 );
 
 export default function HomeComponent() {
-  const router = useRouter();
   const userState = useAppSelector((state) => state.userSlice.profile);
 
   const handleCarViewmore = () => {
-    location.href = "/products?category=vehicles&page=1";
+    location.href = "/products?page=1";
   };
 
   const handleFurnitureViewmore = () => {
-    location.href = "/products?category=furnitures&page=1";
+    location.href = "/products?page=1";
   };
 
   const sectionVariants = {
@@ -52,7 +51,7 @@ export default function HomeComponent() {
       confirmStatus: confirmStatus.Approved,
       statusType: 1,
       pageIndex: 1,
-      pageSize: 5,
+      pageSize: 10,
       accountUserId: userState?.userId ?? null,
       isVehicle: false,
     });
@@ -66,7 +65,7 @@ export default function HomeComponent() {
       confirmStatus: confirmStatus.Approved,
       statusType: 1,
       pageIndex: 1,
-      pageSize: 5,
+      pageSize: 10,
       accountUserId: userState?.userId ?? null,
       isVehicle: true,
     });

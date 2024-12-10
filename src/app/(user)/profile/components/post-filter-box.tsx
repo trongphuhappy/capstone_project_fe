@@ -23,6 +23,7 @@ export default function PostFilterBox() {
       pageIndex: pageIndex,
       pageSize: 10,
     });
+    console.log(res);
     if (res) setProducts(res.value.data || null);
   };
 
