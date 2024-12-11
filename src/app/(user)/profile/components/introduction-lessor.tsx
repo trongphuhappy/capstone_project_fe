@@ -2,10 +2,11 @@
 
 import React from "react";
 
-import { House, MapPinHouse } from "lucide-react";
+import { House, MapPinHouse, Wallet } from "lucide-react";
 
 import { useAppSelector } from "@/stores/store";
 import useUpdateProfileDialog from "@/hooks/use-update-profile-dialog";
+import { formatCurrencyVND } from "@/utils/format-currency";
 
 export default function IntroductionLessor() {
   const inforLessorState = useAppSelector(
@@ -63,9 +64,21 @@ export default function IntroductionLessor() {
               </b>
             </span>
           </div>
+          <div className="flex items-center gap-x-2">
+            <Wallet className="w-6 h-6 text-gray-700" />
+            <span className="text-[15px] font-normal text-gray-700">
+              Wallet:{" "}
+              <b className="font-medium text-black">
+                {inforLessorState?.wallet &&
+                  formatCurrencyVND(inforLessorState?.wallet)}
+              </b>
+            </span>
+          </div>
         </div>
       ) : (
-        <h3 className="my-4 text-sm lg:text-base">Please update to post rental informations</h3>
+        <h3 className="my-4 text-sm lg:text-base">
+          Please update to post rental informations
+        </h3>
       )}
     </div>
   );
