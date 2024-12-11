@@ -45,11 +45,13 @@
   box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;
 }
 
-@media (max-width: 425px) {
+@media (max-width: 424px) {
   .categories {
-    flex-direction: column;
+    flex-direction: row;
     padding: 10px;
     gap: 10px;
+    justify-content: space-between;
+    padding: 0px 20px;
   }
 
   .category {
@@ -61,3 +63,5 @@
     padding: 10px;
   }
 }
+
+

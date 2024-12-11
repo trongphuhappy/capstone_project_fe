@@ -116,29 +116,47 @@ export default function CustomerReviews({ Feedbacks }: IFeedBackProps) {
         </div> */}
       </div>
 
-      <div className="mt-4 flex gap-2">
-        {["Newest", "5 Stars", "4 Stars", "3 Stars", "2 Stars", "1 Star"].map(
-          (filterOption) => (
-            <button
-              key={filterOption}
-              onClick={() =>
-                setFilter(filterOption === "Newest" ? "all" : filterOption)
-              }
-              className={`px-4 py-2 border rounded-full flex items-center gap-2 ${
-                filter === (filterOption === "Newest" ? "all" : filterOption)
-                  ? "text-blue-500 border-blue-500 bg-blue-50"
-                  : ""
-              }`}
-            >
-              {filter ===
-                (filterOption === "Newest" ? "all" : filterOption) && (
-                <IoCheckmark className="text-blue-500" />
-              )}
-              {filterOption}
-            </button>
-          )
-        )}
+      <div className="mt-4 flex gap-2 flex-col md:flex-row">
+        <select
+          className="block md:hidden px-4 py-2 border rounded-full"
+          onChange={(e) => setFilter(e.target.value === "Newest" ? "all" : e.target.value)}
+        >
+          {["Newest", "5 Stars", "4 Stars", "3 Stars", "2 Stars", "1 Star"].map(
+            (filterOption) => (
+              <option
+                key={filterOption}
+                value={filterOption === "Newest" ? "all" : filterOption}
+                selected={filter === (filterOption === "Newest" ? "all" : filterOption)}
+              >
+                {filterOption}
+              </option>
+            )
+          )}
+        </select>
+
+        <div className="hidden md:flex gap-2">
+          {["Newest", "5 Stars", "4 Stars", "3 Stars", "2 Stars", "1 Star"].map(
+            (filterOption) => (
+              <button
+                key={filterOption}
+                onClick={() =>
+                  setFilter(filterOption === "Newest" ? "all" : filterOption)
+                }
+                className={`px-4 py-2 border rounded-full flex items-center gap-2 ${filter === (filterOption === "Newest" ? "all" : filterOption)
+                    ? "text-blue-500 border-blue-500 bg-blue-50"
+                    : ""
+                  }`}
+              >
+                {filter === (filterOption === "Newest" ? "all" : filterOption) && (
+                  <IoCheckmark className="text-blue-500" />
+                )}
+                {filterOption}
+              </button>
+            )
+          )}
+        </div>
       </div>
+
 
       <div className="mt-6">
         {Feedbacks?.length === 0 ? (
@@ -149,9 +167,7 @@ export default function CustomerReviews({ Feedbacks }: IFeedBackProps) {
           Feedbacks?.map((review, index) => (
             <div key={index} className="border-b py-4 flex space-x-8">
               <div className="flex-3 w-3/12">
-                {/* Thông tin người đánh giá */}
                 <div className="flex flex-col gap-4">
-                  {/* Phần thông tin người dùng */}
                   <div className="flex gap-x-8">
                     <div className="flex flex-col items-center">
                       <div className="w-12 h-12 flex items-center justify-center bg-gray-300 rounded-full text-lg font-bold">
@@ -187,7 +203,6 @@ export default function CustomerReviews({ Feedbacks }: IFeedBackProps) {
                     </div>
                   </div>
 
-                  {/* Phần thông tin bổ sung */}
                   <div className="flex flex-col">
                     <div className="flex justify-between">
                       <div className="flex items-center gap-2">
@@ -207,7 +222,7 @@ export default function CustomerReviews({ Feedbacks }: IFeedBackProps) {
                         <BiLike />
                         <span>Received</span>
                       </div>
-                      {/* <div>{review.totalLikes} Thanks</div> */}
+                      
                       <div>Thanks</div>
                     </div>
                   </div>
@@ -215,7 +230,6 @@ export default function CustomerReviews({ Feedbacks }: IFeedBackProps) {
               </div>
 
               <div className="flex-9 w-9/12">
-                {/* Nội dung đánh giá */}
                 <div>
                   <div className="flex gap-4">
                     <div>
@@ -224,12 +238,8 @@ export default function CustomerReviews({ Feedbacks }: IFeedBackProps) {
                   </div>
 
                   <p className="mt-2">{review.content}</p>
-                  {/* <p className="text-sm text-gray-500 mt-2">
-                    Rate in {review.date}
-                  </p> */}
                 </div>
 
-                {/* Hành động */}
                 <div className="flex items-center justify-between mt-4">
                   <div className="flex gap-4 text-sm">
                     <button className="flex items-center gap-1">

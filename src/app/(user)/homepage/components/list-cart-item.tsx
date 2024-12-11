@@ -99,6 +99,28 @@ export default function ListCartItem({ products }: ListCartItemProps) {
         spaceBetween={products?.length < 5 ? 10 : 20}
         loop={false}
         ref={swiperRef}
+        breakpoints={{
+          1440: {
+            slidesPerView: 4, 
+            spaceBetween: 20,
+          },
+          1024: {
+            slidesPerView: 3, 
+            spaceBetween: 20,
+          },
+          768: {
+            slidesPerView: 2, 
+            spaceBetween: 15,
+          },
+          425: {
+            slidesPerView: 1,
+            spaceBetween: 10,
+          },
+          360: {
+            slidesPerView: 1, 
+            spaceBetween: 10,
+          },
+        }}
       >
         {renderCarousel(products)}
       </Swiper>
