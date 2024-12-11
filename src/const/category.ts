@@ -8,7 +8,4 @@ export const Categories = [
   {
     value: "Car",
   },
-  {
-    value: "Contact us",
-  },
 ];

@@ -5,7 +5,6 @@ import useGetCategories from "@/hooks/use-get-categories";
 import { useAppDispatch, useAppSelector } from "@/stores/store";
 import { addCategory } from "@/stores/category-slice";
 import { Categories } from "@/const/category";
-import Link from "next/link";
 
 export default function Category() {
   const dispatch = useAppDispatch();
@@ -69,7 +68,13 @@ export default function Category() {
   };
 
   const renderCategoriesContent = () => {
-    if (category === "Furniture") {
+    if (category === "All products") {
+      return [...categoryState?.furniture, ...categoryState?.car]?.map(
+        (item: API.Category, index: number) => {
+          return renderFurnitureAndCarContent(index, item);
+        }
+      );
+    } else if (category === "Furniture") {
       return categoryState.furniture?.map(
         (item: API.Category, index: number) => {
           return renderFurnitureAndCarContent(index, item);
@@ -94,6 +99,7 @@ export default function Category() {
             {category.value}
           </div>
         ))}
+        <div className={styles.category}>Contact us</div>
         <motion.div
           className={styles.slider}
           animate={sliderStyle}

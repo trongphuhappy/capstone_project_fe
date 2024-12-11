@@ -160,7 +160,7 @@ export default function HomeComponent() {
               {furnitures?.length > 0 && (
                 <button
                   type="button"
-                  className="h-10 px-2 rounded-lg border border-gray-500"
+                  className="h-10 px-2 rounded-lg border border-gray-500 hover:bg-gray-100"
                   onClick={handleFurnitureViewmore}
                 >
                   <span className="text-black font-montserrat">View all</span>
@@ -231,7 +231,7 @@ export default function HomeComponent() {
               {cars?.length > 0 && (
                 <button
                   type="button"
-                  className="h-10 px-2 rounded-lg border border-gray-500"
+                  className="h-10 px-2 rounded-lg border border-gray-500 hover:bg-gray-100"
                   onClick={handleCarViewmore}
                 >
                   <span className="text-black font-montserrat">View all</span>
