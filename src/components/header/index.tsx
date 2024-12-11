@@ -11,7 +11,11 @@ import { Fragment, useState } from "react";
 import Link from "next/link";
 import { useAppSelector } from "@/stores/store";
 import AvatarMenu from "@/components/avatar-menu";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import { Bell, SquarePen } from "lucide-react";
 import useCheckExsitLessor from "@/hooks/use-check-exist-lessor";
 import useToast from "@/hooks/use-toast";
@@ -21,9 +25,9 @@ import Category from "@/components/category";
 export default function Header() {
   const { addToast } = useToast();
   const router = useRouter();
-  const userState = useAppSelector((state) => state.userSlice);
+  const userState = useAppSelector((state) => state?.userSlice);
   const [avatarMenuTooltip, setAvatarMenuTooltip] = useState<boolean>(false);
-  
+
   const { checkExistLessorApi } = useCheckExsitLessor();
 
   const handleToggleAvatarMenuTooltip = () => {
@@ -106,7 +110,11 @@ export default function Header() {
                 <TooltipTrigger>
                   <div className="flex items-center justify-center gap-x-1 cursor-pointer rounded-[24px] h-12 w-12 group">
                     <Link href="/wishlist">
-                      <img src="/images/heart-svgrepo-com.svg" alt="heart-svgrepo-com" className="w-full h-full object-contain" />
+                      <img
+                        src="/images/heart-svgrepo-com.svg"
+                        alt="heart-svgrepo-com"
+                        className="w-full h-full object-contain"
+                      />
                     </Link>
                   </div>
                 </TooltipTrigger>
@@ -127,14 +135,21 @@ export default function Header() {
                 </div>
               </li>
               <li>
-                <Popover open={avatarMenuTooltip} onOpenChange={setAvatarMenuTooltip}>
+                <Popover
+                  open={avatarMenuTooltip}
+                  onOpenChange={setAvatarMenuTooltip}
+                >
                   <PopoverTrigger asChild>
                     <div onClick={handleToggleAvatarMenuTooltip}>
                       <figure className="rounded-full border border-zinc-300 overflow-hidden w-10 h-10 flex items-center justify-center hover:bg-gray-200">
                         <img
                           id="avatarButton"
                           className="w-9 h-9 rounded-full cursor-pointer"
-                          src={userState?.profile?.cropAvatarLink !== "" ? userState?.profile?.cropAvatarLink : "/images/unknown.webp"}
+                          src={
+                            userState?.profile?.cropAvatarLink !== ""
+                              ? userState?.profile?.cropAvatarLink
+                              : "/images/unknown.webp"
+                          }
                           alt="Avatar"
                         />
                       </figure>
