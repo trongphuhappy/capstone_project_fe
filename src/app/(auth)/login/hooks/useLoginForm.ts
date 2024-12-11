@@ -40,6 +40,8 @@ export function useLoginForm() {
           reset();
           if (data.authProfile.roleId === Roles[1].id) {
             return router.push("/");
+          } else if(data.authProfile.roleId === Roles[0].id) {
+            return router.push("/admin/dashboard");
           }
         },
         onError: (error) => {
