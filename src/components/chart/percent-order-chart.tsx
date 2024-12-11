@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import Chart from "react-apexcharts";
 
-const DoughnutChart: React.FC = () => {
+interface PercentOrderChartProps {
+  orderPercent: API.TOrderPercent;
+}
+
+export function PercentOrderChart({ orderPercent }: PercentOrderChartProps) {
   const [chartOptions] = useState({
     chart: {
       height: 230,
@@ -14,7 +18,7 @@ const DoughnutChart: React.FC = () => {
         donut: { size: "76%" },
       },
     },
-    labels: ["Tailwind CSS", "Preline UI", "Others"],
+    labels: ["Order success", "Order fail"],
     legend: { show: false },
     dataLabels: { enabled: false },
     stroke: {
@@ -45,36 +49,37 @@ const DoughnutChart: React.FC = () => {
         `;
       },
     },
-    colors: ["#3b82f6", "#22d3ee", "#e5e7eb"],
+    colors: ["#3b82f6", "#22d3ee"],
   });
 
-  const [chartSeries] = useState([47, 23, 30]);
+  const [chartSeries] = useState([
+    orderPercent.percentOrderSuccess,
+    orderPercent.percentOrderFail,
+  ]);
 
   return (
     <div className="flex flex-col justify-center items-center">
-      <Chart options={chartOptions} series={chartSeries} type="donut" height={230} width={230} />
+      <Chart
+        options={chartOptions}
+        series={chartSeries}
+        type="donut"
+        height={230}
+        width={230}
+      />
       <div className="flex justify-center sm:justify-end items-center gap-x-4 mt-3 sm:mt-6">
         <div className="inline-flex items-center">
           <span className="size-2.5 inline-block bg-blue-600 rounded-sm me-2"></span>
           <span className="text-[13px] text-gray-600 dark:text-neutral-400">
-            Income
+            Order success
           </span>
         </div>
         <div className="inline-flex items-center">
           <span className="size-2.5 inline-block bg-cyan-500 rounded-sm me-2"></span>
           <span className="text-[13px] text-gray-600 dark:text-neutral-400">
-            Outcome
-          </span>
-        </div>
-        <div className="inline-flex items-center">
-          <span className="size-2.5 inline-block bg-gray-300 rounded-sm me-2 dark:bg-neutral-700"></span>
-          <span className="text-[13px] text-gray-600 dark:text-neutral-400">
-            Others
+            Order fail
           </span>
         </div>
       </div>
     </div>
   );
-};
-
-export default DoughnutChart;
+}

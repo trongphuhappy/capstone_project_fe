@@ -16,7 +16,6 @@ export default function Footer() {
     <footer className="px-4 md:px-8 lg:px-[50px] py-10 pb-[28px] bg-[#e1e1e1]">
       <div className="content max-w-[1200px] mx-auto">
         <div className="flex flex-col lg:flex-row gap-10 lg:gap-[145px]">
-         
           <div className="text lg:w-[45%]">
             <a href="#">
               <figure className="flex items-center gap-x-2">
@@ -50,9 +49,7 @@ export default function Footer() {
             </div>
           </div>
 
-         
           <div className="font-poppins grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            
             <div>
               <p className="font-semibold text-base text-[#000000]">Service</p>
               <ul className="mt-4">
@@ -86,7 +83,7 @@ export default function Footer() {
                 </li>
               </ul>
             </div>
-           
+
             <div>
               <p className="font-semibold text-base text-[#000000]">Support</p>
               <ul className="mt-4">
@@ -120,7 +117,7 @@ export default function Footer() {
                 </li>
               </ul>
             </div>
-           
+
             <div>
               <p className="font-semibold text-base text-[#000000]">Company</p>
               <ul className="mt-4">
@@ -129,7 +126,7 @@ export default function Footer() {
                     Location:
                   </span>{" "}
                   <span className="text-sm text-[#00000075] hover:text-[#000000] font-light">
-                    27 Division St, New York, NY 10002, USA
+                    Đường Tạ Quang Bửu, Khu phố 6, Thủ Đức, Hồ Chí Minh
                   </span>
                 </li>
                 <li className="mt-4">
@@ -137,7 +134,7 @@ export default function Footer() {
                     Email:
                   </span>{" "}
                   <span className="text-sm text-[#00000075] hover:text-[#000000] font-light">
-                    email@gmail.com
+                    trongphu012345@gmail.com
                   </span>
                 </li>
                 <li className="mt-4">
@@ -155,10 +152,9 @@ export default function Footer() {
 
         <div className="mt-10 w-full h-[1px] bg-[#59554b]"></div>
         <p className="mt-6 text-center font-normal text-sm text-[#807d74]">
-          Copyright ©2024 neighbor.com. All rights reserved.
+          Copyright ©2024 https://neighbor-bk.vercel.app. All rights reserved.
         </p>
       </div>
     </footer>
-
   );
 }
