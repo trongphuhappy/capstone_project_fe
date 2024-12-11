@@ -56,12 +56,12 @@ export default function HomeBanner() {
         </Swiper>
       </div>
       <div className="absolute left-[100px] top-1/3 z-[20]">
-        <div className="w-[320px] lg:w-[812px] md:w-[650px] flex flex-col gap-y-[17px]">
+        <div className="w-[260px] sm:w-[320px] lg:w-[812px] md:w-[650px]  flex-col gap-y-[17px]">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease: "easeOut" }}
-            className="font-montserrat lg:text-[40px] md:text-[30px] text-white font-bold"
+            className="font-montserrat lg:text-[40px] md:text-[30px] sm:text-[20px] text-white font-bold max-w-[90%] sm:max-w-[100%]"
           >
             Borrow Joy, Be Neighborly <br /> Instant Rentals, Seamless
             Connections

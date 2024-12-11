@@ -29,15 +29,14 @@ export default function ProfileComponent() {
   }, []);
 
   return (
-    <div>
-      <div className="font-montserrat mx-auto">
-        <Hero nav={nav} setNav={setNav} />
-        <main className="my-3 w-full max-w-[1425px] mx-auto relative">
-          {NavBars[nav].value === "post" && <PostComponent />}
-          {NavBars[nav].value === "lease-tracker" && <LeaseTracker />}
-          {NavBars[nav].value === "statistic" && <StatisticLessor />}
-        </main>
-      </div>
+    <div className="relative">
+      <Hero nav={nav} setNav={setNav} />
+      <main className="my-3 w-full max-w-[1425px] mx-auto md:mt-0 mt-[11rem]">
+        {NavBars[nav].value === "post" && <PostComponent />}
+        {NavBars[nav].value === "lease-tracker" && <LeaseTracker />}
+        {NavBars[nav].value === "statistic" && <StatisticLessor />}
+      </main>
     </div>
+
   );
 }

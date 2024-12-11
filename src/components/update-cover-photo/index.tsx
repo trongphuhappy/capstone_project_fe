@@ -113,9 +113,9 @@ export default function UpdateCoverPhoto() {
           >
             <div className="flex items-center gap-x-3">
               <i>
-                <Camera className="text-black w-5 h-5 group-hover:text-gray-200" />
+                <Camera className="text-black sm:w-5 sm:h-5 w-4 h-4 group-hover:text-gray-200" />
               </i>
-              <span className="text-base font-medium group-hover:text-gray-200">
+              <span className="md:text-base sm:text-sm text-xs font-medium group-hover:text-gray-200">
                 Edit cover photo
               </span>
             </div>

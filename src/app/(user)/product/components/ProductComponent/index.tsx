@@ -187,21 +187,21 @@ export default function ProductComponent({ productId }: ProductComponentProps) {
   }, [productId]);
 
   return (
-    <div className="mt-2 py-3 px-[50px] font-montserrat">
+    <div className="mt-2 py-3 md:px-[50px] px-[25px] font-montserrat">
       {isPending === false && product && (
         <div>
           <div className="pb-2 border-b-2">
             <BreadcrumbComponent breadcrumbs={breadcrumbs} />
           </div>
-          <div className="py-3 flex items-start gap-10">
-            <div className="w-[50%]">
+          <div className="py-3 flex flex-col md:flex-row items-start gap-10">
+            <div className="w-full md:w-[50%]">
               <ImageGallery
                 images={product.productImagesUrl.map((src) => ({ src }))}
               />
             </div>
 
-            {/* Detail product */}
-            <div className="w-[50%]">
+            {/* Chi tiết sản phẩm */}
+            <div className="w-full md:w-[50%]">
               <div className="pb-4">
                 <div className="flex items-center gap-x-7">
                   <h1 className="font-semibold text-[#111111] text-2xl uppercase">
@@ -209,25 +209,25 @@ export default function ProductComponent({ productId }: ProductComponentProps) {
                   </h1>
                   {(product?.confirmStatus === 0 ||
                     product?.confirmStatus === -1) && (
-                    <div>
-                      <TooltipProvider>
-                        <Tooltip delayDuration={100}>
-                          <TooltipTrigger>
-                            <div className="w-5 h-5 rounded-full flex items-center justify-center bg-red-500">
-                              <span className="text-white text-[12px]">!</span>
-                            </div>
-                          </TooltipTrigger>
-                          <TooltipContent className="bg-gray-50 shadow-tooltip px-2 py-3 select-none">
-                            <span className="text-[#00000d] text-xs font-montserrat font-normal">
-                              {product?.confirmStatus === 0
-                                ? "The product has not been approved by an administrator"
-                                : `The product has been rejected with reason: ${product?.rejectReason}`}
-                            </span>
-                          </TooltipContent>
-                        </Tooltip>
-                      </TooltipProvider>
-                    </div>
-                  )}
+                      <div>
+                        <TooltipProvider>
+                          <Tooltip delayDuration={100}>
+                            <TooltipTrigger>
+                              <div className="w-5 h-5 rounded-full flex items-center justify-center bg-red-500">
+                                <span className="text-white text-[12px]">!</span>
+                              </div>
+                            </TooltipTrigger>
+                            <TooltipContent className="bg-gray-50 shadow-tooltip px-2 py-3 select-none">
+                              <span className="text-[#00000d] text-xs font-montserrat font-normal">
+                                {product?.confirmStatus === 0
+                                  ? "The product has not been approved by an administrator"
+                                  : `The product has been rejected with reason: ${product?.rejectReason}`}
+                              </span>
+                            </TooltipContent>
+                          </Tooltip>
+                        </TooltipProvider>
+                      </div>
+                    )}
                 </div>
                 <div className="mt-4 flex items-baseline">
                   <p className="text-4xl text-black font-semibold">
@@ -286,12 +286,12 @@ export default function ProductComponent({ productId }: ProductComponentProps) {
                 )}
               </div>
               <hr className="mb-4" />
-              {/* if the product does not belong to the lessor*/}
+             
               <div>
                 <Fragment>
                   {product?.isProductBelongsToUser === false ? (
                     <div className="my-2">
-                      <div className="flex items-center gap-x-3">
+                      <div className="flex flex-col xl:flex-row items-center gap-y-3 md:gap-x-3">
                         <button
                           type="button"
                           className="w-full h-[56px] px-[12px] border border-[#0056a3] rounded-3xl group"
@@ -340,7 +340,7 @@ export default function ProductComponent({ productId }: ProductComponentProps) {
             </div>
           </div>
 
-          <div className="mt-6 flex-6 w-6/12">
+          <div className="mt-6 flex-6 md:w-6/12 w-full">
             <Detail
               description={product?.description || ""}
               policies={product?.policies || ""}
