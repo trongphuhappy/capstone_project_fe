@@ -124,7 +124,7 @@ export default function ProductsComponent() {
           </span>
         </div>
         <div className="mt-5">
-          <div className="flex items-center gap-x-8 pb-6 border-b-[1px] border-[#e5e5e5]">
+          <div className="flex flex-wrap items-center gap-4 pb-6 border-b-[1px] border-[#e5e5e5]">
             <Select
               onValueChange={(value) => {
                 const index = Number.parseInt(value);
@@ -185,10 +185,18 @@ export default function ProductsComponent() {
               </Select>
             ))}
           </div>
+
           <div className="py-6">
-            <div className="grid grid-cols-5 gap-y-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-y-4 gap-x-4 ml-10 md:ml-14 max-[360px]:ml-3">
               {products?.items?.map((product: API.TProduct, index: number) => {
-                return <CartProductItem key={index} product={product} />;
+                return (
+                  <div
+                    key={index}
+                    className="mr-0 max-[360px]:mr-6"
+                  >
+                    <CartProductItem product={product} />
+                  </div>
+                );
               })}
             </div>
             {products && products?.totalCount > 0 && (
@@ -204,6 +212,7 @@ export default function ProductsComponent() {
               <h3 className="text-xl">No result</h3>
             )}
           </div>
+
         </div>
       </div>
     </div>
