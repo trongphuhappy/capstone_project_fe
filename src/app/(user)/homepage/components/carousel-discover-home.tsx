@@ -67,7 +67,7 @@ export default function CarouselDiscoverHome() {
               className="block object-cover w-full h-[350px] md:h-[400px]"
             />
             <div
-              className="h-[300px] xl:h-[350px] lg:h-[400px] p-[30px] flex flex-col justify-between flex-1"
+              className="h-[360px] sm:h-[300px] xl:h-[350px] lg:h-[400px] p-[30px] flex flex-col justify-between flex-1"
               style={{ background: item.backgroundContent }}
             >
               <div className="mb-16 flex flex-col gap-y-5">
