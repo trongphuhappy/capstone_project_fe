@@ -10,14 +10,13 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { filters } from "@/const/products";
-// import useGetProductsFilter from "@/hooks/useGetProductsFilter";
 import { useEffect, useState } from "react";
 import PaginatedComponent from "@/components/paginated";
 import { useSearchParams, useRouter } from "next/navigation";
 import useGetProducts from "@/hooks/use-get-products";
 import { useAppDispatch, useAppSelector } from "@/stores/store";
 import useGetCategories from "@/hooks/use-get-categories";
-import { addCategory } from "@/stores/category-slice";
+import useSearchDialog from "@/hooks/use-search-dialog";
 
 export default function ProductsComponent() {
   const dispatch = useAppDispatch();
@@ -47,6 +46,7 @@ export default function ProductsComponent() {
   const [categories, setCategories] = useState<API.Category[]>([]);
 
   const { getProductsApi } = useGetProducts();
+  const { onOpenSearchDialog } = useSearchDialog();
   const [products, setProducts] = useState<API.TGetProducts | null>(null);
 
   const handlePageChange = (page: number) => {
@@ -65,7 +65,7 @@ export default function ProductsComponent() {
     const res = await getProductsApi({
       name: searchName,
       pageIndex: pageIndex,
-      pageSize: 12,
+      pageSize: 15,
       categoryId: category,
     });
     if (res) setProducts(res.value.data);
@@ -125,8 +125,20 @@ export default function ProductsComponent() {
         </div>
         <div className="mt-5">
           <div className="flex items-center gap-x-8 pb-6 border-b-[1px] border-[#e5e5e5]">
+            <div
+              className="w-[180px] rounded-3xl bg-[#f5f5f5] border-none hover:bg-[#d5d5d5] text-[#11111] text-xs font-bold"
+              onClick={onOpenSearchDialog}
+            >
+              <span className="inline-block font-montserrat px-3 py-2 select-none">
+                Search
+              </span>
+            </div>
             <Select
               onValueChange={(value) => {
+                if (value === "-1") {
+                  setCategory(null);
+                  return;
+                }
                 const index = Number.parseInt(value);
                 setCategory(categories[index].id.toString());
               }}
@@ -136,6 +148,12 @@ export default function ProductsComponent() {
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>
+                  <SelectItem
+                    value={"-1"}
+                    className="font-montserrat py-2 select-none"
+                  >
+                    All
+                  </SelectItem>
                   {categories?.map((item: API.Category, index: number) => (
                     <SelectItem
                       key={index}
