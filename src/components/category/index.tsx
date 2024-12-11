@@ -51,11 +51,8 @@ export default function Category() {
     category: API.Category
   ) => {
     return (
-      <a href={`/products?category=${category.id}&page=1`}>
-        <div
-          key={index}
-          className="cursor-pointer flex items-center gap-x-3 group"
-        >
+      <a key={index} href={`/products?category=${category.id}&page=1`}>
+        <div className="cursor-pointer flex items-center gap-x-3 group">
           <figure className="w-[110px] h-[70px]">
             <img
               src={category.image}

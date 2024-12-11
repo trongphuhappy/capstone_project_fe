@@ -21,9 +21,8 @@ export default function PostFilterBox() {
     const res = await getProductsApi({
       accountLessorId: userState.profile?.userId,
       pageIndex: pageIndex,
-      pageSize: 10,
+      pageSize: 5,
     });
-    console.log(res);
     if (res) setProducts(res.value.data || null);
   };
 

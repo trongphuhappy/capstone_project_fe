@@ -99,6 +99,7 @@ declare namespace API {
     accountId?: string | null;
     wareHouseAddress?: string | null;
     shopName?: string | null;
+    wallet?: number | null;
     locationType?: LocationType | null;
   };
 }
