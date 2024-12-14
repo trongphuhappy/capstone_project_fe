@@ -45,6 +45,8 @@ declare namespace REQUEST {
     description?: string | null;
     rating?: string | null;
     value?: string | null;
+    minPrice?: number | null;
+    maxPrice?: number | null;
     maximumRentDays?: string | null;
     categoryId?: string | null;
     confirmStatus?: confirmStatus | null;

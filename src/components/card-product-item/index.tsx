@@ -116,6 +116,16 @@ export default function CardProductItem({ product }: CardProductItemProps) {
             </b>
           </Link>
         </p>
+        {product.isProductBelongsToUser === true && (
+          <p className="text-xs mt-2 font-normal">
+            Status:{" "}
+            <b className="font-normal hover:text-blue-500">
+              {product.confirmStatus === 1 && "Approved"}
+              {product.confirmStatus === -1 && "Rejected"}
+              {product.confirmStatus === 0 && " Waiting for approval"}
+            </b>
+          </p>
+        )}
         <div className="mt-4 flex items-end justify-between">
           <div>
             <p className="text-xs">Rent price: </p>

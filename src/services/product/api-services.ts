@@ -28,6 +28,8 @@ export const getProducts = async ({
   description = null,
   rating = null,
   value = null,
+  minPrice = null,
+  maxPrice = null,
   maximumRentDays = null,
   categoryId = null,
   confirmStatus = null,
@@ -45,15 +47,16 @@ export const getProducts = async ({
   if (description) params.description = description;
   if (rating) params.rating = rating;
   if (value) params.value = value;
+  if (minPrice) params.minPrice = minPrice;
+  if (maxPrice) params.maxPrice = maxPrice;
   if (maximumRentDays) params.maximumRentDays = maximumRentDays;
   if (categoryId) params.categoryId = categoryId;
-  if (confirmStatus) params.confirmStatus = confirmStatus;
+  if (confirmStatus != null) params.confirmStatus = confirmStatus;
   if (accountUserId) params.accountUserId = accountUserId;
   if (accountLessorId) params.accountLessorId = accountLessorId;
   if (pageIndex) params.pageIndex = pageIndex;
   if (pageSize) params.pageSize = pageSize;
   if (isVehicle != null) params.isVehicle = isVehicle;
-
   const response = await request<TResponseData<API.TGetProducts>>(
     API_ENDPOINTS.GET_PRODUCTS,
     {
