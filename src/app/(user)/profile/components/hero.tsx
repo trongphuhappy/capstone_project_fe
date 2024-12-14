@@ -201,7 +201,7 @@ export default function Hero({ nav, setNav }: HeroProps) {
                       <button
                         type="button"
                         onClick={handlePostNow}
-                        className="px-3 py-2 bg-[#e2e5e9] rounded-xl hover:bg-[#00939f] group shadow-header-shadown"
+                        className="h-max px-3 py-2 bg-[#e2e5e9] rounded-xl hover:bg-[#00939f] group shadow-header-shadown"
                       >
                         <div className="flex items-center gap-x-3">
                           <i>

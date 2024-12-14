@@ -1,16 +1,41 @@
 import CardProductItem from "@/components/card-product-item";
 import PaginatedComponent from "@/components/paginated";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { confirmStatus } from "@/const/products";
+import useGetCategories from "@/hooks/use-get-categories";
 import useGetProducts from "@/hooks/use-get-products";
 import { useAppSelector } from "@/stores/store";
-import { Plus, SlidersHorizontal } from "lucide-react";
+import { Plus, SlidersHorizontal, X } from "lucide-react";
 import { Fragment, useEffect, useState } from "react";
 
 export default function PostFilterBox() {
   const userState = useAppSelector((state) => state.userSlice);
   const { getProductsApi, isPending } = useGetProducts();
+  const { getCategoriesApi, isPending: isPendingCategories } =
+    useGetCategories();
 
+  const [openFilter, setOpenFilter] = useState<boolean>(false);
   const [products, setProducts] = useState<API.TGetProducts | null>(null);
+  const [categories, setCategories] = useState<API.Category[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
+  const [category, setCategory] = useState<string | null>(null);
+  const [statusType, setStatusType] = useState<confirmStatus | null>(null);
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
@@ -22,11 +47,34 @@ export default function PostFilterBox() {
       accountLessorId: userState.profile?.userId,
       pageIndex: pageIndex,
       pageSize: 5,
+      categoryId: category,
+      confirmStatus: statusType ?? null,
     });
     if (res) setProducts(res.value.data || null);
   };
 
+  const handleFetchCategory = async () => {
+    const res = await getCategoriesApi({ pageIndex: 1, pageSize: 100 });
+    if (res?.value?.data.items) {
+      setCategories(res?.value?.data?.items);
+    }
+  };
+
+  const handleCloseFilter = () => {
+    setOpenFilter(false);
+  };
+
+  const handleOpenFilter = () => {
+    setOpenFilter(true);
+  };
+
+  const handleFilterPost = () => {
+    handleCloseFilter();
+    handleFetchProducts(1);
+  };
+
   useEffect(() => {
+    handleFetchCategory();
     if (currentPage !== 1) {
       handleFetchProducts(1);
       setCurrentPage(1);
@@ -48,7 +96,7 @@ export default function PostFilterBox() {
         <div>
           <button
             type="button"
-            // onClick={openUpdateBiography}
+            onClick={handleOpenFilter}
             className="w-full px-3 py-[6px] bg-[#e2e5e9] rounded-sm hover:bg-[#d1d4d7] group shadow-header-shadown"
           >
             <div className="flex gap-x-2 items-center">
@@ -97,6 +145,151 @@ export default function PostFilterBox() {
           </div>
         )}
       </div>
+      <Dialog open={openFilter} onOpenChange={handleCloseFilter}>
+        <DialogContent className="sm:max-w-[600px] px-0 pt-2 pb-7 my-0 overflow-y-auto font-montserrat">
+          <DialogHeader>
+            <DialogTitle className="px-5">
+              <div className="pt-2 flex items-center justify-between">
+                <h2 className="text-xl text-center">Filter post</h2>
+                <div className="flex justify-end">
+                  <button
+                    className="w-8 h-8 rounded-full text-2xl opacity-70 hover:bg-black/10 flex justify-center items-center group"
+                    onClick={handleCloseFilter}
+                  >
+                    <i>
+                      <X
+                        strokeWidth={2.75}
+                        className="text-gray-500 group-hover:text-gray-950 w-5 h-5"
+                      />
+                    </i>
+                  </button>
+                </div>
+              </div>
+            </DialogTitle>
+          </DialogHeader>
+          <div className="pt-3 px-5 border-t">
+            <h3 className="text-[17px] text-[#111111] font-semibold">
+              Use filters to search for posts
+            </h3>
+            <div className="mt-3 flex flex-col gap-y-4">
+              <div className="flex">
+                <h4 className="text-base w-[150px]">Category: </h4>
+                <div>
+                  <Select
+                    onValueChange={(value) => {
+                      if (value === "-1") {
+                        setCategory(null);
+                        return;
+                      }
+                      const index = Number.parseInt(value);
+                      setCategory(categories[index].id.toString());
+                    }}
+                  >
+                    <SelectTrigger className="w-[180px] rounded-3xl bg-[#f5f5f5] border-none hover:bg-[#d5d5d5] text-[#11111] text-xs font-bold">
+                      <SelectValue placeholder="Category" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectGroup>
+                        <SelectItem
+                          value={"-1"}
+                          className="font-montserrat py-2 select-none"
+                        >
+                          All
+                        </SelectItem>
+                        {categories?.map(
+                          (item: API.Category, index: number) => (
+                            <SelectItem
+                              key={index}
+                              value={index.toString()}
+                              className="font-montserrat py-2 select-none"
+                            >
+                              {item.name}
+                            </SelectItem>
+                          )
+                        )}
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+              <div className="flex">
+                <h4 className="text-base w-[150px]">Status : </h4>
+                <div>
+                  <Select
+                    onValueChange={(value) => {
+                      if (value === "-2") {
+                        setStatusType(null);
+                        return;
+                      }
+                      if (value === "1") setStatusType(confirmStatus.Approved);
+                      if (value === "0") setStatusType(confirmStatus.Pending);
+                      if (value === "-1") setStatusType(confirmStatus.Rejected);
+                    }}
+                  >
+                    <SelectTrigger className="w-[180px] rounded-3xl bg-[#f5f5f5] border-none hover:bg-[#d5d5d5] text-[#11111] text-xs font-bold">
+                      <SelectValue placeholder="Status" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectGroup>
+                        <SelectItem
+                          value={"-2"}
+                          className="font-montserrat py-2 select-none"
+                        >
+                          All
+                        </SelectItem>
+                        <SelectItem
+                          value={"0"}
+                          className="font-montserrat py-2 select-none"
+                        >
+                          Waiting for approval
+                        </SelectItem>
+                        <SelectItem
+                          value={"1"}
+                          className="font-montserrat py-2 select-none"
+                        >
+                          Approved
+                        </SelectItem>
+                        <SelectItem
+                          value={"-1"}
+                          className="font-montserrat py-2 select-none"
+                        >
+                          Rejected
+                        </SelectItem>
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="border-t pt-3 pr-6 text-right">
+            <div className="ml-auto mr-0">
+              <button
+                type="button"
+                onClick={handleCloseFilter}
+                className="mr-2 px-3 py-2 bg-[#e2e5e9] rounded-md hover:bg-[#00939f] group shadow-header-shadown"
+              >
+                <div className="flex items-center gap-x-3">
+                  <span className="text-[14px] font-medium group-hover:text-white">
+                    Cancel
+                  </span>
+                </div>
+              </button>
+              <button
+                type="button"
+                onClick={handleFilterPost}
+                className="px-3 py-2 bg-[#e2e5e9] rounded-md hover:bg-[#00939f] group shadow-header-shadown"
+              >
+                <div className="flex items-center gap-x-3">
+                  <span className="text-[14px] font-medium group-hover:text-white">
+                    Filter
+                  </span>
+                </div>
+              </button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

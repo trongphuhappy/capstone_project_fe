@@ -10,7 +10,7 @@ export default function UserLayout({
   return (
     <div>
       <Header />
-      <main>{children}</main>
+      <main className="font-montserrat">{children}</main>
       <Footer />
       <ChatBot />
     </div>
