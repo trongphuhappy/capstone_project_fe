@@ -31,7 +31,7 @@ export default function PostFilterBox({ accountId }: IPostFilterBoxProps) {
 
   const handleFetchProducts = async (pageIndex: number) => {
     const res = await getProductsApi({
-      accountUserId: accountId,
+      accountLessorId: accountId,
       pageIndex: pageIndex,
       pageSize: 10,
       categoryId: category,
