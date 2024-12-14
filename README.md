@@ -34,3 +34,22 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## Running Tests with Cypress
+
+To run end-to-end tests using Cypress, follow these steps:
+
+1. Install Cypress:
+    ```sh
+    npm install cypress --save-dev
+    ```
+
+2. Open Cypress:
+    ```sh
+    npx cypress open
+    ```
+
+3. Run the tests:
+    - In the Cypress Test Runner, click on the test file you want to run, or click on "Run all specs" to run all tests.
+
+For more information on writing and running tests with Cypress, refer to the [Cypress Documentation](https://docs.cypress.io).
