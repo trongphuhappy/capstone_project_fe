@@ -23,16 +23,15 @@ export function DatePicker({ date, type, onSelect }: DatePickerProps) {
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button
-          variant={"outline"}
+        <button
+          type="button"
           className={cn(
-            "w-full justify-start text-left font-normal border border-gray-400 focus-visible:ring-0 focus-visible:none py-5",
-            !date && "text-muted-foreground"
+            "flex gap-x-2 h-max py-2 px-3 border-2 border-gray-300 rounded-xl hover:bg-gray-200",
           )}
         >
           <CalendarIcon />
           {date ? format(date, "PPP") : <span>Pick a date</span>}
-        </Button>
+        </button>
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0" align="start">
         <Calendar

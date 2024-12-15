@@ -18,27 +18,6 @@ import useAddWishlist from "@/hooks/use-add-wishlist";
 interface CardProductItemProps {
   product: API.TProduct;
 }
-//   productId: "12345",
-//   name: "Modern Sofa",
-//   description: "A comfortable and stylish modern sofa for your living room.",
-//   images: [
-//     "/images/sofa1.jpg",
-//     "/images/sofa2.jpg",
-//     "/images/sofa3.jpg",
-//   ],
-//   lessor: {
-//     shopName: "HomeStyle Furniture",
-//     description: "Quality furniture for your home.",
-//   },
-//   price: 3500000,
-//   timeUnit: "month",
-//   location: "Hà Nội",
-//   policies: [
-//     "Return policy: Return within 30 days",
-//     "Warranty: 1 year warranty included",
-//     "Free delivery within 10km",
-//   ],
-// };
 
 export default function CardProductItem({ product }: CardProductItemProps) {
   const userState = useAppSelector((state) => state.userSlice.profile);
@@ -76,7 +55,9 @@ export default function CardProductItem({ product }: CardProductItemProps) {
       </div>
       <div className="mt-2">
         <div className="flex items-start justify-between">
-          <p className="font-bold max-w-[180px]">{product.name}</p>
+          <Link href={`/product/${product.id}`}>
+            <p className="font-bold max-w-[180px]">{product.name}</p>
+          </Link>
           {product.isProductBelongsToUser === false && (
             <TooltipProvider>
               <Tooltip delayDuration={100}>
