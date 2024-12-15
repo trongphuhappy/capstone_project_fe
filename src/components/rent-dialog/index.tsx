@@ -15,15 +15,31 @@ export default function RentDialog({ open, onClose }: RentDialogProps) {
 
   const productRentState = useAppSelector((state) => state.rentSlice);
 
-  const [rentTime, setRentTime] = useState<Date | null>(new Date());
-  const [returnTime, setReturnTime] = useState<Date | null>(new Date());
+  const [rentTime, setRentTime] = useState<Date>(() => {
+    const today = new Date();
+    today.setDate(today.getDate() + 1);
+    return today;
+  });
+  const [returnTime, setReturnTime] = useState<Date>(() => {
+    const today = new Date();
+    today.setDate(today.getDate() + 1);
+    return today;
+  });
 
   const [rentTimeError, setRentTimeError] = useState<string | null>(null);
   const [returnTimeError, setReturnTimeError] = useState<string | null>(null);
 
   const handleClose = () => {
-    setRentTime(null);
-    setRentTime(null);
+    setRentTime(() => {
+      const today = new Date();
+      today.setDate(today.getDate() + 1);
+      return today;
+    });
+    setRentTime(() => {
+      const today = new Date();
+      today.setDate(today.getDate() + 1);
+      return today;
+    });
     setRentTimeError(null);
     setReturnTimeError(null);
 
@@ -34,6 +50,10 @@ export default function RentDialog({ open, onClose }: RentDialogProps) {
     if (rentTime && returnTime) {
       const diffTime = returnTime?.getTime() - rentTime?.getTime();
       const diffDays = diffTime / (1000 * 3600 * 24);
+      if (diffTime < 0) {
+        setReturnTimeError("Return time must be greater than rent time");
+        return;
+      }
       if (
         productRentState.product &&
         diffDays > productRentState?.product?.maximumRentDays
@@ -41,14 +61,14 @@ export default function RentDialog({ open, onClose }: RentDialogProps) {
         setReturnTimeError("Rent time must be less than the maximum rent days");
         return;
       }
+      const form: REQUEST.TCreateOder = {
+        productId: productRentState.product?.id || "",
+        rentTime: rentTime?.toISOString() || "",
+        returnTime: returnTime?.toISOString() || "",
+      };
+      handleClose();
+      await createOrderApi(form);
     }
-    const form: REQUEST.TCreateOder = {
-      productId: productRentState.product?.id || "",
-      rentTime: rentTime?.toISOString() || "",
-      returnTime: returnTime?.toISOString() || "",
-    };
-    handleClose();
-    await createOrderApi(form);
   };
 
   return (
@@ -91,6 +111,7 @@ export default function RentDialog({ open, onClose }: RentDialogProps) {
               </label>
               <DatePicker
                 date={rentTime || new Date()}
+                type="rent"
                 onSelect={setRentTime}
               />
               {rentTimeError && (
@@ -101,6 +122,7 @@ export default function RentDialog({ open, onClose }: RentDialogProps) {
               <label className="text-base font-semibold">Rent end time</label>
               <DatePicker
                 date={returnTime || new Date()}
+                type="rent"
                 onSelect={setReturnTime}
               />
               {returnTimeError && (
