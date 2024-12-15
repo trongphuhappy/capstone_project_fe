@@ -55,8 +55,8 @@ export default function CardProductItem({ product }: CardProductItemProps) {
       </div>
       <div className="mt-2">
         <div className="flex items-start justify-between">
-          <Link href={`/product/${product.id}`}>
-            <p className="font-bold max-w-[180px]">{product.name}</p>
+          <Link href={`/product/${product.id}`} className="font-bold max-w-[180px]">
+            {product.name}
           </Link>
           {product.isProductBelongsToUser === false && (
             <TooltipProvider>
