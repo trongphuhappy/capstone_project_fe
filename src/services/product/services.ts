@@ -57,8 +57,7 @@ export const useServiceCreateProduct = () => {
     },
     onSuccess: (data) => {
       dispatch(closeBackdrop());
-      // dispatch(setAvatarImage(data.value.data));
-      // dispatch(setAvatarProfile(data.value.data));
+      location.href = `/profile`;
       addToast({
         type: "success",
         description: data.value.message,

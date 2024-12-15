@@ -233,8 +233,8 @@ export default function CreateProductForm({
             <div>
               <h3 className="text-lg lg:text-xl font-semibold">Insurance</h3>
               <IssuranceForm
-                issuranceExpireDate={issuranceExpireDate || null}
-                issuranceIssueDate={issuranceIssueDate || null}
+                issuranceExpireDate={issuranceExpireDate || new Date()}
+                issuranceIssueDate={issuranceIssueDate || new Date()}
                 issuranceName={issuranceName || ""}
                 issueDateError={issueDateError}
                 expireDateError={expireDateError}

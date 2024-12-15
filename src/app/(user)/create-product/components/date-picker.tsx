@@ -15,14 +15,11 @@ import {
 
 interface DatePickerProps {
   date?: Date;
+  type?: "rent" | "return";
   onSelect: (date: Date) => void;
 }
 
-export function DatePicker({ date, onSelect }: DatePickerProps) {
-  const localDate = date
-    ? new Date(date.toLocaleString("en-US", { timeZone: "Asia/Ho_Chi_Minh" })) // Chuyển đổi sang UTC+7 (Asia/Bangkok)
-    : undefined;
-
+export function DatePicker({ date, type, onSelect }: DatePickerProps) {
   return (
     <Popover>
       <PopoverTrigger asChild>
@@ -30,25 +27,32 @@ export function DatePicker({ date, onSelect }: DatePickerProps) {
           variant={"outline"}
           className={cn(
             "w-full justify-start text-left font-normal border border-gray-400 focus-visible:ring-0 focus-visible:none py-5",
-            !localDate && "text-muted-foreground"
+            !date && "text-muted-foreground"
           )}
         >
           <CalendarIcon />
-          {localDate ? format(localDate, "PPP") : <span>Pick a date</span>}
+          {date ? format(date, "PPP") : <span>Pick a date</span>}
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0" align="start">
         <Calendar
           mode="single"
-          selected={localDate}
+          selected={date ? new Date(date) : undefined}
+          disabled={(date) => {
+            if (type === "rent") {
+              return date < new Date();
+            }
+            return false;
+          }}
           onSelect={(selectedDate) => {
             if (selectedDate) {
-              const utcDate = new Date(
-                selectedDate.toLocaleString("en-US", {
-                  timeZone: "Asia/Ho_Chi_Minh",
-                })
+              const adjustedDate = new Date(
+                selectedDate.getFullYear(),
+                selectedDate.getMonth(),
+                selectedDate.getDate(),
+                12
               );
-              onSelect(utcDate);
+              onSelect(adjustedDate);
             }
           }}
           initialFocus
