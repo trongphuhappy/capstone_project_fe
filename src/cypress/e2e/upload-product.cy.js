@@ -22,4 +22,6 @@ it('Chỉnh sửa thông tin cá nhân', () => {
     cy.get('.gap-y-4 > .relative > .rounded-md').click();
     cy.wait(5000);
     // continue
+
+    
 });
