@@ -33,7 +33,7 @@ export default function PostFilterBox({ accountId }: IPostFilterBoxProps) {
     const res = await getProductsApi({
       accountLessorId: accountId,
       pageIndex: pageIndex,
-      pageSize: 10,
+      pageSize: 9,
       categoryId: category,
       confirmStatus: statusType ?? null,
     });

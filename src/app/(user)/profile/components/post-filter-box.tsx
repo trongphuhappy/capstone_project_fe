@@ -46,7 +46,7 @@ export default function PostFilterBox() {
     const res = await getProductsApi({
       accountLessorId: userState.profile?.userId,
       pageIndex: pageIndex,
-      pageSize: 5,
+      pageSize: 9,
       categoryId: category,
       confirmStatus: statusType ?? null,
     });
