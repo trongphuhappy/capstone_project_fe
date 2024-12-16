@@ -43,7 +43,7 @@ export default function CardProductItem({ product }: CardProductItemProps) {
   };
 
   return (
-    <div className="sale-box w-[240px] cursor-pointer font-montserrat group">
+    <div className="sale-box w-[185px] lg:w-[240px] md:w-[220px] cursor-pointer font-montserrat group">
       <div>
         <Link href={`/product/${product.id}`}>
           <img

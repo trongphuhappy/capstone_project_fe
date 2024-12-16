@@ -113,7 +113,7 @@ export default function PostFilterBox() {
       <div className="my-2">
         {products !== null ? (
           <div>
-            <div className="grid grid-cols-3 gap-x-5 gap-y-7">
+            <div className="grid grid-cols-1 xl:grid-cols-3 sm:grid-cols-2 gap-x-5 gap-y-7 place-items-center">
               {renderProducts()}
             </div>
             {products && products?.totalCount > 0 && (
