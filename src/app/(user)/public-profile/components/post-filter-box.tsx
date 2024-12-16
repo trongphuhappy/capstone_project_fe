@@ -79,7 +79,7 @@ export default function PostFilterBox({ accountId }: IPostFilterBoxProps) {
   return (
     <div className="w-full min-h-[300px] p-[15px] rounded-lg shadow-box-shadown break-words">
       <div className="flex items-center justify-between pb-3 border-b-2">
-        <h3 className="text-[18px] font-semibold">Post</h3>
+        <h3 className="text-[16px] lg:text-[18px] font-semibold">Post</h3>
         <div>
           <button
             type="button"
@@ -90,7 +90,7 @@ export default function PostFilterBox({ accountId }: IPostFilterBoxProps) {
               <i>
                 <SlidersHorizontal className="text-black w-5 h-5" />
               </i>
-              <span className="text-center text-[15px] font-medium text-black">
+              <span className="text-center text-[13px] lg:text-[15px] font-medium text-black">
                 Filter
               </span>
             </div>
@@ -99,7 +99,7 @@ export default function PostFilterBox({ accountId }: IPostFilterBoxProps) {
       </div>
       <div className="my-2">
         <div>
-          <div className="grid grid-cols-3 gap-x-5 gap-y-7">
+          <div className="grid grid-cols-1 xl:grid-cols-3 sm:grid-cols-2 gap-x-5 gap-y-7 place-items-center">
             {renderProducts()}
           </div>
           {products && products?.totalCount > 0 && (

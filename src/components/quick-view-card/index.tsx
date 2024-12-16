@@ -80,7 +80,7 @@ export default function QuickViewCard({
   return (
     <Dialog open={open} onOpenChange={handleClose}>
       <DialogTitle></DialogTitle>
-      <DialogContent className="flex max-w-7xl pl-3 pr-0 mx-auto font-montserrat">
+      <DialogContent className="flex max-w-xs xl:max-w-7xl lg:max-w-4xl md:max-w-2xl pl-3 pr-0 mx-auto font-montserrat">
         <div className="w-full h-[80vh] overflow-y-auto">
           <div
             className="absolute top-4 right-6 cursor-pointer"
@@ -88,16 +88,16 @@ export default function QuickViewCard({
           >
             <IoMdClose className="text-2xl text-gray-700" />
           </div>
-          <div className="mt-6 mr-5 grid grid-cols-2">
+          <div className="mt-6 mr-5 grid grid-cols-1 lg:grid-cols-2">
             <div className="px-4">
               <img
                 src={
                   product?.productImagesUrl[selectedImage] || "/images/auth.jpg"
                 }
                 alt={product?.name}
-                className="w-full h-[400px] object-cover"
+                className="w-full h-[300px] md:h-[400px] object-cover"
               />
-              <div className="mt-4 grid grid-cols-4 gap-y-4 gap-x-3">
+              <div className="mt-4 grid grid-cols-2 xl:grid-cols-4 lg:grid-cols-3 gap-y-4 gap-x-3">
                 {product?.productImagesUrl?.map((image, index) => {
                   return (
                     <div key={index} className="flex-1">
@@ -119,7 +119,7 @@ export default function QuickViewCard({
             <div className="w-full">
               <div>
                 <div className="pb-4">
-                  <h1 className="font-semibold text-[#111111] text-2xl uppercase">
+                  <h1 className="font-semibold text-[#111111] text-2xl uppercase mt-10 sm:mt-10">
                     {product?.name}
                   </h1>
                   <hr className="mt-4" />
@@ -154,7 +154,7 @@ export default function QuickViewCard({
                       className="w-full h-[56px] px-[12px] border border-[#0056a3] rounded-3xl group"
                       onClick={handleAddToWishlist}
                     >
-                      <span className="flex items-center justify-center font-semibold text-[#0056a3] group-hover:text-opacity-50">
+                      <span className="flex items-center justify-center text-[12px] sm:text-[14px] font-semibold text-[#0056a3] group-hover:text-opacity-50">
                         <PiListHeart className="mr-2 text-lg" />
                         {wishlist === false
                           ? "Add To Wishlist"
@@ -167,7 +167,7 @@ export default function QuickViewCard({
                       className="w-full h-[56px] px-[12px] border border-[#0056a3] bg-[#0056a3] rounded-3xl hover:opacity-90"
                       onClick={handleRentNow}
                     >
-                      <span className="font-semibold text-white">Rent Now</span>
+                      <span className="font-semibold text-white text-[12px] sm:text-[14px]">Rent Now</span>
                     </button>
                   </div>
                 </div>
