@@ -193,7 +193,7 @@ export default function HomeComponent() {
               <div className="flex justify-center w-full md:p-20 p-5 ml-0">
                 <div className="w-[700px] text-center flex flex-col gap-y-3 items-center">
                   <h1 className="text-white md:text-3xl text-lg font-bold font-montserrat">
-                    Explore with a Car, Share Memories
+                    Explore with a Vehicle, Share Memories
                   </h1>
                   <p className="font-montserrat text-white md:text-base text-sm">
                     Rent a car and embark on unforgettable journeys with your

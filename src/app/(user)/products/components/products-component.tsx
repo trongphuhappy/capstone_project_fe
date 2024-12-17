@@ -84,7 +84,7 @@ export default function ProductsComponent() {
     const res = await getProductsApi({
       name: searchName,
       pageIndex: pageIndex,
-      pageSize: 15,
+      pageSize: 16,
       categoryId: category,
       minPrice: debouncedMinPrice || 0,
       maxPrice: debouncedMaxPrice || 0,

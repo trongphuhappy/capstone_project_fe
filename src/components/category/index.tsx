@@ -116,7 +116,7 @@ export default function Category() {
         <div
           className={`${styles.boxCategoryContent} max-h-[500px] overflow-y-auto`}
         >
-          <div className="w-[80%] pb-4 grid grid-cols-4 gap-x-2 gap-y-6">
+          <div className="w-[135%] md:w-[100%] xl:w-[80%] pb-4 grid grid-cols-2 lg:grid-cols-4 md:grid-cols-3 gap-x-2 gap-y-6">
             {renderCategoriesContent()}
           </div>
         </div>
