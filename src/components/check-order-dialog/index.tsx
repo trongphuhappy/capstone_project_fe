@@ -158,8 +158,9 @@ export default function CheckOrderDialog({
             },
           }
         );
-      } else {
-        mutateAdmin(
+      }
+      else {
+        mutateUser(
           {
             orderId: checkOrderProductState?.order.id || "",
             isApproved: false,
@@ -175,6 +176,22 @@ export default function CheckOrderDialog({
           }
         );
       }
+    } else {
+      mutateAdmin(
+        {
+          orderId: checkOrderProductState?.order.id || "",
+          isApproved: false,
+          rejectReason: data.rejectReason,
+        },
+        {
+          onSuccess: () => {
+            handleClose();
+          },
+          onError: () => {
+            handleClose();
+          },
+        }
+      );
     }
   };
 
@@ -287,9 +304,8 @@ export default function CheckOrderDialog({
                 <div className="mt-[5px] w-full">
                   <div className="flex flex-col gap-y-2">
                     <Input
-                      className={`w-full border border-gray-400 focus-visible:ring-0 focus-visible:none py-5 ${
-                        errors?.rejectReason && "border-red-500"
-                      }`}
+                      className={`w-full border border-gray-400 focus-visible:ring-0 focus-visible:none py-5 ${errors?.rejectReason && "border-red-500"
+                        }`}
                       autoComplete="off"
                       placeholder="Reason"
                       {...register("rejectReason")}
@@ -342,9 +358,8 @@ export default function CheckOrderDialog({
                 <div className="mt-[5px] w-full">
                   <div className="flex flex-col gap-y-2">
                     <Input
-                      className={`w-full border border-gray-400 focus-visible:ring-0 focus-visible:none py-5 ${
-                        errors?.rejectReason && "border-red-500"
-                      }`}
+                      className={`w-full border border-gray-400 focus-visible:ring-0 focus-visible:none py-5 ${errors?.rejectReason && "border-red-500"
+                        }`}
                       autoComplete="off"
                       placeholder="Reason"
                       {...register("rejectReason")}
@@ -395,9 +410,8 @@ export default function CheckOrderDialog({
                 <div className="mt-[5px] w-full">
                   <div className="flex flex-col gap-y-2">
                     <Input
-                      className={`w-full border border-gray-400 focus-visible:ring-0 focus-visible:none py-5 ${
-                        feedbackErrors?.content && "border-red-500"
-                      }`}
+                      className={`w-full border border-gray-400 focus-visible:ring-0 focus-visible:none py-5 ${feedbackErrors?.content && "border-red-500"
+                        }`}
                       autoComplete="off"
                       placeholder="Content"
                       {...feedbackRegister("content")}

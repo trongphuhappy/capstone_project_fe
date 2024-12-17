@@ -29,7 +29,7 @@ export const getAllOrders = async ({
   if (isConflict != null) params.isConflict = isConflict;
   if (orderStatus) params.orderStatus = orderStatus;
   if (orderReportStatus) params.orderReportStatus = orderReportStatus;
-
+  params.SortType = 1; params.IsSortASC = false;
   const response = await request<TResponseData<API.TGetAllOrders>>(
     API_ENDPOINTS.GET_ALL_ORDERS,
     {
