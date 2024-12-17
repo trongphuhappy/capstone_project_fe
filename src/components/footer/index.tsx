@@ -37,15 +37,23 @@ export default function Footer() {
               dreams.
             </p>
             <div className="mt-4 flex items-center gap-4">
-              <figure className="bg-black p-2 rounded">
-                <img src="/images/facebook_icon.svg" alt="facebook" />
-              </figure>
-              <figure className="bg-black p-2 rounded">
-                <img src="/images/instagram_icon.svg" alt="instagram" />
-              </figure>
-              <figure className="bg-black p-2 rounded">
-                <img src="/images/twitter_icon.svg" alt="twitter" />
-              </figure>
+              <Link href="https://www.facebook.com/PhuNguyen192002/">
+                <figure className="bg-teal-800 p-2 rounded">
+                  <img src="/images/facebook_icon.svg" alt="facebook" />
+                </figure>
+              </Link>
+
+              <Link href="https://www.instagram.com/topher_naize/">
+                <figure className="bg-teal-800 p-2 rounded">
+                  <img src="/images/instagram_icon.svg" alt="instagram" />
+                </figure>
+              </Link>
+
+              <Link href="https://x.com/Judar_Clitus">
+                <figure className="bg-teal-800 p-2 rounded">
+                  <img src="/images/twitter_icon.svg" alt="twitter" />
+                </figure>
+              </Link>
             </div>
           </div>
 
@@ -142,7 +150,7 @@ export default function Footer() {
                     Phone:
                   </span>{" "}
                   <span className="text-sm text-[#00000075] hover:text-[#000000] font-light">
-                    +84 123456789
+                    +84 838972219
                   </span>
                 </li>
               </ul>
