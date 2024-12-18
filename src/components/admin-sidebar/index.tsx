@@ -13,10 +13,11 @@ import {
 import { AiFillProduct, AiOutlineForm, AiOutlinePieChart } from "react-icons/ai";
 import { RiHome2Line } from "react-icons/ri";
 import { useAppSelector } from "@/stores/store";
-import { BsCoin } from "react-icons/bs";
 import { MdInventory } from "react-icons/md";
+import { Roles } from "@/const/authentication";
 
 export default function AdminSidebar() {
+  const userState = useAppSelector(state => state.userSlice);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const staffState = useAppSelector((state) => state.differenceSlice.staff);
 
@@ -24,11 +25,14 @@ export default function AdminSidebar() {
     setOpenDropdown(openDropdown === dropdown ? null : dropdown);
   };
 
+  useEffect(() => {
+    if (userState.profile?.roleId !== Roles[0].id) location.href = '/';
+  }, [])
+
   return (
     <aside
-      className={`${
-        staffState.openSidebar === true ? "w-72 xl:w-0" : "w-0 xl:w-72"
-      } bg-gray-900 text-white h-screen transition-all`}
+      className={`${staffState.openSidebar === true ? "w-72 xl:w-0" : "w-0 xl:w-72"
+        } bg-gray-900 text-white h-screen transition-all`}
     >
       <div className="p-4 ml-4 w-full">
         <ul className="space-y-1">
@@ -87,7 +91,7 @@ export default function AdminSidebar() {
               href="/admin/manage-orders"
               className="flex items-center space-x-2 p-2 hover:bg-gray-700 rounded-md"
             >
-              <AiFillProduct  className="text-lg" />
+              <AiFillProduct className="text-lg" />
               <span>Manage Order</span>
             </Link>
           </li>

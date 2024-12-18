@@ -74,7 +74,7 @@ export default function AdminHeader() {
                             id="avatarButton"
                             onClick={() => setDropdownOpen(!dropdownOpen)}
                             className="w-10 h-10 rounded-full cursor-pointer select-none"
-                            src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" // Thay thế bằng đường dẫn avatar của bạn
+                            src={userState?.profile?.cropAvatarLink}
                             alt="User dropdown"
                         />
 
@@ -93,7 +93,7 @@ export default function AdminHeader() {
                                 >
                                     <li>
                                         <a
-                                            href="#"
+                                            href="/admin/dashboard"
                                             className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                                         >
                                             Dashboard
@@ -105,14 +105,6 @@ export default function AdminHeader() {
                                             className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                                         >
                                             Settings
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a
-                                            href="#"
-                                            className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                                        >
-                                            Earnings
                                         </a>
                                     </li>
                                 </ul>

@@ -113,10 +113,11 @@ export default function ManageOrderComponent() {
                     </TableHead>
                     <TableHead className="text-center">Rent date</TableHead>
                     <TableHead className="text-center">Status</TableHead>
+                    <TableHead className="text-center">Reason</TableHead>
                     <TableHead className="text-center"></TableHead>
                   </TableRow>
                 </TableHeader>
-                <TableBody>
+                <TableBody className="overflow-x-scroll">
                   {orders?.items?.map((order, index) => {
                     return (
                       <TableRow key={index}>
@@ -141,33 +142,36 @@ export default function ManageOrderComponent() {
                           </span>
                           {order.orderReportStatus !==
                             OrderReportStatusType.NotConflict && (
-                            <Fragment>
-                              <TooltipProvider>
-                                <Tooltip delayDuration={100}>
-                                  <TooltipTrigger>
-                                    <div className="w-5 h-5 rounded-full flex items-center justify-center bg-red-500">
-                                      <span className="text-white text-[12px]">
-                                        !
+                              <Fragment>
+                                <TooltipProvider>
+                                  <Tooltip delayDuration={100}>
+                                    <TooltipTrigger>
+                                      <div className="w-5 h-5 rounded-full flex items-center justify-center bg-red-500">
+                                        <span className="text-white text-[12px]">
+                                          !
+                                        </span>
+                                      </div>
+                                    </TooltipTrigger>
+                                    <TooltipContent className="bg-gray-50 shadow-tooltip px-2 py-3 select-none">
+                                      <span className="text-[#00000d] text-xs font-montserrat font-normal">
+                                        {OrderReportStatusType[
+                                          order.orderReportStatus
+                                        ]
+                                          .replace(/([A-Z])/g, " $1")
+                                          .trim()}
                                       </span>
-                                    </div>
-                                  </TooltipTrigger>
-                                  <TooltipContent className="bg-gray-50 shadow-tooltip px-2 py-3 select-none">
-                                    <span className="text-[#00000d] text-xs font-montserrat font-normal">
-                                      {OrderReportStatusType[
-                                        order.orderReportStatus
-                                      ]
-                                        .replace(/([A-Z])/g, " $1")
-                                        .trim()}
-                                    </span>
-                                  </TooltipContent>
-                                </Tooltip>
-                              </TooltipProvider>
-                            </Fragment>
-                          )}
+                                    </TooltipContent>
+                                  </Tooltip>
+                                </TooltipProvider>
+                              </Fragment>
+                            )}
+                        </TableCell>
+                        <TableCell>
+                          {order?.adminReasonReject}
                         </TableCell>
                         <TableCell className="text-center">
-                          {order.orderReportStatus &&
-                            order.orderReportStatus === 1 && (
+                          {
+                            order?.orderReportStatus === 1 && (
                               <div className="flex items-center gap-x-3">
                                 <div
                                   onClick={() =>
