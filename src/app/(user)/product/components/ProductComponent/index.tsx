@@ -244,7 +244,7 @@ export default function ProductComponent({ productId }: ProductComponentProps) {
                 <div className="flex items-center gap-x-3 mt-4">
                   <p className="text-base font-montserrat">Lessor: </p>
                   <a
-                    href={`/public-profile/${product.lessor.lessorId}`}
+                    href={`/public-profile/${product.lessor.accountId}`}
                     className="text-gray-500 hover:text-blue-700"
                   >
                     {product?.lessor.shopName}
@@ -286,7 +286,7 @@ export default function ProductComponent({ productId }: ProductComponentProps) {
                 )}
               </div>
               <hr className="mb-4" />
-             
+
               <div>
                 <Fragment>
                   {product?.isProductBelongsToUser === false ? (
